@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allEvents = await getCollection('events');
+const sorted = allEvents.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const upcoming = sorted.filter(e => e.data.date >= today);
+const past = sorted.filter(e => e.data.date < today).reverse();
+---
+
+<BaseLayout title="Activiteiten" description="Overzicht van activiteiten en evenementen van Ernest Mandelfonds.">
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h1
+      class="font-barlow font-black text-4xl sm:text-5xl lowercase mb-8 border-t-[3px] border-[#E8320A] pt-4"
+      style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+    >
+      Activiteiten
+    </h1>
+
+    {upcoming.length > 0 && (
+      <section class="mb-12">
+        <h2
+          class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-6"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
+        >
+          Komende activiteiten
+        </h2>
+        <ul class="space-y-8 list-none m-0 p-0">
+          {upcoming.map(event => {
+            const dateStr = event.data.date.toLocaleDateString('nl-BE', {
+              weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+            });
+            return (
+              <li class="border-t-[3px] border-[#E8320A] pt-4">
+                <p class="text-xs text-[#555555] uppercase tracking-wide mb-1">
+                  {dateStr} · {event.data.time} · {event.data.location}
+                </p>
+                <h3
+                  class="font-barlow font-black text-2xl mb-2"
+                  style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+                >
+                  <a href={`/activiteiten/${event.id}`} class="hover:underline">{event.data.title}</a>
+                </h3>
+                <p class="text-sm text-[#555555] mb-3 max-w-prose">{event.data.description}</p>
+                <a
+                  href={`/activiteiten/${event.id}`}
+                  class="inline-block text-sm font-bold text-[#E8320A] border border-[#E8320A] px-3 py-1 hover:bg-[#E8320A] hover:text-white transition-colors"
+                >
+                  Meer info →
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+
+    {upcoming.length === 0 && (
+      <p class="text-sm text-[#555555] mb-12">Er zijn momenteel geen geplande activiteiten.</p>
+    )}
+
+    {past.length > 0 && (
+      <section>
+        <h2
+          class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-6"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
+        >
+          Voorbije activiteiten
+        </h2>
+        <ul class="space-y-6 list-none m-0 p-0">
+          {past.map(event => {
+            const dateStr = event.data.date.toLocaleDateString('nl-BE', {
+              day: 'numeric', month: 'long', year: 'numeric'
+            });
+            return (
+              <li class="border-t border-[#e8e8e8] pt-4">
+                <p class="text-xs text-[#555555] mb-1">{dateStr} · {event.data.location}</p>
+                <a
+                  href={`/activiteiten/${event.id}`}
+                  class="text-sm font-bold hover:underline"
+                >
+                  {event.data.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>

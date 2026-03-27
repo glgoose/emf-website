@@ -1,0 +1,126 @@
+# Sveltia CMS configuration for Ernest Mandelfonds
+# TODO: set your GitHub repo and branch below
+
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/ernestmandelfonds-website  # TODO: replace with actual repo
+  branch: main  # TODO: confirm branch name
+
+# Cloudflare Pages / GitHub OAuth callback
+# Configure your OAuth app on GitHub to redirect to:
+# https://your-domain.pages.dev/admin/
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  # ── Activiteiten (events) ──────────────────────────────────────────────────
+  - name: events
+    label: Activiteiten
+    label_singular: Activiteit
+    folder: src/content/events
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - label: Titel
+        name: title
+        widget: string
+        required: true
+
+      - label: Datum
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        required: true
+
+      - label: Tijdstip
+        name: time
+        widget: string
+        hint: "Bijv. 14:00 of 19:30"
+        required: true
+
+      - label: Locatie (naam)
+        name: location
+        widget: string
+        required: true
+
+      - label: Adres
+        name: address
+        widget: string
+        required: true
+
+      - label: Korte beschrijving
+        name: description
+        widget: text
+        required: true
+        hint: "Korte samenvatting, getoond in overzichten."
+
+      - label: Volledige tekst
+        name: body
+        widget: markdown
+        required: false
+        hint: "Uitgebreide info over de activiteit."
+
+      - label: Inschrijving open
+        name: registration_open
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Inschrijvingsdeadline
+        name: registration_deadline
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        required: false
+
+      - label: Maximum aantal deelnemers
+        name: capacity
+        widget: number
+        required: false
+        hint: "Laat leeg voor geen limiet."
+
+      - label: Baserow tabel-ID
+        name: baserow_table_id
+        widget: string
+        required: false
+        hint: "Het numerieke ID van de Baserow tabel voor inschrijvingen."
+
+  # ── Publicaties (posts) ────────────────────────────────────────────────────
+  - name: posts
+    label: Publicaties
+    label_singular: Publicatie
+    folder: src/content/posts
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - label: Titel
+        name: title
+        widget: string
+        required: true
+
+      - label: Datum
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        required: true
+
+      - label: Samenvatting
+        name: summary
+        widget: text
+        required: true
+        hint: "Korte samenvatting, getoond in overzichten."
+
+      - label: Volledige tekst
+        name: body
+        widget: markdown
+        required: false

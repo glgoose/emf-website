@@ -1,0 +1,85 @@
+---
+const navLinks = [
+  { href: '/activiteiten', label: 'Activiteiten' },
+  { href: '/over-emf', label: 'Over EMF' },
+  { href: '/publicaties', label: 'Publicaties' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const { currentPath = '' } = Astro.props;
+---
+
+<nav class="bg-[#E8320A] text-white" style="height:44px;" aria-label="Hoofdnavigatie">
+  <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
+    <!-- Brand -->
+    <a
+      href="/"
+      class="font-barlow font-black text-xl uppercase tracking-tight text-white hover:no-underline"
+      style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;letter-spacing:0.02em;"
+    >
+      ernest mandelfonds
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex gap-6 list-none m-0 p-0">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={`text-white text-sm hover:underline${currentPath.startsWith(link.href) ? ' underline' : ''}`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Hamburger (mobile) -->
+    <button
+      id="nav-toggle"
+      class="md:hidden text-white p-1 focus:outline-none"
+      aria-label="Menu openen"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="hidden">
+        <path stroke-linecap="square" stroke-linejoin="miter" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#C8270A]" role="menu">
+    <ul class="list-none m-0 p-0 flex flex-col">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class="block px-4 py-3 text-white text-sm border-t border-[#E8320A] hover:bg-[#B82208]"
+            role="menuitem"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+</script>

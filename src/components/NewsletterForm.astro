@@ -1,0 +1,77 @@
+---
+---
+
+<div class="w-full bg-[#faf5f4] border-t border-[#f0e8e6] py-10">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+    <div class="flex-1">
+      <p
+        class="font-barlow font-black text-2xl text-[#E8320A] mb-1"
+        style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+      >
+        Nieuwsbrief
+      </p>
+      <p class="text-sm text-[#555555]">Blijf op de hoogte van activiteiten en publicaties.</p>
+    </div>
+    <form
+      id="newsletter-form"
+      class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto"
+      novalidate
+    >
+      <input
+        id="newsletter-email"
+        type="email"
+        name="email"
+        required
+        placeholder="uw@emailadres.be"
+        class="border border-[#e8e8e8] px-3 py-2 text-sm w-full sm:w-64 focus:outline-none focus:border-[#E8320A]"
+        aria-label="E-mailadres"
+      />
+      <button
+        type="submit"
+        class="bg-[#E8320A] text-white text-sm font-bold px-5 py-2 hover:bg-[#C8270A] transition-colors whitespace-nowrap"
+      >
+        Inschrijven
+      </button>
+    </form>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 mt-3">
+    <p id="newsletter-msg" class="text-sm hidden" aria-live="polite"></p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  const msg = document.getElementById('newsletter-msg') as HTMLParagraphElement | null;
+  const emailInput = document.getElementById('newsletter-email') as HTMLInputElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!emailInput || !msg) return;
+
+    const email = emailInput.value.trim();
+    if (!email) return;
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        msg.textContent = 'Bedankt! U bent ingeschreven op de nieuwsbrief.';
+        msg.className = 'text-sm text-green-700';
+        form.reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        msg.textContent = (data as any).error || 'Er is een fout opgetreden. Probeer later opnieuw.';
+        msg.className = 'text-sm text-red-700';
+      }
+    } catch {
+      msg.textContent = 'Netwerkfout. Controleer uw verbinding en probeer opnieuw.';
+      msg.className = 'text-sm text-red-700';
+    }
+
+    msg.classList.remove('hidden');
+  });
+</script>

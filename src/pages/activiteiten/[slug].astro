@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RegistrationForm from '../../components/RegistrationForm.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map(event => ({
+    params: { slug: event.id },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+
+const {
+  title,
+  date,
+  time,
+  location,
+  address,
+  registration_open,
+  registration_deadline,
+  capacity,
+  baserow_table_id,
+} = event.data;
+
+const dateFormatted = date.toLocaleDateString('nl-BE', {
+  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+});
+
+// Fetch registration count from Baserow at build time if capacity and table_id are set
+let registrationCount: number | null = null;
+if (capacity && baserow_table_id) {
+  try {
+    const baserowUrl = import.meta.env.BASEROW_URL;
+    const baserowToken = import.meta.env.BASEROW_TOKEN;
+    if (baserowUrl && baserowToken) {
+      const res = await fetch(
+        `${baserowUrl}/api/database/rows/table/${baserow_table_id}/?user_field_names=true&size=1`,
+        { headers: { Authorization: `Token ${baserowToken}` } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        registrationCount = data.count ?? null;
+      }
+    }
+  } catch {
+    // Non-fatal: just don't show the count
+  }
+}
+---
+
+<BaseLayout title={title} description={event.data.description}>
+  <article class="max-w-4xl mx-auto px-4 py-10">
+    <!-- Header -->
+    <div class="border-t-[3px] border-[#E8320A] pt-4 mb-8">
+      <p class="text-xs text-[#555555] uppercase tracking-wide mb-2">
+        {dateFormatted} · {time}
+      </p>
+      <h1
+        class="font-barlow font-black text-4xl sm:text-5xl leading-tight lowercase mb-3"
+        style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+      >
+        {title}
+      </h1>
+      <p class="text-sm text-[#555555]">
+        <strong>{location}</strong><br />
+        {address}
+      </p>
+    </div>
+
+    <!-- Body -->
+    <div class="prose prose-sm max-w-none text-[#111111] [&_h2]:font-barlow [&_h2]:font-black [&_h2]:text-2xl [&_h3]:font-barlow [&_h3]:font-black [&_h3]:text-xl [&_a]:text-[#E8320A] [&_a]:underline">
+      <Content />
+    </div>
+
+    <!-- Registration count -->
+    {registrationCount !== null && capacity && (
+      <p class="mt-6 text-sm text-[#555555]">
+        <strong>{registrationCount}</strong> mensen ingeschreven
+        {capacity && <span> (max. {capacity} plaatsen)</span>}
+      </p>
+    )}
+
+    <!-- Registration form -->
+    {registration_open && (
+      <RegistrationForm
+        eventSlug={event.id}
+        eventTitle={title}
+        baserowTableId={baserow_table_id}
+        registrationDeadline={registration_deadline}
+      />
+    )}
+
+    <!-- Back link -->
+    <div class="mt-12 border-t border-[#e8e8e8] pt-4">
+      <a href="/activiteiten" class="text-sm text-[#E8320A] hover:underline">← Alle activiteiten</a>
+    </div>
+  </article>
+</BaseLayout>

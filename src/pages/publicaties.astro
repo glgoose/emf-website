@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const allPosts = await getCollection('posts');
+const sorted = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Render each post body
+const postsWithContent = await Promise.all(
+  sorted.map(async post => {
+    const { Content } = await render(post);
+    return { post, Content };
+  })
+);
+---
+
+<BaseLayout title="Publicaties" description="Teksten, analyses en standpunten van Ernest Mandelfonds.">
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <h1
+      class="font-barlow font-black text-4xl sm:text-5xl lowercase border-t-[3px] border-[#E8320A] pt-4 mb-10"
+      style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+    >
+      Publicaties
+    </h1>
+
+    <ul class="space-y-12 list-none m-0 p-0">
+      {postsWithContent.map(({ post, Content }) => {
+        const dateStr = post.data.date.toLocaleDateString('nl-BE', {
+          day: 'numeric', month: 'long', year: 'numeric'
+        });
+        return (
+          <li id={post.id} class="border-t-[3px] border-[#E8320A] pt-4 scroll-mt-16">
+            <p class="text-xs text-[#555555] uppercase tracking-wide mb-1">{dateStr}</p>
+            <h2
+              class="font-barlow font-black text-2xl sm:text-3xl leading-tight mb-3"
+              style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+            >
+              {post.data.title}
+            </h2>
+            <p class="text-sm text-[#555555] mb-4 italic">{post.data.summary}</p>
+            <div class="prose prose-sm max-w-none text-[#111111] [&_a]:text-[#E8320A] [&_a]:underline">
+              <Content />
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+
+    {sorted.length === 0 && (
+      <p class="text-sm text-[#555555]">Er zijn nog geen publicaties beschikbaar.</p>
+    )}
+  </div>
+</BaseLayout>

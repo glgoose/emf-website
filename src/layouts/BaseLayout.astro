@@ -1,0 +1,44 @@
+---
+// TODO: download Barlow Condensed WOFF2 files from
+// https://fonts.google.com/specimen/Barlow+Condensed
+// and place in public/fonts/ before deploying.
+// Weights: BarlowCondensed-Regular.woff2, -Italic.woff2,
+//          -Bold.woff2, -BoldItalic.woff2,
+//          -Black.woff2, -BlackItalic.woff2
+
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Ernest Mandelfonds',
+  description = 'Ecosocialistisch · feministisch · anti-racistisch · radicaal democratisch · antikapitalistisch',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ernestmandelfonds.be');
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`}</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Navbar currentPath={currentPath} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,118 @@
+---
+interface Props {
+  eventSlug: string;
+  eventTitle: string;
+  baserowTableId?: string;
+  registrationDeadline?: Date;
+}
+
+const { eventSlug, eventTitle, baserowTableId, registrationDeadline } = Astro.props;
+
+const deadlineFormatted = registrationDeadline
+  ? registrationDeadline.toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' })
+  : null;
+---
+
+<section class="mt-10 border-t-[3px] border-[#E8320A] pt-6">
+  <h2
+    class="font-barlow font-black text-2xl mb-1"
+    style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+  >
+    Inschrijven
+  </h2>
+  {deadlineFormatted && (
+    <p class="text-sm text-[#555555] mb-4">Inschrijven kan tot {deadlineFormatted}.</p>
+  )}
+
+  <form id="reg-form" class="space-y-4 max-w-lg" novalidate>
+    <input type="hidden" name="event_slug" value={eventSlug} />
+    <input type="hidden" name="event_title" value={eventTitle} />
+    {baserowTableId && <input type="hidden" name="baserow_table_id" value={baserowTableId} />}
+
+    <div>
+      <label for="reg-naam" class="block text-sm font-bold mb-1">Naam <span class="text-[#E8320A]">*</span></label>
+      <input
+        id="reg-naam"
+        type="text"
+        name="naam"
+        required
+        class="w-full border border-[#e8e8e8] px-3 py-2 text-sm focus:outline-none focus:border-[#E8320A]"
+      />
+    </div>
+
+    <div>
+      <label for="reg-email" class="block text-sm font-bold mb-1">E-mail <span class="text-[#E8320A]">*</span></label>
+      <input
+        id="reg-email"
+        type="email"
+        name="email"
+        required
+        class="w-full border border-[#e8e8e8] px-3 py-2 text-sm focus:outline-none focus:border-[#E8320A]"
+      />
+    </div>
+
+    <div>
+      <label for="reg-telefoon" class="block text-sm font-bold mb-1">Telefoon</label>
+      <input
+        id="reg-telefoon"
+        type="tel"
+        name="telefoon"
+        class="w-full border border-[#e8e8e8] px-3 py-2 text-sm focus:outline-none focus:border-[#E8320A]"
+      />
+    </div>
+
+    <div>
+      <label for="reg-opmerking" class="block text-sm font-bold mb-1">Opmerking</label>
+      <textarea
+        id="reg-opmerking"
+        name="opmerking"
+        rows="3"
+        class="w-full border border-[#e8e8e8] px-3 py-2 text-sm focus:outline-none focus:border-[#E8320A] resize-y"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="bg-[#E8320A] text-white text-sm font-bold px-6 py-2 hover:bg-[#C8270A] transition-colors"
+    >
+      Inschrijven
+    </button>
+
+    <p id="reg-msg" class="text-sm hidden" aria-live="polite"></p>
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById('reg-form') as HTMLFormElement | null;
+  const msg = document.getElementById('reg-msg') as HTMLParagraphElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form || !msg) return;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        msg.textContent = 'Uw inschrijving is ontvangen. We nemen contact op voor bevestiging.';
+        msg.className = 'text-sm text-green-700';
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        msg.textContent = (json as any).error || 'Er is een fout opgetreden. Probeer later opnieuw.';
+        msg.className = 'text-sm text-red-700';
+      }
+    } catch {
+      msg.textContent = 'Netwerkfout. Controleer uw verbinding en probeer opnieuw.';
+      msg.className = 'text-sm text-red-700';
+    }
+
+    msg.classList.remove('hidden');
+  });
+</script>

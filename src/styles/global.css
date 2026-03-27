@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* ─── Barlow Condensed – self-hosted WOFF2 ─────────────────────────────────
+   TODO: download Barlow Condensed WOFF2 files from
+   https://fonts.google.com/specimen/Barlow+Condensed
+   and place in public/fonts/ before deploying.
+   Needed files:
+     BarlowCondensed-Regular.woff2
+     BarlowCondensed-Italic.woff2
+     BarlowCondensed-Bold.woff2
+     BarlowCondensed-BoldItalic.woff2
+     BarlowCondensed-Black.woff2
+     BarlowCondensed-BlackItalic.woff2
+   ──────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-BlackItalic.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─── Base styles ─────────────────────────────────────────────────────────── */
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: Arial, sans-serif;
+    color: #111111;
+    background: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barlow Condensed', Arial, sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+/* ─── Custom utilities ────────────────────────────────────────────────────── */
+
+@layer utilities {
+  .font-barlow {
+    font-family: 'Barlow Condensed', Arial, sans-serif;
+  }
+
+  .text-emf-red {
+    color: #E8320A;
+  }
+
+  .bg-emf-red {
+    background-color: #E8320A;
+  }
+
+  .border-emf-red {
+    border-color: #E8320A;
+  }
+}

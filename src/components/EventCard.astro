@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  time: string;
+  location: string;
+  description: string;
+  slug: string;
+}
+
+const { title, date, time, location, description, slug } = Astro.props;
+
+const dateFormatted = date.toLocaleDateString('nl-BE', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const excerpt = description.length > 160 ? description.slice(0, 160).trimEnd() + '…' : description;
+---
+
+<article class="border-t-[3px] border-[#E8320A] pt-4">
+  <p class="text-xs text-[#555555] uppercase tracking-wide mb-1">
+    {dateFormatted} · {time} · {location}
+  </p>
+  <h3 class="font-barlow font-black text-2xl leading-tight mb-2" style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;">
+    <a href={`/activiteiten/${slug}`} class="hover:underline">{title}</a>
+  </h3>
+  <p class="text-sm text-[#555555] mb-3">{excerpt}</p>
+  <a
+    href={`/activiteiten/${slug}`}
+    class="inline-block text-sm font-bold text-[#E8320A] border border-[#E8320A] px-3 py-1 hover:bg-[#E8320A] hover:text-white transition-colors"
+  >
+    Meer info →
+  </a>
+</article>

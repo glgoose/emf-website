@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+---
+
+<BaseLayout title="Contact" description="Contacteer Ernest Mandelfonds, schrijf u in op de nieuwsbrief, en bekijk onze impressum.">
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <h1
+      class="font-barlow font-black text-4xl sm:text-5xl lowercase border-t-[3px] border-[#E8320A] pt-4 mb-10"
+      style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+    >
+      Contact
+    </h1>
+
+    <div class="grid md:grid-cols-2 gap-10 mb-12">
+      <!-- Contact info -->
+      <section>
+        <h2
+          class="font-barlow font-black text-2xl mb-4"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          Contactgegevens
+        </h2>
+        <dl class="space-y-3 text-sm">
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">E-mail</dt>
+            <dd><a href="mailto:info@ernestmandelfonds.be" class="text-[#E8320A] hover:underline">info@ernestmandelfonds.be</a></dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Adres</dt>
+            <dd>
+              Vzw Ernest Mandelfonds<br />
+              Postadres: [adres nog toe te voegen]<br />
+              2000 Antwerpen
+            </dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Sociale media</dt>
+            <dd class="space-y-1">
+              <div><a href="#" class="text-[#E8320A] hover:underline">Facebook</a></div>
+              <div><a href="#" class="text-[#E8320A] hover:underline">Instagram</a></div>
+              <div><a href="#" class="text-[#E8320A] hover:underline">Twitter / X</a></div>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Impressum -->
+      <section id="impressum">
+        <h2
+          class="font-barlow font-black text-2xl mb-4"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          Impressum
+        </h2>
+        <dl class="space-y-3 text-sm">
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Rechtsvorm</dt>
+            <dd>Vzw (vereniging zonder winstoogmerk)</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Naam</dt>
+            <dd>Vzw Ernest Mandelfonds</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">BTW-nummer</dt>
+            <dd>BE 1022.401.378</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">RPR</dt>
+            <dd>RPR Antwerpen</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Rekeningnummer</dt>
+            <dd>BE06 0020 0994 8922</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Verantwoordelijke uitgever</dt>
+            <dd>[Naam verantwoordelijke uitgever – in te vullen]</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[#555555] text-xs uppercase tracking-wide">Licentie</dt>
+            <dd>
+              Inhoud beschikbaar onder{' '}
+              <a
+                href="https://creativecommons.org/licenses/by-sa/4.0/"
+                class="text-[#E8320A] hover:underline"
+                target="_blank"
+                rel="noopener"
+              >
+                CC BY-SA 4.0
+              </a>
+              , tenzij anders aangegeven.
+            </dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </div>
+
+  <!-- Newsletter strip -->
+  <NewsletterForm />
+</BaseLayout>

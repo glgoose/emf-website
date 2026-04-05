@@ -14,10 +14,10 @@ const upcomingEvents = allEvents
 
 const nextEvent = upcomingEvents[0] ?? null;
 
-const allPosts = await getCollection('posts');
-const latestPosts = allPosts
+const allNews = await getCollection('news');
+const latestNews = allNews
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+  .slice(0, 5);
 ---
 
 <BaseLayout isHomepage={true}>
@@ -38,7 +38,7 @@ const latestPosts = allPosts
       <!-- Right: content -->
       <div>
         {nextEvent && (
-          <section class="mb-12">
+          <section class="mb-10">
             <h2
               class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
               style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
@@ -56,53 +56,52 @@ const latestPosts = allPosts
           </section>
         )}
 
-        <section>
-          <h2
-            class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
-            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
+        {latestNews.length > 0 && (
+          <section class="mb-10">
+            <h2
+              class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
+              style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
+            >
+              Nieuws
+            </h2>
+            <ul class="list-none m-0 p-0 space-y-3">
+              {latestNews.map(item => {
+                const dateStr = item.data.date.toLocaleDateString('nl-BE', {
+                  day: 'numeric', month: 'long', year: 'numeric'
+                });
+                return (
+                  <li class="border-t border-[#e8e8e8] pt-3">
+                    <p class="text-xs text-[#555555] mb-1">{dateStr}</p>
+                    <a
+                      href={`/nieuws/${item.id}`}
+                      class="text-[#111111] font-bold text-sm hover:underline leading-snug"
+                    >
+                      {item.data.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <div class="mt-4">
+              <a href="/nieuws" class="text-sm text-[#E8320A] font-bold hover:underline">Alle nieuws →</a>
+            </div>
+          </section>
+        )}
+
+        <!-- Steun ons + newsletter, minimal, no heavy separators -->
+        <div class="mt-10 space-y-4">
+          <a
+            href="/steun-ons"
+            class="inline-flex items-center gap-3 border border-[#111111] rounded-full px-6 py-2 text-[#111111] hover:bg-[#111111] hover:text-white transition-colors"
+            style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;font-style:italic;"
           >
-            Nieuws &amp; publicaties
-          </h2>
-          <ul class="list-none m-0 p-0 space-y-4">
-            {latestPosts.map(post => {
-              const dateStr = post.data.date.toLocaleDateString('nl-BE', {
-                day: 'numeric', month: 'long', year: 'numeric'
-              });
-              return (
-                <li class="border-t border-[#e8e8e8] pt-4">
-                  <p class="text-xs text-[#555555] mb-1">{dateStr}</p>
-                  <a
-                    href={`/publicaties#${post.id}`}
-                    class="text-[#111111] font-bold text-sm hover:underline leading-snug"
-                  >
-                    {post.data.title}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-          <div class="mt-6">
-            <a href="/publicaties" class="text-sm text-[#E8320A] font-bold hover:underline">Alle publicaties →</a>
-          </div>
-        </section>
+            Steun ons <span aria-hidden="true">→</span>
+          </a>
+
+          <NewsletterForm />
+        </div>
       </div>
 
     </div>
   </div>
-
-  <!-- Steun ons strip -->
-  <div class="w-full border-t border-[#111111] py-10">
-    <div class="max-w-6xl mx-auto px-6">
-      <a
-        href="/steun-ons"
-        class="inline-flex items-center gap-4 border border-[#111111] rounded-full px-8 py-3 text-[#111111] hover:bg-[#111111] hover:text-white transition-colors"
-        style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;font-style:italic;"
-      >
-        Steun ons
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
-  </div>
-
-  <NewsletterForm />
 </BaseLayout>

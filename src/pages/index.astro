@@ -88,9 +88,13 @@ const latestNews = allNews
           </section>
         )}
 
-        <!-- Steun ons + newsletter, minimal, no heavy separators -->
-        <div class="mt-10 flex items-center gap-4">
-          <a href="/steun-ons" class="pill-btn">Steun ons →</a>
+        <!-- Steun ons + newsletter -->
+        <div class="mt-10 flex items-center justify-between gap-6">
+          <a
+            href="/steun-ons"
+            class="shrink-0 border border-[#111111] rounded-full px-5 text-[#111111] hover:bg-[#111111] hover:text-white transition-colors no-underline"
+            style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;padding-top:0.35rem;padding-bottom:0.35rem;"
+          >Steun ons</a>
 
           <NewsletterForm />
         </div>

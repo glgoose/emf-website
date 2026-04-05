@@ -9,12 +9,14 @@
       name="email"
       required
       placeholder="Inschrijven op nieuwsbrief"
-      class="pill-input"
+      class="w-full border border-[#111111] rounded-full bg-transparent text-[#111111] outline-none placeholder:text-[#999999] placeholder:not-italic"
+      style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;padding:0.35rem 2.5rem 0.35rem 1.25rem;-webkit-appearance:none;appearance:none;"
       aria-label="E-mailadres voor nieuwsbrief"
     />
     <button
       type="submit"
-      class="pill-btn absolute right-1 top-1/2 -translate-y-1/2 px-2 aspect-square justify-center"
+      class="absolute right-4 top-1/2 -translate-y-1/2 text-[#111111] hover:opacity-50 transition-opacity bg-transparent border-none p-0 leading-none"
+      style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;"
       aria-label="Inschrijven"
     >→</button>
   </div>
@@ -42,16 +44,16 @@
 
       if (res.ok) {
         msg.textContent = 'Bedankt! U bent ingeschreven.';
-        msg.className = 'mt-2 text-sm pl-6 text-green-700';
+        msg.className = 'mt-2 text-sm text-green-700';
         form.reset();
       } else {
         const data = await res.json().catch(() => ({}));
         msg.textContent = (data as any).error || 'Er is een fout opgetreden. Probeer later opnieuw.';
-        msg.className = 'mt-2 text-sm pl-6 text-red-700';
+        msg.className = 'mt-2 text-sm text-red-700';
       }
     } catch {
       msg.textContent = 'Netwerkfout. Controleer uw verbinding en probeer opnieuw.';
-      msg.className = 'mt-2 text-sm pl-6 text-red-700';
+      msg.className = 'mt-2 text-sm text-red-700';
     }
 
     msg.classList.remove('hidden');

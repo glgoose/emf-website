@@ -6,14 +6,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="max-w-6xl mx-auto px-6 py-12">
     <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
 
-      <!-- Sticky left: title -->
+      <!-- Sticky left: title + nav -->
       <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
         <h1
-          class="font-barlow font-black text-3xl lowercase"
+          class="font-barlow font-black text-2xl lowercase mb-6"
           style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
         >
           Steun ons
         </h1>
+        <nav aria-label="Paginanavigatie">
+          <ul class="list-none m-0 p-0 space-y-2 text-sm">
+            <li><a href="/over-emf" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
+            <li><span class="font-bold text-[#111111]">Steun ons</span></li>
+            <li><a href="/contact" class="text-[#555555] hover:underline underline-offset-2">Contact</a></li>
+            <li><a href="/colofon" class="text-[#555555] hover:underline underline-offset-2">Colofon</a></li>
+          </ul>
+        </nav>
       </div>
 
       <!-- Content -->

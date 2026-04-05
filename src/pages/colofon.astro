@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="max-w-6xl mx-auto px-6 py-12">
     <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
 
-      <!-- Sticky left: title + section nav -->
+      <!-- Sticky left: title + nav -->
       <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
         <h1
           class="font-barlow font-black text-2xl lowercase mb-6"
@@ -16,9 +16,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </h1>
         <nav aria-label="Paginanavigatie">
           <ul class="list-none m-0 p-0 space-y-2 text-sm">
-            <li><a href="#copyright" class="text-[#555555] hover:underline underline-offset-2">Copyright</a></li>
-            <li><a href="#cookiebeleid" class="text-[#555555] hover:underline underline-offset-2">Cookiebeleid</a></li>
-            <li><a href="#juridisch" class="text-[#555555] hover:underline underline-offset-2">Juridische info</a></li>
+            <li><a href="/over-emf" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
+            <li><a href="/steun-ons" class="text-[#555555] hover:underline underline-offset-2">Steun ons</a></li>
+            <li><a href="/contact" class="text-[#555555] hover:underline underline-offset-2">Contact</a></li>
+            <li>
+              <span class="font-bold text-[#111111]">Colofon</span>
+              <ul class="list-none m-0 p-0 mt-1 ml-3 space-y-1">
+                <li><a href="#copyright" class="text-[#555555] hover:underline underline-offset-2">Copyright</a></li>
+                <li><a href="#cookiebeleid" class="text-[#555555] hover:underline underline-offset-2">Cookiebeleid</a></li>
+                <li><a href="#juridisch" class="text-[#555555] hover:underline underline-offset-2">Juridische info</a></li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>

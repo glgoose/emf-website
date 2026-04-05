@@ -3,11 +3,11 @@ const navLinks = [
   { href: '/activiteiten', label: 'activiteiten' },
   { href: '/nieuws', label: 'nieuws' },
   { href: '/publicaties', label: 'publicaties' },
-  { href: '/steun-ons', label: 'steun ons' },
 ];
 
 const overEmfLinks = [
   { href: '/over-emf', label: 'over de vzw' },
+  { href: '/steun-ons', label: 'steun ons' },
   { href: '/contact', label: 'contact' },
   { href: '/colofon', label: 'colofon' },
 ];
@@ -52,7 +52,7 @@ const { currentPath = '', atTop = false } = Astro.props;
           id="over-emf-btn"
           class:list={[
             'text-[#111111] hover:underline underline-offset-4 cursor-pointer bg-transparent border-none p-0',
-            (currentPath === '/over-emf' || currentPath === '/contact' || currentPath === '/colofon') && 'underline',
+            (currentPath === '/over-emf' || currentPath === '/steun-ons' || currentPath === '/contact' || currentPath === '/colofon') && 'underline',
           ]}
           style="font-family:'EB Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;"
           aria-expanded="false"

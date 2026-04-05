@@ -69,7 +69,8 @@
   }
 
   html {
-    font-family: Arial, sans-serif;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 22px;
     color: #111111;
     background: #ffffff;
   }

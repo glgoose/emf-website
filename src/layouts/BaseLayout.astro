@@ -8,16 +8,17 @@
 
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
   description?: string;
+  isHomepage?: boolean;
 }
 
 const {
   title = 'Ernest Mandelfonds',
   description = 'Ecosocialistisch · feministisch · anti-racistisch · radicaal democratisch · antikapitalistisch',
+  isHomepage = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ernestmandelfonds.be');
@@ -32,13 +33,16 @@ const currentPath = Astro.url.pathname;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
     <title>{title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`}</title>
   </head>
   <body class="min-h-screen flex flex-col">
-    <Navbar currentPath={currentPath} />
+    {isHomepage && <Navbar currentPath={currentPath} atTop={true} />}
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    {!isHomepage && <Navbar currentPath={currentPath} atTop={false} />}
   </body>
 </html>

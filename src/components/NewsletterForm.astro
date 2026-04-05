@@ -1,20 +1,11 @@
 ---
 ---
 
-<div class="w-full bg-[#faf5f4] border-t border-[#f0e8e6] py-10">
-  <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-    <div class="flex-1">
-      <p
-        class="font-barlow font-black text-2xl text-[#E8320A] mb-1"
-        style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-      >
-        Nieuwsbrief
-      </p>
-      <p class="text-sm text-[#555555]">Blijf op de hoogte van activiteiten en publicaties.</p>
-    </div>
+<section class="w-full border-t border-[#111111] py-10 mt-12">
+  <div class="max-w-6xl mx-auto px-6">
     <form
       id="newsletter-form"
-      class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto"
+      class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
       novalidate
     >
       <input
@@ -23,21 +14,22 @@
         name="email"
         required
         placeholder="uw@emailadres.be"
-        class="border border-[#e8e8e8] px-3 py-2 text-sm w-full sm:w-64 focus:outline-none focus:border-[#E8320A]"
-        aria-label="E-mailadres"
+        class="flex-1 border border-[#111111] rounded-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-[#E8320A] focus:ring-offset-1 text-[#111111] bg-white"
+        style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;"
+        aria-label="E-mailadres voor nieuwsbrief"
       />
       <button
         type="submit"
-        class="bg-[#E8320A] text-white text-sm font-bold px-5 py-2 hover:bg-[#C8270A] transition-colors whitespace-nowrap"
+        class="border border-[#111111] rounded-full px-8 py-3 text-[#111111] bg-white hover:bg-[#111111] hover:text-white transition-colors whitespace-nowrap flex items-center justify-center gap-3"
+        style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;font-style:italic;"
       >
-        Inschrijven
+        Inschrijven op nieuwsbrief
+        <span aria-hidden="true">→</span>
       </button>
     </form>
+    <p id="newsletter-msg" class="hidden mt-3 text-sm" aria-live="polite"></p>
   </div>
-  <div class="max-w-6xl mx-auto px-4 mt-3">
-    <p id="newsletter-msg" class="text-sm hidden" aria-live="polite"></p>
-  </div>
-</div>
+</section>
 
 <script>
   const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
@@ -60,16 +52,16 @@
 
       if (res.ok) {
         msg.textContent = 'Bedankt! U bent ingeschreven op de nieuwsbrief.';
-        msg.className = 'text-sm text-green-700';
+        msg.className = 'mt-3 text-sm text-green-700';
         form.reset();
       } else {
         const data = await res.json().catch(() => ({}));
         msg.textContent = (data as any).error || 'Er is een fout opgetreden. Probeer later opnieuw.';
-        msg.className = 'text-sm text-red-700';
+        msg.className = 'mt-3 text-sm text-red-700';
       }
     } catch {
       msg.textContent = 'Netwerkfout. Controleer uw verbinding en probeer opnieuw.';
-      msg.className = 'text-sm text-red-700';
+      msg.className = 'mt-3 text-sm text-red-700';
     }
 
     msg.classList.remove('hidden');

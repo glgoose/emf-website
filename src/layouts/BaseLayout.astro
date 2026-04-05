@@ -40,7 +40,7 @@ const currentPath = Astro.url.pathname;
   </head>
   <body class="min-h-screen flex flex-col">
     {isHomepage && <Navbar currentPath={currentPath} atTop={true} />}
-    <main class="flex-1">
+    <main class:list={['flex-1', !isHomepage && 'pb-20']}>
       <slot />
     </main>
     {!isHomepage && <Navbar currentPath={currentPath} atTop={false} />}

@@ -17,7 +17,11 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
 ---
 
 <nav
-  class:list={['w-full', atTop ? 'border-b border-[#111111] py-4' : 'border-t border-[#111111] py-4']}
+  class:list={[
+    atTop
+      ? 'w-full border-b border-[#111111] py-4'
+      : 'fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#111111] py-4',
+  ]}
   aria-label="Hoofdnavigatie"
 >
   <div class="max-w-6xl mx-auto px-6">

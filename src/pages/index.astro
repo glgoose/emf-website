@@ -4,7 +4,6 @@ import EventCard from '../components/EventCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import { getCollection } from 'astro:content';
 
-// Upcoming events: filter date >= today, sort asc, take first
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
@@ -15,101 +14,81 @@ const upcomingEvents = allEvents
 
 const nextEvent = upcomingEvents[0] ?? null;
 
-// Latest 3 posts
 const allPosts = await getCollection('posts');
 const latestPosts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 ---
 
-<BaseLayout>
-  <!-- Hero -->
-  <section class="bg-[#E8320A] text-white border-t border-[#C8270A] relative overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4 py-12 relative z-10">
-      <h1
-        class="font-barlow font-black text-5xl sm:text-7xl md:text-8xl leading-none lowercase mb-4"
-        style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-      >
-        ernest mandelfonds
-      </h1>
-      <p class="text-sm sm:text-base text-white/85 tracking-wide max-w-xl">
-        ecosocialistisch · feministisch · anti-racistisch · radicaal democratisch · antikapitalistisch
-      </p>
-    </div>
-    <!-- Faint EMF watermark -->
-    <div
-      class="absolute right-0 top-0 h-full flex items-center pr-4 pointer-events-none select-none"
-      aria-hidden="true"
-    >
-      <span
-        class="font-barlow font-black text-[10rem] sm:text-[14rem] leading-none text-white/10 lowercase"
-        style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-      >
-        emf
-      </span>
-    </div>
-  </section>
+<BaseLayout isHomepage={true}>
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
 
-  <!-- Content grid -->
-  <section class="max-w-6xl mx-auto px-4 py-10">
-    <div class="grid md:grid-cols-2 gap-10">
-
-      <!-- Left: next event -->
-      <div>
-        <h2
-          class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
-        >
-          Volgende activiteit
-        </h2>
-        {nextEvent ? (
-          <EventCard
-            title={nextEvent.data.title}
-            date={nextEvent.data.date}
-            time={nextEvent.data.time}
-            location={nextEvent.data.location}
-            description={nextEvent.data.description}
-            slug={nextEvent.id}
+      <!-- Left: logo -->
+      <div class="mb-8 lg:mb-0">
+        <a href="/" aria-label="Ernest Mandelfonds – startpagina">
+          <img
+            src="/images/logoRED.png"
+            alt="Ernest Mandelfonds"
+            class="w-full max-w-[160px]"
           />
-        ) : (
-          <p class="text-sm text-[#555555]">Momenteel zijn er geen geplande activiteiten. Bekijk het <a href="/activiteiten" class="underline">activiteitenoverzicht</a>.</p>
-        )}
+        </a>
       </div>
 
-      <!-- Right: latest posts -->
+      <!-- Right: content -->
       <div>
-        <h2
-          class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
-        >
-          Nieuws &amp; publicaties
-        </h2>
-        <ul class="list-none m-0 p-0 space-y-4">
-          {latestPosts.map(post => {
-            const dateStr = post.data.date.toLocaleDateString('nl-BE', {
-              day: 'numeric', month: 'long', year: 'numeric'
-            });
-            return (
-              <li class="border-t border-[#e8e8e8] pt-4">
-                <p class="text-xs text-[#555555] mb-1">{dateStr}</p>
-                <a
-                  href={`/publicaties#${post.id}`}
-                  class="text-[#111111] font-bold text-sm hover:underline leading-snug"
-                >
-                  {post.data.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-        <div class="mt-6">
-          <a href="/publicaties" class="text-sm text-[#E8320A] font-bold hover:underline">Alle publicaties →</a>
-        </div>
+        {nextEvent && (
+          <section class="mb-12">
+            <h2
+              class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
+              style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
+            >
+              Volgende activiteit
+            </h2>
+            <EventCard
+              title={nextEvent.data.title}
+              date={nextEvent.data.date}
+              time={nextEvent.data.time}
+              location={nextEvent.data.location}
+              description={nextEvent.data.description}
+              slug={nextEvent.id}
+            />
+          </section>
+        )}
+
+        <section>
+          <h2
+            class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
+            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
+          >
+            Nieuws &amp; publicaties
+          </h2>
+          <ul class="list-none m-0 p-0 space-y-4">
+            {latestPosts.map(post => {
+              const dateStr = post.data.date.toLocaleDateString('nl-BE', {
+                day: 'numeric', month: 'long', year: 'numeric'
+              });
+              return (
+                <li class="border-t border-[#e8e8e8] pt-4">
+                  <p class="text-xs text-[#555555] mb-1">{dateStr}</p>
+                  <a
+                    href={`/publicaties#${post.id}`}
+                    class="text-[#111111] font-bold text-sm hover:underline leading-snug"
+                  >
+                    {post.data.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+          <div class="mt-6">
+            <a href="/publicaties" class="text-sm text-[#E8320A] font-bold hover:underline">Alle publicaties →</a>
+          </div>
+        </section>
       </div>
 
     </div>
-  </section>
+  </div>
 
-  <!-- Newsletter strip -->
   <NewsletterForm />
 </BaseLayout>

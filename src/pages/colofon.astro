@@ -6,17 +6,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="max-w-6xl mx-auto px-6 py-12">
     <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
 
-      <!-- Sticky left: title + nav -->
+      <!-- Sticky left: section label + nav -->
       <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <h1
-          class="font-barlow font-black text-2xl lowercase mb-6"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          Colofon
-        </h1>
+        <p class="font-barlow font-black text-sm uppercase tracking-wide mb-4" style="font-family:'Barlow Condensed',Arial,sans-serif;">
+          <a href="/over-emf" class="text-[#111111] hover:underline underline-offset-2">Over EMF</a>
+        </p>
         <nav aria-label="Paginanavigatie">
           <ul class="list-none m-0 p-0 space-y-2 text-sm">
-            <li><a href="/over-emf" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
+            <li><a href="/over-emf/over-de-vzw" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
+            <li><a href="/over-emf/politiek-handvest" class="text-[#555555] hover:underline underline-offset-2">Politiek handvest</a></li>
+            <li><a href="/over-emf/ernest-mandel" class="text-[#555555] hover:underline underline-offset-2">Ernest Mandel</a></li>
+            <li><a href="/over-emf/kameraden" class="text-[#555555] hover:underline underline-offset-2">Kameraden</a></li>
             <li><a href="/steun-ons" class="text-[#555555] hover:underline underline-offset-2">Steun ons</a></li>
             <li><a href="/contact" class="text-[#555555] hover:underline underline-offset-2">Contact</a></li>
             <li>
@@ -35,7 +35,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <!-- Content -->
+      <!-- Right: title + content -->
       <div class="border-t-[2px] border-[#111111] pt-6 space-y-14">
+        <h1
+          class="font-barlow font-black text-3xl lowercase"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          Colofon
+        </h1>
 
         <section id="copyright" class="scroll-mt-10">
           <h2

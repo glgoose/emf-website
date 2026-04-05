@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allNews = await getCollection('news');
+const sorted = allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Nieuws" description="Nieuws en updates van Ernest Mandelfonds.">
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+
+      <!-- Sticky left: title -->
+      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
+        <h1
+          class="font-barlow font-black text-3xl lowercase"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          Nieuws
+        </h1>
+      </div>
+
+      <!-- Content column -->
+      <div class="border-t-[2px] border-[#111111] pt-0">
+        {sorted.length === 0 && (
+          <p class="text-sm text-[#555555] py-6">Er zijn nog geen nieuwsberichten beschikbaar.</p>
+        )}
+
+        <ul class="list-none m-0 p-0">
+          {sorted.map(item => {
+            const dateStr = item.data.date.toLocaleDateString('nl-BE', {
+              day: 'numeric', month: 'long', year: 'numeric'
+            });
+            return (
+              <li class="border-b border-[#e8e8e8]">
+                <a
+                  href={`/nieuws/${item.id}`}
+                  class="flex items-baseline gap-4 py-3 hover:bg-[#f8f8f8] px-1 -mx-1 group"
+                >
+                  <span class="text-xs text-[#555555] shrink-0 w-36">{dateStr}</span>
+                  <span class="text-sm font-bold text-[#111111] group-hover:underline underline-offset-2 leading-snug">
+                    {item.data.title}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

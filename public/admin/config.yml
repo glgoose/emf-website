@@ -91,6 +91,40 @@ collections:
         required: false
         hint: "Het numerieke ID van de Baserow tabel voor inschrijvingen."
 
+  # ── Nieuws ────────────────────────────────────────────────────────────────
+  - name: news
+    label: Nieuws
+    label_singular: Nieuwsbericht
+    folder: src/content/news
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - label: Titel
+        name: title
+        widget: string
+        required: true
+
+      - label: Datum
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        required: true
+
+      - label: Samenvatting
+        name: summary
+        widget: text
+        required: true
+        hint: "Korte samenvatting, getoond in overzichten."
+
+      - label: Volledige tekst
+        name: body
+        widget: markdown
+        required: false
+
   # ── Publicaties (posts) ────────────────────────────────────────────────────
   - name: posts
     label: Publicaties
@@ -124,3 +158,30 @@ collections:
         name: body
         widget: markdown
         required: false
+
+  # ── Pagina's (enkelvoudig) ─────────────────────────────────────────────────
+  - name: pages
+    label: Pagina's
+    label_singular: Pagina
+    files:
+      - name: steun-ons
+        label: Steun ons
+        file: src/content/pages/steun-ons.md
+        fields:
+          - label: Titel
+            name: title
+            widget: string
+          - label: Inhoud
+            name: body
+            widget: markdown
+
+      - name: colofon
+        label: Colofon
+        file: src/content/pages/colofon.md
+        fields:
+          - label: Titel
+            name: title
+            widget: string
+          - label: Inhoud
+            name: body
+            widget: markdown

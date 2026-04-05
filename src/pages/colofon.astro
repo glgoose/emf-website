@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Colofon" description="Colofon, cookiebeleid en juridische informatie van Ernest Mandelfonds.">
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+
+      <!-- Sticky left: title + section nav -->
+      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
+        <h1
+          class="font-barlow font-black text-2xl lowercase mb-6"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          Colofon
+        </h1>
+        <nav aria-label="Paginanavigatie">
+          <ul class="list-none m-0 p-0 space-y-2 text-sm">
+            <li><a href="#copyright" class="text-[#555555] hover:underline underline-offset-2">Copyright</a></li>
+            <li><a href="#cookiebeleid" class="text-[#555555] hover:underline underline-offset-2">Cookiebeleid</a></li>
+            <li><a href="#juridisch" class="text-[#555555] hover:underline underline-offset-2">Juridische info</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Content -->
+      <div class="border-t-[2px] border-[#111111] pt-6 space-y-14">
+
+        <section id="copyright" class="scroll-mt-10">
+          <h2
+            class="font-barlow font-black text-2xl lowercase border-b border-[#e8e8e8] pb-2 mb-4"
+            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+          >
+            Copyright
+          </h2>
+          <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed">
+            <p>
+              © 2026 vzw Ernest Mandelfonds. Alle inhoud op deze website is, tenzij anders
+              aangegeven, beschikbaar onder de licentie
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">
+                Creative Commons Naamsvermelding-GelijkDelen 4.0 Internationaal (CC BY-SA 4.0)
+              </a>.
+            </p>
+            <p>
+              Dit betekent dat u de inhoud vrij mag delen en bewerken, mits u de bron vermeldt
+              en uw bijdragen onder dezelfde licentie verspreidt.
+            </p>
+          </div>
+        </section>
+
+        <section id="cookiebeleid" class="scroll-mt-10">
+          <h2
+            class="font-barlow font-black text-2xl lowercase border-b border-[#e8e8e8] pb-2 mb-4"
+            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+          >
+            Cookiebeleid
+          </h2>
+          <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed">
+            <p>
+              Deze website maakt minimaal gebruik van cookies. We plaatsen geen tracking- of
+              advertentiecookies. Functionele cookies kunnen worden gebruikt om formulieren
+              correct te laten werken.
+            </p>
+            <p class="text-[#555555] italic">
+              [Uitgebreid cookiebeleid wordt hier aangevuld.]
+            </p>
+          </div>
+        </section>
+
+        <section id="juridisch" class="scroll-mt-10">
+          <h2
+            class="font-barlow font-black text-2xl lowercase border-b border-[#e8e8e8] pb-2 mb-4"
+            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+          >
+            Juridische informatie
+          </h2>
+          <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed">
+            <p>
+              Deze website wordt beheerd door vzw Ernest Mandelfonds, een vereniging zonder
+              winstoogmerk naar Belgisch recht.
+            </p>
+            <dl class="mt-4 text-sm grid grid-cols-[auto_1fr] gap-x-8 gap-y-1 text-[#555555] not-prose">
+              <dt class="font-bold text-[#111111]">Maatschappelijke zetel</dt>
+              <dd>[Adres – aan te vullen]</dd>
+              <dt class="font-bold text-[#111111]">BTW</dt>
+              <dd>1022.401.378</dd>
+              <dt class="font-bold text-[#111111]">RPR</dt>
+              <dd>Antwerpen</dd>
+              <dt class="font-bold text-[#111111]">Rekening</dt>
+              <dd>BE06 0020 0994 8922</dd>
+              <dt class="font-bold text-[#111111]">E-mail</dt>
+              <dd><a href="mailto:info@ernestmandelfonds.be" class="underline underline-offset-2">info@ernestmandelfonds.be</a></dd>
+            </dl>
+            <p class="mt-6 text-[#555555] italic">
+              [Verdere juridische informatie, privacybeleid en contactgegevens worden hier aangevuld.]
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</BaseLayout>

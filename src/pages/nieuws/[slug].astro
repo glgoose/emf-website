@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('news');
+  return items.map(item => ({
+    params: { slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const { title, date } = item.data;
+
+const dateFormatted = date.toLocaleDateString('nl-BE', {
+  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+});
+---
+
+<BaseLayout title={title} description={item.data.summary}>
+  <article class="max-w-6xl mx-auto px-6 py-12">
+    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+
+      <!-- Sticky left: title + meta -->
+      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
+        <h1
+          class="font-barlow font-black text-2xl leading-tight lowercase mb-4"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          {title}
+        </h1>
+        <p class="text-xs text-[#555555] leading-relaxed mb-4">{dateFormatted}</p>
+        <a href="/nieuws" class="text-xs text-[#555555] hover:underline underline-offset-2">← Nieuws</a>
+      </div>
+
+      <!-- Content -->
+      <div class="border-t-[2px] border-[#111111] pt-6">
+        <div class="prose prose-lg max-w-none text-[#111111]
+          [&_h2]:font-barlow [&_h2]:font-black [&_h2]:text-2xl [&_h2]:lowercase [&_h2]:mb-2
+          [&_h3]:font-barlow [&_h3]:font-black [&_h3]:text-xl [&_h3]:lowercase [&_h3]:mt-6 [&_h3]:mb-1
+          [&_a]:text-[#E8320A] [&_a]:underline [&_a]:underline-offset-2
+          [&_p]:leading-relaxed">
+          <Content />
+        </div>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

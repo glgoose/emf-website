@@ -33,7 +33,10 @@ const dateFormatted = date.toLocaleDateString('nl-BE', {
           {title}
         </h1>
         <p class="text-xs text-[#555555] leading-relaxed mb-4">{dateFormatted}</p>
-        <a href="/nieuws" class="text-xs text-[#555555] hover:underline underline-offset-2">← Nieuws</a>
+        <div class="space-y-2">
+          <div><a href="/nieuws" class="text-xs text-[#555555] hover:underline underline-offset-2">← nieuws</a></div>
+          <div><a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a></div>
+        </div>
       </div>
 
       <!-- Content -->

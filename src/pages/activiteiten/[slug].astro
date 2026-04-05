@@ -22,81 +22,62 @@ const {
   address,
   registration_open,
   registration_deadline,
-  capacity,
-  baserow_table_id,
 } = event.data;
 
 const dateFormatted = date.toLocaleDateString('nl-BE', {
   weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
 });
 
-// Fetch registration count from Baserow at build time if capacity and table_id are set
-let registrationCount: number | null = null;
-if (capacity && baserow_table_id) {
-  try {
-    const baserowUrl = import.meta.env.BASEROW_URL;
-    const baserowToken = import.meta.env.BASEROW_TOKEN;
-    if (baserowUrl && baserowToken) {
-      const res = await fetch(
-        `${baserowUrl}/api/database/rows/table/${baserow_table_id}/?user_field_names=true&size=1`,
-        { headers: { Authorization: `Token ${baserowToken}` } }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        registrationCount = data.count ?? null;
-      }
-    }
-  } catch {
-    // Non-fatal: just don't show the count
-  }
-}
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const isPast = date < today;
 ---
 
 <BaseLayout title={title} description={event.data.description}>
-  <article class="max-w-4xl mx-auto px-4 py-10">
-    <!-- Header -->
-    <div class="border-t-[3px] border-[#E8320A] pt-4 mb-8">
-      <p class="text-xs text-[#555555] uppercase tracking-wide mb-2">
-        {dateFormatted} · {time}
-      </p>
-      <h1
-        class="font-barlow font-black text-4xl sm:text-5xl leading-tight lowercase mb-3"
-        style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-      >
-        {title}
-      </h1>
-      <p class="text-sm text-[#555555]">
-        <strong>{location}</strong><br />
-        {address}
-      </p>
-    </div>
+  <article class="max-w-6xl mx-auto px-6 py-12">
+    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
 
-    <!-- Body -->
-    <div class="prose prose-sm max-w-none text-[#111111] [&_h2]:font-barlow [&_h2]:font-black [&_h2]:text-2xl [&_h3]:font-barlow [&_h3]:font-black [&_h3]:text-xl [&_a]:text-[#E8320A] [&_a]:underline">
-      <Content />
-    </div>
+      <!-- Sticky left: title + meta -->
+      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
+        <h1
+          class="font-barlow font-black text-2xl leading-tight lowercase mb-4"
+          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
+        >
+          {title}
+        </h1>
+        <p class="text-xs text-[#555555] leading-relaxed mb-1">{dateFormatted}</p>
+        <p class="text-xs text-[#555555] leading-relaxed mb-1">{time.replace(':', 'u').replace(/u00$/, 'u')}</p>
+        {location && (
+          <p class="text-xs text-[#555555] leading-relaxed">
+            <strong class="text-[#111111]">{location}</strong>
+            {address && <><br />{address}</>}
+          </p>
+        )}
+        <div class="mt-6 space-y-2">
+          <div><a href="/activiteiten" class="text-xs text-[#555555] hover:underline underline-offset-2">← activiteiten</a></div>
+          <div><a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a></div>
+        </div>
+      </div>
 
-    <!-- Registration count -->
-    {registrationCount !== null && capacity && (
-      <p class="mt-6 text-sm text-[#555555]">
-        <strong>{registrationCount}</strong> mensen ingeschreven
-        {capacity && <span> (max. {capacity} plaatsen)</span>}
-      </p>
-    )}
+      <!-- Scrollable right: content -->
+      <div class="border-t-[2px] border-[#111111] pt-6">
+        <div class="prose prose-lg max-w-none text-[#111111]
+          [&_h2]:font-barlow [&_h2]:font-black [&_h2]:text-2xl [&_h2]:lowercase [&_h2]:mb-2
+          [&_h3]:font-barlow [&_h3]:font-black [&_h3]:text-xl [&_h3]:lowercase [&_h3]:mt-6 [&_h3]:mb-1
+          [&_a]:text-[#E8320A] [&_a]:underline [&_a]:underline-offset-2
+          [&_p]:leading-relaxed">
+          <Content />
+        </div>
 
-    <!-- Registration form -->
-    {registration_open && (
-      <RegistrationForm
-        eventSlug={event.id}
-        eventTitle={title}
-        baserowTableId={baserow_table_id}
-        registrationDeadline={registration_deadline}
-      />
-    )}
+        {registration_open && !isPast && (
+          <RegistrationForm
+            eventSlug={event.id}
+            eventTitle={title}
+            registrationDeadline={registration_deadline}
+          />
+        )}
+      </div>
 
-    <!-- Back link -->
-    <div class="mt-12 border-t border-[#e8e8e8] pt-4">
-      <a href="/activiteiten" class="text-sm text-[#E8320A] hover:underline">← Alle activiteiten</a>
     </div>
   </article>
 </BaseLayout>

@@ -1,34 +1,24 @@
 ---
 ---
 
-<form
-  id="newsletter-form"
-  novalidate
-  class="mt-8"
->
-  <div
-    class="flex items-center border border-[#111111] rounded-full pr-2"
-    style="max-width:480px;"
-  >
+<form id="newsletter-form" novalidate>
+  <div class="relative" style="max-width:480px;">
     <input
       id="newsletter-email"
       type="email"
       name="email"
       required
       placeholder="Inschrijven op nieuwsbrief"
-      class="flex-1 bg-transparent border-none outline-none text-[#111111] min-w-0 pl-6 pt-3 pb-4"
-      style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;font-style:italic;"
+      class="pill-input"
       aria-label="E-mailadres voor nieuwsbrief"
     />
     <button
       type="submit"
-      class="shrink-0 mb-2 w-9 h-9 flex items-center justify-center rounded-full text-[#111111] hover:bg-[#111111] hover:text-white transition-colors self-end"
+      class="pill-btn absolute right-1 top-1/2 -translate-y-1/2 px-2 aspect-square justify-center"
       aria-label="Inschrijven"
-    >
-      →
-    </button>
+    >→</button>
   </div>
-  <p id="newsletter-msg" class="hidden mt-2 text-sm pl-6" aria-live="polite"></p>
+  <p id="newsletter-msg" class="hidden mt-2 text-sm" aria-live="polite"></p>
 </form>
 
 <script>

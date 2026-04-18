@@ -22,7 +22,7 @@ const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) 
 const subline = speakersLine ? `${type} ${speakersLine}` : type;
 ---
 
-<a href={`/activiteiten/${slug}`} class="group block">
+<a href={`/activiteiten/${slug}`} class="group block no-underline">
   <article>
     <p class="leading-[1.4]">
       <span>{dateFormatted} · {timeFormatted}</span>

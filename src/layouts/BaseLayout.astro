@@ -1,11 +1,4 @@
 ---
-// TODO: download Barlow Condensed WOFF2 files from
-// https://fonts.google.com/specimen/Barlow+Condensed
-// and place in public/fonts/ before deploying.
-// Weights: BarlowCondensed-Regular.woff2, -Italic.woff2,
-//          -Bold.woff2, -BoldItalic.woff2,
-//          -Black.woff2, -BlackItalic.woff2
-
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 
@@ -21,8 +14,27 @@ const {
   isHomepage = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ernestmandelfonds.be');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ernestmandelfonds.org');
 const currentPath = Astro.url.pathname;
+const socialProfiles = [
+  'https://www.facebook.com/p/Ernest-Mandelfonds-vzw-61575587833328/',
+  'https://www.instagram.com/ernestmandelfondsvzw/',
+];
+const organizationStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'vzw Ernest Mandelfonds',
+  url: new URL('/', Astro.site ?? 'https://ernestmandelfonds.org').toString(),
+  email: 'info@ernestmandelfonds.org',
+  sameAs: socialProfiles,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Violetstraat 39/a',
+    postalCode: '2060',
+    addressLocality: 'Antwerpen',
+    addressCountry: 'BE',
+  },
+};
 ---
 
 <!doctype html>
@@ -32,17 +44,138 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {socialProfiles.map(profile => <link rel="me" href={profile} />)}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
     <title>{title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`}</title>
   </head>
-  <body class="min-h-screen flex flex-col">
-    {isHomepage && <Navbar currentPath={currentPath} atTop={true} />}
-    <main class:list={['flex-1', !isHomepage && 'pb-20']}>
-      <slot />
-    </main>
-    {!isHomepage && <Navbar currentPath={currentPath} atTop={false} />}
+  <body>
+    <div class="mx-auto px-8 py-12" style="max-width:960px">
+      <div
+        class="lg:grid lg:items-start"
+        style="grid-template-columns: calc(2.5rem * 3) 1fr; gap: 2.5rem;"
+      >
+        <!-- Aside: sticky, right-aligned to match the gutter -->
+        <aside class="mb-8 lg:mb-0 lg:sticky lg:top-12 lg:text-right">
+          <slot name="aside" />
+        </aside>
+
+        <!-- Inhoudskolom: navbar at top (homepage) or bottom (all other pages) -->
+        <div class="flex flex-col" style="min-height:calc(100vh - 6rem)">
+          {isHomepage && <Navbar currentPath={currentPath} atTop={true} />}
+          <main class="flex-1">
+            <slot />
+          </main>
+          {!isHomepage && <Navbar currentPath={currentPath} atTop={false} />}
+        </div>
+      </div>
+    </div>
+    <script is:inline>
+      (() => {
+        const headings = document.querySelectorAll('main h1, main h2, main h3, main h4, main h5, main h6');
+        const usedIds = new Set(
+          Array.from(document.querySelectorAll('[id]'))
+            .map(el => el.id)
+            .filter(Boolean),
+        );
+
+        const slugify = (text) =>
+          text
+            .toLowerCase()
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-');
+
+        for (const heading of headings) {
+          if (heading.closest('nav,aside')) continue;
+          if (heading.querySelector('.heading-anchor')) continue;
+
+          let { id } = heading;
+          if (!id) {
+            const base = slugify(heading.textContent ?? '');
+            if (!base) continue;
+
+            id = base;
+            let count = 2;
+            while (usedIds.has(id)) {
+              id = `${base}-${count}`;
+              count += 1;
+            }
+            heading.id = id;
+            usedIds.add(id);
+          }
+
+          const anchor = document.createElement('a');
+          anchor.className = 'heading-anchor';
+          anchor.href = `#${id}`;
+          anchor.textContent = '#';
+          anchor.setAttribute('aria-label', `Link naar sectie ${heading.textContent?.trim() ?? ''}`);
+
+          const label = document.createElement('span');
+          label.className = 'heading-label';
+          while (heading.firstChild) {
+            label.appendChild(heading.firstChild);
+          }
+          heading.appendChild(label);
+          label.appendChild(anchor);
+        }
+
+        const decodeHashId = () => {
+          if (!window.location.hash) return null;
+          const raw = window.location.hash.slice(1);
+          try {
+            return decodeURIComponent(raw);
+          } catch {
+            return raw;
+          }
+        };
+
+        const getHashTarget = () => {
+          const id = decodeHashId();
+          if (!id) return null;
+          const target = document.getElementById(id);
+          if (!target) return null;
+          if (target.closest('nav,aside')) return null;
+          return target;
+        };
+
+        const alignHashTargetToTop = () => {
+          document.documentElement.style.setProperty('--anchor-scroll-extra', '0px');
+
+          const target = getHashTarget();
+          if (!target) return;
+
+          const scrollMarginTop = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+          const targetTop = window.scrollY + target.getBoundingClientRect().top;
+          const desiredTop = Math.max(0, targetTop - scrollMarginTop);
+          const scrollToDesired = () => {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            window.scrollTo({ top: Math.min(desiredTop, maxScroll), behavior: 'auto' });
+          };
+
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (desiredTop > maxScroll) {
+            const extra = Math.ceil(desiredTop - maxScroll + 16);
+            document.documentElement.style.setProperty('--anchor-scroll-extra', `${extra}px`);
+            window.requestAnimationFrame(scrollToDesired);
+            return;
+          }
+
+          scrollToDesired();
+        };
+
+        const alignOnNextFrame = () => window.requestAnimationFrame(alignHashTargetToTop);
+        window.addEventListener('hashchange', alignOnNextFrame);
+        window.addEventListener('resize', () => {
+          if (window.location.hash) alignOnNextFrame();
+        });
+        if (window.location.hash) alignOnNextFrame();
+      })();
+    </script>
   </body>
 </html>

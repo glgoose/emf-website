@@ -1,51 +1,58 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarNav from '../../components/SidebarNav.astro';
+import DefinitionList from '../../components/DefinitionList.astro';
+import { overEmfNavItems } from '../../data/overEmfNav.ts';
 ---
 
 <BaseLayout title="Kameraden" description="Partnerorganisaties en solidariteitsverbanden van Ernest Mandelfonds.">
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+  <Fragment slot="aside">
+    <SidebarNav
+      backHref="/over-emf"
+      sectionLabel="Over EMF"
+      sectionHref="/over-emf"
+      currentPage="kameraden"
+      navItems={overEmfNavItems}
+    />
+  </Fragment>
 
-      <!-- Sticky left: section label + nav -->
-      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <p class="font-barlow font-black text-sm uppercase tracking-wide mb-4" style="font-family:'Barlow Condensed',Arial,sans-serif;">
-          <a href="/over-emf" class="text-[#111111] hover:underline underline-offset-2">Over EMF</a>
-        </p>
-        <nav aria-label="Paginanavigatie">
-          <ul class="list-none m-0 p-0 space-y-2 text-sm">
-            <li><a href="/over-emf/over-de-vzw" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
-            <li><a href="/over-emf/politiek-handvest" class="text-[#555555] hover:underline underline-offset-2">Politiek handvest</a></li>
-            <li><a href="/over-emf/ernest-mandel" class="text-[#555555] hover:underline underline-offset-2">Ernest Mandel</a></li>
-            <li><span class="font-bold text-[#111111]">Kameraden</span></li>
-            <li><a href="/steun-ons" class="text-[#555555] hover:underline underline-offset-2">Steun ons</a></li>
-            <li><a href="/contact" class="text-[#555555] hover:underline underline-offset-2">Contact</a></li>
-            <li><a href="/colofon" class="text-[#555555] hover:underline underline-offset-2">Colofon</a></li>
-          </ul>
-        </nav>
-        <div class="mt-6">
-          <a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a>
-        </div>
-      </div>
-
-      <!-- Right: title + content -->
-      <div class="border-t-[2px] border-[#111111] pt-6">
-        <h1
-          class="font-barlow font-black text-3xl lowercase mb-6"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          Kameraden
-        </h1>
-        <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed">
-          <p>
-            Ernest Mandelfonds werkt samen met en staat in solidariteit met een brede waaier van progressieve
-            en linkse organisaties in België en internationaal.
-          </p>
-          <p class="text-[#555555] italic">
-            [Placeholder – lijst van partnerorganisaties en solidariteitsverklaringen worden hier aangevuld.]
-          </p>
-        </div>
-      </div>
-
+  <div>
+    <div class="[&_p]:leading-relaxed">
+      <h2 class="mb-2">Organisaties</h2>
+      <DefinitionList leftWidth="10rem">
+        <dt><a href="https://www.facebook.com/p/Antwerpse-Coalitie-voor-Palestina-61570118911226/" target="_blank" rel="noopener noreferrer">Antwerpse Coalitie voor Palestina</a></dt>
+        <dd>coalitie waar het Ernest Mandelfonds deel van uitmaakt</dd>
+        <dt><a href="https://www.sap-rood.org" target="_blank" rel="noopener noreferrer">SAP</a></dt>
+        <dd>Antikapitalisten</dd>
+        <dt><a href="https://fourth.international/en/166" target="_blank" rel="noopener noreferrer">Vierde Internationale</a></dt>
+        <dd>internationale revolutionair-socialistische organisatie</dd>
+        <dt><a href="https://www.iire.org/nl" target="_blank" rel="noopener noreferrer">IIRE</a></dt>
+        <dd>International Institute for Research and Education</dd>
+      </DefinitionList>
+      <h2 class="mt-8 mb-2">Publicaties</h2>
+      <DefinitionList leftWidth="10rem">
+        <dt><a href="https://inprecor.fr/" target="_blank" rel="noopener noreferrer">Inprecor</a></dt>
+        <dd>Franstalig maandblad van de Vierde Internationale</dd>
+        <dt><a href="https://internationalviewpoint.org/" target="_blank" rel="noopener noreferrer">International Viewpoint</a></dt>
+        <dd>Engelstalige website van de Vierde Internationale</dd>
+        <dt><a href="http://www.marxists.org/nederlands/index.htm" target="_blank" rel="noopener noreferrer">Marxistisch Internet Archief</a></dt>
+        <dd>online archief van Nederlandstalige marxistische teksten</dd>
+        <dt><a href="http://www.uitpers.be/" target="_blank" rel="noopener noreferrer">Uitpers</a></dt>
+        <dd>webzine voor internationale politiek</dd>
+        <dt><a href="https://www.inprekorr.de/" target="_blank" rel="noopener noreferrer">Die Internationale</a></dt>
+        <dd>Duitstalig magazine</dd>
+        <dt><a href="https://florsnieuweblog.blogspot.com/2025/09/kijk-waarop-ik-onverwachts-in-mijn.html" target="_blank" rel="noopener noreferrer">De Laatste Vuurtorenwachter</a></dt>
+        <dd>blog van Flor Vandekerckhove, over <em>Uitgelezen Moorden: Een sociale geschiedenis van het misdaadverhaal</em> door Ernest Mandel.</dd>
+      </DefinitionList>
+      <p class="mt-10">
+        De vermelde organisaties en publicaties zijn partijen waarmee we hetzij banden hebben, hetzij verwantschap voelen.
+      </p>
+      <p>
+        Indien er linken zijn die niet werken of als u vindt dat er een website aan ontbreekt, kan u dat altijd melden via
+        <a href="mailto:info@ernestmandelfonds.org">
+          info@ernestmandelfonds.org
+        </a>.
+      </p>
     </div>
   </div>
 </BaseLayout>

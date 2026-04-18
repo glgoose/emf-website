@@ -1,0 +1,2 @@
+- [ ] sign-up fields zoals deappel
+- [ ] sidebar needs to stay fixed when clicking anchor link

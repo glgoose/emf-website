@@ -1,65 +1,73 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarNav from '../../components/SidebarNav.astro';
+import { overEmfNavItems } from '../../data/overEmfNav.ts';
 ---
 
-<BaseLayout title="Ernest Mandel" description="Over de Belgische marxistische econoom Ernest Mandel (1923–1995), naamgever van de vzw.">
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+<BaseLayout title="Ernest Mandel" description="Over de Belgische marxistische econoom Ernest Mandel (1923–1995).">
+  <Fragment slot="aside">
+    <SidebarNav
+      backHref="/over-emf"
+      sectionLabel="Over EMF"
+      sectionHref="/over-emf"
+      currentPage="ernest-mandel"
+      navItems={overEmfNavItems}
+    />
+  </Fragment>
 
-      <!-- Sticky left: section label + nav -->
-      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <p class="font-barlow font-black text-sm uppercase tracking-wide mb-4" style="font-family:'Barlow Condensed',Arial,sans-serif;">
-          <a href="/over-emf" class="text-[#111111] hover:underline underline-offset-2">Over EMF</a>
-        </p>
-        <nav aria-label="Paginanavigatie">
-          <ul class="list-none m-0 p-0 space-y-2 text-sm">
-            <li><a href="/over-emf/over-de-vzw" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
-            <li><a href="/over-emf/politiek-handvest" class="text-[#555555] hover:underline underline-offset-2">Politiek handvest</a></li>
-            <li><span class="font-bold text-[#111111]">Ernest Mandel</span></li>
-            <li><a href="/over-emf/kameraden" class="text-[#555555] hover:underline underline-offset-2">Kameraden</a></li>
-            <li><a href="/steun-ons" class="text-[#555555] hover:underline underline-offset-2">Steun ons</a></li>
-            <li><a href="/contact" class="text-[#555555] hover:underline underline-offset-2">Contact</a></li>
-            <li><a href="/colofon" class="text-[#555555] hover:underline underline-offset-2">Colofon</a></li>
-          </ul>
-        </nav>
-        <div class="mt-6">
-          <a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a>
-        </div>
-      </div>
-
-      <!-- Right: title + content -->
-      <div class="border-t-[2px] border-[#111111] pt-6">
-        <h1
-          class="font-barlow font-black text-3xl lowercase mb-6"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          Ernest Mandel
-        </h1>
-        <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed">
-          <p>
-            Ernest Ezra Mandel (Frankfort, 5 april 1923 – Brussel, 20 juli 1995) was een Belgische marxistische
-            economist, politiek activist en schrijver. Hij is een van de belangrijkste marxistische denkers
-            van de twintigste eeuw.
-          </p>
-          <p>
-            Mandel werd geboren in een joods-socialistisch gezin en sloot zich al vroeg aan bij de Vierde
-            Internationale. Tijdens de Tweede Wereldoorlog was hij actief in het verzet en werd hij driemaal
-            gevangen genomen door de nazi's, waaruit hij tweemaal wist te ontsnappen.
-          </p>
-          <p>
-            Zijn hoofdwerk <em>Late Capitalism</em> (1972) is een monumentale analyse van de naoorlogse
-            kapitalistische economie. Mandel ontwikkelde ook de theorie van de <em>lange golven</em> in de
-            economische geschiedenis. Zijn <em>Introduction to Marxist Economic Theory</em> is nog steeds een
-            van de meest gelezen inleidingen tot Marx' economie.
-          </p>
-          <p>
-            Mandel was professor aan de Vrije Universiteit Brussel (VUB) en gastprofessor aan universiteiten
-            over de hele wereld. Zijn werk blijft een onmisbare referentie voor wie de politieke economie
-            van het kapitalisme wil begrijpen.
-          </p>
-        </div>
-      </div>
-
+  <div>
+    <div class="[&_p]:leading-relaxed">
+      <p>
+        Ernest Mandel wordt in 1923 geboren in Frankfurt, in een
+        revolutionair-communistische familie. Zijn vader was actief in de Spartakusbond en
+        verzette zich in de jaren 1930 tegen stalinisme en opkomend fascisme. Vanaf zijn eerste
+        levensjaar groeit Mandel op in Antwerpen, waar zijn ouders in ballingschap leven.
+      </p>
+      <p>
+        Nauwelijks zestien jaar oud (1939) wordt hij lid van de Belgische afdeling van de Vierde
+        Internationale. Tijdens de oorlog neemt hij deel aan het verzet tegen de nazi-bezetting en
+        verdedigt hij een moedig internationalistisch standpunt. Hij wordt herhaaldelijk
+        gearresteerd door de bezetter, maar weet telkens te ontsnappen. Op het einde van de oorlog
+        wordt hij gedeporteerd naar werkkampen in Duitsland, waaruit hij in april 1945 weet weg te
+        geraken.
+      </p>
+      <p>
+        Na de oorlog engageert Mandel zich in de vakbeweging. Hij wordt een van de belangrijkste
+        raadgevers van André Renard (ABVV) en werkt mee aan het programma <em>Holdings en
+        economische democratie</em> en aan voorstellen voor antikapitalistische
+        structuurhervormingen. Vanuit die activiteiten speelt hij ook een rol in de voorbereiding
+        van de algemene staking van december 1960-januari 1961 tegen de eenheidswet.
+      </p>
+      <p>
+        In 1964 wordt hij samen met de antikapitalistische linkerzijde uitgesloten uit de BSP. In
+        dezelfde periode wordt hij zeer actief in de solidariteit met antikoloniale revoluties,
+        onder meer in Algerije en Cuba. Che Guevara nodigt hem uit in Cuba voor debat over de
+        economische organisatie van de revolutie.
+      </p>
+      <p>
+        In tegenstelling tot vele leeftijdsgenoten schat hij ook de betekenis van 1968 scherp in
+        (mei 1968, de Praagse lente, het Tet-offensief in Vietnam). Zijn politieke werk en
+        bekendheid leiden ertoe dat hij in meerdere landen de toegang geweigerd wordt, waaronder
+        Frankrijk, de VS, beide Duitslanden, Australië en Nieuw-Zeeland.
+      </p>
+      <p>
+        In België is Ernest Mandel een van de oprichters van de Revolutionaire Arbeidersliga
+        (RAL, later SAP - Antikapitalisten), een samenkomen van antikapitalistische militanten uit
+        de arbeidersbeweging en geradicaliseerde jongeren.
+      </p>
+      <p>
+        Als marxistisch theoreticus laat hij een omvangrijk oeuvre na. Tot zijn belangrijkste
+        werken behoren <em>Traité d'économie marxiste</em> (1962), <em>De vorming van het economisch
+        denken van Karl Marx</em>, <em>De lange golven van de kapitalistische ontwikkeling</em> en
+        <em>Het Laatkapitalisme</em>. Zijn geschriften verschijnen in vele talen en beïnvloeden een
+        nieuwe generatie kritische economen.
+      </p>
+      <p>
+        Ook na de nederlagen in Oost-Europa blijft Mandel internationaal actief en zoekt hij
+        samenwerking tussen linkse stromingen. Zijn gezondheid lijdt onder dat intense ritme. Op
+        20 juli 1995 overlijdt hij aan een hartaanval, kort na het XIVde Wereldcongres van de
+        Vierde Internationale.
+      </p>
     </div>
   </div>
 </BaseLayout>

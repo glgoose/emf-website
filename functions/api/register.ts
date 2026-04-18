@@ -1,10 +1,13 @@
 // Cloudflare Pages Function: POST /api/register
-// Writes a registration row to a Baserow table.
-// Env vars required: BASEROW_URL, BASEROW_TOKEN
+// Sends a registration email to info@ernestmandelfonds.org via MailChannels.
+// No env vars required for MailChannels on Cloudflare Pages (works automatically).
+// Optional env var: EMAIL_TO (overrides the default recipient)
+//
+// Future: to switch to Baserow, restore the Baserow integration and set
+// BASEROW_URL and BASEROW_TOKEN as secrets in the Cloudflare dashboard.
 
 interface Env {
-  BASEROW_URL: string;
-  BASEROW_TOKEN: string;
+  EMAIL_TO?: string;
 }
 
 function json(data: unknown, status = 200): Response {
@@ -38,35 +41,32 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ error: 'Ongeldig e-mailadres.' }, 400);
   }
 
-  const { BASEROW_URL, BASEROW_TOKEN } = env;
+  const to = env.EMAIL_TO ?? 'info@ernestmandelfonds.org';
 
-  // The table ID should be passed from the form (sourced from frontmatter)
-  const tableId = body?.baserow_table_id?.trim() ?? event_slug;
-
-  if (!BASEROW_URL || !BASEROW_TOKEN || !tableId) {
-    return json({ error: 'Registratieservice niet geconfigureerd.' }, 500);
-  }
+  const textBody = [
+    `Nieuwe inschrijving${event_title ? ` voor: ${event_title}` : ''}`,
+    '',
+    `Naam:      ${naam}`,
+    `E-mail:    ${email}`,
+    telefoon ? `Telefoon:  ${telefoon}` : null,
+    opmerking ? `Opmerking: ${opmerking}` : null,
+    event_slug ? `Activiteit: ${event_slug}` : null,
+  ].filter(Boolean).join('\n');
 
   try {
-    const res = await fetch(
-      `${BASEROW_URL}/api/database/rows/table/${tableId}/?user_field_names=true`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${BASEROW_TOKEN}`,
-        },
-        body: JSON.stringify({
-          Naam: naam,
-          'E-mail': email,
-          Telefoon: telefoon,
-          Opmerking: opmerking,
-          Activiteit: event_title,
-        }),
-      }
-    );
+    const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        personalizations: [{ to: [{ email: to }] }],
+        from: { email: 'noreply@ernestmandelfonds.org', name: 'Ernest Mandelfonds website' },
+        reply_to: { email, name: naam },
+        subject: `Inschrijving${event_title ? `: ${event_title}` : ''} – ${naam}`,
+        content: [{ type: 'text/plain', value: textBody }],
+      }),
+    });
 
-    if (res.ok) {
+    if (res.ok || res.status === 202) {
       return json({ ok: true });
     }
 

@@ -1,7 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarHeading from '../../components/SidebarHeading.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
+import CalendarButton from '../../components/CalendarButton.astro';
+import CalendarAddIcon from '../../components/icons/CalendarAddIcon.astro';
 import { getCollection, render } from 'astro:content';
+import { formatLongDate, formatTimeRange, formatSpeakersLine, stripHtml } from '../../lib/formatDateTime';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -16,68 +20,94 @@ const { Content } = await render(event);
 
 const {
   title,
+  subtitle,
   date,
   time,
+  type,
   location,
   address,
+  speakers,
   registration_open,
   registration_deadline,
+  cover,
+  price,
+  end_time,
 } = event.data;
 
-const dateFormatted = date.toLocaleDateString('nl-BE', {
-  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-});
+const dateFormatted = formatLongDate(date);
+const timeFormatted = formatTimeRange(time, end_time);
+const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) : '';
+const subline = speakersLine ? `${type} ${speakersLine}` : type;
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 const isPast = date < today;
+
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+const parentPath = segments.length <= 1 ? '/' : '/' + segments.slice(0, -1).join('/');
+
+const plainTitle = stripHtml(title);
 ---
 
-<BaseLayout title={title} description={event.data.description}>
-  <article class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+<BaseLayout title={plainTitle} description={event.data.description}>
+  <Fragment slot="aside">
+    <SidebarHeading
+      backHref={parentPath}
+      title={title}
+      subtitle={subtitle}
+    >
+      <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase mb-4">{subline}</p>
+      <p class="text-xs leading-snug mb-0">{dateFormatted}</p>
+      <p class="text-xs leading-snug mb-2">{timeFormatted}</p>
+      {location && (
+        <p class="text-xs leading-snug mb-2">
+          {location}
+          {address && <><br />{address}</>}
+        </p>
+      )}
+      {price && (
+        <p class="text-xs leading-snug mt-1">{price}</p>
+      )}
+      <CalendarButton
+        href={`/activiteiten/${event.id}.ics`}
+        tooltip="Voeg toe aan je agenda"
+        ariaLabel="Voeg toe aan je agenda"
+        class="mt-2"
+      >
+        <CalendarAddIcon />
+      </CalendarButton>
+    </SidebarHeading>
+  </Fragment>
 
-      <!-- Sticky left: title + meta -->
-      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <h1
-          class="font-barlow font-black text-2xl leading-tight lowercase mb-4"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          {title}
-        </h1>
-        <p class="text-xs text-[#555555] leading-relaxed mb-1">{dateFormatted}</p>
-        <p class="text-xs text-[#555555] leading-relaxed mb-1">{time.replace(':', 'u').replace(/u00$/, 'u')}</p>
-        {location && (
-          <p class="text-xs text-[#555555] leading-relaxed">
-            <strong class="text-[#111111]">{location}</strong>
-            {address && <><br />{address}</>}
-          </p>
-        )}
-        <div class="mt-6 space-y-2">
-          <div><a href="/activiteiten" class="text-xs text-[#555555] hover:underline underline-offset-2">← activiteiten</a></div>
-          <div><a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a></div>
-        </div>
-      </div>
+  {cover && (
+    <img src={cover} alt={plainTitle} class="w-full mb-6" />
+  )}
 
-      <!-- Scrollable right: content -->
-      <div class="border-t-[2px] border-[#111111] pt-6">
-        <div class="prose prose-lg max-w-none text-[#111111]
-          [&_h2]:font-barlow [&_h2]:font-black [&_h2]:text-2xl [&_h2]:lowercase [&_h2]:mb-2
-          [&_h3]:font-barlow [&_h3]:font-black [&_h3]:text-xl [&_h3]:lowercase [&_h3]:mt-6 [&_h3]:mb-1
-          [&_a]:text-[#E8320A] [&_a]:underline [&_a]:underline-offset-2
-          [&_p]:leading-relaxed">
-          <Content />
-        </div>
-
-        {registration_open && !isPast && (
-          <RegistrationForm
-            eventSlug={event.id}
-            eventTitle={title}
-            registrationDeadline={registration_deadline}
-          />
-        )}
-      </div>
-
-    </div>
+  <article class="prose">
+    <Content />
   </article>
+
+  {speakers && speakers.length > 0 && (
+    <section class="prose mb-6">
+      <h3>Bio</h3>
+      <ul>
+        {speakers.map(s => (
+          <li>
+            <strong>{s.name}</strong>{(() => {
+              const bio = Array.isArray(s.bio) ? s.bio.join(', ') : (s.bio ?? '');
+              return bio ? <Fragment>: <span set:html={bio} /></Fragment> : null;
+            })()}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {registration_open && !isPast && (
+    <RegistrationForm
+      eventSlug={event.id}
+      eventTitle={plainTitle}
+      registrationDeadline={registration_deadline}
+    />
+  )}
 </BaseLayout>

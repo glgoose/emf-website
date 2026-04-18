@@ -1,27 +1,24 @@
 ---
-title: "King Kong – tentoonstelling in MUHKA"
+type: "rondleiding"
+title: "Archieftentoonstelling King Kong"
 date: 2025-08-31
 time: "14:00"
-location: "MUHKA – Museum van Hedendaagse Kunst Antwerpen"
+location: "M HKA"
 address: "Leuvenstraat 32, 2000 Antwerpen"
-description: "Gezamenlijk bezoek aan de tentoonstelling King Kong in het MUHKA. We verkennen hoe het werk van Ernest Mandel doorklinkt in hedendaagse kunst en cultuurkritiek."
+description: "Bezoek aan de archieftentoonstelling <em>De King Kong tussen cinefilie en links activisme</em>, onder begeleiding van Guido Totté."
+speakers:
+  - name: "Guido Totté"
 registration_open: true
-registration_deadline: 2025-08-24
+registration_deadline: 2025-08-26
 capacity: 25
 baserow_table_id: "king-kong-muhka-2025"
+price: "€14 (voordeeltarieven voor 65+, studenten; gratis met cultuurpas)"
 ---
 
-## King Kong – een cultuurpolitieke lezing
+De archiefpresentatie van 10 masterstudenten theater- en filmwetenschappen van de Universiteit Antwerpen (UA) heeft als titel: *De King Kong tussen cinefilie en links activisme*.
 
-Ernest Mandelfonds nodigt u uit voor een gezamenlijk bezoek aan de tentoonstelling **King Kong** in het Museum van Hedendaagse Kunst Antwerpen (MUHKA).
-
-De tentoonstelling brengt werken samen die thema's van macht, monster en mythe verkennen — een perfecte aanleiding om de relatie tussen kunst, kapitalisme en politieke verbeelding te bespreken.
-
-Na het museumbezoek is er een informele nabespreking in het nabijgelegen café.
+Bij velen zal 'de King Kong' nog een belletje doen rinkelen als trefpunt van de Revolutionaire Arbeidersliga (RAL), de Rooie Vlinder, de Groep Rooie Vrouwen (GROV) en natuurlijk ook De Andere Film. Anderen kennen de King Kong enkel van naam of helemaal niet.
 
 ### Praktisch
 
-- Datum: zondag 31 augustus 2025 om 14u00
-- Locatie: MUHKA, Leuvenstraat 32, 2000 Antwerpen
-- Deelname is gratis voor leden; niet-leden betalen het museumtarief
-- Inschrijven verplicht (beperkte plaatsen)
+- De rondleiding duurt ongeveer een uur; nadien is er tijd op het dakterras om na te praten.

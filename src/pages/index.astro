@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EventCard from '../components/EventCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import PillButton from '../components/PillButton.astro';
 import { getCollection } from 'astro:content';
 
 const today = new Date();
@@ -13,93 +14,41 @@ const upcomingEvents = allEvents
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const nextEvent = upcomingEvents[0] ?? null;
-
-const allNews = await getCollection('news');
-const latestNews = allNews
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 5);
 ---
 
 <BaseLayout isHomepage={true}>
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+  <Fragment slot="aside">
+    <a href="/" aria-label="Ernest Mandelfonds – startpagina">
+      <img
+        src="/images/symbolPINK.png"
+        alt="Ernest Mandelfonds"
+        class="lg:ml-auto block max-w-[80px]"
+      />
+    </a>
+  </Fragment>
 
-      <!-- Left: logo -->
-      <div class="mb-8 lg:mb-0">
-        <a href="/" aria-label="Ernest Mandelfonds – startpagina">
-          <img
-            src="/images/logoRED.png"
-            alt="Ernest Mandelfonds"
-            class="w-full max-w-[160px]"
-          />
-        </a>
-      </div>
+  {nextEvent && (
+    <section>
+      <h2>
+        Volgende activiteit
+      </h2>
+      <EventCard
+        title={nextEvent.data.title}
+        date={nextEvent.data.date}
+        time={nextEvent.data.time}
+        location={nextEvent.data.location ?? undefined}
+        end_time={nextEvent.data.end_time}
+        type={nextEvent.data.type}
+        speakers={nextEvent.data.speakers}
+        cover={nextEvent.data.cover}
+        description={nextEvent.data.description}
+        slug={nextEvent.id}
+      />
+    </section>
+  )}
 
-      <!-- Right: content -->
-      <div>
-        {nextEvent && (
-          <section class="mb-10">
-            <h2
-              class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
-              style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
-            >
-              Volgende activiteit
-            </h2>
-            <EventCard
-              title={nextEvent.data.title}
-              date={nextEvent.data.date}
-              time={nextEvent.data.time}
-              location={nextEvent.data.location}
-              description={nextEvent.data.description}
-              slug={nextEvent.id}
-            />
-          </section>
-        )}
-
-        {latestNews.length > 0 && (
-          <section class="mb-10">
-            <h2
-              class="font-barlow font-black text-xs uppercase tracking-widest text-[#555555] mb-4"
-              style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;"
-            >
-              Nieuws
-            </h2>
-            <ul class="list-none m-0 p-0 space-y-3">
-              {latestNews.map(item => {
-                const dateStr = item.data.date.toLocaleDateString('nl-BE', {
-                  day: 'numeric', month: 'long', year: 'numeric'
-                });
-                return (
-                  <li class="border-t border-[#e8e8e8] pt-3">
-                    <p class="text-xs text-[#555555] mb-1">{dateStr}</p>
-                    <a
-                      href={`/nieuws/${item.id}`}
-                      class="text-[#111111] font-bold text-sm hover:underline leading-snug"
-                    >
-                      {item.data.title}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-            <div class="mt-4">
-              <a href="/nieuws" class="text-sm text-[#E8320A] font-bold hover:underline">Alle nieuws →</a>
-            </div>
-          </section>
-        )}
-
-        <!-- Steun ons + newsletter -->
-        <div class="mt-10 flex items-center justify-between gap-6">
-          <a
-            href="/steun-ons"
-            class="shrink-0 border border-[#111111] rounded-full px-5 text-[#111111] hover:bg-[#111111] hover:text-white transition-colors no-underline"
-            style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;padding-top:0.35rem;padding-bottom:0.35rem;"
-          >Steun ons</a>
-
-          <NewsletterForm />
-        </div>
-      </div>
-
-    </div>
+  <div class="flex flex-wrap items-center justify-between gap-4 mt-10">
+    <PillButton href="/steun-ons" class="shrink-0">Steun ons</PillButton>
+    <NewsletterForm />
   </div>
 </BaseLayout>

@@ -1,89 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SidebarNav from '../components/SidebarNav.astro';
+import DefinitionList from '../components/DefinitionList.astro';
+import { overEmfNavItems } from '../data/overEmfNav.ts';
 ---
 
 <BaseLayout title="Contact" description="Contacteer vzw Ernest Mandelfonds.">
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+  <Fragment slot="aside">
+    <SidebarNav
+      backHref="/"
+      sectionLabel="Over EMF"
+      sectionHref="/over-emf"
+      currentPage="contact"
+      navItems={overEmfNavItems}
+    />
+  </Fragment>
 
-      <!-- Sticky left: section label + nav -->
-      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <p class="font-barlow font-black text-sm uppercase tracking-wide mb-4" style="font-family:'Barlow Condensed',Arial,sans-serif;">
-          <a href="/over-emf" class="text-[#111111] hover:underline underline-offset-2">Over EMF</a>
-        </p>
-        <nav aria-label="Paginanavigatie">
-          <ul class="list-none m-0 p-0 space-y-2 text-sm">
-            <li><a href="/over-emf/over-de-vzw" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
-            <li><a href="/over-emf/politiek-handvest" class="text-[#555555] hover:underline underline-offset-2">Politiek handvest</a></li>
-            <li><a href="/over-emf/ernest-mandel" class="text-[#555555] hover:underline underline-offset-2">Ernest Mandel</a></li>
-            <li><a href="/over-emf/kameraden" class="text-[#555555] hover:underline underline-offset-2">Kameraden</a></li>
-            <li><a href="/steun-ons" class="text-[#555555] hover:underline underline-offset-2">Steun ons</a></li>
-            <li><span class="font-bold text-[#111111]">Contact</span></li>
-            <li><a href="/colofon" class="text-[#555555] hover:underline underline-offset-2">Colofon</a></li>
-          </ul>
-        </nav>
-        <div class="mt-6">
-          <a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a>
-        </div>
-      </div>
-
-      <!-- Right: title + content -->
-      <div class="border-t-[2px] border-[#111111] pt-6 space-y-10">
-        <h1
-          class="font-barlow font-black text-3xl lowercase mb-2"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          Contact
-        </h1>
-
-        <section>
-          <h2
-            class="font-barlow font-black text-2xl lowercase border-b border-[#e8e8e8] pb-2 mb-4"
-            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-          >
-            Contactgegevens
-          </h2>
-          <dl class="text-sm grid grid-cols-[auto_1fr] gap-x-8 gap-y-2 text-[#555555]">
-            <dt class="font-bold text-[#111111]">E-mail</dt>
-            <dd><a href="mailto:info@ernestmandelfonds.be" class="underline underline-offset-2 hover:text-[#111111]">info@ernestmandelfonds.be</a></dd>
-            <dt class="font-bold text-[#111111]">Adres</dt>
-            <dd>
-              Vzw Ernest Mandelfonds<br />
-              [adres nog toe te voegen]<br />
-              2000 Antwerpen
-            </dd>
-            <dt class="font-bold text-[#111111]">Sociale media</dt>
-            <dd class="space-y-1">
-              <div><a href="#" class="underline underline-offset-2 hover:text-[#111111]">Facebook</a></div>
-              <div><a href="#" class="underline underline-offset-2 hover:text-[#111111]">Instagram</a></div>
-            </dd>
-          </dl>
-        </section>
-
-        <section id="impressum">
-          <h2
-            class="font-barlow font-black text-2xl lowercase border-b border-[#e8e8e8] pb-2 mb-4"
-            style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-          >
-            Impressum
-          </h2>
-          <dl class="text-sm grid grid-cols-[auto_1fr] gap-x-8 gap-y-2 text-[#555555]">
-            <dt class="font-bold text-[#111111]">Rechtsvorm</dt>
-            <dd>Vzw (vereniging zonder winstoogmerk)</dd>
-            <dt class="font-bold text-[#111111]">BTW-nummer</dt>
-            <dd>BE 1022.401.378</dd>
-            <dt class="font-bold text-[#111111]">RPR</dt>
-            <dd>RPR Antwerpen</dd>
-            <dt class="font-bold text-[#111111]">Rekeningnummer</dt>
-            <dd>BE06 0020 0994 8922</dd>
-            <dt class="font-bold text-[#111111]">Verantwoordelijke uitgever</dt>
-            <dd>[Naam – in te vullen]</dd>
-            <dt class="font-bold text-[#111111]">Licentie</dt>
-            <dd>Inhoud beschikbaar onder <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="underline underline-offset-2 hover:text-[#111111]" target="_blank" rel="noopener">CC BY-SA 4.0</a>, tenzij anders aangegeven.</dd>
-          </dl>
-        </section>
-
-      </div>
-    </div>
-  </div>
+  <DefinitionList>
+    <dt class="font-bold">e-mail</dt>
+    <dd><a href="mailto:info@ernestmandelfonds.be" class="underline-offset-2 hover:text-[#111111]">info@ernestmandelfonds.be</a></dd>
+    <dt class="font-bold">social media</dt>
+    <dd><div class="flex flex-col gap-1"><a href="https://www.facebook.com/p/Ernest-Mandelfonds-vzw-61575587833328/" class="underline-offset-2 hover:text-[#111111]" target="_blank" rel="noopener">facebook</a><a href="https://www.instagram.com/ernestmandelfondsvzw/" class="underline-offset-2 hover:text-[#111111]" target="_blank" rel="noopener">instagram</a></div></dd>
+  </DefinitionList>
 </BaseLayout>

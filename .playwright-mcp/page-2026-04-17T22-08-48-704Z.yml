@@ -1,0 +1,38 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - link "Ernest Mandelfonds – startpagina" [ref=e5] [cursor=pointer]:
+      - /url: /
+      - img "Ernest Mandelfonds" [ref=e6]
+  - generic [ref=e7]:
+    - navigation "Hoofdnavigatie" [ref=e8]:
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link "activiteiten" [ref=e11] [cursor=pointer]:
+            - /url: /activiteiten
+        - listitem [ref=e12]: /
+        - listitem [ref=e13]:
+          - link "over EMF" [ref=e14] [cursor=pointer]:
+            - /url: /over-emf
+    - main [ref=e15]:
+      - generic [ref=e16]:
+        - heading "Volgende activiteit" [level=2] [ref=e17]:
+          - generic [ref=e18]: Volgende activiteit
+        - article [ref=e19]:
+          - paragraph [ref=e20]: zaterdag 9 mei 2026 · 14u · De Groene Waterman
+          - heading "Inleiding tot het Marxisme van Ernest Mandel" [level=3] [ref=e21]:
+            - link "Inleiding tot het Marxisme van Ernest Mandel" [ref=e23] [cursor=pointer]:
+              - /url: /activiteiten/boekvoorstelling-inleiding-tot-het-marxisme
+              - emphasis [ref=e24]: Inleiding tot het Marxisme
+              - text: van Ernest Mandel
+          - paragraph [ref=e25]:
+            - text: Voorstelling van de nieuwe uitgave van Ernest Mandels
+            - emphasis [ref=e26]: Inleiding tot het Marxisme
+            - text: ", met Alex De Jong (IIRE Amsterdam) en Anton Jäger (KU Leuven)."
+            - text: Iedereen welkom – inkom gratis.
+      - generic [ref=e27]:
+        - link "Steun ons" [ref=e28] [cursor=pointer]:
+          - /url: /steun-ons
+        - generic [ref=e30]:
+          - textbox "E-mailadres voor nieuwsbrief" [ref=e31]:
+            - /placeholder: Inschrijven voor nieuwsbrief
+          - button "Inschrijven" [ref=e32] [cursor=pointer]: ">>"

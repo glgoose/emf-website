@@ -1,75 +1,51 @@
-// NOTE: This file is kept for reference.
-// In production, this logic runs as a Cloudflare Pages Function at functions/api/subscribe.ts
-// See /functions/api/ for the deployed handlers.
+// Dev server API route (astro dev). Production uses functions/api/subscribe.ts (CF Pages Function).
+// MailChannels only works in deployed CF Pages context, not locally.
 import type { APIRoute } from 'astro';
+
+function json(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
 
 export const POST: APIRoute = async ({ request }) => {
   let email: string | undefined;
 
   try {
     const body = await request.json();
-    email = body?.email?.trim();
+    email = typeof body?.email === 'string' ? body.email.trim() : undefined;
   } catch {
-    return new Response(JSON.stringify({ error: 'Ongeldig verzoek.' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: 'Ongeldig verzoek.' }, 400);
   }
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return new Response(JSON.stringify({ error: 'Ongeldig e-mailadres.' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: 'Ongeldig e-mailadres.' }, 400);
   }
 
-  const listmonkUrl = import.meta.env.LISTMONK_URL;
-  const listmonkListUuid = import.meta.env.LISTMONK_LIST_UUID;
+  const to = import.meta.env.EMAIL_TO ?? 'info@ernestmandelfonds.org';
 
-  if (!listmonkUrl || !listmonkListUuid) {
-    console.error('Listmonk env vars not set');
-    return new Response(JSON.stringify({ error: 'Nieuwsbrief service niet geconfigureerd.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  // In dev, just log — MailChannels only works on CF Pages
+  if (import.meta.env.DEV) {
+    console.log('[dev] Would send newsletter notification to', to, 'for subscriber:', email);
+    return json({ ok: true });
   }
 
   try {
-    const res = await fetch(`${listmonkUrl}/api/subscribers`, {
+    const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Listmonk requires basic auth; credentials should be set via env if needed.
-        // For now we use the public subscriber API which typically doesn't require auth.
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email,
-        name: email,
-        status: 'enabled',
-        lists: [listmonkListUuid],
-        preconfirm_subscriptions: false,
+        personalizations: [{ to: [{ email: to }] }],
+        from: { email: 'noreply@ernestmandelfonds.org', name: 'Ernest Mandelfonds website' },
+        subject: `Nieuw nieuwsbrief-abonnement: ${email}`,
+        content: [{ type: 'text/plain', value: `Nieuw abonnement op de nieuwsbrief:\n\n${email}` }],
       }),
     });
 
-    if (res.ok || res.status === 409) {
-      // 409 = already subscribed — treat as success
-      return new Response(JSON.stringify({ ok: true }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const text = await res.text();
-    console.error('Listmonk error:', res.status, text);
-    return new Response(JSON.stringify({ error: 'Inschrijving mislukt. Probeer later opnieuw.' }), {
-      status: 502,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (err) {
-    console.error('Listmonk fetch error:', err);
-    return new Response(JSON.stringify({ error: 'Netwerkfout. Probeer later opnieuw.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    if (res.ok || res.status === 202) return json({ ok: true });
+    return json({ error: 'Inschrijving mislukt. Probeer later opnieuw.' }, 502);
+  } catch {
+    return json({ error: 'Netwerkfout. Probeer later opnieuw.' }, 500);
   }
 };

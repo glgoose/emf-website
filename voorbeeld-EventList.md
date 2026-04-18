@@ -1,0 +1,1 @@
+*Inleiding to the Marxisme*. Ernest Mandel — `boekvoorstelling` met Anton Jäger en Alex De Jong

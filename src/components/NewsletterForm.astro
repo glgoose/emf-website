@@ -1,25 +1,18 @@
 ---
+import UnderlineField from './UnderlineField.astro';
 ---
 
-<form id="newsletter-form" novalidate>
-  <div class="relative" style="max-width:480px;">
-    <input
-      id="newsletter-email"
-      type="email"
-      name="email"
-      required
-      placeholder="Inschrijven op nieuwsbrief"
-      class="w-full border border-[#111111] rounded-full bg-transparent text-[#111111] outline-none placeholder:text-[#999999] placeholder:not-italic"
-      style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;padding:0.35rem 2.5rem 0.35rem 1.25rem;-webkit-appearance:none;appearance:none;"
-      aria-label="E-mailadres voor nieuwsbrief"
-    />
-    <button
-      type="submit"
-      class="absolute right-4 top-1/2 -translate-y-1/2 text-[#111111] hover:opacity-50 transition-opacity bg-transparent border-none p-0 leading-none"
-      style="font-family:'EB Garamond',Georgia,serif;font-size:1.125rem;"
-      aria-label="Inschrijven"
-    >→</button>
-  </div>
+<form id="newsletter-form" class="flex-1 min-w-0 max-w-[15em]" novalidate>
+  <UnderlineField
+    id="newsletter-email"
+    type="email"
+    name="email"
+    required
+    placeholder="Inschrijven voor nieuwsbrief"
+    ariaLabel="E-mailadres voor nieuwsbrief"
+    submitLabel=">>"
+    submitAriaLabel="Inschrijven"
+  />
   <p id="newsletter-msg" class="hidden mt-2 text-sm" aria-live="polite"></p>
 </form>
 

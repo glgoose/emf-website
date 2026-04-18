@@ -1,43 +1,65 @@
-# Astro Starter Kit: Minimal
+# ernestmandelfonds.be
+
+Website for vzw Ernest Mandelfonds — ecosocialistisch studiecentrum en politiek vormingsorgaan.
+
+Built with [Astro](https://astro.build), [Tailwind CSS v4](https://tailwindcss.com), and deployed on [Cloudflare Pages](https://pages.cloudflare.com).
+
+## Stack
+
+- **Astro v5** — static site generator
+- **Tailwind CSS v4** — utility-first CSS
+- **Sveltia CMS** — git-based CMS at `/admin`
+- **Cloudflare Pages Functions** — serverless API endpoints (`functions/api/`)
+- **MailChannels** — transactional email (works automatically on Cloudflare Pages, no extra account needed)
+
+## Commands
+
+| Command           | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Install dependencies                        |
+| `npm run dev`     | Start dev server at `localhost:4321`        |
+| `npm run build`   | Build to `./dist/`                          |
+| `npm run preview` | Preview the production build locally        |
+| `npm run visual:test:update` | Create/update Playwright visual snapshots |
+| `npm run visual:test` | Run Playwright visual regression checks |
+| `npm run visual:report` | Open Playwright HTML report |
+
+### Front-end guardrails
+
+- Visual regressions should be checked in **both Chromium and WebKit (Safari engine)**.
+- Heading `#` anchor behavior should stay centralized in:
+  - `src/layouts/BaseLayout.astro` (anchor injection / hash handling)
+  - `src/styles/global.css` (anchor visibility, color, and hover behavior)
+
+## API endpoints
+
+| Endpoint         | Function                                                               |
+| :--------------- | :--------------------------------------------------------------------- |
+| `POST /api/register`  | Event registration — sends email to `info@ernestmandelfonds.org` |
+| `POST /api/subscribe` | Newsletter sign-up — sends email to `info@ernestmandelfonds.org`  |
+
+In local dev, both endpoints just log to the console (MailChannels only works on CF Pages).
+
+## Deployment
+
+Connect the GitHub repo in the Cloudflare Pages dashboard, or deploy manually:
 
 ```sh
-npm create astro@latest -- --template minimal
+npm run build
+npx wrangler pages deploy dist --project-name ernestmandelfonds-website
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Optional secret (overrides the default email recipient):
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npx wrangler pages secret put EMAIL_TO --project-name ernestmandelfonds-website
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Content
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Content lives in `src/content/`:
 
-Any static assets, like images, can be placed in the `public/` directory.
+- `events/` — activiteiten (`.md` files)
+- `posts/` — nieuws & publicaties (`.md` files)
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The CMS at `/admin` (Sveltia CMS) can edit these files via GitHub.

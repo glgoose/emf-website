@@ -1,10 +1,13 @@
 // Cloudflare Pages Function: POST /api/subscribe
-// Adds a subscriber to Listmonk.
-// Env vars required: LISTMONK_URL, LISTMONK_LIST_UUID
+// Sends a newsletter subscription notification to info@ernestmandelfonds.org via MailChannels.
+// No env vars required for MailChannels on Cloudflare Pages (works automatically).
+// Optional env var: EMAIL_TO (overrides the default recipient)
+//
+// Future: to switch to Listmonk, restore the Listmonk integration and set
+// LISTMONK_URL and LISTMONK_LIST_UUID as secrets in the Cloudflare dashboard.
 
 interface Env {
-  LISTMONK_URL: string;
-  LISTMONK_LIST_UUID: string;
+  EMAIL_TO?: string;
 }
 
 function json(data: unknown, status = 200): Response {
@@ -28,26 +31,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ error: 'Ongeldig e-mailadres.' }, 400);
   }
 
-  const { LISTMONK_URL, LISTMONK_LIST_UUID } = env;
-
-  if (!LISTMONK_URL || !LISTMONK_LIST_UUID) {
-    return json({ error: 'Nieuwsbrief service niet geconfigureerd.' }, 500);
-  }
+  const to = env.EMAIL_TO ?? 'info@ernestmandelfonds.org';
 
   try {
-    const res = await fetch(`${LISTMONK_URL}/api/subscribers`, {
+    const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email,
-        name: email,
-        status: 'enabled',
-        lists: [LISTMONK_LIST_UUID],
-        preconfirm_subscriptions: false,
+        personalizations: [{ to: [{ email: to }] }],
+        from: { email: 'noreply@ernestmandelfonds.org', name: 'Ernest Mandelfonds website' },
+        subject: `Nieuw nieuwsbrief-abonnement: ${email}`,
+        content: [{ type: 'text/plain', value: `Nieuw abonnement op de nieuwsbrief:\n\n${email}` }],
       }),
     });
 
-    if (res.ok || res.status === 409) {
+    if (res.ok || res.status === 202) {
       return json({ ok: true });
     }
 

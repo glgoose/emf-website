@@ -6,15 +6,21 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "visual:test": "playwright test",
+    "visual:test:update": "playwright test --update-snapshots",
+    "visual:report": "playwright show-report"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.4",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.1",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
   }
 }

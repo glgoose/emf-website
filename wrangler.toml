@@ -8,8 +8,14 @@ compatibility_flags = ["nodejs_compat_v2"]
 
 pages_build_output_dir = "dist"
 
-# Environment variables — set secrets via the Cloudflare dashboard or wrangler CLI:
+# Email is sent via MailChannels (free, works automatically on Cloudflare Pages).
+# Optional: override the default recipient (info@ernestmandelfonds.org):
+# npx wrangler pages secret put EMAIL_TO --project-name ernestmandelfonds-website
+#
+# Future Baserow integration (event registrations):
+# npx wrangler pages secret put BASEROW_URL --project-name ernestmandelfonds-website
+# npx wrangler pages secret put BASEROW_TOKEN --project-name ernestmandelfonds-website
+#
+# Future Listmonk integration (newsletter):
 # npx wrangler pages secret put LISTMONK_URL --project-name ernestmandelfonds-website
-# npx wrangler pages secret put LISTMONK_LIST_UUID ...
-# npx wrangler pages secret put BASEROW_URL ...
-# npx wrangler pages secret put BASEROW_TOKEN ...
+# npx wrangler pages secret put LISTMONK_LIST_UUID --project-name ernestmandelfonds-website

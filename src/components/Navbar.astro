@@ -1,8 +1,6 @@
 ---
 const navLinks = [
   { href: '/activiteiten', label: 'activiteiten' },
-  { href: '/nieuws', label: 'nieuws' },
-  { href: '/publicaties', label: 'publicaties' },
   { href: '/over-emf', label: 'over EMF' },
 ];
 
@@ -17,39 +15,42 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
 ---
 
 <nav
-  class:list={[
-    atTop
-      ? 'w-full border-b border-[#111111] py-4'
-      : 'fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#111111] py-4',
-  ]}
+  class:list={[atTop ? 'border-b border-[#111111] pb-3' : 'border-t border-[#111111] pt-3']}
   aria-label="Hoofdnavigatie"
 >
-  <div class="max-w-6xl mx-auto px-6">
-    <ul
-      class="flex flex-wrap items-baseline gap-y-1 list-none m-0 p-0"
-      style="font-family:'EB Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;"
-    >
-      {navLinks.map((link, i) => {
-        const isOverEmf = link.href === '/over-emf';
-        const active = isOverEmf
-          ? overEmfPaths.some(p => currentPath === p || currentPath.startsWith(p + '/'))
-          : currentPath === link.href || currentPath.startsWith(link.href + '/');
-        return (
-          <>
-            <li>
-              <a
-                href={link.href}
-                class:list={['text-[#111111] hover:underline underline-offset-4', active && 'underline']}
-              >
-                {link.label}
-              </a>
-            </li>
-            {i < navLinks.length - 1 && (
-              <li aria-hidden="true" class="mx-2 select-none text-[#555555]">/</li>
-            )}
-          </>
-        );
-      })}
-    </ul>
-  </div>
+  <ul
+    class="flex flex-wrap items-center gap-y-1 list-none m-0 p-0 lowercase font-['EB_Garamond',Georgia,serif] text-[1.5rem] italic"
+  >
+    {!atTop && (
+      <>
+        <li>
+          <a href="/" aria-label="Ernest Mandelfonds – startpagina">
+            <img src="/images/symbolBLACK.png" alt="" class="h-[1.7rem] w-auto block" />
+          </a>
+        </li>
+        <li aria-hidden="true" class="mx-2 select-none text-[#555555]">/</li>
+      </>
+    )}
+    {navLinks.map((link, i) => {
+      const isOverEmf = link.href === '/over-emf';
+      const active = isOverEmf
+        ? overEmfPaths.some(p => currentPath === p || currentPath.startsWith(p + '/'))
+        : currentPath === link.href || currentPath.startsWith(link.href + '/');
+      return (
+        <>
+          <li>
+            <a
+              href={link.href}
+              class:list={['text-[#111111] hover:underline underline-offset-4 decoration-[0.08em]', active && 'underline']}
+            >
+              {link.label}
+            </a>
+          </li>
+          {i < navLinks.length - 1 && (
+            <li aria-hidden="true" class="mx-2 select-none text-[#555555]">/</li>
+          )}
+        </>
+      );
+    })}
+  </ul>
 </nav>

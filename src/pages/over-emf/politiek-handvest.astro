@@ -1,69 +1,85 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarNav from '../../components/SidebarNav.astro';
+import { overEmfNavItems } from '../../data/overEmfNav.ts';
 ---
 
-<BaseLayout title="Politiek handvest" description="Het politiek handvest van Ernest Mandelfonds: ecosocialistisch, feministisch, anti-racistisch, radicaal democratisch en antikapitalistisch.">
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+<BaseLayout title="Politiek handvest" description="Het politiek handvest van Ernest Mandelfonds.">
+  <Fragment slot="aside">
+    <SidebarNav
+      backHref="/over-emf"
+      sectionLabel="Over EMF"
+      sectionHref="/over-emf"
+      currentPage="politiek-handvest"
+      navItems={overEmfNavItems}
+    />
+  </Fragment>
 
-      <!-- Sticky left: section label + nav -->
-      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <p class="font-barlow font-black text-sm uppercase tracking-wide mb-4" style="font-family:'Barlow Condensed',Arial,sans-serif;">
-          <a href="/over-emf" class="text-[#111111] hover:underline underline-offset-2">Over EMF</a>
+  <div>
+    <div class="[&_p]:leading-relaxed space-y-6">
+      <section>
+        <h2>Inleiding</h2>
+        <p>
+          Het politiek handvest van vzw Ernest Mandelfonds vormt de inhoudelijke leidraad voor onze
+          werking. We vertrekken van de vaststelling dat het kapitalisme vandaag tegelijk een diepe
+          sociale en een ecologische crisis voortbrengt.
         </p>
-        <nav aria-label="Paginanavigatie">
-          <ul class="list-none m-0 p-0 space-y-2 text-sm">
-            <li><a href="/over-emf/over-de-vzw" class="text-[#555555] hover:underline underline-offset-2">Over de vzw</a></li>
-            <li><span class="font-bold text-[#111111]">Politiek handvest</span></li>
-            <li><a href="/over-emf/ernest-mandel" class="text-[#555555] hover:underline underline-offset-2">Ernest Mandel</a></li>
-            <li><a href="/over-emf/kameraden" class="text-[#555555] hover:underline underline-offset-2">Kameraden</a></li>
-            <li><a href="/steun-ons" class="text-[#555555] hover:underline underline-offset-2">Steun ons</a></li>
-            <li><a href="/contact" class="text-[#555555] hover:underline underline-offset-2">Contact</a></li>
-            <li><a href="/colofon" class="text-[#555555] hover:underline underline-offset-2">Colofon</a></li>
-          </ul>
-        </nav>
-        <div class="mt-6">
-          <a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a>
-        </div>
-      </div>
+        <p>
+          Voor ons ligt het alternatief in een ecosocialistische samenleving: democratische en
+          ecologische planning van de economie, collectieve toe-eigening van rijkdom, en productie
+          op maat van sociale noden in plaats van winsthonger.
+        </p>
+      </section>
 
-      <!-- Right: title + content -->
-      <div class="border-t-[2px] border-[#111111] pt-6">
-        <h1
-          class="font-barlow font-black text-3xl lowercase mb-6"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          Politiek handvest
-        </h1>
-        <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed">
-          <p>Ernest Mandelfonds werkt vanuit vijf politieke ankerpunten:</p>
-          <ul>
-            <li>
-              <strong>Ecosocialistisch:</strong> de ecologische crisis kan niet worden opgelost binnen de grenzen
-              van het kapitalistisch systeem. We pleiten voor een democratisch geplande transitie die ecologische
-              duurzaamheid en sociale rechtvaardigheid verbindt.
-            </li>
-            <li>
-              <strong>Feministisch:</strong> patriarchale verhoudingen zijn verweven met kapitalisme en andere
-              vormen van onderdrukking. Genderbevrijding is een integraal onderdeel van onze politieke agenda.
-            </li>
-            <li>
-              <strong>Anti-racistisch:</strong> racisme is een structureel fenomeen dat kapitalistische
-              uitbuiting versterkt en arbeiders verdeelt. We strijden voor radicaal antiracisme dat klasse
-              en ras integreert.
-            </li>
-            <li>
-              <strong>Radicaal democratisch:</strong> democratie eindigt niet bij het stemhokje. We pleiten
-              voor democratische controle over economie, productie en publieke instellingen.
-            </li>
-            <li>
-              <strong>Antikapitalistisch:</strong> de systemische oorzaken van armoede, ongelijkheid en
-              ecologische verwoesting liggen in het kapitalistisch productiesysteem zelf. Kleine hervormingen
-              zijn noodzakelijk maar onvoldoende.
-            </li>
-          </ul>
-        </div>
-      </div>
+      <section>
+        <h2>Tegen elke vorm van onderdrukking</h2>
+        <h3>Geen socialisme zonder feminisme</h3>
+        <p>
+          Vrouwenonderdrukking is diep historisch verankerd en verdwijnt niet automatisch. Daarom
+          ondersteunen we de opbouw van een brede feministische beweging die strijd voor
+          vrouwenbevrijding koppelt aan een socialistisch perspectief.
+        </p>
+        <h3>Geen roze zonder rood</h3>
+        <p>
+          Holebi-, trans- en queerpersonen worden wereldwijd nog steeds geconfronteerd met
+          discriminatie en geweld. Ernest Mandelfonds verdedigt seksuele en genderbevrijding als
+          integraal onderdeel van antikapitalistische emancipatie.
+        </p>
+        <h3>Jongeren in verzet</h3>
+        <p>
+          Jongeren botsen op structurele ongelijkheid, op school, op de arbeidsmarkt en in de
+          samenleving. We steunen hun recht om zich autonoom te organiseren en politiek initiatief
+          te nemen.
+        </p>
+        <h3>Tegen racisme en fascisme</h3>
+        <p>
+          Racisme, islamofobie en extreemrechts verdelen en verzwakken de werkende bevolking.
+          Daarom steunen we brede antiracistische en antifascistische bewegingen, met bijzondere
+          aandacht voor zelforganisatie van de direct getroffen groepen.
+        </p>
+      </section>
+
+      <section>
+        <h2>Zelf ons lot in handen nemen</h2>
+        <h3>Voor democratische en strijdbare vakbonden</h3>
+        <p>
+          Vakbonden zijn cruciale instrumenten om sociale rechten te verdedigen. We pleiten voor
+          meer democratische besluitvorming van onderuit, een strijdbaar actieplan en een duidelijke
+          breuk met het beheer van het status-quo.
+        </p>
+        <h3>Voor een nieuw politiek instrument van de werkende bevolking</h3>
+        <p>
+          De traditionele bestuurspartijen verdedigen de belangen van arbeid al lang niet meer.
+          Daarom steunen we initiatieven voor een democratische, strijdbare en antikapitalistische
+          partij van de werkende klasse.
+        </p>
+        <h3>Internationale tegenstander, internationale strijd</h3>
+        <p>
+          Het kapitaal organiseert zich internationaal; verzet moet dat ook doen. Ernest
+          Mandelfonds werkt daarom solidair samen met internationale antikapitalistische en
+          revolutionaire krachten.
+        </p>
+      </section>
 
     </div>
   </div>

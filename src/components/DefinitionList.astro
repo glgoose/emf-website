@@ -1,0 +1,19 @@
+---
+interface Props {
+  class?: string;
+  leftWidth?: string;
+}
+
+const { class: className, leftWidth } = Astro.props;
+const style = leftWidth ? `grid-template-columns: ${leftWidth} 1fr` : undefined;
+---
+
+<dl
+  class:list={[
+    'text-[1rem] grid grid-cols-[auto_1fr] gap-x-7 gap-y-2 [&_dt]:font-bold [&_dt]:lowercase [&_dt]:leading-[1.25] [&_dt]:min-w-0 [&_dt]:break-words [&_dt]:text-right [&_dd]:leading-[1.15]',
+    className,
+  ]}
+  style={style}
+>
+  <slot />
+</dl>

@@ -1,0 +1,54 @@
+---
+interface Props {
+  id: string;
+  type?: 'text' | 'email';
+  name: string;
+  placeholder: string;
+  required?: boolean;
+  ariaLabel?: string;
+  submitLabel?: string;
+  submitAriaLabel?: string;
+  class?: string;
+}
+
+const {
+  id,
+  type = 'text',
+  name,
+  placeholder,
+  required,
+  ariaLabel,
+  submitLabel,
+  submitAriaLabel,
+  class: extraClass,
+} = Astro.props;
+---
+
+{submitLabel ? (
+  <div class:list={['flex items-baseline border-b border-[#111111]', extraClass]}>
+    <input
+      {id}
+      {type}
+      {name}
+      {required}
+      {placeholder}
+      aria-label={ariaLabel}
+      class="flex-1 min-w-0 bg-transparent outline-none placeholder:text-[#999999] py-[0.4em]"
+    />
+    <button
+      type="submit"
+      aria-label={submitAriaLabel}
+      class="bg-transparent border-none text-[#111111] leading-none pl-[0.5em] py-[0.4em]"
+    >&gt;&gt;</button>
+  </div>
+) : (
+  <input
+    {id}
+    {type}
+    {name}
+    {required}
+    {placeholder}
+    aria-label={ariaLabel}
+    class:list={['w-full border-b border-[#111111] bg-transparent outline-none placeholder:text-[#999999] py-[0.4em]', extraClass]}
+  />
+)}

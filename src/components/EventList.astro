@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatShortDate, formatEventTime, formatSpeakersLine } from '../lib/formatDateTime';
+
+interface Props {
+  events: CollectionEntry<'events'>[];
+  past?: boolean;
+}
+
+const { events, past = false } = Astro.props;
+---
+
+<ul class="list-none m-0 p-0 grid grid-cols-[7rem_1fr] gap-x-3 gap-y-3">
+  {events.map(event => {
+    const { title, date, time, type, location, speakers } = event.data;
+    const dateFormatted = `${formatShortDate(date)}${past ? ` ${date.getFullYear()}` : ''}`;
+    const timeFormatted = formatEventTime(time);
+    const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) : '';
+    const subline = speakersLine ? `${type} ${speakersLine}` : type;
+    return (
+      <li class="contents">
+        <a
+          href={`/activiteiten/${event.id}`}
+          class="group col-span-full grid grid-cols-subgrid items-baseline no-underline hover:no-underline"
+        >
+          <span class="text-xs whitespace-nowrap leading-snug">{dateFormatted} · {timeFormatted}</span>
+          <span
+            class="block text-base leading-snug lowercase min-w-0 group-hover:underline underline-offset-2"
+            set:html={title}
+          />
+          {location
+            ? <span class="text-xs leading-snug truncate lowercase">{location}</span>
+            : <span />
+          }
+          <span class="block text-xs leading-snug min-w-0">{subline}</span>
+        </a>
+      </li>
+    );
+  })}
+</ul>

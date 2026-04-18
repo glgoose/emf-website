@@ -19,16 +19,16 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
   aria-label="Hoofdnavigatie"
 >
   <ul
-    class="flex flex-wrap items-center gap-y-1 list-none m-0 p-0 lowercase font-['EB_Garamond',Georgia,serif] text-[1.5rem] italic"
+    class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-y-1 list-none m-0 p-0 lowercase font-['EB_Garamond',Georgia,serif] text-[1.5rem] italic"
   >
     {!atTop && (
       <>
         <li>
           <a href="/" aria-label="Ernest Mandelfonds – startpagina">
-            <img src="/images/symbolBLACK.png" alt="" class="h-[1.7rem] w-auto block" />
+            <img src="/images/symbolBLACK.png" alt="" class="h-[1.1em] w-auto block" />
           </a>
         </li>
-        <li aria-hidden="true" class="mx-2 select-none text-[#555555]">/</li>
+        <li aria-hidden="true" class="hidden sm:block mx-2 select-none text-[#555555]">/</li>
       </>
     )}
     {navLinks.map((link, i) => {
@@ -47,7 +47,7 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
             </a>
           </li>
           {i < navLinks.length - 1 && (
-            <li aria-hidden="true" class="mx-2 select-none text-[#555555]">/</li>
+            <li aria-hidden="true" class="hidden sm:block mx-2 select-none text-[#555555]">/</li>
           )}
         </>
       );

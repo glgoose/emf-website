@@ -30,11 +30,11 @@ const calendarHref = `webcal://${calendarHost}/activiteiten/kalender.ics`;
         aria-label="Terug"
       >&lt;&lt;</a>
       <div class="border-t-[2px] border-[#111111] pt-0.5">
-        <div class="flex items-center justify-between lg:block mb-4">
+        <div class="group/backnav flex items-center justify-between lg:block mb-4">
           <h1 class="text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]">
             <a
               href="/"
-              class="hidden lg:inline-block w-0 overflow-visible whitespace-nowrap lg:mr-1.5 text-[0.75em] font-normal opacity-0 group-hover:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
+              class="hidden lg:inline-block w-0 overflow-visible whitespace-nowrap lg:mr-1.5 text-[0.75em] font-normal opacity-0 group-hover/backnav:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
               aria-label="Terug"
             >&gt;&gt;</a>Activiteiten
           </h1>
@@ -61,7 +61,7 @@ const calendarHref = `webcal://${calendarHost}/activiteiten/kalender.ics`;
       )}
 
     {past.length > 0 && (
-      <section class="mt-8">
+      <section class="mt-6 sm:mt-8">
         <h2 class="mb-3">
           Voorbije activiteiten
         </h2>

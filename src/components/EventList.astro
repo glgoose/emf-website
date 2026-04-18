@@ -10,27 +10,29 @@ interface Props {
 const { events, past = false } = Astro.props;
 ---
 
-<ul class="list-none m-0 p-0 grid grid-cols-[7rem_1fr] gap-x-3 gap-y-3">
+<ul class="list-none m-0 p-0 sm:grid sm:grid-cols-[7rem_1fr] sm:gap-x-3 sm:gap-y-2">
   {events.map(event => {
     const { title, date, time, type, location, speakers } = event.data;
     const dateFormatted = `${formatShortDate(date)}${past ? ` ${date.getFullYear()}` : ''}`;
     const timeFormatted = formatEventTime(time);
     const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) : '';
     const subline = speakersLine ? `${type} ${speakersLine}` : type;
+    const metaMobile = [dateFormatted, timeFormatted, location].filter(Boolean).join(' · ');
     return (
       <li class="contents">
         <a
           href={`/activiteiten/${event.id}`}
-          class="group col-span-full grid grid-cols-subgrid items-baseline no-underline hover:no-underline"
+          class="group max-sm:block max-sm:mb-4 sm:col-span-full sm:grid sm:grid-cols-subgrid items-baseline no-underline hover:no-underline"
         >
-          <span class="text-xs whitespace-nowrap leading-snug">{dateFormatted} · {timeFormatted}</span>
+          <span class="sm:hidden text-xs leading-snug">{metaMobile}</span>
+          <span class="hidden sm:block text-xs leading-snug whitespace-nowrap">{dateFormatted} · {timeFormatted}</span>
           <span
             class="block text-base leading-snug lowercase min-w-0 group-hover:underline underline-offset-2"
             set:html={title}
           />
           {location
-            ? <span class="text-xs leading-snug truncate lowercase">{location}</span>
-            : <span />
+            ? <span class="hidden sm:block text-xs leading-snug truncate lowercase">{location}</span>
+            : <span class="hidden sm:block" />
           }
           <span class="block text-xs leading-snug min-w-0">{subline}</span>
         </a>

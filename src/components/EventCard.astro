@@ -24,12 +24,12 @@ const subline = speakersLine ? `${type} ${speakersLine}` : type;
 
 <a href={`/activiteiten/${slug}`} class="group block no-underline">
   <article>
-    <p class="leading-[1.4]">
-      <span>{dateFormatted} · {timeFormatted}</span>
-      {location && <span> · {location}</span>}
+    <p class="leading-[1.2] max-sm:leading-tight">
+      <span class="block sm:inline">{dateFormatted}</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">{timeFormatted}</span>
+      {location && <><span class="hidden sm:inline"> · </span><span class="block sm:inline">{location}</span></>}
     </p>
-    <p class="leading-[1.4]" set:html={title} />
-    {subline && <p class="leading-[1.4]">{subline}</p>}
+    <p class="mt-3 leading-[1.4] max-sm:leading-tight" set:html={title} />
+    {subline && <p class="leading-[1.4] max-sm:leading-tight">{subline}</p>}
     {description && (
       <p class="mt-4 text-sm"><span set:html={description} /><span class="inline-block w-0 overflow-visible whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"> &gt;&gt;</span></p>
     )}

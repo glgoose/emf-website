@@ -5,23 +5,31 @@ interface Props {
   subtitle?: string;
   eventSubtitle?: string;
   large?: boolean;
+  noBorder?: boolean;
 }
 
-const { backHref, title, subtitle, large = false } = Astro.props;
+const { backHref, title, subtitle, large = false, noBorder = false } = Astro.props;
 ---
 
-<div class="border-t-[2px] border-[#111111] pt-0.5">
-  <hgroup class="mb-4 group">
-    <h1 class:list={['text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]', large && 'text-[1.4rem]']}><a
-      href={backHref}
-      class="inline-block w-0 overflow-visible whitespace-nowrap mr-1.5 text-[0.75em] font-normal opacity-0 group-hover:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
-      aria-label="Terug"
-    >&gt;&gt;</a><span set:html={title} /></h1>
-    {subtitle && (
-      <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase">
-        {subtitle}
-      </p>
-    )}
-  </hgroup>
-  <slot />
-</div>
+<>
+  <a
+    href={backHref}
+    class="lg:hidden block text-[0.75em] leading-none font-normal no-underline hover:no-underline hover:text-[#111111] mb-1"
+    aria-label="Terug"
+  >&lt;&lt;</a>
+  <div class:list={[!noBorder && 'border-t-[2px] border-[#111111] pt-0.5']}>
+    <hgroup class:list={[!noBorder && 'mb-4', 'group relative']}>
+      <h1 class:list={['text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]', large && 'text-[1.4rem]']}><a
+        href={backHref}
+        class="hidden lg:inline-block w-0 overflow-visible whitespace-nowrap lg:mr-1.5 text-[0.75em] font-normal opacity-0 group-hover:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
+        aria-label="Terug"
+      >&gt;&gt;</a><span set:html={title} /></h1>
+      {subtitle && (
+        <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase">
+          {subtitle}
+        </p>
+      )}
+    </hgroup>
+    <slot />
+  </div>
+</>

@@ -7,47 +7,58 @@ interface Props {
   sectionHref: string;
   currentPage: string;
   navItems: NavItem[];
+  sectionClickable?: boolean;
 }
 
-const { backHref, sectionLabel, sectionHref, currentPage, navItems } = Astro.props;
+const { backHref, sectionLabel, sectionHref, currentPage, navItems, sectionClickable = true } = Astro.props;
 ---
 
-<div class="border-t-[2px] border-[#111111] pt-0.5">
-  <div class="mb-4">
-    <div class="inline-block max-w-full overflow-visible align-top group">
-      <p class="text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]">
-        <a
-          href={backHref}
-          class="text-[0.75em] font-normal hover:text-[#111111] no-underline hover:no-underline mr-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
-          aria-label="Terug"
-        >&lt;&lt;</a><a href={sectionHref} class="text-[#111111] hover:underline underline-offset-2 decoration-[0.08em]">{sectionLabel}</a>
-      </p>
+<>
+  <a
+    href={backHref}
+    class="lg:hidden block text-[0.75em] leading-none font-normal no-underline hover:no-underline hover:text-[#111111] mb-1"
+    aria-label="Terug"
+  >&lt;&lt;</a>
+  <div class="border-t-[2px] border-[#111111] pt-0.5">
+    <div class="mb-4">
+      <div class="block lg:inline-block max-w-full overflow-visible align-top group relative">
+        <p class="text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]">
+          <a
+            href={backHref}
+            class="hidden lg:inline text-[0.75em] font-normal hover:text-[#111111] no-underline hover:no-underline lg:mr-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
+            aria-label="Terug"
+          >&lt;&lt;</a>{sectionClickable
+            ? <a href={sectionHref} class="text-[#111111] hover:underline underline-offset-2 decoration-[0.08em]">{sectionLabel}</a>
+            : <span class="text-[#111111]">{sectionLabel}</span>
+          }
+        </p>
+      </div>
     </div>
+    <nav aria-label="Paginanavigatie">
+      <ul class="list-none m-0 p-0 space-y-1 text-sm lowercase">
+        {navItems.map(item => (
+          <li>
+            {item.id === currentPage ? (
+              <>
+                <h1 class="m-0 text-sm leading-[1.25] font-bold lowercase tracking-normal [font-variant-caps:normal] text-[#111111]">
+                  {item.label}
+                </h1>
+                {item.children && (
+                  <ul class="list-none m-0 p-0 mt-1 ml-3 space-y-1">
+                    {item.children.map(child => (
+                      <li>
+                        <a href={child.href} class="text-[#555555] lowercase hover:underline underline-offset-2">{child.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ) : (
+              <a href={item.href} class="text-[#555555] lowercase hover:underline underline-offset-2">{item.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
   </div>
-  <nav aria-label="Paginanavigatie">
-    <ul class="list-none m-0 p-0 space-y-2 text-sm lowercase">
-      {navItems.map(item => (
-        <li>
-          {item.id === currentPage ? (
-            <>
-              <h1 class="m-0 text-sm leading-[1.25] font-bold lowercase tracking-normal [font-variant-caps:normal] text-[#111111]">
-                {item.label}
-              </h1>
-              {item.children && (
-                <ul class="list-none m-0 p-0 mt-1 ml-3 space-y-1">
-                  {item.children.map(child => (
-                    <li>
-                      <a href={child.href} class="text-[#555555] lowercase hover:underline underline-offset-2">{child.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
-          ) : (
-            <a href={item.href} class="text-[#555555] lowercase hover:underline underline-offset-2">{item.label}</a>
-          )}
-        </li>
-      ))}
-    </ul>
-  </nav>
-</div>
+</>

@@ -23,14 +23,32 @@ const calendarHref = `webcal://${calendarHost}/activiteiten/kalender.ics`;
 
 <BaseLayout title="Activiteiten" description="Overzicht van activiteiten en evenementen van Ernest Mandelfonds.">
   <Fragment slot="aside">
-    <SidebarHeading backHref="/" title="Activiteiten" />
-    <CalendarButton
-      href={calendarHref}
-      tooltip="Abonneer je op onze nieuwe activiteiten"
-      ariaLabel="Abonneer op de agenda"
-    >
-      <CalendarSubscribeIcon />
-    </CalendarButton>
+    <>
+      <a
+        href="/"
+        class="lg:hidden block text-[0.75em] leading-none font-normal no-underline hover:no-underline hover:text-[#111111] mb-1"
+        aria-label="Terug"
+      >&lt;&lt;</a>
+      <div class="border-t-[2px] border-[#111111] pt-0.5">
+        <div class="flex items-center justify-between lg:block mb-4">
+          <h1 class="text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]">
+            <a
+              href="/"
+              class="hidden lg:inline-block w-0 overflow-visible whitespace-nowrap lg:mr-1.5 text-[0.75em] font-normal opacity-0 group-hover:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
+              aria-label="Terug"
+            >&gt;&gt;</a>Activiteiten
+          </h1>
+          <CalendarButton
+            href={calendarHref}
+            tooltip="Abonneer je op onze nieuwe activiteiten"
+            ariaLabel="Abonneer op de agenda"
+            class="shrink-0 ml-4 lg:ml-0 lg:mt-2"
+          >
+            <CalendarSubscribeIcon />
+          </CalendarButton>
+        </div>
+      </div>
+    </>
   </Fragment>
 
   <div>

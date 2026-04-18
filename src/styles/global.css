@@ -34,20 +34,34 @@
 
   h2 {
     font-size: 1.4rem;
-    margin-top: 1em;
+    margin-top: 1.2em;
     margin-bottom: 0.7em;
     font-style: italic;
     font-variant: normal;
   }
 
+  h2:first-child {
+    margin-top: 0;
+  }
+
   h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+    font-weight: 700;
     font-variant: small-caps;
     text-transform: lowercase;
     letter-spacing: 0.08em;
+    margin-top: 1em;
+    margin-bottom: 0.35em;
   }
 
   h4 {
+    font-size: 1rem;
+    line-height: 1.25;
+    font-weight: 700;
     font-variant: normal;
+    margin-top: 1.4em;
+    margin-bottom: 0.35em;
   }
 
   a {
@@ -118,33 +132,6 @@
     margin-top: 0;
   }
 
-  .prose h2 {
-    font-size: 1.4rem;
-    margin-top: 1em;
-    margin-bottom: 0.7em;
-    font-style: italic;
-    font-variant: normal;
-  }
-
-  .prose h3 {
-    font-size: 1rem;
-    line-height: 1.25;
-    font-weight: 700;
-    font-variant: small-caps;
-    text-transform: lowercase;
-    letter-spacing: 0.08em;
-    margin-top: 2em;
-    margin-bottom: 0.35em;
-  }
-
-  .prose h4 {
-    font-size: 1rem;
-    line-height: 1.25;
-    font-weight: 700;
-    margin-top: 1.4em;
-    margin-bottom: 0.35em;
-    font-variant: normal;
-  }
 
   .prose p {
     line-height: 1.6;
@@ -203,4 +190,5 @@
   .border-emf-red {
     border-color: #E8320A;
   }
+
 }

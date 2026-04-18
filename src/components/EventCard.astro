@@ -14,7 +14,7 @@ interface Props {
   slug: string;
 }
 
-const { title, date, time, end_time, location, type, speakers, cover, description, slug } = Astro.props;
+const { title, date, time, end_time, location, type, speakers, description, slug } = Astro.props;
 
 const dateFormatted = formatLongDate(date);
 const timeFormatted = formatTimeRange(time, end_time);
@@ -28,13 +28,10 @@ const subline = speakersLine ? `${type} ${speakersLine}` : type;
       <span>{dateFormatted} · {timeFormatted}</span>
       {location && <span> · {location}</span>}
     </p>
-    <p class="leading-[1.4] group-hover:underline underline-offset-2 decoration-[0.08em]" set:html={title} />
-    {subline && <p class="leading-[1.4] group-hover:underline underline-offset-2 decoration-[0.08em]">{subline}</p>}
+    <p class="leading-[1.4]" set:html={title} />
+    {subline && <p class="leading-[1.4]">{subline}</p>}
     {description && (
       <p class="mt-4 text-sm"><span set:html={description} /><span class="inline-block w-0 overflow-visible whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"> &gt;&gt;</span></p>
-    )}
-    {cover && (
-      <img src={cover} alt="" class="w-full mt-4" />
     )}
   </article>
 </a>

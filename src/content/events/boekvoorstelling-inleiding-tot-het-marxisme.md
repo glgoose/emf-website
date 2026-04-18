@@ -6,8 +6,9 @@ time: "14:00"
 end_time: "16:30"
 location: "De Groene Waterman"
 address: "Wolstraat 7, 2000 Antwerpen"
-description: >
-  De wereld lijkt steeds dieper in crisis te raken: oorlogen, groeiende ongelijkheid en ecologische ontwrichting stellen de vraag hoe het anders kan. Steeds meer mensen wijzen naar het kapitalisme als onderliggende oorzaak, maar hoe begrijpen en veranderen we dat systeem? Deze heruitgave van Inleiding tot het Marxisme van Ernest Mandel biedt een toegankelijke ingang tot die vraag, aangevuld met hedendaagse reflecties die het werk in een actuele context plaatsen.
+description: |
+  De wereld lijkt steeds dieper in crisis te raken: oorlogen, groeiende ongelijkheid en ecologische ontwrichting stellen de vraag hoe het anders kan. Steeds meer mensen wijzen naar het kapitalisme als onderliggende oorzaak, maar hoe begrijpen en veranderen we dat systeem?
+  Deze heruitgave van Inleiding tot het Marxisme van Ernest Mandel biedt een toegankelijke ingang tot die vraag, aangevuld met hedendaagse reflecties die het werk in een actuele context plaatsen.
 speakers:
   - name: "Anton Jäger"
     bio:

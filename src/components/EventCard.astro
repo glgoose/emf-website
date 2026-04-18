@@ -22,16 +22,19 @@ const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) 
 const subline = speakersLine ? `${type} ${speakersLine}` : type;
 ---
 
-<article>
-  <p class="leading-[1.4]">
-    <span>{dateFormatted} · {timeFormatted}</span>
-    {location && <span> · {location}</span>}
-  </p>
-  <a href={`/activiteiten/${slug}`} class="hover:underline">
-    <p class="leading-[1.4]" set:html={title} />
-    {subline && <p class="leading-[1.4]">{subline}</p>}
-  </a>
-  {description && (
-    <p class="mt-4 text-sm" set:html={description} />
-  )}
-</article>
+<a href={`/activiteiten/${slug}`} class="group block">
+  <article>
+    <p class="leading-[1.4]">
+      <span>{dateFormatted} · {timeFormatted}</span>
+      {location && <span> · {location}</span>}
+    </p>
+    <p class="leading-[1.4] group-hover:underline underline-offset-2 decoration-[0.08em]" set:html={title} />
+    {subline && <p class="leading-[1.4] group-hover:underline underline-offset-2 decoration-[0.08em]">{subline}</p>}
+    {description && (
+      <p class="mt-4 text-sm"><span set:html={description} /><span class="inline-block w-0 overflow-visible whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"> &gt;&gt;</span></p>
+    )}
+    {cover && (
+      <img src={cover} alt="" class="w-full mt-4" />
+    )}
+  </article>
+</a>

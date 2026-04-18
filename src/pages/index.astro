@@ -18,11 +18,12 @@ const nextEvent = upcomingEvents[0] ?? null;
 
 <BaseLayout isHomepage={true}>
   <Fragment slot="aside">
-    <a href="/" aria-label="Ernest Mandelfonds – startpagina">
+    <a href="/" aria-label="Ernest Mandelfonds – startpagina" class="flex flex-col items-start lg:items-end hover:no-underline">
+      <p class="whitespace-nowrap italic text-[1.4rem] leading-[1.25] mt-8 sm:mt-3 lowercase text-[#f0573e] rotate-[-30deg] ml-[50px] sm:ml-[80px] lg:ml-0">Ernest Mandelfonds</p>
       <img
-        src="/images/symbolPINK.png"
+        src="/images/symbolORANGY-RED.png"
         alt="Ernest Mandelfonds"
-        class="lg:ml-auto block max-w-[80px]"
+        class="block max-w-[50px] sm:max-w-[80px]"
       />
     </a>
   </Fragment>

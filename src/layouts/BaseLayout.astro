@@ -53,13 +53,13 @@ const organizationStructuredData = {
     <title>{title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`}</title>
   </head>
   <body>
-    <div class="mx-auto px-8 py-12" style="max-width:960px">
+    <div class="mx-auto px-4 sm:px-8 py-6 sm:py-12" style="max-width:960px">
       <div
         class="lg:grid lg:items-start"
         style="grid-template-columns: calc(2.5rem * 3) 1fr; gap: 2.5rem;"
       >
         <!-- Aside: sticky, right-aligned to match the gutter -->
-        <aside class="mb-8 lg:mb-0 lg:sticky lg:top-12 lg:text-right">
+        <aside class="mb-3 sm:mb-8 lg:mb-0 lg:sticky lg:top-12 lg:text-right">
           <slot name="aside" />
         </aside>
 

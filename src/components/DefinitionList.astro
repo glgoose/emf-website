@@ -5,15 +5,26 @@ interface Props {
 }
 
 const { class: className, leftWidth } = Astro.props;
-const style = leftWidth ? `grid-template-columns: ${leftWidth} 1fr` : undefined;
+const style = leftWidth ? `--dl-left-width: ${leftWidth}` : undefined;
 ---
 
 <dl
   class:list={[
-    'text-[1rem] grid grid-cols-[auto_1fr] gap-x-7 gap-y-2 [&_dt]:font-bold [&_dt]:lowercase [&_dt]:leading-[1.25] [&_dt]:min-w-0 [&_dt]:break-words [&_dt]:text-right [&_dd]:leading-[1.15]',
+    'text-[1rem] grid gap-x-7 gap-y-2 [&_dt]:font-bold [&_dt]:lowercase [&_dt]:leading-[1.25] [&_dt]:min-w-0 [&_dt]:break-words [&_dt]:text-right [&_dd]:leading-[1.15] max-sm:grid-cols-1 max-sm:gap-y-1 max-sm:[&_dt]:text-left max-sm:[&_dt:not(:first-child)]:mt-4',
     className,
   ]}
   style={style}
 >
   <slot />
 </dl>
+
+<style>
+  dl {
+    grid-template-columns: var(--dl-left-width, auto) 1fr;
+  }
+  @media (max-width: 639px) {
+    dl {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

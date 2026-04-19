@@ -11,17 +11,24 @@
 | API functions | Cloudflare Pages Functions (`/functions/`) |
 | Email | MailChannels via Cloudflare (free) |
 | Git | GitHub |
-| CI/CD | Cloudflare Pages git integration (auto-build on push to `main`) |
+| CI/CD | GitHub Actions → `wrangler pages deploy` (auto-build on push to `main`) |
 | Domain | OVH (DNS via Cloudflare nameservers) |
 
 ## Deploy flow
 
 ```
-git push → GitHub → CF Pages webhook → npm run build → dist/ deployed
-                                    ↳ /functions/ deployed as Workers
+git push → GitHub → GitHub Actions → npm run build → wrangler pages deploy → CF Pages
+                                                                           ↳ /functions/ deployed as Workers
 ```
 
 Sveltia CMS editors commit via browser UI → same flow triggered.
+
+### Required GitHub secrets
+
+| Secret | Where to get it |
+|--------|----------------|
+| `CLOUDFLARE_API_TOKEN` | dash.cloudflare.com → My Profile → API Tokens → "Edit Cloudflare Pages" template |
+| `CLOUDFLARE_ACCOUNT_ID` | CF dashboard sidebar → Account ID |
 
 ## Manual deploy (CLI)
 

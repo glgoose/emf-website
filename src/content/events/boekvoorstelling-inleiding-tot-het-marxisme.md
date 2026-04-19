@@ -1,27 +1,31 @@
 ---
-type: "boekvoorstelling"
-title: "*Inleiding tot het Marxisme* van Ernest Mandel"
+type: boekvoorstelling
+title: '*Inleiding tot het marxisme* van Ernest Mandel'
+subtitle: ''
 date: 2026-05-09
-time: "14:00"
-end_time: "16:30"
-location: "De Groene Waterman"
-address: "Wolstraat 7, 2000 Antwerpen"
-description: |
+time: 14:00
+end_time: 16:30
+location: De Groene Waterman
+address: Wolstraat 7, 2000 Antwerpen
+description: |-
   De wereld lijkt steeds dieper in crisis te raken: oorlogen, groeiende ongelijkheid en ecologische ontwrichting stellen de vraag hoe het anders kan. Steeds meer mensen wijzen naar het kapitalisme als onderliggende oorzaak, maar hoe begrijpen en veranderen we dat systeem?
   Deze heruitgave van Inleiding tot het Marxisme van Ernest Mandel biedt een toegankelijke ingang tot die vraag, aangevuld met hedendaagse reflecties die het werk in een actuele context plaatsen.
 speakers:
-  - name: "Anton Jäger"
+  - name: Anton Jäger
     bio:
       - publicist en historicus
       - verbonden aan het Hoger Instituut voor Wijsbegeerte (HIW) in Leuven
-  - name: "Alex De Jong"
+  - name: Alex De Jong
     bio:
-     - auteur van een van het nieuwe voorwoord
-     - directeur van het International Institute for Research and Education (IIRE) in Amsterdam
-registration_open: true
+      - auteur van een van het nieuwe voorwoord
+      - directeur van het International Institute for Research and Education (IIRE) in Amsterdam
+price: gratis
 cover: /images/events/260509-inleiding-mandel.jpg
-cover_filter: "brightness(0.97)"
-price: "gratis"
+cover_filter: brightness(0.97)
+registration_open: true
+registration_deadline: ''
+capacity: null
+baserow_table_id: ''
 ---
 
 ## De werkelijkheid begrijpen en veranderen? Maar hoe?

@@ -33,6 +33,7 @@ const events = defineCollection({
     capacity: z.number().optional(),
     baserow_table_id: z.string().optional(),
     cover: z.string().optional(),
+    cover_filter: z.string().optional(),
     price: z.string().optional(),
   }),
 });

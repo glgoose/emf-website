@@ -20,6 +20,7 @@ speakers:
      - directeur van het International Institute for Research and Education (IIRE) in Amsterdam
 registration_open: true
 cover: /images/events/260509-inleiding-mandel.jpg
+cover_filter: "brightness(0.97)"
 price: "gratis"
 ---
 

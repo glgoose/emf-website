@@ -30,6 +30,7 @@ const {
   registration_open,
   registration_deadline,
   cover,
+  cover_filter,
   price,
   end_time,
 } = event.data;
@@ -80,7 +81,7 @@ const plainTitle = stripHtml(title);
   </Fragment>
 
   {cover && (
-    <img src={cover} alt={plainTitle} class="w-full mb-6" />
+    <img src={cover} alt={plainTitle} class="w-full mb-6" style={cover_filter ? `filter: ${cover_filter}` : undefined} />
   )}
 
   <article class="prose">

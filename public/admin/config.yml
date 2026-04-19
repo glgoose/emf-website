@@ -3,12 +3,9 @@
 
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/ernestmandelfonds-website  # TODO: replace with actual repo
-  branch: main  # TODO: confirm branch name
-
-# Cloudflare Pages / GitHub OAuth callback
-# Configure your OAuth app on GitHub to redirect to:
-# https://your-domain.pages.dev/admin/
+  repo: glgoose/emf-website
+  branch: main
+  base_url: https://sveltia-cms-auth.glenngoossens.workers.dev
 
 media_folder: public/images
 public_folder: /images

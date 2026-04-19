@@ -21,10 +21,27 @@ collections:
     extension: md
     format: frontmatter
     fields:
+      - label: Type activiteit
+        name: type
+        widget: select
+        required: true
+        options:
+          - { label: Boekvoorstelling, value: boekvoorstelling }
+          - { label: Studiedag, value: studiedag }
+          - { label: Leesgroep, value: leesgroep }
+          - { label: Lezing, value: lezing }
+          - { label: Rondleiding, value: rondleiding }
+          - { label: Panelgesprek, value: panelgesprek }
+
       - label: Titel
         name: title
         widget: string
         required: true
+
+      - label: Ondertitel
+        name: subtitle
+        widget: string
+        required: false
 
       - label: Datum
         name: date
@@ -34,21 +51,27 @@ collections:
         format: YYYY-MM-DD
         required: true
 
-      - label: Tijdstip
+      - label: Tijdstip (start)
         name: time
         widget: string
         hint: "Bijv. 14:00 of 19:30"
         required: true
 
+      - label: Tijdstip (einde)
+        name: end_time
+        widget: string
+        hint: "Bijv. 16:30"
+        required: false
+
       - label: Locatie (naam)
         name: location
         widget: string
-        required: true
+        required: false
 
       - label: Adres
         name: address
         widget: string
-        required: true
+        required: false
 
       - label: Korte beschrijving
         name: description
@@ -56,11 +79,39 @@ collections:
         required: true
         hint: "Korte samenvatting, getoond in overzichten."
 
-      - label: Volledige tekst
-        name: body
-        widget: markdown
+      - label: Sprekers
+        name: speakers
+        widget: list
         required: false
-        hint: "Uitgebreide info over de activiteit."
+        fields:
+          - label: Naam
+            name: name
+            widget: string
+          - label: Bio (één item per regel)
+            name: bio
+            widget: list
+            required: false
+            field:
+              label: Regel
+              name: item
+              widget: string
+
+      - label: Prijs
+        name: price
+        widget: string
+        required: false
+        hint: "Bijv. gratis, €10, €14 (studenten €7)"
+
+      - label: Omslagafbeelding
+        name: cover
+        widget: image
+        required: false
+
+      - label: Cover filter (CSS)
+        name: cover_filter
+        widget: string
+        required: false
+        hint: "Bijv. brightness(0.97)"
 
       - label: Inschrijving open
         name: registration_open
@@ -87,6 +138,17 @@ collections:
         widget: string
         required: false
         hint: "Het numerieke ID van de Baserow tabel voor inschrijvingen."
+
+      - label: Notitie organisatoren
+        name: organizer_note
+        widget: text
+        required: false
+
+      - label: Volledige tekst
+        name: body
+        widget: markdown
+        required: false
+        hint: "Uitgebreide info over de activiteit."
 
   # ── Nieuws ────────────────────────────────────────────────────────────────
   - name: news

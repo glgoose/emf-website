@@ -1,7 +1,6 @@
 ---
 type: boekvoorstelling
 title: '*Inleiding tot het marxisme* van Ernest Mandel'
-subtitle: ''
 date: 2026-05-09
 time: 14:00
 end_time: 16:30
@@ -23,9 +22,6 @@ price: gratis
 cover: /images/events/260509-inleiding-mandel.jpg
 cover_filter: brightness(0.97)
 registration_open: true
-registration_deadline: ''
-capacity: null
-baserow_table_id: ''
 ---
 
 ## De werkelijkheid begrijpen en veranderen? Maar hoe?

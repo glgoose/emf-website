@@ -1,5 +1,4 @@
 // Dev server API route (astro dev). Production uses functions/api/subscribe.ts (CF Pages Function).
-// MailChannels only works in deployed CF Pages context, not locally.
 import type { APIRoute } from 'astro';
 
 function json(data: unknown, status = 200): Response {
@@ -24,26 +23,29 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const to = import.meta.env.EMAIL_TO ?? 'info@ernestmandelfonds.org';
+  const apiKey = import.meta.env.RESEND_API_KEY;
 
-  // In dev, just log — MailChannels only works on CF Pages
-  if (import.meta.env.DEV) {
-    console.log('[dev] Would send newsletter notification to', to, 'for subscriber:', email);
+  if (!apiKey) {
+    console.log('[dev] No RESEND_API_KEY — would send to', to, 'for:', email);
     return json({ ok: true });
   }
 
   try {
-    const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
+    const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
       body: JSON.stringify({
-        personalizations: [{ to: [{ email: to }] }],
-        from: { email: 'noreply@ernestmandelfonds.org', name: 'Ernest Mandelfonds website' },
+        from: 'Ernest Mandelfonds website <noreply@ernestmandelfonds.org>',
+        to: [to],
         subject: `Nieuw nieuwsbrief-abonnement: ${email}`,
-        content: [{ type: 'text/plain', value: `Nieuw abonnement op de nieuwsbrief:\n\n${email}` }],
+        text: `Nieuw abonnement op de nieuwsbrief:\n\n${email}`,
       }),
     });
 
-    if (res.ok || res.status === 202) return json({ ok: true });
+    if (res.ok) return json({ ok: true });
     return json({ error: 'Inschrijving mislukt. Probeer later opnieuw.' }, 502);
   } catch {
     return json({ error: 'Netwerkfout. Probeer later opnieuw.' }, 500);

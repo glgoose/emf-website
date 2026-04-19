@@ -12,7 +12,8 @@
     "astro": "astro",
     "visual:test": "playwright test",
     "visual:test:update": "playwright test --update-snapshots",
-    "visual:report": "playwright show-report"
+    "visual:report": "playwright show-report",
+    "deploy": "astro build && npx wrangler pages deploy dist --project-name ernestmandelfonds-website"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.4",

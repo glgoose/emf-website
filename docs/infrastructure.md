@@ -26,9 +26,37 @@ Sveltia CMS editors commit via browser UI → same flow triggered.
 ## Manual deploy (CLI)
 
 ```bash
-npm run build
-npx wrangler pages deploy dist --project-name ernestmandelfonds-website
+npm run deploy
 ```
+
+Runs `astro build` then `wrangler pages deploy dist --project-name ernestmandelfonds-website`.
+
+## Vendor lock-in assessment
+
+### Domain
+Domain registered at OVH — no lock-in. Nameservers point to Cloudflare but can be changed back at OVH in minutes.
+
+### Hosting (Cloudflare Pages)
+Escape cost: change 2 DNS records. Low.
+
+### API functions — the real CF tie-in
+Current functions (`/functions/`) use:
+- **CF Workers runtime** — handles requests
+- **MailChannels** — free transactional email, CF-only
+
+#### Migration options
+
+| Option | Effort | Notes |
+|--------|--------|-------|
+| Netlify / Vercel Functions | Low (~1h rewrite) | Standard Node.js serverless |
+| Self-hosted VPS (Hono or Express) | Medium | Full control, ~€3–5/mo |
+| Listmonk + Baserow (self-hosted) | Medium | **Preferred path** — replaces functions entirely with dedicated open-source tools, no runtime rewrite |
+
+**Preferred long-term path:** Listmonk (newsletter) + Baserow (events) are already planned in `wrangler.toml`. Once active, the CF functions become obsolete — no runtime migration needed.
+
+**To reduce runtime lock-in now:** rewrite functions with [Hono](https://hono.dev/) — runs unchanged on CF Workers, Node, Deno, and Bun. Same code, any runtime.
+
+---
 
 ## Future migration path: Forgejo + Woodpecker CI
 

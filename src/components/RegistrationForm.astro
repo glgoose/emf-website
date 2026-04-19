@@ -14,7 +14,7 @@ const deadlineFormatted = registrationDeadline
   : null;
 ---
 
-<section class="mt-6">
+<section class="mt-6 mb-6">
   <!-- Toggle button -->
   <button
     id="reg-toggle"
@@ -48,7 +48,7 @@ const deadlineFormatted = registrationDeadline
         submitAriaLabel="Inschrijven"
       />
 
-      <p id="reg-msg" class="text-sm hidden" aria-live="polite"></p>
+      <p id="reg-msg" class="text-sm hidden mt-4" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -74,16 +74,19 @@ const deadlineFormatted = registrationDeadline
 
     const data = Object.fromEntries(new FormData(form).entries());
 
-    if (!String(data.naam ?? '').trim()) {
-      msg.textContent = 'Vul uw naam in.';
-      msg.className = 'text-sm text-red-700';
+    const showMessage = (text: string, isError: boolean) => {
+      msg.textContent = text;
       msg.classList.remove('hidden');
+      msg.classList.toggle('text-red-700', isError);
+      msg.classList.toggle('text-green-700', !isError);
+    };
+
+    if (!String(data.naam ?? '').trim()) {
+      showMessage('Vul uw naam in.', true);
       return;
     }
     if (!String(data.email ?? '').trim()) {
-      msg.textContent = 'Vul uw e-mailadres in.';
-      msg.className = 'text-sm text-red-700';
-      msg.classList.remove('hidden');
+      showMessage('Vul uw e-mailadres in.', true);
       return;
     }
 
@@ -95,23 +98,14 @@ const deadlineFormatted = registrationDeadline
       });
 
       if (res.ok) {
-        msg.textContent = 'Uw inschrijving is ontvangen. We nemen contact op voor bevestiging.';
-        msg.className = 'text-sm text-green-700';
+        showMessage('Je bent ingeschreven, tot dan! :)', false);
         form.reset();
-        // Collapse after success
-        toggle?.setAttribute('aria-expanded', 'false');
-        panel?.classList.add('hidden');
-        if (icon) icon.textContent = '+';
       } else {
         const json = await res.json().catch(() => ({}));
-        msg.textContent = (json as any).error || 'Er is een fout opgetreden. Probeer later opnieuw.';
-        msg.className = 'text-sm text-red-700';
+        showMessage((json as any).error || 'Er is een fout opgetreden :( Probeer later opnieuw.', true);
       }
     } catch {
-      msg.textContent = 'Netwerkfout. Controleer uw verbinding en probeer opnieuw.';
-      msg.className = 'text-sm text-red-700';
+      showMessage('Netwerkfout :( Controleer uw verbinding en probeer opnieuw.', true);
     }
-
-    msg.classList.remove('hidden');
   });
 </script>

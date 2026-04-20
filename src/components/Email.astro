@@ -1,0 +1,10 @@
+---
+interface Props {
+  address: string;
+  class?: string;
+}
+const { address, class: className } = Astro.props;
+const encoded = [...address].map((c) => `&#${c.charCodeAt(0)};`).join('');
+const classAttr = className ? ` class="${className}"` : '';
+---
+<Fragment set:html={`<a href="mailto:${encoded}"${classAttr}>${encoded}</a>`} />

@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EventCard from '../components/EventCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
@@ -23,11 +23,13 @@ const nextEvent = upcomingEvents[0] ?? null;
     <a href="/" class="flex flex-row items-center gap-4 lg:flex-col lg:items-end hover:no-underline">
       <p class="whitespace-nowrap italic text-[1.5rem] leading-[1.25] lg:mt-3 lowercase text-[#f0573e] rotate-[-10deg]">Ernest Mandelfonds</p>
       <span class="sr-only"> – startpagina</span>
-      <Image
+      <Picture
         src={symbolImg}
         alt=""
-        quality={75}
-        width={160}
+        formats={['avif', 'webp']}
+        widths={[50, 65, 80, 100, 130, 160]}
+        sizes="(min-width: 1024px) 80px, (min-width: 640px) 65px, 50px"
+        quality={70}
         class="block max-w-[50px] sm:max-w-[65px] lg:max-w-[80px]"
       />
     </a>

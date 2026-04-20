@@ -90,109 +90,107 @@ const organizationStructuredData = {
         </div>
       </div>
     </div>
-    <script is:inline>
-      (() => {
-        const headings = document.querySelectorAll('main h1, main h2, main h3, main h4, main h5, main h6');
-        const usedIds = new Set(
-          Array.from(document.querySelectorAll('[id]'))
-            .map(el => el.id)
-            .filter(Boolean),
-        );
+    <script>
+      const headings = document.querySelectorAll('main h1, main h2, main h3, main h4, main h5, main h6');
+      const usedIds = new Set(
+        Array.from(document.querySelectorAll('[id]'))
+          .map(el => el.id)
+          .filter(Boolean),
+      );
 
-        const slugify = (text) =>
-          text
-            .toLowerCase()
-            .normalize('NFKD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^a-z0-9\s-]/g, '')
-            .trim()
-            .replace(/\s+/g, '-');
+      const slugify = (text: string) =>
+        text
+          .toLowerCase()
+          .normalize('NFKD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-z0-9\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-');
 
-        for (const heading of headings) {
-          if (heading.closest('nav,aside')) continue;
-          if (heading.querySelector('.heading-anchor')) continue;
+      for (const heading of headings) {
+        if (heading.closest('nav,aside')) continue;
+        if (heading.querySelector('.heading-anchor')) continue;
 
-          let { id } = heading;
-          if (!id) {
-            const base = slugify(heading.textContent ?? '');
-            if (!base) continue;
+        let { id } = heading;
+        if (!id) {
+          const base = slugify(heading.textContent ?? '');
+          if (!base) continue;
 
-            id = base;
-            let count = 2;
-            while (usedIds.has(id)) {
-              id = `${base}-${count}`;
-              count += 1;
-            }
-            heading.id = id;
-            usedIds.add(id);
+          id = base;
+          let count = 2;
+          while (usedIds.has(id)) {
+            id = `${base}-${count}`;
+            count += 1;
           }
-
-          const anchor = document.createElement('a');
-          anchor.className = 'heading-anchor';
-          anchor.href = `#${id}`;
-          anchor.textContent = '#';
-          anchor.setAttribute('aria-label', `Link naar sectie ${heading.textContent?.trim() ?? ''}`);
-
-          const label = document.createElement('span');
-          label.className = 'heading-label';
-          while (heading.firstChild) {
-            label.appendChild(heading.firstChild);
-          }
-          heading.appendChild(label);
-          label.appendChild(anchor);
+          heading.id = id;
+          usedIds.add(id);
         }
 
-        const decodeHashId = () => {
-          if (!window.location.hash) return null;
-          const raw = window.location.hash.slice(1);
-          try {
-            return decodeURIComponent(raw);
-          } catch {
-            return raw;
-          }
-        };
+        const anchor = document.createElement('a');
+        anchor.className = 'heading-anchor';
+        anchor.href = `#${id}`;
+        anchor.textContent = '#';
+        anchor.setAttribute('aria-label', `Link naar sectie ${heading.textContent?.trim() ?? ''}`);
 
-        const getHashTarget = () => {
-          const id = decodeHashId();
-          if (!id) return null;
-          const target = document.getElementById(id);
-          if (!target) return null;
-          if (target.closest('nav,aside')) return null;
-          return target;
-        };
+        const label = document.createElement('span');
+        label.className = 'heading-label';
+        while (heading.firstChild) {
+          label.appendChild(heading.firstChild);
+        }
+        heading.appendChild(label);
+        label.appendChild(anchor);
+      }
 
-        const alignHashTargetToTop = () => {
-          document.documentElement.style.setProperty('--anchor-scroll-extra', '0px');
+      const decodeHashId = () => {
+        if (!window.location.hash) return null;
+        const raw = window.location.hash.slice(1);
+        try {
+          return decodeURIComponent(raw);
+        } catch {
+          return raw;
+        }
+      };
 
-          const target = getHashTarget();
-          if (!target) return;
+      const getHashTarget = () => {
+        const id = decodeHashId();
+        if (!id) return null;
+        const target = document.getElementById(id);
+        if (!target) return null;
+        if (target.closest('nav,aside')) return null;
+        return target;
+      };
 
-          const scrollMarginTop = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
-          const targetTop = window.scrollY + target.getBoundingClientRect().top;
-          const desiredTop = Math.max(0, targetTop - scrollMarginTop);
-          const scrollToDesired = () => {
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-            window.scrollTo({ top: Math.min(desiredTop, maxScroll), behavior: 'auto' });
-          };
+      const alignHashTargetToTop = () => {
+        document.documentElement.style.setProperty('--anchor-scroll-extra', '0px');
 
+        const target = getHashTarget();
+        if (!target) return;
+
+        const scrollMarginTop = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        const targetTop = window.scrollY + target.getBoundingClientRect().top;
+        const desiredTop = Math.max(0, targetTop - scrollMarginTop);
+        const scrollToDesired = () => {
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          if (desiredTop > maxScroll) {
-            const extra = Math.ceil(desiredTop - maxScroll + 16);
-            document.documentElement.style.setProperty('--anchor-scroll-extra', `${extra}px`);
-            window.requestAnimationFrame(scrollToDesired);
-            return;
-          }
-
-          scrollToDesired();
+          window.scrollTo({ top: Math.min(desiredTop, maxScroll), behavior: 'auto' });
         };
 
-        const alignOnNextFrame = () => window.requestAnimationFrame(alignHashTargetToTop);
-        window.addEventListener('hashchange', alignOnNextFrame);
-        window.addEventListener('resize', () => {
-          if (window.location.hash) alignOnNextFrame();
-        });
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (desiredTop > maxScroll) {
+          const extra = Math.ceil(desiredTop - maxScroll + 16);
+          document.documentElement.style.setProperty('--anchor-scroll-extra', `${extra}px`);
+          window.requestAnimationFrame(scrollToDesired);
+          return;
+        }
+
+        scrollToDesired();
+      };
+
+      const alignOnNextFrame = () => window.requestAnimationFrame(alignHashTargetToTop);
+      window.addEventListener('hashchange', alignOnNextFrame);
+      window.addEventListener('resize', () => {
         if (window.location.hash) alignOnNextFrame();
-      })();
+      });
+      if (window.location.hash) alignOnNextFrame();
     </script>
   </body>
 </html>

@@ -48,9 +48,48 @@ const segments = Astro.url.pathname.split('/').filter(Boolean);
 const parentPath = segments.length <= 1 ? '/' : '/' + segments.slice(0, -1).join('/');
 
 const plainTitle = stripHtml(title);
+
+const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
+const ogImage = cover ? new URL(cover, siteBase).toString() : undefined;
+const canonicalURL = new URL(Astro.url.pathname, siteBase).toString();
+
+const dateStr = date.toISOString().split('T')[0];
+const startDate = `${dateStr}T${time}`;
+const endDate = end_time ? `${dateStr}T${end_time}` : undefined;
+
+const eventStructuredData: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: plainTitle,
+  startDate,
+  ...(endDate && { endDate }),
+  description: event.data.description,
+  url: canonicalURL,
+  ...(ogImage && { image: ogImage }),
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  ...(location && {
+    location: {
+      '@type': 'Place',
+      name: location,
+      ...(address && { address }),
+    },
+  }),
+  organizer: {
+    '@type': 'Organization',
+    name: 'vzw Ernest Mandelfonds',
+    url: new URL('/', siteBase).toString(),
+  },
+  ...(speakers && speakers.length > 0 && {
+    performer: speakers.map(s => ({ '@type': 'Person', name: s.name })),
+  }),
+};
 ---
 
-<BaseLayout title={plainTitle} description={event.data.description}>
+<BaseLayout title={plainTitle} description={event.data.description} ogImage={ogImage}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(eventStructuredData)} />
+  </Fragment>
   <Fragment slot="aside">
     <SidebarHeading
       backHref={parentPath}

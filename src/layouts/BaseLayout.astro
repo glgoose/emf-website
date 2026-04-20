@@ -6,13 +6,19 @@ interface Props {
   title?: string;
   description?: string;
   isHomepage?: boolean;
+  ogImage?: string;
+  ogType?: string;
 }
 
 const {
   title = 'Ernest Mandelfonds',
   description = 'Ecosocialistisch · feministisch · anti-racistisch · radicaal democratisch · antikapitalistisch',
   isHomepage = false,
+  ogImage,
+  ogType = 'website',
 } = Astro.props;
+
+const ogTitle = title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ernestmandelfonds.org');
 const currentPath = Astro.url.pathname;
@@ -44,13 +50,24 @@ const organizationStructuredData = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Ernest Mandelfonds" />
+    <meta property="og:locale" content="nl_BE" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <slot name="head" />
     {socialProfiles.map(profile => <link rel="me" href={profile} />)}
+    <link rel="preload" href="/fonts/eb-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/eb-garamond-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
     <script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
-    <title>{title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`}</title>
+    <title>{ogTitle}</title>
   </head>
   <body>
     <div class="mx-auto px-4 sm:px-8 py-6 lg:py-12" style="max-width:960px">

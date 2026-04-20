@@ -20,11 +20,16 @@ const nextEvent = upcomingEvents[0] ?? null;
   <Fragment slot="aside">
     <a href="/" aria-label="Ernest Mandelfonds – startpagina" class="flex flex-row items-center gap-4 lg:flex-col lg:items-end hover:no-underline">
       <p class="whitespace-nowrap italic text-[1.5rem] leading-[1.25] lg:mt-3 lowercase text-[#f0573e] rotate-[-10deg]">Ernest Mandelfonds</p>
-      <img
-        src="/images/symbolORANGY-RED.png"
-        alt="Ernest Mandelfonds"
-        class="block max-w-[50px] sm:max-w-[65px] lg:max-w-[80px]"
-      />
+      <picture>
+        <source srcset="/images/symbolORANGY-RED.webp" type="image/webp" />
+        <img
+          src="/images/symbolORANGY-RED.png"
+          alt="Ernest Mandelfonds"
+          width="160"
+          height="305"
+          class="block max-w-[50px] sm:max-w-[65px] lg:max-w-[80px]"
+        />
+      </picture>
     </a>
   </Fragment>
 

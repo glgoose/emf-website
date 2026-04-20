@@ -8,6 +8,9 @@ import tailwindcss from "@tailwindcss/vite";
 // /functions/ and are deployed as Cloudflare Pages Functions.
 export default defineConfig({
   site: 'https://ernestmandelfonds.org',
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
     plugins: [tailwindcss()],
   },

@@ -36,13 +36,14 @@ const deadlineFormatted = registrationDeadline
       <input type="hidden" name="event_slug" value={eventSlug} />
       <input type="hidden" name="event_title" value={eventTitle} />
 
-      <UnderlineField id="reg-naam" type="text" name="naam" required placeholder="Naam" />
+      <UnderlineField id="reg-naam" type="text" name="naam" required autocomplete="name" placeholder="Naam" />
 
       <UnderlineField
         id="reg-email"
         type="email"
         name="email"
         required
+        autocomplete="email"
         placeholder="E-mail"
         submitLabel=">>"
         submitAriaLabel="Inschrijven"

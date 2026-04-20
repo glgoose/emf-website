@@ -4,6 +4,7 @@ interface Props {
   type?: 'text' | 'email';
   name: string;
   placeholder: string;
+  autocomplete?: string;
   required?: boolean;
   ariaLabel?: string;
   submitLabel?: string;
@@ -16,6 +17,7 @@ const {
   type = 'text',
   name,
   placeholder,
+  autocomplete,
   required,
   ariaLabel,
   submitLabel,
@@ -32,6 +34,7 @@ const {
       {name}
       {required}
       {placeholder}
+      autocomplete={autocomplete}
       aria-label={ariaLabel}
       class="flex-1 min-w-0 bg-transparent outline-none placeholder:text-[#999999] py-[0.4em]"
     />
@@ -48,6 +51,7 @@ const {
     {name}
     {required}
     {placeholder}
+    autocomplete={autocomplete}
     aria-label={ariaLabel}
     class:list={['w-full border-b border-[#111111] bg-transparent outline-none placeholder:text-[#999999] py-[0.4em]', extraClass]}
   />

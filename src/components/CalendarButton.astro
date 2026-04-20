@@ -7,17 +7,20 @@ interface Props {
 }
 
 const { href, tooltip, ariaLabel, class: className } = Astro.props;
+const tooltipId = `tooltip-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 <a
   href={href}
-  class:list={['group relative inline-block text-[#111111] no-underline hover:no-underline', className]}
+  class:list={['group relative inline-block text-[#111111] no-underline hover:no-underline focus-visible:ring-1 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded-[2px]', className]}
   aria-label={ariaLabel}
+  aria-describedby={tooltipId}
 >
   <slot />
   <span
+    id={tooltipId}
     role="tooltip"
-    class="pointer-events-none absolute right-0 top-full mt-2 w-max max-w-[17rem] rounded-sm bg-[#111111] px-2 py-1 text-[0.6rem] leading-snug opacity-0 transition-opacity group-hover:opacity-100 z-10 normal-case not-italic tracking-normal"
+    class="pointer-events-none absolute right-0 top-full mt-2 w-max max-w-[17rem] rounded-sm bg-[#111111] px-2 py-1 text-[0.6rem] leading-snug opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 z-10 normal-case not-italic tracking-normal"
     style="color:#fff"
   >
     {tooltip}

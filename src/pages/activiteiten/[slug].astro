@@ -4,8 +4,14 @@ import SidebarHeading from '../../components/SidebarHeading.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
 import CalendarButton from '../../components/CalendarButton.astro';
 import CalendarAddIcon from '../../components/icons/CalendarAddIcon.astro';
+import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { formatLongDate, formatTimeRange, formatSpeakersLine, stripHtml } from '../../lib/formatDateTime';
+
+const coverImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/events/*',
+  { eager: true },
+);
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -50,7 +56,14 @@ const parentPath = segments.length <= 1 ? '/' : '/' + segments.slice(0, -1).join
 const plainTitle = stripHtml(title);
 
 const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
-const ogImage = cover ? new URL(cover, siteBase).toString() : undefined;
+const filename = cover?.split('/').pop();
+const coverMeta = filename
+  ? coverImages[`../../assets/images/events/${filename}`]?.default
+  : undefined;
+const ogImageObj = coverMeta
+  ? await getImage({ src: coverMeta, width: 1200, format: 'jpeg', quality: 85 })
+  : undefined;
+const ogImage = ogImageObj ? new URL(ogImageObj.src, siteBase).toString() : undefined;
 const canonicalURL = new URL(Astro.url.pathname, siteBase).toString();
 
 const dateStr = date.toISOString().split('T')[0];
@@ -119,8 +132,16 @@ const eventStructuredData: Record<string, unknown> = {
     </SidebarHeading>
   </Fragment>
 
-  {cover && (
-    <img src={cover} alt={plainTitle} class="w-full mb-6" style={cover_filter ? `filter: ${cover_filter}` : undefined} />
+  {coverMeta && (
+    <Picture
+      src={coverMeta}
+      alt={plainTitle}
+      formats={['avif', 'webp']}
+      widths={[400, 700, 1000, 1400]}
+      sizes="(min-width: 1024px) 700px, 100vw"
+      class="w-full mb-6"
+      style={cover_filter ? `filter: ${cover_filter}` : undefined}
+    />
   )}
 
   <article class="prose">

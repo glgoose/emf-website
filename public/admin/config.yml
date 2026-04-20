@@ -16,6 +16,8 @@ collections:
     label: Activiteiten
     label_singular: Activiteit
     folder: src/content/events
+    media_folder: /src/assets/images/events
+    public_folder: /images/events
     create: true
     slug: "{{slug}}"
     extension: md

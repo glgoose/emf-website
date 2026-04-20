@@ -40,9 +40,9 @@ const { backHref, sectionLabel, sectionHref, currentPage, navItems, sectionClick
           <li>
             {item.id === currentPage ? (
               <>
-                <h1 class="m-0 text-sm leading-[1.25] font-bold lowercase tracking-normal [font-variant-caps:normal] text-[#111111]">
+                <span aria-current="page" class="block text-sm leading-[1.25] font-bold lowercase tracking-normal [font-variant-caps:normal] text-[#111111]">
                   {item.label}
-                </h1>
+                </span>
                 {item.children && (
                   <ul class="list-none m-0 p-0 mt-1 ml-3 space-y-1">
                     {item.children.map(child => (

@@ -44,6 +44,29 @@ curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/bot_management"
 
 Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specific zone. Verify with `curl .../bot_management` — expect `"enable_js": false`.
 
+## Fonts
+
+### Metric-adjusted fallback (`EB Garamond Fallback`)
+
+`src/styles/global.css` contains a hand-calculated `@font-face` for Georgia that minimises CLS when EB Garamond swaps in (`font-display: swap`). Values derived from actual font metrics using fonttools:
+
+| Descriptor | Value | Source |
+|---|---|---|
+| `size-adjust` | 120.02% | `EB Garamond xAvgCharWidth/UPM ÷ Georgia xAvgCharWidth/UPM` |
+| `ascent-override` | 100.70% | `EB Garamond sTypoAscender / UPM` |
+| `descent-override` | 29.80% | `EB Garamond sTypoDescender / UPM` |
+| `line-gap-override` | 0% | Removes Georgia's 198/2048 line gap |
+
+**If a new web font is added:** replace this manual approach with [Fontaine](https://github.com/unjs/fontaine) as a Vite plugin — it automates metric calculation for all fonts at build time. Add to `astro.config.mjs`:
+
+```ts
+import { fontaine } from 'vite-plugin-fontaine';
+
+export default defineConfig({
+  vite: { plugins: [fontaine()] },
+});
+```
+
 ## Typography
 
 ### Small-caps letter-spacing

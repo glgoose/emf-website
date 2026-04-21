@@ -1,0 +1,41 @@
+---
+import CalendarSubscribeIcon from './icons/CalendarSubscribeIcon.astro';
+import { buildGoogleSubscribeUrl, buildOutlookSubscribeUrl } from '../lib/calendarUrls';
+
+interface Props {
+  webcalHref: string;
+  icsHttpsUrl: string;
+  class?: string;
+}
+
+const { webcalHref, icsHttpsUrl, class: className } = Astro.props;
+const googleUrl = buildGoogleSubscribeUrl(icsHttpsUrl);
+const outlookUrl = buildOutlookSubscribeUrl(icsHttpsUrl);
+---
+
+<details class:list={['group/cal relative inline-block', className]}>
+  <summary
+    class="list-none cursor-pointer text-[#111111] rounded-[2px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#111111] focus-visible:ring-offset-2"
+    aria-label="Abonneer op de agenda"
+  >
+    <CalendarSubscribeIcon />
+  </summary>
+  <div class="absolute right-0 top-full mt-1 z-20 min-w-[10rem] rounded-sm bg-[#111111] py-1 shadow-md">
+    <a
+      href={googleUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-3 py-1.5 text-[0.6rem] leading-snug text-white no-underline hover:no-underline hover:bg-white/10"
+    >Google Calendar</a>
+    <a
+      href={outlookUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-3 py-1.5 text-[0.6rem] leading-snug text-white no-underline hover:no-underline hover:bg-white/10"
+    >Outlook</a>
+    <a
+      href={webcalHref}
+      class="block px-3 py-1.5 text-[0.6rem] leading-snug text-white no-underline hover:no-underline hover:bg-white/10"
+    >Apple Agenda / Thunderbird</a>
+  </div>
+</details>

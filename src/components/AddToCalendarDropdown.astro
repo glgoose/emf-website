@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CalendarAddIcon from './icons/CalendarAddIcon.astro';
+import { buildGoogleEventUrl, buildOutlookEventUrl } from '../lib/calendarUrls';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+  icsHref: string;
+  class?: string;
+}
+
+const { event, icsHref, class: className } = Astro.props;
+const googleUrl = buildGoogleEventUrl(event);
+const outlookUrl = buildOutlookEventUrl(event);
+---
+
+<details class:list={['group/cal relative inline-block', className]}>
+  <summary
+    class="list-none cursor-pointer text-[#111111] rounded-[2px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#111111] focus-visible:ring-offset-2"
+    aria-label="Voeg toe aan je agenda"
+  >
+    <CalendarAddIcon />
+  </summary>
+  <div class="absolute right-0 top-full mt-1 z-20 min-w-[10rem] rounded-sm bg-[#111111] py-1 shadow-md">
+    <a
+      href={googleUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-3 py-1.5 text-[0.6rem] leading-snug text-white no-underline hover:no-underline hover:bg-white/10"
+    >Google Calendar</a>
+    <a
+      href={outlookUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-3 py-1.5 text-[0.6rem] leading-snug text-white no-underline hover:no-underline hover:bg-white/10"
+    >Outlook</a>
+    <a
+      href={icsHref}
+      download
+      class="block px-3 py-1.5 text-[0.6rem] leading-snug text-white no-underline hover:no-underline hover:bg-white/10"
+    >Download .ics (Apple, Linux, andere)</a>
+  </div>
+</details>

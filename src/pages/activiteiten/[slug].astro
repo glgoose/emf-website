@@ -2,8 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SidebarHeading from '../../components/SidebarHeading.astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
-import CalendarButton from '../../components/CalendarButton.astro';
-import CalendarAddIcon from '../../components/icons/CalendarAddIcon.astro';
+import AddToCalendarDropdown from '../../components/AddToCalendarDropdown.astro';
 import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { formatLongDate, formatTimeRange, formatSpeakersLine, stripHtml } from '../../lib/formatDateTime';
@@ -121,14 +120,11 @@ const eventStructuredData: Record<string, unknown> = {
       {price && (
         <p class="text-xs leading-snug mt-1">{price}</p>
       )}
-      <CalendarButton
-        href={`/activiteiten/${event.id}.ics`}
-        tooltip="Voeg toe aan je agenda"
-        ariaLabel="Voeg toe aan je agenda"
+      <AddToCalendarDropdown
+        event={event}
+        icsHref={`/activiteiten/${event.id}.ics`}
         class="mt-2"
-      >
-        <CalendarAddIcon />
-      </CalendarButton>
+      />
     </SidebarHeading>
   </Fragment>
 

@@ -2,8 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EventList from '../../components/EventList.astro';
 import SidebarHeading from '../../components/SidebarHeading.astro';
-import CalendarButton from '../../components/CalendarButton.astro';
-import CalendarSubscribeIcon from '../../components/icons/CalendarSubscribeIcon.astro';
+import SubscribeCalendarDropdown from '../../components/SubscribeCalendarDropdown.astro';
 import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('events');
@@ -19,6 +18,7 @@ const calendarHost = import.meta.env.DEV
   ? Astro.url.host
   : (Astro.site ?? new URL('https://ernestmandelfonds.org')).host;
 const calendarHref = `webcal://${calendarHost}/activiteiten/kalender.ics`;
+const icsHttpsUrl = `https://${import.meta.env.DEV ? calendarHost : 'ernestmandelfonds.org'}/activiteiten/kalender.ics`;
 ---
 
 <BaseLayout title="Activiteiten" description="Overzicht van activiteiten en evenementen van Ernest Mandelfonds.">
@@ -38,14 +38,11 @@ const calendarHref = `webcal://${calendarHost}/activiteiten/kalender.ics`;
               aria-label="Terug"
             >&gt;&gt;</a>Activiteiten
           </h1>
-          <CalendarButton
-            href={calendarHref}
-            tooltip="Abonneer je op onze nieuwe activiteiten"
-            ariaLabel="Abonneer op de agenda"
+          <SubscribeCalendarDropdown
+            webcalHref={calendarHref}
+            icsHttpsUrl={icsHttpsUrl}
             class="shrink-0 ml-4 lg:ml-0 lg:mt-2"
-          >
-            <CalendarSubscribeIcon />
-          </CalendarButton>
+          />
         </div>
       </div>
     </>

@@ -58,7 +58,7 @@ function formatMeta(date: Date, author?: string): string {
     <p class="text-sm text-[#555555]">{emptyMessage}</p>
   ) : (
     <>
-      <section class="border-t border-[#dddddd] pt-2 mb-6 lg:border-t-0 lg:pt-0">
+      <section class="border-t border-[#dddddd] pt-2 mb-6 lg:border-t-0 lg:pt-0" data-disable-heading-anchors="true">
         {latestLabel && (
           <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-2">
             {latestLabel}
@@ -79,7 +79,7 @@ function formatMeta(date: Date, author?: string): string {
       </section>
 
       {secondary.length > 0 && (
-        <ul class="list-none m-0 p-0 grid sm:grid-cols-2 gap-x-7 gap-y-5 border-t border-[#dddddd] pt-4">
+        <ul class="list-none m-0 p-0 grid sm:grid-cols-2 gap-x-7 gap-y-5 border-t border-[#dddddd] pt-4" data-disable-heading-anchors="true">
           {secondary.map(item => (
             <li>
               <a href={newsItemHref(item)} class="group block no-underline hover:no-underline">

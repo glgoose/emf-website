@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import NewsListPage from '../../components/NewsListPage.astro';
+import { newsTypes } from '../../lib/newsTypes';
+
+export async function getStaticPaths() {
+  return newsTypes.map(type => ({
+    params: { type: type.slug },
+    props: { type },
+  }));
+}
+
+const { type } = Astro.props;
+const allNews = await getCollection('posts');
+const items = allNews.filter(item => item.data.type === type.slug);
+---
+
+<NewsListPage
+  title={type.pageTitle}
+  description={`${type.pageTitle} van Ernest Mandelfonds.`}
+  items={items}
+  currentType={type.slug}
+  backHref="/nieuws"
+  latestLabel={type.latestLabel}
+  emptyMessage={`Er zijn nog geen ${type.pluralLabel} beschikbaar.`}
+/>

@@ -19,7 +19,7 @@ const { backHref, title, subtitle, large = false, noBorder = false } = Astro.pro
   >&lt;&lt;</a>
   <div class:list={[!noBorder && 'border-t-[2px] border-[#111111] pt-0.5']}>
     <hgroup class:list={[!noBorder && 'mb-4', 'group relative']}>
-      <h1 class:list={['text-[1.25rem] leading-[1.25] font-bold lowercase break-words [hyphens:auto]', large && 'text-[1.4rem]']}><a
+      <h1 class:list={['text-[1.25rem] leading-[1.25] font-bold break-words [hyphens:auto]', large && 'text-[1.4rem]']}><a
         href={backHref}
         class="hidden lg:inline-block w-0 overflow-visible whitespace-nowrap lg:mr-1.5 text-[0.75em] font-normal opacity-0 group-hover:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
         aria-label="Terug"

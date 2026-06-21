@@ -11,7 +11,9 @@ speakers:
   - name: "Amir Haberkorn"
     bio: "[Een Andere Joodse Stem](https://eajs.be/)"
   - name: "Elena Fernández-Fernández"
-    bio: "SAP-Antikapitalisten"
+    bio: "[SAP-Antikapitalisten](https://www.sap-rood.org/)"
+  - name: "Isja Puissant"
+    bio: "[Global Summit Flotilla](https://www.globalsumudflotilla.org/)"
 organizer_note: "in samenwerking met Masereelfonds (Edegem) en SAP – Antikapitalisten"
 registration_open: false
 price: "gratis"

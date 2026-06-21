@@ -6,6 +6,7 @@ import AddToCalendarDropdown from '../../components/AddToCalendarDropdown.astro'
 import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { formatLongDate, formatTimeRange, formatSpeakersLine, stripHtml } from '../../lib/formatDateTime';
+import { newsItemHref } from '../../lib/newsTypes';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
   '../../assets/images/events/*',
@@ -22,6 +23,9 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content } = await render(event);
+const relatedPosts = (await getCollection('posts'))
+  .filter(post => post.data.source_event?.slug === event.id)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const {
   title,
@@ -39,6 +43,14 @@ const {
   price,
   end_time,
 } = event.data;
+
+const relatedPostsContext = type === 'panelgesprek' ? 'dit panelgesprek' : `deze ${type}`;
+const relatedPostsIntro = `Lees de bijdragen aan ${relatedPostsContext}:`;
+const relatedPostLinks = relatedPosts.map(post => ({
+  href: newsItemHref(post),
+  title: post.data.title,
+  author: post.data.author,
+}));
 
 const dateFormatted = formatLongDate(date);
 const timeFormatted = formatTimeRange(time, end_time);
@@ -138,6 +150,27 @@ const eventStructuredData: Record<string, unknown> = {
       class="w-full mb-6"
       style={cover_filter ? `filter: ${cover_filter}` : undefined}
     />
+  )}
+
+  {relatedPostLinks.length > 0 && (
+    <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
+      <p class="mb-2">{relatedPostsIntro}</p>
+      <ul class="m-0 list-none p-0">
+        {relatedPostLinks.map(post => (
+          <li class="grid grid-cols-[0.8em_1fr] gap-x-[0.15em] mb-1 leading-[1.35] before:content-['-'] before:text-[#888888]">
+            <span>
+              <a
+                href={post.href}
+                class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]"
+              >
+                <em>{post.title}</em>
+              </a>
+              {post.author && <span class="text-[#888888]"> - {post.author}</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </aside>
   )}
 
   <article class="prose">

@@ -210,12 +210,42 @@
   }
 
   .prose blockquote {
-    border-left: 3px solid #E8320A;
+    --quote-gap: 0.42em;
+    --quote-mark-width: 0.62em;
+    --quote-offset: calc(var(--quote-mark-width) + var(--quote-gap));
+    position: relative;
+    border-left: 0;
     font-style: italic;
-    padding-left: 1.25em;
+    padding-left: var(--quote-offset);
+    padding-right: var(--quote-offset);
     margin-left: 0;
     margin-right: 0;
     color: #555555;
+  }
+
+  .prose blockquote::before {
+    content: "“";
+    position: absolute;
+    left: 0;
+    top: -0.08em;
+    width: var(--quote-mark-width);
+    color: #bbbbbb;
+    font-size: 1.35em;
+    line-height: 1;
+    font-style: normal;
+    text-align: left;
+  }
+
+  .prose blockquote > :last-child::after {
+    content: "\2060”";
+    display: inline;
+    margin-left: var(--quote-gap);
+    color: #bbbbbb;
+    font-size: 1.35em;
+    line-height: 1;
+    font-style: normal;
+    vertical-align: -0.08em;
+    text-align: left;
   }
 
   .prose ul {
@@ -238,6 +268,11 @@
   .prose img {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
+  }
+
+  .news-article > p:first-child {
+    font-size: 1.22rem;
+    line-height: 1.4;
   }
 
 }

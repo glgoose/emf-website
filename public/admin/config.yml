@@ -156,12 +156,21 @@ collections:
   - name: news
     label: Nieuws
     label_singular: Nieuwsbericht
-    folder: src/content/news
+    folder: src/content/posts
     create: true
     slug: "{{slug}}"
     extension: md
     format: frontmatter
     fields:
+      - label: Type
+        name: type
+        widget: select
+        required: true
+        options:
+          - { label: Lezing, value: lezing }
+          - { label: Recensie, value: recensie }
+          - { label: Verslag, value: verslag }
+
       - label: Titel
         name: title
         widget: string

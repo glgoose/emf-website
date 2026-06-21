@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarHeading from '../../components/SidebarHeading.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('posts');
+  return items.map(item => ({
+    params: { type: item.data.type, slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const { title, date, author, summary, source_event } = item.data;
+
+const dateFormatted = date.toLocaleDateString('nl-BE', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={summary} ogType="article">
+  <Fragment slot="aside">
+    <SidebarHeading backHref="/nieuws" title={title}>
+      <p class="text-xs leading-snug text-[#555555] mb-1">{dateFormatted}</p>
+      {author && <p class="text-xs leading-snug text-[#555555] mb-0">{author}</p>}
+    </SidebarHeading>
+  </Fragment>
+
+  <article class="prose news-article">
+    {source_event && (
+      <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
+        {source_event.note}{' '}
+        <a href={`/activiteiten/${source_event.slug}`} class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]">
+          {source_event.label}
+        </a>.
+      </aside>
+    )}
+    <Content />
+  </article>
+</BaseLayout>

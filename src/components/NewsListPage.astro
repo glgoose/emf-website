@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SidebarNav from './SidebarNav.astro';
+import { newsNavItems } from '../data/newsNav';
+import { newsItemHref, newsTypeLabel } from '../lib/newsTypes';
+
+interface Props {
+  title: string;
+  description: string;
+  items: any[];
+  currentType?: string;
+  backHref?: string;
+  latestLabel?: string;
+  emptyMessage?: string;
+}
+
+const {
+  title,
+  description,
+  items,
+  currentType = 'all',
+  backHref = '/',
+  latestLabel = 'laatste bericht',
+  emptyMessage = 'Er zijn nog geen nieuwsberichten beschikbaar.',
+} = Astro.props;
+
+const sorted = [...items].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const [lead, ...secondary] = sorted;
+const navItems = newsNavItems(items);
+const showItemTypes = currentType === 'all';
+
+function formatNewsDate(date: Date): string {
+  return date.toLocaleDateString('nl-BE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+function formatMeta(date: Date, author?: string): string {
+  return [formatNewsDate(date), author].filter(Boolean).join(' · ');
+}
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="aside">
+    <SidebarNav
+      backHref={backHref}
+      sectionLabel="Nieuws"
+      sectionHref="/nieuws"
+      currentPage={currentType === 'all' ? '' : currentType}
+      navItems={navItems}
+      sectionClickable={currentType !== 'all'}
+    />
+  </Fragment>
+
+  {sorted.length === 0 ? (
+    <p class="text-sm text-[#555555]">{emptyMessage}</p>
+  ) : (
+    <>
+      <section class="border-t border-[#dddddd] pt-2 mb-6 lg:border-t-0 lg:pt-0">
+        {latestLabel && (
+          <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-2">
+            {latestLabel}
+          </p>
+        )}
+        <a href={newsItemHref(lead)} class="group block no-underline hover:no-underline">
+          {showItemTypes && (
+            <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-2">
+              {newsTypeLabel(lead.data.type)}
+            </p>
+          )}
+          <h2 class="text-[2rem] leading-[0.98] italic font-medium mt-0 mb-2 max-w-[13em] group-hover:underline underline-offset-2">
+            {lead.data.title}
+          </h2>
+          <p class="leading-[1.35] max-w-[31rem] mb-2">{lead.data.summary}</p>
+          <p class="text-xs leading-snug text-[#555555]">{formatMeta(lead.data.date, lead.data.author)}</p>
+        </a>
+      </section>
+
+      {secondary.length > 0 && (
+        <ul class="list-none m-0 p-0 grid sm:grid-cols-2 gap-x-7 gap-y-5 border-t border-[#dddddd] pt-4">
+          {secondary.map(item => (
+            <li>
+              <a href={newsItemHref(item)} class="group block no-underline hover:no-underline">
+                {showItemTypes && (
+                  <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-1.5">
+                    {newsTypeLabel(item.data.type)}
+                  </p>
+                )}
+                <p class="text-xs leading-snug text-[#555555] mb-1">{formatMeta(item.data.date, item.data.author)}</p>
+                <h3 class="text-[1.05rem] leading-[1.12] font-bold normal-case [font-variant:normal] [letter-spacing:0] mt-0 mb-1 group-hover:underline underline-offset-2">
+                  {item.data.title}
+                </h3>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  )}
+</BaseLayout>

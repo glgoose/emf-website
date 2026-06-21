@@ -8,9 +8,18 @@ interface Props {
   currentPage: string;
   navItems: NavItem[];
   sectionClickable?: boolean;
+  underlineCurrent?: boolean;
 }
 
-const { backHref, sectionLabel, sectionHref, currentPage, navItems, sectionClickable = true } = Astro.props;
+const {
+  backHref,
+  sectionLabel,
+  sectionHref,
+  currentPage,
+  navItems,
+  sectionClickable = true,
+  underlineCurrent = false,
+} = Astro.props;
 ---
 
 <>
@@ -40,7 +49,13 @@ const { backHref, sectionLabel, sectionHref, currentPage, navItems, sectionClick
           <li>
             {item.id === currentPage ? (
               <>
-                <span aria-current="page" class="block text-sm leading-[1.25] font-bold lowercase tracking-normal [font-variant-caps:normal] text-[#111111]">
+                <span
+                  aria-current="page"
+                  class:list={[
+                    'block text-sm leading-[1.25] font-bold lowercase tracking-normal [font-variant-caps:normal] text-[#111111]',
+                    underlineCurrent && 'underline underline-offset-2 decoration-[0.04em]',
+                  ]}
+                >
                   {item.label}
                 </span>
                 {item.children && (

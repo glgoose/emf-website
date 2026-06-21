@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { mdInline } from "./lib/mdInline";
+import { newsTypeSlugs } from "./lib/newsTypes";
 
 const eventTypes = [
   "boekvoorstelling",
@@ -41,9 +42,16 @@ const events = defineCollection({
 const posts = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
   schema: z.object({
+    type: z.enum(newsTypeSlugs),
     title: z.string(),
     date: z.coerce.date(),
     summary: z.string(),
+    author: z.string().optional(),
+    source_event: z.object({
+      slug: z.string(),
+      label: z.string(),
+      note: z.string(),
+    }).optional(),
   }),
 });
 

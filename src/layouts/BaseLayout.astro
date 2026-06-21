@@ -83,7 +83,7 @@ const organizationStructuredData = {
         <!-- Inhoudskolom: navbar at top (homepage) or bottom (all other pages) -->
         <div class="flex flex-col" style="min-height:calc(100vh - 6rem)">
           {isHomepage && <Navbar currentPath={currentPath} atTop={true} />}
-          <main class="flex-1">
+          <main class="flex-1" data-disable-heading-anchors={isHomepage ? 'true' : undefined}>
             <slot />
           </main>
           {!isHomepage && <Navbar currentPath={currentPath} atTop={false} />}
@@ -109,6 +109,7 @@ const organizationStructuredData = {
 
       for (const heading of headings) {
         if (heading.closest('nav,aside')) continue;
+        if (heading.closest('[data-disable-heading-anchors="true"]')) continue;
         if (heading.querySelector('.heading-anchor')) continue;
 
         let { id } = heading;

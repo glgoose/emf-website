@@ -1,11 +1,12 @@
 ---
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EventCard from '../components/EventCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import PillButton from '../components/PillButton.astro';
 import { getCollection } from 'astro:content';
 import symbolImg from '../assets/images/symbolORANGY-RED.png';
+import { formatLongDate } from '../lib/formatDateTime';
+import { newsItemHref, newsTypeLabel } from '../lib/newsTypes';
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -16,6 +17,40 @@ const upcomingEvents = allEvents
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const nextEvent = upcomingEvents[0] ?? null;
+
+const allPosts = await getCollection('posts');
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+
+const formatDate = (date: Date) => date.toLocaleDateString('nl-BE', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const formatPostMeta = (date: Date, author?: string) =>
+  [formatDate(date), author].filter(Boolean).join(' · ');
+
+const formatClockTime = (time: string) => time;
+const formatHomepageTimeRange = (start: string, end?: string | null) =>
+  end ? `${formatClockTime(start)}-${formatClockTime(end)}` : formatClockTime(start);
+
+const nextEventDate = nextEvent ? formatLongDate(nextEvent.data.date) : '';
+const nextEventTime = nextEvent
+  ? formatHomepageTimeRange(nextEvent.data.time, nextEvent.data.end_time)
+  : '';
+const nextEventLocation = nextEvent?.data.location ?? '';
+const nextEventMeta = nextEvent
+  ? [
+      nextEventDate,
+      nextEventTime,
+      nextEventLocation,
+    ].filter(Boolean).join(' · ')
+  : '';
+const nextEventSpeakers = nextEvent?.data.speakers?.length
+  ? nextEvent.data.speakers.map(speaker => speaker.name).join(' · ')
+  : '';
 ---
 
 <BaseLayout isHomepage={true}>
@@ -38,22 +73,43 @@ const nextEvent = upcomingEvents[0] ?? null;
   </Fragment>
 
   {nextEvent && (
+    <section class="mb-6">
+      <a href={`/activiteiten/${nextEvent.id}`} class="group block no-underline hover:no-underline focus-visible:no-underline">
+        <article>
+          <p class="mt-0 mb-[0.34rem] text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em]">volgende activiteit</p>
+          <h3 class="mt-0 mb-[0.42rem] text-[1.15rem] leading-[1.12] font-normal italic normal-case tracking-normal [font-variant:normal] group-hover:underline underline-offset-2" set:html={nextEvent.data.title} />
+          <div class="text-[0.88rem] leading-[1.26]">
+            <p>{nextEventMeta}</p>
+            {nextEventSpeakers && (
+              <p class="mt-[0.08rem]">{nextEventSpeakers}</p>
+            )}
+          </div>
+        </article>
+      </a>
+    </section>
+  )}
+
+  {latestPosts.length > 0 && (
     <section>
       <h2>
-        Volgende activiteit
+        <a href="/nieuws" class="no-underline hover:no-underline focus-visible:no-underline">Laatste nieuws</a>
       </h2>
-      <EventCard
-        title={nextEvent.data.title}
-        date={nextEvent.data.date}
-        time={nextEvent.data.time}
-        location={nextEvent.data.location ?? undefined}
-        end_time={nextEvent.data.end_time}
-        type={nextEvent.data.type}
-        speakers={nextEvent.data.speakers}
-        cover={nextEvent.data.cover}
-        description={nextEvent.data.description}
-        slug={nextEvent.id}
-      />
+      <div class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+        {latestPosts.map(post => (
+          <article>
+            <a href={newsItemHref(post)} class="block no-underline hover:no-underline group">
+              <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-1.5">
+                {newsTypeLabel(post.data.type)}
+              </p>
+              <p class="text-xs text-[#555555] mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>
+              <p class="m-0 text-[1rem] leading-[1.15] font-bold group-hover:underline underline-offset-2">
+                {post.data.title}
+              </p>
+              <p class="mt-2 text-sm leading-[1.35] text-[#333333]">{post.data.summary}</p>
+            </a>
+          </article>
+        ))}
+      </div>
     </section>
   )}
 

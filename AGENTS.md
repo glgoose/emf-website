@@ -23,6 +23,10 @@ for html in Path('dist').rglob('*.html'):
 
 Keep `script-src` hash-only — do **not** add `'unsafe-inline'`. Per CSP3, `'unsafe-inline'` is ignored whenever a hash or nonce is present, so it's dead weight that confuses debugging (browser console complains about it).
 
+## Previewing web changes
+
+When changing pages, layouts, styles, or other user-visible website UI, always offer the user a Codex app preview option so they can view the page from the conversation. Do not only verify through a local browser or screenshots that remain inaccessible to the user.
+
 ### Cloudflare must not inject inline scripts
 
 Hash-based CSP breaks if Cloudflare rewrites the HTML to add a `<script>` with rotating content. Keep these **OFF** in the CF dashboard for zone `ernestmandelfonds.org`:

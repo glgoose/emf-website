@@ -107,6 +107,9 @@ const bookStructuredData: Record<string, unknown> = {
             formats={['avif', 'webp']}
             widths={[280, 420, 640, 900]}
             sizes="(min-width: 1024px) 330px, (min-width: 640px) 42vw, 220px"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
             class="publication-cover"
           />
         )}

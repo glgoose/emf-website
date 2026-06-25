@@ -7,7 +7,6 @@ month_label: mei 2026
 pages: 264
 edition: heruitgave
 isbn: 978-90-835497-1-2
-original_title: Introduction au marxisme
 original_year: 1974
 collaboration:
   label: IIRE

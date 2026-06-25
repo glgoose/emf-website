@@ -120,15 +120,19 @@ const bookStructuredData: Record<string, unknown> = {
             <div class="publication-meta">
               {publicationMeta && <p>{publicationMeta}</p>}
               {isbn && <p>ISBN {isbn}</p>}
-              {original_title && (
+              {(original_title || original_year) && (
                 <p class="fine">
                   Oorspronkelijke uitgave:{' '}
                   {original_url ? (
                     <a href={original_url} target="_blank" rel="noopener noreferrer" class="original-link">
-                      <em>{original_title}</em>{original_year && ` (${original_year})`}
+                      {original_title ? <em>{original_title}</em> : original_year}
+                      {original_title && original_year && ` (${original_year})`}
                     </a>
                   ) : (
-                    <><em>{original_title}</em>{original_year && ` (${original_year})`}</>
+                    <>
+                      {original_title ? <em>{original_title}</em> : original_year}
+                      {original_title && original_year && ` (${original_year})`}
+                    </>
                   )}
                 </p>
               )}

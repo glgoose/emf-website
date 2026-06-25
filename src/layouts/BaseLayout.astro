@@ -6,6 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   isHomepage?: boolean;
+  noSidebar?: boolean;
   ogImage?: string;
   ogType?: string;
 }
@@ -14,6 +15,7 @@ const {
   title = 'Ernest Mandelfonds',
   description = 'Ecosocialistisch · feministisch · anti-racistisch · radicaal democratisch · antikapitalistisch',
   isHomepage = false,
+  noSidebar = false,
   ogImage,
   ogType = 'website',
 } = Astro.props;
@@ -72,13 +74,14 @@ const organizationStructuredData = {
   <body>
     <div class="mx-auto px-4 sm:px-8 py-6 lg:py-12" style="max-width:960px">
       <div
-        class="lg:grid lg:items-start"
-        style="grid-template-columns: calc(2.5rem * 3) 1fr; gap: 2.5rem;"
+        class:list={[!noSidebar && 'lg:grid lg:items-start']}
+        style={!noSidebar ? 'grid-template-columns: calc(2.5rem * 3) 1fr; gap: 2.5rem;' : undefined}
       >
-        <!-- Aside: sticky, right-aligned to match the gutter -->
-        <aside class="mb-3 lg:mb-0 lg:sticky lg:top-12 lg:text-right">
-          <slot name="aside" />
-        </aside>
+        {!noSidebar && (
+          <aside class="mb-3 lg:mb-0 lg:sticky lg:top-12 lg:text-right">
+            <slot name="aside" />
+          </aside>
+        )}
 
         <!-- Inhoudskolom: navbar at top (homepage) or bottom (all other pages) -->
         <div class="flex flex-col" style="min-height:calc(100vh - 6rem)">

@@ -1,64 +1,112 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
+import SidebarHeading from '../components/SidebarHeading.astro';
 
-const allPosts = await getCollection('posts');
-const sorted = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const postsWithContent = await Promise.all(
-  sorted.map(async post => {
-    const { Content } = await render(post);
-    return { post, Content };
-  })
-);
+const books = [
+  {
+    title: 'Inleiding tot het marxisme',
+    author: 'Ernest Mandel',
+    price: '€15',
+    slug: 'inleiding-tot-het-marxisme',
+    cover: '/publicaties/inleiding-tot-het-marxisme.png',
+    alt: 'Cover Inleiding tot het marxisme',
+  },
+  {
+    title: 'Manifest voor een ecosocialistische revolutie',
+    author: 'Vierde Internationale',
+    price: '€5',
+    slug: 'ecosocialistisch-manifest',
+    cover: '/publicaties/ecosocialistisch-manifest.jpg',
+    alt: 'Cover Manifest voor een ecosocialistische revolutie',
+  },
+];
 ---
 
-<BaseLayout title="Publicaties" description="Teksten, analyses en standpunten van Ernest Mandelfonds.">
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-12 lg:items-start">
+<BaseLayout title="Publicaties" description="Boeken en publicaties van Ernest Mandelfonds.">
+  <Fragment slot="aside">
+    <SidebarHeading backHref="/" title="Publicaties" />
+  </Fragment>
 
-      <!-- Sticky left: title -->
-      <div class="lg:sticky lg:top-10 mb-8 lg:mb-0 border-t-[2px] border-[#111111] pt-3">
-        <h1
-          class="font-barlow font-black text-2xl lowercase mb-6"
-          style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-        >
-          Publicaties
-        </h1>
-        <a href="/" class="text-xs text-[#555555] hover:underline underline-offset-2">← startpagina</a>
-      </div>
+  <section class="border-t-[2px] border-[#111111] pt-1" aria-labelledby="boeken" data-disable-heading-anchors="true">
+    <h2 id="boeken" class="m-0 mb-2 text-[0.65rem] leading-none text-[#555555] font-normal not-italic lowercase [font-variant:small-caps] tracking-[0.08em]">boeken</h2>
 
-      <!-- Content column -->
-      <div class="border-t-[2px] border-[#111111] pt-6">
-
-        {sorted.length === 0 && (
-          <p class="text-sm text-[#555555]">Er zijn nog geen publicaties beschikbaar.</p>
-        )}
-
-        <ul class="list-none m-0 p-0 space-y-14">
-          {postsWithContent.map(({ post, Content }) => {
-            const dateStr = post.data.date.toLocaleDateString('nl-BE', {
-              day: 'numeric', month: 'long', year: 'numeric'
-            });
-            return (
-              <li id={post.id} class="scroll-mt-10">
-                <p class="text-xs text-[#555555] uppercase tracking-wide mb-1">{dateStr}</p>
-                <h2
-                  class="font-barlow font-black text-2xl sm:text-3xl leading-tight mb-3 lowercase"
-                  style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:900;"
-                >
-                  {post.data.title}
-                </h2>
-                <p class="text-sm text-[#555555] mb-4 italic">{post.data.summary}</p>
-                <div class="prose prose-lg max-w-none text-[#111111] [&_p]:leading-relaxed [&_a]:underline [&_a]:underline-offset-2">
-                  <Content />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-
-      </div>
-    </div>
-  </div>
+    <ul class="grid grid-cols-2 list-none m-0 p-0 gap-x-4 gap-y-10 sm:grid-cols-[repeat(2,minmax(0,7.2rem))] sm:gap-x-[1.4rem]">
+      {books.map(book => {
+        const popoverId = `order-${book.slug}`;
+        return (
+          <li>
+            <a
+              href={`/publicaties/${book.slug}/`}
+              class="group block max-w-[7.2rem] text-[#111111] no-underline hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#111111]"
+              aria-label={`Bekijk ${book.title}`}
+            >
+              <img
+                src={book.cover}
+                alt={book.alt}
+                loading="lazy"
+                width="420"
+                height="590"
+                class="mb-[0.45rem] aspect-[2/3] w-[min(100%,5.8rem)] object-cover sm:w-[5.3rem]"
+              />
+              <p class="m-0 text-[0.6rem] leading-tight text-[#555555]">{book.author}</p>
+              <h3 class="m-0 mt-1 text-[0.6rem] leading-[1.18] font-bold tracking-normal normal-case text-[#111111] [font-variant:normal]">
+                <em>{book.title}</em>
+              </h3>
+            </a>
+            <span class="mt-1 flex items-baseline gap-1.5 text-[0.6rem] leading-none text-[#111111]">
+              <span>{book.price}</span>
+              <button
+                type="button"
+                class="order-button"
+                popovertarget={popoverId}
+                aria-label="Bestelinformatie"
+              >
+                [+]
+              </button>
+              <span id={popoverId} class="order-popover" popover="auto" role="tooltip">
+                Stuur ons een e-mail om te bestellen.
+              </span>
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
 </BaseLayout>
+
+<style>
+  .order-button {
+    display: inline-block;
+    width: 1.35em;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 400;
+    line-height: 1;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .order-button:hover,
+  .order-button:focus,
+  .order-button:focus-visible {
+    font-weight: 700;
+  }
+
+  .order-popover {
+    width: max-content;
+    max-width: 11rem;
+    padding: 0.3rem 0.38rem;
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: #555555;
+    font-family: inherit;
+    font-size: 0.55rem;
+    line-height: 1.15;
+    box-shadow: 0 0.12rem 0.35rem rgb(0 0 0 / 0.08);
+  }
+</style>

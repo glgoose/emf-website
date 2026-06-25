@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - nieuws type labels</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: italic;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-italic-latin.woff2") format("woff2");
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 24px;
+        color: #111111;
+        background: #ffffff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1260px;
+        margin: 0 auto;
+        padding: 32px;
+      }
+
+      .intro {
+        max-width: 38rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .intro h1 {
+        margin: 0 0 0.2rem;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+
+      .intro p {
+        margin: 0;
+        color: #666666;
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+
+      .variants {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 34px 42px;
+      }
+
+      .variant {
+        min-width: 0;
+      }
+
+      .variant-label {
+        min-height: 3.2rem;
+        margin-bottom: 0.55rem;
+        color: #777777;
+        font-size: 0.64rem;
+        line-height: 1.25;
+      }
+
+      .variant-label strong {
+        display: block;
+        color: #111111;
+        font-size: 0.72rem;
+      }
+
+      .mock-site {
+        display: grid;
+        grid-template-columns: 7.3rem minmax(0, 1fr);
+        gap: 1.8rem;
+      }
+
+      .sidebar {
+        border-top: 2px solid #111111;
+        padding-top: 0.12rem;
+      }
+
+      .sidebar-title {
+        margin: 0 0 0.6rem;
+        font-size: 1.25rem;
+        line-height: 1.25;
+        font-weight: 700;
+        text-transform: lowercase;
+      }
+
+      .sidebar ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0.58rem;
+        line-height: 1.25;
+        text-transform: lowercase;
+      }
+
+      .sidebar a {
+        color: #555555;
+      }
+
+      .content {
+        min-width: 0;
+      }
+
+      .lead {
+        border-top: 1px solid #dddddd;
+        padding-top: 0.35rem;
+        margin-bottom: 1.15rem;
+      }
+
+      .kicker {
+        margin: 0 0 0.4rem;
+        color: #555555;
+        font-size: 0.65rem;
+        line-height: 1;
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        text-transform: lowercase;
+      }
+
+      .lead h2 {
+        max-width: 11.5em;
+        margin: 0 0 0.35rem;
+        font-size: 1.55rem;
+        line-height: 0.98;
+        font-weight: 500;
+        font-style: italic;
+      }
+
+      .summary {
+        max-width: 28rem;
+        margin: 0 0 0.35rem;
+        font-size: 0.82rem;
+        line-height: 1.35;
+      }
+
+      .meta {
+        margin: 0;
+        color: #555555;
+        font-size: 0.54rem;
+        line-height: 1.25;
+      }
+
+      .type {
+        color: #555555;
+        text-transform: lowercase;
+      }
+
+      .list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.9rem 1.25rem;
+        margin: 0;
+        padding: 0.65rem 0 0;
+        border-top: 1px solid #dddddd;
+        list-style: none;
+      }
+
+      .list li {
+        min-width: 0;
+      }
+
+      .list h3 {
+        margin: 0.15rem 0 0;
+        font-size: 0.82rem;
+        line-height: 1.12;
+        font-weight: 700;
+      }
+
+      .type-line {
+        margin: 0 0 0.18rem;
+        color: #555555;
+        font-size: 0.58rem;
+        line-height: 1.15;
+        text-transform: lowercase;
+      }
+
+      .smallcaps-type {
+        font-size: 0.54rem;
+        line-height: 1;
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        text-transform: lowercase;
+      }
+
+      .split-meta {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .split-meta .meta {
+        min-width: 0;
+      }
+
+      .split-meta .type {
+        flex: 0 0 auto;
+        color: #666666;
+        font-size: 0.54rem;
+        line-height: 1.25;
+      }
+
+      .under-type {
+        text-decoration-line: underline;
+        text-decoration-thickness: 0.04em;
+        text-underline-offset: 2px;
+      }
+
+      .variant a:hover h2,
+      .variant a:hover h3 {
+        text-decoration-line: underline;
+        text-underline-offset: 2px;
+        text-decoration-thickness: 0.04em;
+      }
+
+      @media (max-width: 980px) {
+        .variants {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 620px) {
+        html {
+          font-size: 22px;
+        }
+
+        .page {
+          padding: 20px 16px;
+        }
+
+        .mock-site {
+          display: block;
+        }
+
+        .sidebar {
+          margin-bottom: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1>Nieuws-overzicht: type-aanduiding per item</h1>
+        <p>
+          Vergelijking op schaal van de echte overzichtspagina. De inspiratie uit andere sites:
+          Rosa-Luxemburg-Stiftung zet het type vóór de datum, TNI en Lava tonen contentvormen als
+          losse metadata, deBuren gebruikt types vooral als filters.
+        </p>
+      </header>
+
+      <div class="variants">
+        <section class="variant">
+          <p class="variant-label">
+            <strong>A · metadata-prefix</strong>
+            Meest ingetogen. Type wordt gewoon het eerste deel van de bestaande metadataregel.
+          </p>
+          <div class="mock-site">
+            <aside class="sidebar">
+              <p class="sidebar-title">Nieuws</p>
+              <ul><li><a href="#">lezingen</a></li></ul>
+            </aside>
+            <div class="content">
+              <section class="lead">
+                <p class="kicker">laatste bericht</p>
+                <a href="#">
+                  <h2>Mandel en de zoete wraak van de geschiedenis</h2>
+                  <p class="summary">Anton Jäger leest Ernest Mandel vandaag opnieuw: als niet-Joodse Jood, Belgische internationalist, revolutionair optimist en denker van een open historisch materialisme.</p>
+                  <p class="meta"><span class="type">lezing</span> · 9 mei 2026 · Anton Jäger</p>
+                </a>
+              </section>
+              <ul class="list">
+                <li>
+                  <a href="#">
+                    <p class="meta"><span class="type">lezing</span> · 9 mei 2026 · Alex de Jong</p>
+                    <h3>Mandels orthodox, open en romantisch marxisme</h3>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="variant">
+          <p class="variant-label">
+            <strong>B · aparte typeregel</strong>
+            Duidelijker onderscheid tussen vorm en datum, maar iets meer verticale ruimte.
+          </p>
+          <div class="mock-site">
+            <aside class="sidebar">
+              <p class="sidebar-title">Nieuws</p>
+              <ul><li><a href="#">lezingen</a></li></ul>
+            </aside>
+            <div class="content">
+              <section class="lead">
+                <p class="kicker">laatste bericht</p>
+                <a href="#">
+                  <p class="type-line smallcaps-type">lezing</p>
+                  <h2>Mandel en de zoete wraak van de geschiedenis</h2>
+                  <p class="summary">Anton Jäger leest Ernest Mandel vandaag opnieuw: als niet-Joodse Jood, Belgische internationalist, revolutionair optimist en denker van een open historisch materialisme.</p>
+                  <p class="meta">9 mei 2026 · Anton Jäger</p>
+                </a>
+              </section>
+              <ul class="list">
+                <li>
+                  <a href="#">
+                    <p class="type-line smallcaps-type">lezing</p>
+                    <p class="meta">9 mei 2026 · Alex de Jong</p>
+                    <h3>Mandels orthodox, open en romantisch marxisme</h3>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="variant">
+          <p class="variant-label">
+            <strong>C · rechts uitgelijnd type</strong>
+            Handig als datum/auteur links moeten blijven scannen; minder goed op heel smalle cards.
+          </p>
+          <div class="mock-site">
+            <aside class="sidebar">
+              <p class="sidebar-title">Nieuws</p>
+              <ul><li><a href="#">lezingen</a></li></ul>
+            </aside>
+            <div class="content">
+              <section class="lead">
+                <p class="kicker">laatste bericht</p>
+                <a href="#">
+                  <h2>Mandel en de zoete wraak van de geschiedenis</h2>
+                  <p class="summary">Anton Jäger leest Ernest Mandel vandaag opnieuw: als niet-Joodse Jood, Belgische internationalist, revolutionair optimist en denker van een open historisch materialisme.</p>
+                  <div class="split-meta">
+                    <p class="meta">9 mei 2026 · Anton Jäger</p>
+                    <span class="type">lezing</span>
+                  </div>
+                </a>
+              </section>
+              <ul class="list">
+                <li>
+                  <a href="#">
+                    <div class="split-meta">
+                      <p class="meta">9 mei 2026 · Alex de Jong</p>
+                      <span class="type">lezing</span>
+                    </div>
+                    <h3>Mandels orthodox, open en romantisch marxisme</h3>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="variant">
+          <p class="variant-label">
+            <strong>D · onderlijnde tekstvorm</strong>
+            Laat het type meer als een navigeerbare vorm voelen; iets nadrukkelijker dan A.
+          </p>
+          <div class="mock-site">
+            <aside class="sidebar">
+              <p class="sidebar-title">Nieuws</p>
+              <ul><li><a href="#">lezingen</a></li></ul>
+            </aside>
+            <div class="content">
+              <section class="lead">
+                <p class="kicker">laatste bericht</p>
+                <a href="#">
+                  <h2>Mandel en de zoete wraak van de geschiedenis</h2>
+                  <p class="summary">Anton Jäger leest Ernest Mandel vandaag opnieuw: als niet-Joodse Jood, Belgische internationalist, revolutionair optimist en denker van een open historisch materialisme.</p>
+                  <p class="meta"><span class="type under-type">lezing</span> · 9 mei 2026 · Anton Jäger</p>
+                </a>
+              </section>
+              <ul class="list">
+                <li>
+                  <a href="#">
+                    <p class="meta"><span class="type under-type">lezing</span> · 9 mei 2026 · Alex de Jong</p>
+                    <h3>Mandels orthodox, open en romantisch marxisme</h3>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

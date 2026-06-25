@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - event related links variants</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: italic;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-italic-latin.woff2") format("woff2");
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 24px;
+        color: #111111;
+        background: #ffffff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px;
+      }
+
+      h1 {
+        margin: 0 0 0.2rem;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+
+      .note {
+        margin: 0 0 1.2rem;
+        color: #666666;
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 36px;
+      }
+
+      .variant {
+        min-width: 0;
+      }
+
+      .variant-label {
+        margin-bottom: 0.5rem;
+        color: #777777;
+        font-size: 0.64rem;
+        line-height: 1.25;
+      }
+
+      .variant-label strong {
+        color: #111111;
+        font-size: 0.72rem;
+      }
+
+      .frame {
+        border-top: 1px solid #eeeeee;
+        padding-top: 0.85rem;
+      }
+
+      .cover {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        object-position: center 42%;
+        margin-bottom: 1rem;
+      }
+
+      .related {
+        margin-bottom: 1.05rem;
+        padding-top: 0.05rem;
+        color: #666666;
+        font-size: 1rem;
+        line-height: 1.45;
+      }
+
+      .related.with-line {
+        border-top: 1px solid #dddddd;
+        padding-top: 0.65rem;
+      }
+
+      .related p {
+        margin: 0 0 0.35rem;
+      }
+
+      .related a {
+        color: inherit;
+        text-decoration-thickness: 0.04em;
+        text-underline-offset: 2px;
+      }
+
+      .related a:hover {
+        color: #111111;
+      }
+
+      .underlined a {
+        text-decoration-line: underline;
+      }
+
+      .plain a {
+        text-decoration-line: none;
+      }
+
+      .plain a:hover {
+        text-decoration-line: underline;
+      }
+
+      .related ul {
+        margin: 0;
+      }
+
+      .bullets {
+        list-style: disc;
+        padding-left: 1.15em;
+      }
+
+      .no-markers {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .dash-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .dash-list li {
+        display: grid;
+        grid-template-columns: 0.8em 1fr;
+        column-gap: 0.15em;
+      }
+
+      .dash-list li::before {
+        content: "-";
+        color: #888888;
+      }
+
+      .related li {
+        margin-bottom: 0.08rem;
+        line-height: 1.35;
+      }
+
+      .intro {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 820px) {
+        html {
+          font-size: 22px;
+        }
+
+        .page {
+          padding: 20px 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>Varianten voor verwijzing naar bijdragen</h1>
+      <p class="note">Zelfde plek op de eventpagina: meteen onder de coverfoto, boven de eventtekst.</p>
+
+      <div class="grid">
+        <section class="variant">
+          <div class="variant-label"><strong>A.</strong> bullets · onderlijnd · cursief · zonder lijntje</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related underlined">
+              <p>Lees de bijdragen van Anton Jäger en Alex de Jong aan deze boekvoorstelling:</p>
+              <ul class="bullets">
+                <li><a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></li>
+                <li><a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section class="variant">
+          <div class="variant-label"><strong>B.</strong> streepjes · onderlijnd · cursief · zonder lijntje</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related underlined">
+              <p>Lees de bijdragen van Anton Jäger en Alex de Jong aan deze boekvoorstelling:</p>
+              <ul class="dash-list">
+                <li><a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></li>
+                <li><a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section class="variant">
+          <div class="variant-label"><strong>C.</strong> geen markers · onderlijnd · cursief · zonder lijntje</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related underlined">
+              <p>Lees de bijdragen van Anton Jäger en Alex de Jong aan deze boekvoorstelling:</p>
+              <ul class="no-markers">
+                <li><a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></li>
+                <li><a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section class="variant">
+          <div class="variant-label"><strong>D.</strong> bullets · niet onderlijnd · cursief · zonder lijntje</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related plain">
+              <p>Lees de bijdragen van Anton Jäger en Alex de Jong aan deze boekvoorstelling:</p>
+              <ul class="bullets">
+                <li><a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></li>
+                <li><a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section class="variant">
+          <div class="variant-label"><strong>E.</strong> streepjes · niet onderlijnd · niet cursief · zonder lijntje</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related plain">
+              <p>Lees de bijdragen van Anton Jäger en Alex de Jong aan deze boekvoorstelling:</p>
+              <ul class="dash-list">
+                <li><a href="#">Mandel en de zoete wraak van de geschiedenis</a></li>
+                <li><a href="#">Mandels orthodox, open en romantisch marxisme</a></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section class="variant">
+          <div class="variant-label"><strong>F.</strong> geen markers · onderlijnd · niet cursief · met lijntje</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related underlined with-line">
+              <p>Lees de bijdragen van Anton Jäger en Alex de Jong aan deze boekvoorstelling:</p>
+              <ul class="no-markers">
+                <li><a href="#">Mandel en de zoete wraak van de geschiedenis</a></li>
+                <li><a href="#">Mandels orthodox, open en romantisch marxisme</a></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

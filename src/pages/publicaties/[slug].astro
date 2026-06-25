@@ -1,0 +1,741 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const coverImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/{events,publicaties}/*',
+  { eager: true },
+);
+
+export async function getStaticPaths() {
+  const publications = await getCollection('publicaties');
+  return publications.map(publication => ({
+    params: { slug: publication.id },
+    props: { publication },
+  }));
+}
+
+const { publication } = Astro.props;
+const { Content } = await render(publication);
+const fullFrontmatter = (publication as any).rendered?.metadata?.frontmatter ?? {};
+const publicationData = { ...fullFrontmatter, ...publication.data };
+const {
+  title,
+  author,
+  cover,
+  publication_date,
+  month_label,
+  pages,
+  edition,
+  isbn,
+  original_title,
+  original_year,
+  original_url,
+  original_note,
+  collaboration,
+  formats = [],
+  retailer,
+  cover_credit,
+  table_of_contents = [],
+  description,
+} = publicationData;
+
+const filename = cover.split('/').pop();
+const coverMeta = filename
+  ? coverImages[`../../assets/images/events/${filename}`]?.default
+    ?? coverImages[`../../assets/images/publicaties/${filename}`]?.default
+  : undefined;
+
+const activeFormat = formats.find(format => format.active) ?? formats[0];
+function formatPublicationMonth(date?: Date | string): string | undefined {
+  if (!date) return undefined;
+  const parsed = date instanceof Date ? date : new Date(date);
+  if (Number.isNaN(parsed.getTime())) return undefined;
+
+  return parsed.toLocaleDateString('nl-BE', {
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+const publicationMeta = [
+  month_label ?? formatPublicationMonth(publication_date),
+  pages ? `${pages} p` : undefined,
+  edition,
+].filter(Boolean).join(' · ');
+
+const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
+const ogImageObj = coverMeta
+  ? await getImage({ src: coverMeta, width: 1200, format: 'jpeg', quality: 85 })
+  : undefined;
+const ogImage = ogImageObj ? new URL(ogImageObj.src, siteBase).toString() : undefined;
+
+const bookStructuredData: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Book',
+  name: title,
+  author: { '@type': 'Person', name: author },
+  ...(isbn && { isbn }),
+  ...(description && { description }),
+  ...(ogImage && { image: ogImage }),
+  publisher: {
+    '@type': 'Organization',
+    name: 'vzw Ernest Mandelfonds',
+  },
+};
+---
+
+<BaseLayout title={title} description={description ?? `${title} van ${author}`} ogImage={ogImage} ogType="book" noSidebar>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(bookStructuredData)} />
+  </Fragment>
+
+  <div class="publication-page">
+    <a href="/publicaties" class="publication-back">&lt;&lt; publicaties</a>
+
+    <article
+      class="publication-detail"
+      data-disable-heading-anchors="true"
+      style={coverMeta ? `--cover-ratio: ${coverMeta.height / coverMeta.width};` : undefined}
+    >
+      <div class="publication-head">
+        {coverMeta && (
+          <Picture
+            src={coverMeta}
+            alt={`Cover van ${title}`}
+            formats={['avif', 'webp']}
+            widths={[280, 420, 640, 900]}
+            sizes="(min-width: 1024px) 330px, (min-width: 640px) 42vw, 220px"
+            class="publication-cover"
+          />
+        )}
+
+        <div class="publication-copy">
+          <div>
+            <p class="publication-kicker">boek</p>
+            <h1>{title}</h1>
+            <p class="publication-author">{author}</p>
+
+            <div class="publication-meta">
+              {publicationMeta && <p>{publicationMeta}</p>}
+              {isbn && <p>ISBN {isbn}</p>}
+              {original_title && (
+                <p class="fine">
+                  Oorspronkelijke uitgave:{' '}
+                  {original_url ? (
+                    <a href={original_url} target="_blank" rel="noopener noreferrer" class="original-link">
+                      <em>{original_title}</em>{original_year && ` (${original_year})`}
+                    </a>
+                  ) : (
+                    <><em>{original_title}</em>{original_year && ` (${original_year})`}</>
+                  )}
+                </p>
+              )}
+              {original_note && <p class="fine original-note">{original_note}</p>}
+              {collaboration && (
+                <p class="publication-note">
+                  Uitgegeven in samenwerking met het{' '}
+                  <a href={collaboration.url} target="_blank" rel="noopener noreferrer">{collaboration.label}</a>
+                </p>
+              )}
+            </div>
+          </div>
+
+          {formats.length > 0 && (
+            <div class="publication-separator" aria-hidden="true"></div>
+          )}
+
+          {formats.length > 0 && (
+            <div class="purchase-stack">
+              <div class="format-selector" aria-label="Kies formaat">
+                {formats.map(format => (
+                  <button
+                    class:list={['format-option', !format.price && 'without-price', format.id === activeFormat.id && 'active']}
+                    type="button"
+                    data-format-option
+                    data-order-url={format.order_url}
+                    aria-pressed={format.id === activeFormat.id ? 'true' : 'false'}
+                  >
+                    <strong>{format.label}</strong>
+                    {format.detail && <span class="format-detail">{format.detail}</span>}
+                    {format.price && <span class="format-price">{format.price}</span>}
+                  </button>
+                ))}
+              </div>
+
+              <div class="order-row">
+                <a href={activeFormat?.order_url} class="order-button" data-order-link>
+                  bestel
+                </a>
+
+                <div class="purchase-info" aria-label="Bestelinformatie">
+                  <div class="purchase-info-line">
+                    <button class="info-trigger quiet-link" type="button" data-popup-target="shipping-popover" aria-expanded="false">verzending</button>
+                    <span class="info-dot" aria-hidden="true">·</span>
+                    <button class="info-trigger quiet-link" type="button" data-popup-target="pickup-popover" aria-expanded="false">ophalen</button>
+                    {retailer && (
+                      <>
+                        <span class="info-dot" aria-hidden="true">·</span>
+                        <button class="info-trigger quiet-link" type="button" data-popup-target="bookshop-popover" aria-expanded="false">boekhandel</button>
+                      </>
+                    )}
+                  </div>
+
+                  <div class="order-popovers">
+                    <div class="order-popover" id="shipping-popover" hidden>
+                      <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+                      <p>verzending via <a href="https://parcel.bpost.be/nl/pricing/business" target="_blank" rel="noopener noreferrer">bpost</a></p>
+                      <dl>
+                        <div>
+                          <dt>pakketpunt</dt>
+                          <dd>€ 5,40</dd>
+                        </div>
+                        <div>
+                          <dt>thuisadres</dt>
+                          <dd>€ 7,10</dd>
+                        </div>
+                      </dl>
+                    </div>
+
+                    <div class="order-popover" id="pickup-popover" hidden>
+                      <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+                      <p>Je bestelling kan ook opgehaald worden op een van onze <a href="/activiteiten">volgende activiteiten</a>.</p>
+                    </div>
+
+                    {retailer && (
+                      <div class="order-popover" id="bookshop-popover" hidden>
+                        <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+                        <p>Ook beschikbaar bij <a href={retailer.url} target="_blank" rel="noopener noreferrer">{retailer.label}</a>.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div class="prose publication-body">
+        <Content />
+      </div>
+
+      {table_of_contents.length > 0 && (
+        <section class="publication-toc">
+          <h2>Inhoudsopgave</h2>
+          <ul>
+            {table_of_contents.map(item => (
+              <li>
+                <span>{item.title}</span>
+                <span class="page">{item.page}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {cover_credit && (
+        <p class="publication-credit">
+          Omslag ontworpen door{' '}
+          {cover_credit.url ? (
+            <a href={cover_credit.url} target="_blank" rel="noopener noreferrer">{cover_credit.label}</a>
+          ) : (
+            <span>{cover_credit.label}</span>
+          )}
+        </p>
+      )}
+    </article>
+  </div>
+
+  <script is:inline>
+    function initPublicationFormats() {
+      window.__publicationFormatsReady = true;
+      var detail = document.querySelector('.publication-detail');
+      var orderLink = detail ? detail.querySelector('[data-order-link]') : null;
+      if (!detail || !(orderLink instanceof HTMLAnchorElement)) return;
+
+      function closePopups() {
+        var triggers = detail.querySelectorAll('[data-popup-target]');
+        var popups = detail.querySelectorAll('.order-popover');
+        var orderRows = detail.querySelectorAll('.order-row');
+
+        triggers.forEach(function(trigger) {
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+
+        popups.forEach(function(popup) {
+          popup.hidden = true;
+        });
+
+        orderRows.forEach(function(row) {
+          row.classList.remove('popup-open');
+        });
+      }
+
+      detail.addEventListener('click', function(event) {
+        var option = event.target instanceof Element
+          ? event.target.closest('[data-format-option]')
+          : null;
+        if (!(option instanceof HTMLElement)) return;
+
+        detail.querySelectorAll('[data-format-option]').forEach(function(item) {
+          item.classList.toggle('active', item === option);
+          item.setAttribute('aria-pressed', item === option ? 'true' : 'false');
+        });
+
+        orderLink.href = option.dataset.orderUrl || orderLink.href;
+      });
+
+      detail.addEventListener('click', function(event) {
+        var trigger = event.target instanceof Element
+          ? event.target.closest('[data-popup-target]')
+          : null;
+
+        if (trigger instanceof HTMLElement) {
+          var popupId = trigger.getAttribute('data-popup-target');
+          var popup = popupId ? document.getElementById(popupId) : null;
+          var wasExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+          closePopups();
+
+        if (popup && !wasExpanded) {
+          popup.hidden = false;
+          trigger.setAttribute('aria-expanded', 'true');
+          var row = trigger.closest('.order-row');
+          if (row) row.classList.add('popup-open');
+        }
+
+          return;
+        }
+
+        var closeButton = event.target instanceof Element
+          ? event.target.closest('[data-popup-close]')
+          : null;
+        if (closeButton instanceof HTMLElement) closePopups();
+      });
+
+      detail.addEventListener('keydown', function(event) {
+        if (event.key !== 'Escape') return;
+        closePopups();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPublicationFormats, { once: true });
+    } else {
+      initPublicationFormats();
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .publication-page {
+    width: 100%;
+    max-width: 32.5rem;
+  }
+
+  .publication-back {
+    display: inline-block;
+    margin-bottom: 0.35rem;
+    color: #555555;
+    font-size: 0.72rem;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .publication-back:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .publication-detail {
+    border-top: 2px solid #111111;
+    padding-top: 0.45rem;
+  }
+
+  .publication-head {
+    display: grid;
+    grid-template-columns: minmax(9.4rem, 11.4rem) minmax(0, 1fr);
+    gap: 1.35rem;
+    align-items: start;
+  }
+
+  .publication-cover {
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+  }
+
+  .publication-copy {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(11.4rem * var(--cover-ratio, 1.48));
+  }
+
+  .publication-kicker {
+    margin: 0 0 0.45rem;
+    color: #555555;
+    font-size: 0.65rem;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  .publication-detail h1 {
+    max-width: 13em;
+    margin: 0;
+    font-size: 1.58rem;
+    line-height: 1.02;
+  }
+
+  .publication-author {
+    margin: 0.35rem 0 0;
+    color: #111111;
+    line-height: 1.25;
+  }
+
+  .publication-meta {
+    margin-top: 0.72rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid #e8e8e8;
+    color: #555555;
+    line-height: 1.28;
+  }
+
+  .publication-meta p {
+    margin: 0 0 0.18rem;
+  }
+
+  .publication-meta p:nth-child(-n + 2) {
+    color: #111111;
+  }
+
+  .publication-meta .fine {
+    color: #666666;
+    font-size: 0.86rem;
+  }
+
+  .publication-meta .original-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .publication-note {
+    color: #666666;
+    font-size: 0.86rem;
+  }
+
+  .quiet-link,
+  .purchase-info a,
+  .publication-note a {
+    text-decoration: underline;
+    text-decoration-color: #999999;
+    text-decoration-thickness: 0.035em;
+    text-underline-offset: 2px;
+  }
+
+  .publication-separator {
+    margin-top: 0.62rem;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .purchase-stack {
+    margin-top: auto;
+    padding-top: 0.48rem;
+  }
+
+  .format-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .format-option {
+    display: grid;
+    min-height: 2.12rem;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.08rem 0.65rem;
+    align-content: start;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #cfcfcf;
+    background: #ffffff;
+    color: #9a9a9a;
+    font: inherit;
+    text-align: left;
+  }
+
+  .format-option + .format-option {
+    margin-left: -1px;
+  }
+
+  .format-option.active {
+    position: relative;
+    z-index: 1;
+    border-color: #111111;
+    color: #111111;
+  }
+
+  .format-option strong {
+    grid-column: 1;
+    grid-row: 1;
+    line-height: 1.05;
+  }
+
+  .format-detail {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    margin-top: 0.08rem;
+    color: #777777;
+    font-size: 0.78rem;
+  }
+
+  .format-option.without-price .format-detail {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+    line-height: 1.05;
+    text-align: right;
+    align-self: start;
+  }
+
+  .format-price {
+    grid-column: 2;
+    grid-row: 1;
+    line-height: 1.05;
+    text-align: right;
+  }
+
+  .order-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.9rem;
+    margin-top: 0.22rem;
+    padding-top: 0.26rem;
+  }
+
+  .order-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #111111;
+    border-radius: 999px;
+    color: #111111;
+    font-size: 0.78rem;
+    line-height: 1.12;
+    padding: 0.24em 0.86em 0.27em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .order-button:hover {
+    background: #111111;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .purchase-info {
+    position: relative;
+    display: grid;
+    justify-items: end;
+    color: #555555;
+    font-size: 0.78rem;
+    line-height: 1;
+  }
+
+  .purchase-info-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.26rem;
+    white-space: nowrap;
+  }
+
+  .order-popovers {
+    position: absolute;
+    z-index: 4;
+    top: calc(100% + 0.45rem);
+    right: 0;
+    justify-self: end;
+    width: min(13.9rem, calc(100vw - 2rem));
+  }
+
+  .info-trigger {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1;
+  }
+
+  .info-dot {
+    color: #777777;
+  }
+
+  .order-popover {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.55rem 1rem 0.6rem 0.65rem;
+    border: 1px solid #111111;
+    background: #ffffff;
+    color: #555555;
+    font-family: inherit;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 0.14rem;
+    right: 0.2rem;
+    width: 0.72rem;
+    height: 0.72rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #777777;
+    font: inherit;
+    font-size: 0.68rem;
+    line-height: 0.72rem;
+    text-align: center;
+  }
+
+  .popup-close:hover,
+  .popup-close:focus-visible {
+    color: #111111;
+  }
+
+  .order-popover p {
+    margin: 0;
+  }
+
+  .order-popover p + p,
+  .order-popover dl + p {
+    margin-top: 0.42rem;
+  }
+
+  .order-popover dl {
+    margin: 0.45rem 0 0;
+  }
+
+  .order-popover dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.06rem 0;
+    border-top: 1px solid #eeeeee;
+  }
+
+  .order-popover dt,
+  .order-popover dd {
+    margin: 0;
+  }
+
+  .order-popover dd {
+    color: #111111;
+  }
+
+  .publication-body {
+    margin-top: 1.8rem;
+  }
+
+  .publication-toc h2 {
+    margin: 1.15em 0 0.55em;
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .publication-toc ul {
+    max-width: 18rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .publication-toc li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.08rem 0;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 1.45;
+  }
+
+  .publication-toc .page {
+    color: #777777;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .publication-credit {
+    margin: 1.75rem 0 0;
+    color: #777777;
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  .publication-credit a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: #bbbbbb;
+    text-decoration-thickness: 0.035em;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 760px) {
+    .publication-page {
+      width: 100%;
+    }
+
+    .publication-detail {
+      border-top-width: 1px;
+    }
+
+    .publication-head {
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+    }
+
+    .publication-cover {
+      max-width: 220px;
+    }
+
+    .publication-copy {
+      min-height: auto;
+    }
+
+    .format-selector {
+      grid-template-columns: 1fr;
+    }
+
+    .format-option + .format-option {
+      margin-top: -1px;
+      margin-left: 0;
+    }
+
+    .order-row {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .purchase-info {
+      justify-items: start;
+    }
+
+    .order-popovers {
+      right: auto;
+      left: 0;
+      justify-self: start;
+      width: min(13.9rem, 100%);
+    }
+
+  }
+
+</style>

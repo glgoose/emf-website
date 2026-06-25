@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - event related author/title variants</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: italic;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-italic-latin.woff2") format("woff2");
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 24px;
+        color: #111111;
+        background: #ffffff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px;
+      }
+
+      h1 {
+        margin: 0 0 0.2rem;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+
+      .note {
+        margin: 0 0 1.2rem;
+        color: #666666;
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 36px;
+      }
+
+      .variant-label {
+        margin-bottom: 0.5rem;
+        color: #777777;
+        font-size: 0.64rem;
+        line-height: 1.25;
+      }
+
+      .variant-label strong {
+        color: #111111;
+        font-size: 0.72rem;
+      }
+
+      .frame {
+        border-top: 1px solid #eeeeee;
+        padding-top: 0.85rem;
+      }
+
+      .cover {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        object-position: center 42%;
+        margin-bottom: 1rem;
+      }
+
+      .related {
+        margin-bottom: 1.05rem;
+        padding-top: 0.05rem;
+        color: #666666;
+        font-size: 1rem;
+        line-height: 1.45;
+      }
+
+      .related p {
+        margin: 0 0 0.35rem;
+      }
+
+      .related ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .related li {
+        display: grid;
+        grid-template-columns: 0.8em 1fr;
+        column-gap: 0.15em;
+        margin-bottom: 0.08rem;
+        line-height: 1.35;
+      }
+
+      .related li::before {
+        content: "-";
+        color: #888888;
+      }
+
+      .related a {
+        color: inherit;
+        text-decoration-line: underline;
+        text-decoration-thickness: 0.04em;
+        text-underline-offset: 2px;
+      }
+
+      .related a:hover {
+        color: #111111;
+      }
+
+      .author {
+        color: #666666;
+      }
+
+      .author-muted {
+        color: #888888;
+      }
+
+      .title-muted {
+        color: #666666;
+      }
+
+      .intro {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 820px) {
+        html {
+          font-size: 22px;
+        }
+
+        .page {
+          padding: 20px 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>Varianten voor auteur + titel</h1>
+      <p class="note">Alle varianten gebruiken: "Lees de bijdragen aan deze boekvoorstelling:"</p>
+
+      <div class="grid">
+        <section>
+          <div class="variant-label"><strong>A.</strong> auteur. cursieve titel</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related">
+              <p>Lees de bijdragen aan deze boekvoorstelling:</p>
+              <ul>
+                <li><span><span class="author">Anton Jäger.</span> <a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></span></li>
+                <li><span><span class="author">Alex de Jong.</span> <a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></span></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section>
+          <div class="variant-label"><strong>B.</strong> auteur: cursieve titel</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related">
+              <p>Lees de bijdragen aan deze boekvoorstelling:</p>
+              <ul>
+                <li><span><span class="author">Anton Jäger:</span> <a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></span></li>
+                <li><span><span class="author">Alex de Jong:</span> <a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></span></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section>
+          <div class="variant-label"><strong>C.</strong> cursieve titel - auteur</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related">
+              <p>Lees de bijdragen aan deze boekvoorstelling:</p>
+              <ul>
+                <li><span><a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a> <span class="author-muted">- Anton Jäger</span></span></li>
+                <li><span><a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a> <span class="author-muted">- Alex de Jong</span></span></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+
+        <section>
+          <div class="variant-label"><strong>D.</strong> auteur op eigen regel, titel eronder</div>
+          <div class="frame">
+            <img class="cover" src="../src/assets/images/events/260509-inleiding-mandel.jpg" alt="" />
+            <aside class="related">
+              <p>Lees de bijdragen aan deze boekvoorstelling:</p>
+              <ul>
+                <li><span><span class="author-muted">Anton Jäger</span><br /><a href="#"><em>Mandel en de zoete wraak van de geschiedenis</em></a></span></li>
+                <li><span><span class="author-muted">Alex de Jong</span><br /><a href="#"><em>Mandels orthodox, open en romantisch marxisme</em></a></span></li>
+              </ul>
+            </aside>
+            <p class="intro">De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

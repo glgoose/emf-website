@@ -150,10 +150,6 @@ const bookStructuredData: Record<string, unknown> = {
           </div>
 
           {formats.length > 0 && (
-            <div class="publication-separator" aria-hidden="true"></div>
-          )}
-
-          {formats.length > 0 && (
             <div class="purchase-stack">
               <div class="format-selector" aria-label="Kies formaat">
                 {formats.map(format => (
@@ -363,7 +359,7 @@ const bookStructuredData: Record<string, unknown> = {
 
   .publication-head {
     display: grid;
-    grid-template-columns: minmax(9.4rem, 11.4rem) minmax(0, 1fr);
+    grid-template-columns: minmax(9.4rem, calc(15.8rem / var(--cover-ratio, 1.48))) minmax(0, 1fr);
     gap: 1.35rem;
     align-items: start;
   }
@@ -377,7 +373,6 @@ const bookStructuredData: Record<string, unknown> = {
   .publication-copy {
     display: flex;
     flex-direction: column;
-    min-height: calc(11.4rem * var(--cover-ratio, 1.48));
   }
 
   .publication-kicker {
@@ -393,7 +388,7 @@ const bookStructuredData: Record<string, unknown> = {
   .publication-detail h1 {
     max-width: 13em;
     margin: 0;
-    font-size: 1.58rem;
+    font-size: 1rem;
     line-height: 1.02;
   }
 
@@ -443,14 +438,9 @@ const bookStructuredData: Record<string, unknown> = {
     text-underline-offset: 2px;
   }
 
-  .publication-separator {
-    margin-top: 0.62rem;
-    border-top: 1px solid #e8e8e8;
-  }
-
   .purchase-stack {
-    margin-top: auto;
-    padding-top: 0.48rem;
+    margin-top: 0;
+    padding-top: 0.58rem;
   }
 
   .format-selector {
@@ -520,8 +510,8 @@ const bookStructuredData: Record<string, unknown> = {
     justify-content: space-between;
     align-items: flex-end;
     gap: 0.9rem;
-    margin-top: 0.22rem;
-    padding-top: 0.26rem;
+    margin-top: 0.28rem;
+    padding-top: 0.28rem;
   }
 
   .order-button {

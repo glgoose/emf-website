@@ -35,7 +35,7 @@ describe('publication detail pages', () => {
     assert.match(manifest, /isbn:\s*"?9789083549705"?/);
     assert.match(manifest, /original_title:\s*Manifesto for an Ecosocialist Revolution/);
     assert.match(manifest, /original_year:\s*2025/);
-    assert.match(manifest, /original_url:\s*https:\/\/fourth\.international\/en\/world-congresses\/874\/699/);
+    assert.match(manifest, /original_url:\s*https:\/\/resistancebooks\.org\/product\/manifesto-for-an-ecosocialist-revolution\//);
     assert.doesNotMatch(manifest, /original_note:/);
     assert.match(manifest, /In mei 2025 nam het 18e wereldcongres van de Vierde Internationale een \[\*Ecosocialistisch manifest\*\]/);
   });

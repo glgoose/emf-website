@@ -7,7 +7,7 @@ pages: 64
 isbn: "9789083549705"
 original_title: Manifesto for an Ecosocialist Revolution
 original_year: 2025
-original_url: https://fourth.international/en/world-congresses/874/699
+original_url: https://resistancebooks.org/product/manifesto-for-an-ecosocialist-revolution/
 formats:
   - id: brochure
     label: paperback

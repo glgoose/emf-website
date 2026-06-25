@@ -48,7 +48,7 @@ const books = [
                 height="590"
                 class="mb-[0.45rem] aspect-[2/3] w-[min(100%,5.8rem)] object-cover sm:w-[5.3rem]"
               />
-              <p class="m-0 text-[0.6rem] leading-tight text-[#555555]">{book.author}</p>
+              <p class="m-0 text-[0.6rem] leading-tight text-[#111111]">{book.author}</p>
               <h3 class="m-0 mt-1 text-[0.6rem] leading-[1.18] font-bold tracking-normal normal-case text-[#111111] [font-variant:normal]">
                 <em>{book.title}</em>
               </h3>
@@ -82,7 +82,7 @@ const books = [
     padding: 0;
     border: 0;
     background: transparent;
-    color: inherit;
+    color: #777777;
     cursor: pointer;
     font: inherit;
     font-weight: 400;
@@ -94,7 +94,7 @@ const books = [
   .order-button:hover,
   .order-button:focus,
   .order-button:focus-visible {
-    font-weight: 700;
+    color: #111111;
   }
 
   .order-popover {

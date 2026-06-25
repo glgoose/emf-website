@@ -29,18 +29,46 @@ cover_credit:
   label: Xú Hàorán
   url: https://xoesan.com/
 table_of_contents:
-  - title: Voorwoord
-    page: 7
-  - title: Kapitaal en arbeid
-    page: 15
-  - title: Klasse en klassenstrijd
-    page: 49
-  - title: Staat en democratie
-    page: 103
-  - title: Socialistische strategie
+  - title: "Voorwoord (2023) — De korte twintigste eeuw van Ernest Mandel (1923–1995) — Alex de Jong"
+    page: "vii"
+  - title: "Voorwoord (2007) — Dertig jaar later: een kritische inleiding op Mandels Inleiding tot het marxisme — Daniel Bensaïd"
+    page: "xxvi"
+  - title: "Ten geleide"
+    page: 1
+  - title: "1. Klassenongelijkheid en klassenstrijd doorheen de geschiedenis"
+    page: 3
+  - title: "2. De economische oorzaken van de maatschappelijke ongelijkheid"
+    page: 13
+  - title: "3. De staat, een instrument van klassenheerschappij"
+    page: 22
+  - title: "4. Van de kleine warenproductie naar de kapitalistische productiewijze"
+    page: 32
+  - title: "5. De kapitalistische economie"
+    page: 43
+  - title: "6. Het monopoliekapitalisme"
+    page: 60
+  - title: "7. Het imperialistische wereldsysteem"
+    page: 70
+  - title: "8. De oorsprong van de moderne arbeidersbeweging"
+    page: 82
+  - title: "9. Hervormingen en revolutie"
+    page: 90
+  - title: "10. Burgerlijke en proletarische democratie"
+    page: 101
+  - title: "11. De eerste imperialistische oorlog en de Russische revolutie"
+    page: 111
+  - title: "12. Het stalinisme"
+    page: 120
+  - title: "13. Van de dagelijkse massastrijd naar de socialistische wereldrevolutie"
+    page: 136
+  - title: "14. De verovering van de massa’s door de revolutionairen"
+    page: 146
+  - title: "15. De klasseloze samenleving"
+    page: 162
+  - title: "16. Het dialectisch materialisme"
     page: 171
-  - title: Verder lezen
-    page: 255
+  - title: "17. Het historisch materialisme"
+    page: 187
 description: Een toegankelijke inleiding tot de vraag hoe het kapitalistisch systeem begrepen en veranderd kan worden.
 ---
 

@@ -658,16 +658,16 @@ const bookStructuredData: Record<string, unknown> = {
   }
 
   .publication-toc ul {
-    max-width: 18rem;
+    max-width: 21rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .publication-toc li {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 2.25rem;
     padding: 0.08rem 0;
     border-bottom: 1px solid #eeeeee;
     line-height: 1.45;

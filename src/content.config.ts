@@ -92,7 +92,7 @@ const publicaties = defineCollection({
     }).optional(),
     table_of_contents: z.array(z.object({
       title: z.string(),
-      page: z.number(),
+      page: z.union([z.number(), z.string()]),
     })).default([]),
     link: z.string().optional(),
     description: z.string().optional(),

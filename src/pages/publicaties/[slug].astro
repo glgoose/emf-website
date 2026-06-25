@@ -122,10 +122,10 @@ const bookStructuredData: Record<string, unknown> = {
 
             <div class="publication-meta">
               {publicationMeta && <p>{publicationMeta}</p>}
-              {isbn && <p>ISBN {isbn}</p>}
+              {isbn && <p><span class="small-caps-label">ISBN</span> {isbn}</p>}
               {(original_title || original_year) && (
                 <p class="fine">
-                  Oorspronkelijke uitgave:{' '}
+                  oorspronkelijke uitgave:{' '}
                   {original_url ? (
                     <a href={original_url} target="_blank" rel="noopener noreferrer" class="original-link">
                       {original_title ? <em>{original_title}</em> : original_year}
@@ -142,7 +142,7 @@ const bookStructuredData: Record<string, unknown> = {
               {original_note && <p class="fine original-note">{original_note}</p>}
               {collaboration && (
                 <p class="publication-note">
-                  Uitgegeven in samenwerking met het{' '}
+                  uitgegeven in samenwerking met het{' '}
                   <a href={collaboration.url} target="_blank" rel="noopener noreferrer">{collaboration.label}</a>
                 </p>
               )}
@@ -203,13 +203,13 @@ const bookStructuredData: Record<string, unknown> = {
 
                     <div class="order-popover" id="pickup-popover" hidden>
                       <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
-                      <p>Je bestelling kan ook opgehaald worden op een van onze <a href="/activiteiten">volgende activiteiten</a>.</p>
+                      <p>je bestelling kan op een van onze <a href="/activiteiten">volgende activiteiten</a> afgehaald worden</p>
                     </div>
 
                     {retailer && (
                       <div class="order-popover" id="bookshop-popover" hidden>
                         <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
-                        <p>Ook beschikbaar bij <a href={retailer.url} target="_blank" rel="noopener noreferrer">{retailer.label}</a>.</p>
+                        <p>ook beschikbaar bij <a href={retailer.url} target="_blank" rel="noopener noreferrer">{retailer.label}</a></p>
                       </div>
                     )}
                   </div>
@@ -380,6 +380,8 @@ const bookStructuredData: Record<string, unknown> = {
     color: #555555;
     font-size: 0.65rem;
     font-variant: small-caps;
+    font-variant-caps: small-caps;
+    font-kerning: normal;
     letter-spacing: 0.08em;
     line-height: 1;
     text-transform: lowercase;
@@ -412,6 +414,13 @@ const bookStructuredData: Record<string, unknown> = {
 
   .publication-meta p:nth-child(-n + 2) {
     color: #111111;
+  }
+
+  .small-caps-label {
+    font-variant: normal;
+    font-variant-caps: normal;
+    font-kerning: normal;
+    letter-spacing: 0.08em;
   }
 
   .publication-meta .fine {

@@ -60,13 +60,13 @@ function formatMeta(date: Date, author?: string): string {
     <>
       <section class="border-t border-[#dddddd] pt-2 mb-6 lg:border-t-0 lg:pt-0" data-disable-heading-anchors="true">
         {latestLabel && (
-          <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-2">
+          <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-2">
             {latestLabel}
           </p>
         )}
         <a href={newsItemHref(lead)} class="group block no-underline hover:no-underline">
           {showItemTypes && (
-            <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-2">
+            <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-2">
               {newsTypeLabel(lead.data.type)}
             </p>
           )}
@@ -84,7 +84,7 @@ function formatMeta(date: Date, author?: string): string {
             <li>
               <a href={newsItemHref(item)} class="group block no-underline hover:no-underline">
                 {showItemTypes && (
-                  <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-1.5">
+                  <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-1.5">
                     {newsTypeLabel(item.data.type)}
                   </p>
                 )}

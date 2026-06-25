@@ -76,7 +76,7 @@ const nextEventSpeakers = nextEvent?.data.speakers?.length
     <section class="mb-6">
       <a href={`/activiteiten/${nextEvent.id}`} class="group block no-underline hover:no-underline focus-visible:no-underline">
         <article>
-          <p class="mt-0 mb-[0.34rem] text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em]">volgende activiteit</p>
+          <p class="mt-0 mb-[0.34rem] text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em]">volgende activiteit</p>
           <h3 class="mt-0 mb-[0.42rem] text-[1.15rem] leading-[1.12] font-normal italic normal-case tracking-normal [font-variant:normal] group-hover:underline underline-offset-2" set:html={nextEvent.data.title} />
           <div class="text-[0.88rem] leading-[1.26]">
             <p>{nextEventMeta}</p>
@@ -98,7 +98,7 @@ const nextEventSpeakers = nextEvent?.data.speakers?.length
         {latestPosts.map(post => (
           <article>
             <a href={newsItemHref(post)} class="block no-underline hover:no-underline group">
-              <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] tracking-[0.08em] mb-1.5">
+              <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-1.5">
                 {newsTypeLabel(post.data.type)}
               </p>
               <p class="text-xs text-[#555555] mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>

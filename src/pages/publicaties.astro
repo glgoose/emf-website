@@ -31,7 +31,7 @@ const books = [
   </Fragment>
 
   <section class="border-t-[2px] border-[#111111] pt-1" aria-labelledby="boeken" data-disable-heading-anchors="true">
-    <h2 id="boeken" class="m-0 mb-2 text-[0.65rem] leading-none text-[#555555] font-normal not-italic lowercase [font-variant:small-caps] tracking-[0.08em]">boeken</h2>
+    <h2 id="boeken" class="m-0 mb-2 text-[0.65rem] leading-none text-[#555555] font-normal not-italic lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em]">boeken</h2>
 
     <ul class="grid grid-cols-2 list-none m-0 p-0 gap-x-4 gap-y-10 sm:grid-cols-[repeat(2,minmax(0,7.2rem))] sm:gap-x-[1.4rem]">
       {books.map(book => {
@@ -54,7 +54,7 @@ const books = [
                 class="mb-[0.45rem] aspect-[2/3] w-[min(100%,5.8rem)] object-cover sm:w-[5.3rem]"
               />
               <p class="m-0 text-[0.6rem] leading-tight text-[#111111]">{book.author}</p>
-              <h3 class="m-0 mt-1 text-[0.6rem] leading-[1.18] font-bold tracking-normal normal-case text-[#111111] [font-variant:normal]">
+              <h3 class="m-0 mt-[0.15rem] text-[0.6rem] leading-[1.18] font-bold tracking-normal normal-case text-[#111111] [font-variant:normal]">
                 {book.title}
               </h3>
             </a>

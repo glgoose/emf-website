@@ -208,6 +208,7 @@
 
   .prose a {
     text-decoration: underline;
+    text-decoration-thickness: 0.035em;
     text-underline-offset: 2px;
   }
 

@@ -10,7 +10,7 @@ description: "EMF-studiedag over de hedendaagse verrechtsing, met Alex de Jong e
 speakers:
   - name: "Alex de Jong"
     bio:
-      - "codirecteur IIRE Amsterdam"
+      - "codirecteur [International Institute for Research and Education (IIRE)](https://www.iire.org/) Amsterdam"
       - "redacteur Grenzeloos.org"
   - name: "Vincent Scheltiens"
     bio:

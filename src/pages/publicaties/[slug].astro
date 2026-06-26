@@ -2,6 +2,8 @@
 import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarHeading from '../../components/SidebarHeading.astro';
+import PublicationPurchase from '../../components/PublicationPurchase.astro';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
   '../../assets/images/{events,publicaties}/*',
@@ -47,7 +49,6 @@ const coverMeta = filename
     ?? coverImages[`../../assets/images/publicaties/${filename}`]?.default
   : undefined;
 
-const activeFormat = formats.find(format => format.active) ?? formats[0];
 function formatPublicationMonth(date?: Date | string): string | undefined {
   if (!date) return undefined;
   const parsed = date instanceof Date ? date : new Date(date);
@@ -86,14 +87,15 @@ const bookStructuredData: Record<string, unknown> = {
 };
 ---
 
-<BaseLayout title={title} description={description ?? `${title} van ${author}`} ogImage={ogImage} ogType="book" noSidebar>
+<BaseLayout title={title} description={description ?? `${title} van ${author}`} ogImage={ogImage} ogType="book">
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(bookStructuredData)} />
   </Fragment>
+  <Fragment slot="aside">
+    <SidebarHeading backHref="/publicaties" title="publicatie" />
+  </Fragment>
 
   <div class="publication-page">
-    <a href="/publicaties" class="publication-back">&lt;&lt; publicaties</a>
-
     <article
       class="publication-detail"
       data-disable-heading-anchors="true"
@@ -149,74 +151,7 @@ const bookStructuredData: Record<string, unknown> = {
             </div>
           </div>
 
-          {formats.length > 0 && (
-            <div class="purchase-stack">
-              <div class="format-selector" aria-label="Kies formaat">
-                {formats.map(format => (
-                  <button
-                    class:list={['format-option', !format.price && 'without-price', format.id === activeFormat.id && 'active']}
-                    type="button"
-                    data-format-option
-                    data-order-url={format.order_url}
-                    aria-pressed={format.id === activeFormat.id ? 'true' : 'false'}
-                  >
-                    <strong>{format.label}</strong>
-                    {format.detail && <span class="format-detail">{format.detail}</span>}
-                    {format.price && <span class="format-price">{format.price}</span>}
-                  </button>
-                ))}
-              </div>
-
-              <div class="order-row">
-                <a href={activeFormat?.order_url} class="order-button" data-order-link>
-                  bestel
-                </a>
-
-                <div class="purchase-info" aria-label="Bestelinformatie">
-                  <div class="purchase-info-line">
-                    <button class="info-trigger quiet-link" type="button" data-popup-target="shipping-popover" aria-expanded="false">verzending</button>
-                    <span class="info-dot" aria-hidden="true">·</span>
-                    <button class="info-trigger quiet-link" type="button" data-popup-target="pickup-popover" aria-expanded="false">ophalen</button>
-                    {retailer && (
-                      <>
-                        <span class="info-dot" aria-hidden="true">·</span>
-                        <button class="info-trigger quiet-link" type="button" data-popup-target="bookshop-popover" aria-expanded="false">boekhandel</button>
-                      </>
-                    )}
-                  </div>
-
-                  <div class="order-popovers">
-                    <div class="order-popover" id="shipping-popover" hidden>
-                      <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
-                      <p>verzending via <a href="https://parcel.bpost.be/nl/pricing/business" target="_blank" rel="noopener noreferrer">bpost</a></p>
-                      <dl>
-                        <div>
-                          <dt>pakketpunt</dt>
-                          <dd>€ 5,40</dd>
-                        </div>
-                        <div>
-                          <dt>thuisadres</dt>
-                          <dd>€ 7,10</dd>
-                        </div>
-                      </dl>
-                    </div>
-
-                    <div class="order-popover" id="pickup-popover" hidden>
-                      <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
-                      <p>je bestelling kan op een van onze <a href="/activiteiten">volgende activiteiten</a> afgehaald worden</p>
-                    </div>
-
-                    {retailer && (
-                      <div class="order-popover" id="bookshop-popover" hidden>
-                        <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
-                        <p>ook beschikbaar bij <a href={retailer.url} target="_blank" rel="noopener noreferrer">{retailer.label}</a></p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <PublicationPurchase formats={formats} retailer={retailer} />
         </div>
       </div>
 
@@ -251,105 +186,12 @@ const bookStructuredData: Record<string, unknown> = {
     </article>
   </div>
 
-  <script is:inline>
-    function initPublicationFormats() {
-      window.__publicationFormatsReady = true;
-      var detail = document.querySelector('.publication-detail');
-      var orderLink = detail ? detail.querySelector('[data-order-link]') : null;
-      if (!detail || !(orderLink instanceof HTMLAnchorElement)) return;
-
-      function closePopups() {
-        var triggers = detail.querySelectorAll('[data-popup-target]');
-        var popups = detail.querySelectorAll('.order-popover');
-        var orderRows = detail.querySelectorAll('.order-row');
-
-        triggers.forEach(function(trigger) {
-          trigger.setAttribute('aria-expanded', 'false');
-        });
-
-        popups.forEach(function(popup) {
-          popup.hidden = true;
-        });
-
-        orderRows.forEach(function(row) {
-          row.classList.remove('popup-open');
-        });
-      }
-
-      detail.addEventListener('click', function(event) {
-        var option = event.target instanceof Element
-          ? event.target.closest('[data-format-option]')
-          : null;
-        if (!(option instanceof HTMLElement)) return;
-
-        detail.querySelectorAll('[data-format-option]').forEach(function(item) {
-          item.classList.toggle('active', item === option);
-          item.setAttribute('aria-pressed', item === option ? 'true' : 'false');
-        });
-
-        orderLink.href = option.dataset.orderUrl || orderLink.href;
-      });
-
-      detail.addEventListener('click', function(event) {
-        var trigger = event.target instanceof Element
-          ? event.target.closest('[data-popup-target]')
-          : null;
-
-        if (trigger instanceof HTMLElement) {
-          var popupId = trigger.getAttribute('data-popup-target');
-          var popup = popupId ? document.getElementById(popupId) : null;
-          var wasExpanded = trigger.getAttribute('aria-expanded') === 'true';
-
-          closePopups();
-
-        if (popup && !wasExpanded) {
-          popup.hidden = false;
-          trigger.setAttribute('aria-expanded', 'true');
-          var row = trigger.closest('.order-row');
-          if (row) row.classList.add('popup-open');
-        }
-
-          return;
-        }
-
-        var closeButton = event.target instanceof Element
-          ? event.target.closest('[data-popup-close]')
-          : null;
-        if (closeButton instanceof HTMLElement) closePopups();
-      });
-
-      detail.addEventListener('keydown', function(event) {
-        if (event.key !== 'Escape') return;
-        closePopups();
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPublicationFormats, { once: true });
-    } else {
-      initPublicationFormats();
-    }
-  </script>
 </BaseLayout>
 
 <style>
   .publication-page {
     width: 100%;
     max-width: 32.5rem;
-  }
-
-  .publication-back {
-    display: inline-block;
-    margin-bottom: 0.35rem;
-    color: #555555;
-    font-size: 0.72rem;
-    line-height: 1;
-    text-decoration: none;
-  }
-
-  .publication-back:hover {
-    text-decoration: underline;
-    text-underline-offset: 2px;
   }
 
   .publication-detail {
@@ -359,7 +201,7 @@ const bookStructuredData: Record<string, unknown> = {
 
   .publication-head {
     display: grid;
-    grid-template-columns: minmax(9.4rem, calc(15.8rem / var(--cover-ratio, 1.48))) minmax(0, 1fr);
+    grid-template-columns: minmax(9.4rem, calc(15.6rem / var(--cover-ratio, 1.48))) minmax(0, 1fr);
     gap: 1.35rem;
     align-items: start;
   }
@@ -438,218 +280,11 @@ const bookStructuredData: Record<string, unknown> = {
     font-size: 0.86rem;
   }
 
-  .quiet-link,
-  .purchase-info a,
   .publication-note a {
     text-decoration: underline;
     text-decoration-color: #999999;
     text-decoration-thickness: 0.035em;
     text-underline-offset: 2px;
-  }
-
-  .purchase-stack {
-    margin-top: 0;
-    padding-top: 0.58rem;
-  }
-
-  .format-selector {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin: 0;
-  }
-
-  .format-option {
-    display: grid;
-    min-height: 2.12rem;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    gap: 0.08rem 0.65rem;
-    align-content: start;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid #cfcfcf;
-    background: #ffffff;
-    color: #9a9a9a;
-    font: inherit;
-    text-align: left;
-  }
-
-  .format-option + .format-option {
-    margin-left: -1px;
-  }
-
-  .format-option.active {
-    position: relative;
-    z-index: 1;
-    border-color: #111111;
-    color: #111111;
-  }
-
-  .format-option.active .format-detail,
-  .format-option.active .format-price {
-    color: #111111;
-  }
-
-  .format-option strong {
-    grid-column: 1;
-    grid-row: 1;
-    line-height: 1.05;
-  }
-
-  .format-detail {
-    grid-column: 1 / span 2;
-    grid-row: 2;
-    margin-top: 0.08rem;
-    color: #777777;
-    font-size: 0.78rem;
-  }
-
-  .format-option.without-price .format-detail {
-    grid-column: 2;
-    grid-row: 1;
-    margin-top: 0;
-    line-height: 1.05;
-    text-align: right;
-    align-self: start;
-  }
-
-  .format-price {
-    grid-column: 2;
-    grid-row: 1;
-    line-height: 1.05;
-    text-align: right;
-  }
-
-  .order-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 0.9rem;
-    margin-top: 0.28rem;
-    padding-top: 0.28rem;
-  }
-
-  .order-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #111111;
-    border-radius: 999px;
-    color: #111111;
-    font-size: 0.78rem;
-    line-height: 1.12;
-    padding: 0.24em 0.86em 0.27em;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .order-button:hover {
-    background: #111111;
-    color: #ffffff;
-    text-decoration: none;
-  }
-
-  .purchase-info {
-    position: relative;
-    display: grid;
-    justify-items: end;
-    color: #555555;
-    font-size: 0.78rem;
-    line-height: 1;
-  }
-
-  .purchase-info-line {
-    display: flex;
-    align-items: baseline;
-    gap: 0.26rem;
-    white-space: nowrap;
-  }
-
-  .order-popovers {
-    position: absolute;
-    z-index: 4;
-    top: calc(100% + 0.45rem);
-    right: 0;
-    justify-self: end;
-    width: min(13.9rem, calc(100vw - 2rem));
-  }
-
-  .info-trigger {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    line-height: 1;
-  }
-
-  .info-dot {
-    color: #777777;
-  }
-
-  .order-popover {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0.55rem 1rem 0.6rem 0.65rem;
-    border: 1px solid #111111;
-    background: #ffffff;
-    color: #555555;
-    font-family: inherit;
-    font-size: 0.74rem;
-    line-height: 1.25;
-    text-align: left;
-    white-space: normal;
-  }
-
-  .popup-close {
-    position: absolute;
-    top: 0.14rem;
-    right: 0.2rem;
-    width: 0.72rem;
-    height: 0.72rem;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: #777777;
-    font: inherit;
-    font-size: 0.68rem;
-    line-height: 0.72rem;
-    text-align: center;
-  }
-
-  .popup-close:hover,
-  .popup-close:focus-visible {
-    color: #111111;
-  }
-
-  .order-popover p {
-    margin: 0;
-  }
-
-  .order-popover p + p,
-  .order-popover dl + p {
-    margin-top: 0.42rem;
-  }
-
-  .order-popover dl {
-    margin: 0.45rem 0 0;
-  }
-
-  .order-popover dl div {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.06rem 0;
-    border-top: 1px solid #eeeeee;
-  }
-
-  .order-popover dt,
-  .order-popover dd {
-    margin: 0;
-  }
-
-  .order-popover dd {
-    color: #111111;
   }
 
   .publication-body {
@@ -720,31 +355,6 @@ const bookStructuredData: Record<string, unknown> = {
 
     .publication-copy {
       min-height: auto;
-    }
-
-    .format-selector {
-      grid-template-columns: 1fr;
-    }
-
-    .format-option + .format-option {
-      margin-top: -1px;
-      margin-left: 0;
-    }
-
-    .order-row {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-
-    .purchase-info {
-      justify-items: start;
-    }
-
-    .order-popovers {
-      right: auto;
-      left: 0;
-      justify-self: start;
-      width: min(13.9rem, 100%);
     }
 
   }

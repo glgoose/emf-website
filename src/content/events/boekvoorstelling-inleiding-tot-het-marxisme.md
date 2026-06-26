@@ -17,11 +17,14 @@ speakers:
   - name: Alex De Jong
     bio:
       - auteur van een van het nieuwe voorwoord
-      - directeur van het International Institute for Research and Education (IIRE) in Amsterdam
+      - directeur van het [International Institute for Research and Education (IIRE)](https://www.iire.org/) in Amsterdam
 price: gratis
 cover: /images/events/260509-inleiding-mandel.jpg
 cover_filter: brightness(0.97)
 registration_open: true
+publication_link:
+  href: /publicaties/inleiding-tot-het-marxisme/
+  label: Inleiding tot het Marxisme
 ---
 
 ## De werkelijkheid begrijpen en veranderen? Maar hoe?
@@ -30,6 +33,6 @@ De wereld staat in brand. Grootschalige oorlogen zijn terug van nooit weggeweest
 
 Dat is geen nieuwe vraag. Meer en meer mensen beseffen dat het wel degelijk het kapitalistisch systeem is dat aan de basis ligt van al deze rampspoed. Maar hoe kunnen we dat systeem doorgronden en veranderen? Wijlen de Belgische econoom Ernest Mandel boog er zich meerdere keren over in veelal lijvige werken zoals *De Economische Theorie van het Marxisme*, *De Lange Golven van de Kapitalistische Ontwikkeling* en *Het Laatkapitalisme*. Voor nogal wat mensen zijn deze werken vandaag wellicht wat hoog gegrepen.
 
-Daarom is het een goede zaak dat Ernest Mandels *Inleiding tot het Marxisme* opnieuw wordt uitgegeven. Sinds de eerdere uitgave in de jaren 1970 is er natuurlijk wel het een en ander gebeurd. Denk maar aan de 'Val van de Muur' in Berlijn en aan de implosie van de Sovjet-Unie. Ook hebben nieuwe uitdagingen zich verder ontwikkeld op vlakken als feminisme en ecologie.
+Daarom is het een goede zaak dat Ernest Mandels [*Inleiding tot het Marxisme*](/publicaties/inleiding-tot-het-marxisme/) opnieuw wordt uitgegeven. Sinds de eerdere uitgave in de jaren 1970 is er natuurlijk wel het een en ander gebeurd. Denk maar aan de 'Val van de Muur' in Berlijn en aan de implosie van de Sovjet-Unie. Ook hebben nieuwe uitdagingen zich verder ontwikkeld op vlakken als feminisme en ecologie.
 
 Om die reden wordt deze nieuwe uitgave voorafgegaan door twee voorwoorden — van de Franse filosoof Daniel Bensaïd en van de Nederlandse vorser Alex De Jong — die Mandels *Inleiding* up to date brengen en tegelijk kritisch tegen het licht houden.

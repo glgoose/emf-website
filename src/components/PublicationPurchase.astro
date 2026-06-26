@@ -1,0 +1,423 @@
+---
+interface PublicationFormat {
+  id: string;
+  label: string;
+  detail?: string;
+  price?: string;
+  order_url: string;
+  active?: boolean;
+}
+
+interface Retailer {
+  label: string;
+  url: string;
+}
+
+interface Props {
+  formats: PublicationFormat[];
+  retailer?: Retailer;
+}
+
+const { formats, retailer } = Astro.props;
+const activeFormat = formats.find(format => format.active) ?? formats[0];
+---
+
+{formats.length > 0 && (
+  <div class="purchase-stack" data-publication-purchase>
+    <div class="format-selector" aria-label="Kies formaat">
+      {formats.map(format => (
+        <button
+          class:list={['format-option', !format.price && 'without-price', format.id === activeFormat.id && 'active']}
+          type="button"
+          data-format-option
+          data-order-url={format.order_url}
+          aria-pressed={format.id === activeFormat.id ? 'true' : 'false'}
+        >
+          <strong>{format.label}</strong>
+          {format.detail && <span class="format-detail">{format.detail}</span>}
+          {format.price && <span class="format-price">{format.price}</span>}
+        </button>
+      ))}
+    </div>
+
+    <div class="order-row">
+      <a href={activeFormat?.order_url} class="order-button" data-order-link>
+        bestel
+      </a>
+
+      <div class="purchase-info" aria-label="Bestelinformatie">
+        <div class="purchase-info-line">
+          <button class="info-trigger quiet-link" type="button" data-popup-target="shipping-popover" aria-expanded="false">verzending</button>
+          <span class="info-dot" aria-hidden="true">·</span>
+          <button class="info-trigger quiet-link" type="button" data-popup-target="pickup-popover" aria-expanded="false">ophalen</button>
+          {retailer && (
+            <>
+              <span class="info-dot" aria-hidden="true">·</span>
+              <button class="info-trigger quiet-link" type="button" data-popup-target="bookshop-popover" aria-expanded="false">boekhandel</button>
+            </>
+          )}
+        </div>
+
+        <div class="order-popovers">
+          <div class="order-popover" id="shipping-popover" hidden>
+            <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+            <p>België (via bpost)</p>
+            <dl>
+              <div>
+                <dt>pakketpunt</dt>
+                <dd>€ 5,5</dd>
+              </div>
+              <div>
+                <dt>thuisadres</dt>
+                <dd>€ 7,5</dd>
+              </div>
+            </dl>
+            <p>Nederland (via DPD)</p>
+            <dl>
+              <div>
+                <dt>pakketpunt</dt>
+                <dd>€ 7,0</dd>
+              </div>
+              <div>
+                <dt>thuisadres</dt>
+                <dd>€ 8,5</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="order-popover" id="pickup-popover" hidden>
+            <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+            <p>je bestelling kan op een van onze <a href="/activiteiten">volgende activiteiten</a> afgehaald worden</p>
+          </div>
+
+          {retailer && (
+            <div class="order-popover" id="bookshop-popover" hidden>
+              <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+              <p>ook beschikbaar bij <a href={retailer.url} target="_blank" rel="noopener noreferrer">{retailer.label}</a></p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<script>
+  function initPublicationPurchase(root: Element) {
+    const orderLink = root.querySelector('[data-order-link]');
+    if (!(orderLink instanceof HTMLAnchorElement)) return;
+
+    function closePopups() {
+      const triggers = root.querySelectorAll('[data-popup-target]');
+      const popups = root.querySelectorAll('.order-popover');
+      const orderRows = root.querySelectorAll('.order-row');
+
+      triggers.forEach(trigger => {
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+
+      popups.forEach(popup => {
+        if (popup instanceof HTMLElement) popup.hidden = true;
+      });
+
+      orderRows.forEach(row => {
+        row.classList.remove('popup-open');
+      });
+    }
+
+    root.addEventListener('click', event => {
+      const option = event.target instanceof Element
+        ? event.target.closest('[data-format-option]')
+        : null;
+      if (!(option instanceof HTMLElement)) return;
+
+      root.querySelectorAll('[data-format-option]').forEach(item => {
+        item.classList.toggle('active', item === option);
+        item.setAttribute('aria-pressed', item === option ? 'true' : 'false');
+      });
+
+      orderLink.href = option.dataset.orderUrl || orderLink.href;
+    });
+
+    root.addEventListener('click', event => {
+      const trigger = event.target instanceof Element
+        ? event.target.closest('[data-popup-target]')
+        : null;
+
+      if (trigger instanceof HTMLElement) {
+        const popupId = trigger.getAttribute('data-popup-target');
+        const popup = popupId ? root.querySelector(`#${popupId}`) : null;
+        const wasExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        closePopups();
+
+        if (popup instanceof HTMLElement && !wasExpanded) {
+          popup.hidden = false;
+          trigger.setAttribute('aria-expanded', 'true');
+          const row = trigger.closest('.order-row');
+          if (row) row.classList.add('popup-open');
+        }
+
+        return;
+      }
+
+      const closeButton = event.target instanceof Element
+        ? event.target.closest('[data-popup-close]')
+        : null;
+      if (closeButton instanceof HTMLElement) closePopups();
+    });
+
+    root.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      closePopups();
+    });
+  }
+
+  document.querySelectorAll('[data-publication-purchase]').forEach(initPublicationPurchase);
+</script>
+
+<style>
+  .quiet-link,
+  .purchase-info a {
+    text-decoration: underline;
+    text-decoration-color: #999999;
+    text-decoration-thickness: 0.035em;
+    text-underline-offset: 2px;
+  }
+
+  .purchase-stack {
+    margin-top: 0;
+    padding-top: 0.58rem;
+  }
+
+  .format-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .format-option {
+    display: grid;
+    min-height: 2.12rem;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.08rem 0.38rem;
+    align-content: start;
+    padding: 0.25rem 0.38rem;
+    border: 1px solid #cfcfcf;
+    background: #ffffff;
+    color: #9a9a9a;
+    font: inherit;
+    font-size: 0.86rem;
+    text-align: left;
+  }
+
+  .format-option + .format-option {
+    margin-left: -1px;
+  }
+
+  .format-option.active {
+    position: relative;
+    z-index: 1;
+    border-color: #111111;
+    color: #111111;
+  }
+
+  .format-option.active .format-detail,
+  .format-option.active .format-price {
+    color: #111111;
+  }
+
+  .format-option strong {
+    grid-column: 1;
+    grid-row: 1;
+    line-height: 1.05;
+    white-space: nowrap;
+  }
+
+  .format-detail {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    margin-top: 0.08rem;
+    color: #777777;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .format-option.without-price .format-detail {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+    line-height: 1.05;
+    text-align: right;
+    align-self: start;
+  }
+
+  .format-price {
+    grid-column: 2;
+    grid-row: 1;
+    line-height: 1.05;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .order-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.9rem;
+    margin-top: 0.28rem;
+    padding-top: 0.28rem;
+  }
+
+  .order-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #111111;
+    border-radius: 999px;
+    color: #111111;
+    font-size: 0.78rem;
+    line-height: 1.12;
+    padding: 0.24em 0.86em 0.27em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .order-button:hover {
+    background: #111111;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .purchase-info {
+    position: relative;
+    display: grid;
+    justify-items: start;
+    color: #555555;
+    font-size: 0.78rem;
+    line-height: 1;
+  }
+
+  .purchase-info-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.16rem;
+    white-space: nowrap;
+  }
+
+  .order-popovers {
+    position: absolute;
+    z-index: 4;
+    top: calc(100% + 0.45rem);
+    right: 0;
+    justify-self: end;
+    width: min(13.9rem, calc(100vw - 2rem));
+  }
+
+  .info-trigger {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1;
+  }
+
+  .info-dot {
+    color: #777777;
+  }
+
+  .order-popover {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.55rem 1rem 0.6rem 0.65rem;
+    border: 1px solid #111111;
+    background: #ffffff;
+    color: #555555;
+    font-family: inherit;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 0.14rem;
+    right: 0.2rem;
+    width: 0.72rem;
+    height: 0.72rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #777777;
+    font: inherit;
+    font-size: 0.68rem;
+    line-height: 0.72rem;
+    text-align: center;
+  }
+
+  .popup-close:hover,
+  .popup-close:focus-visible {
+    color: #111111;
+  }
+
+  .order-popover p {
+    margin: 0;
+  }
+
+  .order-popover p + p,
+  .order-popover dl + p {
+    margin-top: 0.42rem;
+  }
+
+  .order-popover dl {
+    margin: 0.45rem 0 0;
+  }
+
+  .order-popover dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.06rem 0;
+    border-top: 1px solid #eeeeee;
+  }
+
+  .order-popover dt,
+  .order-popover dd {
+    margin: 0;
+  }
+
+  .order-popover dd {
+    color: #111111;
+  }
+
+  @media (max-width: 760px) {
+    .format-selector {
+      grid-template-columns: 1fr;
+    }
+
+    .format-option + .format-option {
+      margin-top: -1px;
+      margin-left: 0;
+    }
+
+    .order-row {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .purchase-info {
+      justify-items: start;
+    }
+
+    .order-popovers {
+      right: auto;
+      left: 0;
+      justify-self: start;
+      width: min(13.9rem, 100%);
+    }
+  }
+</style>

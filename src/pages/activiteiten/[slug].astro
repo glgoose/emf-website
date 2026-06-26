@@ -42,6 +42,7 @@ const {
   cover_filter,
   price,
   end_time,
+  publication_link,
 } = event.data;
 
 const relatedPostsContext = type === 'panelgesprek' ? 'dit panelgesprek' : `deze ${type}`;
@@ -170,6 +171,11 @@ const eventStructuredData: Record<string, unknown> = {
           </li>
         ))}
       </ul>
+      {publication_link && (
+        <p class="mt-2 mb-0">
+          Het boek kan <a href={publication_link.href} aria-label={`${publication_link.label} aankopen`} class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]">hier aangekocht worden</a>.
+        </p>
+      )}
     </aside>
   )}
 

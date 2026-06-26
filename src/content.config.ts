@@ -36,6 +36,10 @@ const events = defineCollection({
     cover: z.string().optional(),
     cover_filter: z.string().optional(),
     price: z.string().optional(),
+    publication_link: z.object({
+      href: z.string(),
+      label: z.string(),
+    }).optional(),
   }),
 });
 

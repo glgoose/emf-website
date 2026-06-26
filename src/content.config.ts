@@ -53,7 +53,7 @@ const posts = defineCollection({
     author: z.string().optional(),
     source_event: z.object({
       slug: z.string(),
-      label: z.string(),
+      label: z.string().transform(mdInline),
       note: z.string(),
     }).optional(),
   }),

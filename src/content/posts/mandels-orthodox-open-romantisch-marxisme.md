@@ -6,7 +6,7 @@ author: "Alex de Jong"
 summary: "Alex de Jong bespreekt het soort marxisme dat Ernest Mandel in zijn Inleiding aanbiedt: orthodox en open, wetenschappelijk en politiek, maar ook gedragen door een romantisch verlangen naar emancipatie."
 source_event:
   slug: "boekvoorstelling-inleiding-tot-het-marxisme"
-  label: "boekvoorstelling van Inleiding tot het marxisme"
+  label: "boekvoorstelling van *Inleiding tot het marxisme*"
   note: "Deze tekst werd voorgesteld op de"
 ---
 

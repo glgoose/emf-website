@@ -6,7 +6,7 @@ author: "Anton Jäger"
 summary: "Anton Jäger leest Ernest Mandel vandaag opnieuw: als niet-Joodse Jood, Belgische internationalist, revolutionair optimist en denker van een open historisch materialisme."
 source_event:
   slug: "boekvoorstelling-inleiding-tot-het-marxisme"
-  label: "boekvoorstelling van Inleiding tot het marxisme"
+  label: "boekvoorstelling van *Inleiding tot het marxisme*"
   note: "Deze tekst werd voorgesteld op de"
 ---
 

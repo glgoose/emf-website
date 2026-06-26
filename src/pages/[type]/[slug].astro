@@ -36,7 +36,7 @@ const dateFormatted = date.toLocaleDateString('nl-BE', {
       <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
         {source_event.note}{' '}
         <a href={`/activiteiten/${source_event.slug}`} class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]">
-          {source_event.label}
+          <Fragment set:html={source_event.label} />
         </a>.
       </aside>
     )}

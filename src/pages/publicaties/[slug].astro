@@ -195,8 +195,7 @@ const bookStructuredData: Record<string, unknown> = {
   }
 
   .publication-detail {
-    border-top: 2px solid #111111;
-    padding-top: 0.45rem;
+    padding-top: var(--content-hard-edge-start);
   }
 
   .publication-head {
@@ -338,10 +337,6 @@ const bookStructuredData: Record<string, unknown> = {
   @media (max-width: 760px) {
     .publication-page {
       width: 100%;
-    }
-
-    .publication-detail {
-      border-top-width: 1px;
     }
 
     .publication-head {

@@ -46,10 +46,12 @@ const {
 } = event.data;
 
 const relatedPostsContext = type === 'panelgesprek' ? 'dit panelgesprek' : `deze ${type}`;
-const relatedPostsIntro = `Lees de bijdragen aan ${relatedPostsContext}:`;
+const relatedPostsNoun = relatedPosts.length === 1 ? 'bijdrage' : 'bijdragen';
+const relatedPostsIntro = `Lees de ${relatedPostsNoun} aan ${relatedPostsContext}:`;
 const relatedPostLinks = relatedPosts.map(post => ({
   href: newsItemHref(post),
   title: post.data.title,
+  subtitle: post.data.subtitle,
   author: post.data.author,
 }));
 
@@ -148,7 +150,7 @@ const eventStructuredData: Record<string, unknown> = {
       formats={['avif', 'webp']}
       widths={[400, 700, 1000, 1400]}
       sizes="(min-width: 1024px) 700px, 100vw"
-      class="w-full mb-6"
+      class="w-full mb-6 mt-[var(--content-hard-edge-start)]"
       style={cover_filter ? `filter: ${cover_filter}` : undefined}
     />
   )}
@@ -158,14 +160,15 @@ const eventStructuredData: Record<string, unknown> = {
       <p class="mb-2">{relatedPostsIntro}</p>
       <ul class="m-0 list-none p-0">
         {relatedPostLinks.map(post => (
-          <li class="grid grid-cols-[0.8em_1fr] gap-x-[0.15em] mb-1 leading-[1.35] before:content-['-'] before:text-[#888888]">
-            <span>
+          <li class="grid grid-cols-[0.8em_1fr] gap-x-[0.15em] mb-1.5 leading-[1.35] before:content-['-'] before:text-[#888888]">
+            <span class="min-w-0">
               <a
                 href={post.href}
                 class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]"
               >
-                <em>{post.title}</em>
+                <span class="italic" set:html={post.title} />
               </a>
+              {post.subtitle && <span class="block text-[0.92em] leading-[1.25] text-[#777777] italic">{post.subtitle}</span>}
               {post.author && <span class="text-[#888888]"> - {post.author}</span>}
             </span>
           </li>

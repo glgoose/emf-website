@@ -30,6 +30,13 @@ Built with [Astro](https://astro.build), [Tailwind CSS v4](https://tailwindcss.c
 - Heading `#` anchor behavior should stay centralized in:
   - `src/layouts/BaseLayout.astro` (anchor injection / hash handling)
   - `src/styles/global.css` (anchor visibility, color, and hover behavior)
+- Title and heading text should not use automatic hyphenation. Prefer:
+  `hyphens: manual; overflow-wrap: break-word; word-break: normal;`
+  so browsers wrap at spaces, but can still break a single overlong word.
+- Use `&shy;` only for deliberate editorial soft hyphenation points, for example
+  `eco&shy;socialistische`. Keep it out of metadata output by stripping it where
+  titles are used outside visible HTML, such as calendar summaries or page
+  metadata.
 
 ## API endpoints
 

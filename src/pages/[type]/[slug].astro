@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SidebarHeading from '../../components/SidebarHeading.astro';
 import { getCollection, render } from 'astro:content';
+import { stripHtml } from '../../lib/formatDateTime';
+import { newsTypeLabel } from '../../lib/newsTypes';
 
 export async function getStaticPaths() {
   const items = await getCollection('posts');
@@ -14,7 +16,8 @@ export async function getStaticPaths() {
 const { item } = Astro.props;
 const { Content } = await render(item);
 
-const { title, date, author, summary, source_event } = item.data;
+const { title, subtitle, date, author, summary, source_event, type } = item.data;
+const plainTitle = stripHtml(title);
 
 const dateFormatted = date.toLocaleDateString('nl-BE', {
   day: 'numeric',
@@ -23,16 +26,22 @@ const dateFormatted = date.toLocaleDateString('nl-BE', {
 });
 ---
 
-<BaseLayout title={title} description={summary} ogType="article">
+<BaseLayout title={plainTitle} description={summary} ogType="article">
   <Fragment slot="aside">
-    <SidebarHeading backHref="/nieuws" title={title}>
-      <p class="text-xs leading-snug text-[#555555] mb-1">{dateFormatted}</p>
-      {author && <p class="text-xs leading-snug text-[#555555] mb-0">{author}</p>}
+    <SidebarHeading backHref="/nieuws" title={title} subtitle={subtitle}>
+      <div
+        class="flex flex-col items-end text-xs leading-snug text-[#555555] max-lg:items-start"
+        aria-label="Berichtgegevens"
+      >
+        {author && <span class="mb-1">{author}</span>}
+        <span class="mb-1">{dateFormatted}</span>
+        <span class="lowercase">{newsTypeLabel(type)}</span>
+      </div>
     </SidebarHeading>
   </Fragment>
 
   <article class="prose news-article">
-    {source_event && (
+    {source_event && item.data.type !== 'verslag' && (
       <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
         {source_event.note}{' '}
         <a href={`/activiteiten/${source_event.slug}`} class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]">

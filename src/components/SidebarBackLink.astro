@@ -1,0 +1,78 @@
+---
+interface Props {
+  href: string;
+  variant: 'mobile' | 'desktop';
+}
+
+const { href, variant } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    'sidebar-back-link',
+    variant === 'mobile' ? 'sidebar-back-link--mobile' : 'sidebar-back-link--desktop',
+  ]}
+  aria-label="Terug"
+>&lt;&lt;</a>
+
+<style>
+  .sidebar-back-link {
+    color: #bbbbbb;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .sidebar-back-link:hover {
+    color: #111111;
+    text-decoration: none;
+  }
+
+  .sidebar-back-link:focus-visible {
+    color: #111111;
+  }
+
+  .sidebar-back-link--mobile {
+    display: block;
+    margin-bottom: 0.125rem;
+    font-size: 0.75em;
+    line-height: 1;
+  }
+
+  .sidebar-back-link--desktop {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .sidebar-back-link--mobile {
+      display: none;
+    }
+
+    .sidebar-back-link--desktop {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 1.2em;
+      min-width: 1.2em;
+      height: 1em;
+      margin-left: -1.65em;
+      margin-right: 0.45em;
+      font-size: 0.75em;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+      transition:
+        color 140ms ease,
+        opacity 140ms ease;
+      transform: translateY(-0.2em);
+      vertical-align: middle;
+    }
+
+    :global(.sidebar-back-anchor-group:hover) .sidebar-back-link--desktop,
+    :global(.sidebar-back-anchor-group:focus-within) .sidebar-back-link--desktop,
+    .sidebar-back-link--desktop:hover,
+    .sidebar-back-link--desktop:focus-visible {
+      opacity: 1;
+    }
+  }
+</style>

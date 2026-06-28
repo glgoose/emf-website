@@ -32,5 +32,7 @@ export function formatSpeakersLine(speakers: { name: string }[]): string {
 }
 
 export function stripHtml(s: string): string {
-  return s.replace(/<[^>]+>/g, '');
+  return s
+    .replace(/<[^>]+>/g, '')
+    .replace(/&shy;|\u00ad/g, '');
 }

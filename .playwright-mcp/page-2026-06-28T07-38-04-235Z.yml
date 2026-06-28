@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e5]:
+        - 'heading "Terug Boekvoorstelling: Manifest voor een ecosocialistische revolutie" [level=1] [ref=e7]':
+          - generic [ref=e8]:
+            - link "Terug" [ref=e9] [cursor=pointer]:
+              - /url: /nieuws
+              - text: <<
+            - generic [ref=e10]:
+              - text: "Boekvoorstelling:"
+              - emphasis [ref=e11]: Manifest voor een ecosocialistische revolutie
+        - paragraph [ref=e12]: 16 mei 2025
+        - paragraph [ref=e13]: Peter Veltmans
+    - generic [ref=e14]:
+      - main [ref=e15]:
+        - article [ref=e16]:
+          - paragraph [ref=e17]:
+            - img "Boekvoorstelling van het Ecosocialistisch Manifest in De Groene Waterman" [ref=e18]
+          - paragraph [ref=e19]:
+            - text: "De kersverse vzw Ernest Mandelfonds stelde op zaterdag 10 mei 2025 in de Antwerpse boekhandel De Groene Waterman een interessant nieuw boek voor. Dat boek bevat de integrale tekst van het nieuwe, geactualiseerde programma van de Vierde Internationale, met als titel:"
+            - emphasis [ref=e20]: Manifest voor een Ecosocialistische Revolutie – Breek met de Kapitalistische Groei!
+            - text: Bij de boekvoorstelling lichtte Daniel Tanuro (die mee aan de wieg stond van de oorspronkelijke tekst) de inhoud en betekenis van dit programmatorisch document omstandig toe. Daar werd constructief maar ook kritisch op gereageerd door Tom Seerden van de klimaatbeweging ‘
+            - link "Fridays For Future" [ref=e21] [cursor=pointer]:
+              - /url: https://fridaysforfuture.org/what-we-do/who-we-are/
+            - text: ’ en door Cato Maselis van het socialistische ‘
+            - link "Fonds voor Ontwikkelingssamenwerking" [ref=e22] [cursor=pointer]:
+              - /url: https://www.fos.ngo/
+            - text: ’ (FOS). Een verslag.
+          - heading "Netwerk" [level=3] [ref=e23]:
+            - generic [ref=e24]: Netwerk
+          - paragraph [ref=e25]: "Daniel Tanuro lichtte eerst toe wat de Vierde Internationale eigenlijk is: een netwerk van organisaties uit meer dan 60 landen, verspreid over alle continenten van de planeet, waarvan de militanten actief zijn in tal van sociale bewegingen, zoals de arbeidersbeweging, de antiracistische en antifascistische beweging, de feministische beweging, de LGBTQI+-beweging en de bewegingen van onderdrukte inheemse volkeren en boeren."
+          - heading "Productivisme en de ‘jonge’ Marx" [level=3] [ref=e26]:
+            - generic [ref=e27]: Productivisme en de ‘jonge’ Marx
+          - paragraph [ref=e28]: Sinds geruime tijd besteedt dit omvangrijke netwerk van de Vierde Internationale veel aandacht aan de zogenaamde ‘ecologische kwestie’. Voor marxisten is dat niet vanzelfsprekend. Dat komt omdat het marxisme van oudsher getekend is door sterke productivistische opvattingen. Aan de ene kant is dat begrijpelijk, aangezien de groei van de productiekrachten er mee voor gezorgd heeft dat de abjecte miserie van de (vroege) arbeidersklasse erdoor gelenigd kon worden. Tegelijk echter maakt dit productivisme (het streven naar groei van de productiekrachten) onderdeel uit van de diepe, ideologische opvattingen van het marxisme.
+          - paragraph [ref=e29]:
+            - text: Met name de ‘jonge’ Marx loopt niet alleen over van bewondering voor de manier waarop de bourgeoisie de groei van de productiekrachten bevorderd heeft; hij meent in die groei van de productiekrachten tegelijk ook een soort motor van maatschappelijke vooruitgang te zien, die dan meteen ook doel en richting aangeeft van de historische ontwikkeling van de mensheid. Deze uitdrukkelijk positieve beoordeling van de noodzakelijke groei der productiekrachten vinden we bijvoorbeeld terug in het
+            - link "Communistisch Manifest" [ref=e30] [cursor=pointer]:
+              - /url: https://www.marxists.org/nederlands/marx-engels/1848/manifest/manif1.htm
+            - text: "van 1848:"
+          - paragraph [ref=e31]:
+            - emphasis [ref=e32]: “De bourgeoisie heeft in haar nauwelijks honderdjarige klassenheerschappij massaler en kolossaler productiekrachten geschapen dan alle verdwenen geslachten samen. Onderwerping van de natuurkrachten, machinerie, aanwending van de scheikunde op nijverheid en landbouw, stoomvaart, spoorwegen, elektrische telegrafie, ontginning van gehele werelddelen, het bevaarbaar maken van de rivieren, gehele uit de grond gestampte bevolkingen — welke vroegere eeuw vermoedde dat zulke productiekrachten in de schoot van de maatschappelijke arbeid sluimerden?”
+          - paragraph [ref=e33]:
+            - text: Marx voegt daar in het ‘
+            - link "Voorwoord" [ref=e34] [cursor=pointer]:
+              - /url: https://www.marxists.org/nederlands/marx-engels/1859/1859voorwoordbijdrage.htm
+            - text: ’ tot de
+            - emphasis [ref=e35]: ‘Bijdrage tot de kritiek op de politieke economie’
+            - text: (1858) aan toe dat
+            - emphasis [ref=e36]: “op een bepaalde trap van hun ontwikkeling raken de materiële productiekrachten van de maatschappij in tegenspraak met de bestaande productieverhoudingen, of, wat slechts een juridische uitdrukking voor hetzelfde is, met de eigendomsverhoudingen, waarin zij zich tot dusver hadden bewogen. Van vormen waarin de productiekrachten tot ontwikkeling kwamen, slaan deze verhoudingen om in ketenen daarvan. Dan breekt een tijdperk van sociale revolutie aan. (…) In grote trekken kunnen Aziatische, antieke, feodale en modern burgerlijke productiewijzen aangeduid worden als voortschrijdende tijdperken van de economische maatschappijformatie. De burgerlijke productieverhoudingen zijn de laatste antagonistische vorm van het maatschappelijke productieproces; antagonistisch niet in de zin van individueel antagonisme, maar van een antagonisme dat voortkomt uit de maatschappelijke levensvoorwaarden van de individuen. Maar de productiekrachten die in de schoot van de burgerlijke maatschappij tot ontwikkeling komen, scheppen tegelijk de materiële voorwaarden om dit antagonisme op te lossen.”
+          - heading "Marx’ latere ‘draai’" [level=3] [ref=e37]:
+            - generic [ref=e38]: Marx’ latere ‘draai’
+          - paragraph [ref=e39]:
+            - text: Later echter verandert Marx van mening. In het derde deel van Het Kapitaal legt hij veel meer de nadruk op het
+            - emphasis [ref=e40]: “rationeel beheer van het metabolisme tussen mens en natuur”
+            - text: en in het kader daarvan op de noodzaak om in
+            - emphasis [ref=e41]: “te strijden voor verkorting van de arbeidsduur.”
+            - text: Helaas heeft Marx deze ‘draai’ in zijn denken wel nooit echt expliciet uitgedrukt. Om die ‘draai’ te ontdekken, moeten lezers van Het Kapitaal bovendien eerst een paar duizend pagina’s doorworstelen…
+          - paragraph [ref=e42]: "De Vierde Internationale is decennialang evenzeer productivistisch geweest. In feite was onze slogan steeds: ‘There is only one solution: revolution!’ Dat was ook het antwoord dat gegeven werd op de ecologische crisis, zonder verder in te gaan op ‘details’. Het ging eigenlijk om een zuiver propagandistische aanpak."
+          - heading "Ecosocialisme" [level=3] [ref=e43]:
+            - generic [ref=e44]: Ecosocialisme
+          - paragraph [ref=e45]: De inplanting van organisaties en militanten van de Vierde Internationale in sociale bewegingen heeft ons echter in staat gesteld om ons te bevrijden van deze beperking. Zeker na de val van de Muur in Berlijn kozen we meer en meer voor ecosocialisme en dus voor het breken met het kapitalistische productivisme. We onderkenden dat er limieten zijn aan de ontwikkeling van de mensheid; dat de ecologische en sociale crisis met elkaar samenhangen; dat we eisen moeten stellen, die kunnen beantwoorden aan deze dubbele crisis. Tegelijk beseften we meer en meer dat ecosocialisme op zich onvoldoende is. Er is meer nodig!
+          - heading "‘Degrowth’ of ‘ontgroeiïng’" [level=3] [ref=e46]:
+            - generic [ref=e47]: ‘Degrowth’ of ‘ontgroeiïng’
+          - paragraph [ref=e48]: Zo kwamen we terecht bij het concept ‘degrowth’ (in het boek vertaald als ‘ontgroeiïng’). Neem bijvoorbeeld de kwestie van de hernieuwbare energiebronnen. Om deze hernieuwbare energiebronnen (windturbines, zonnepanelen, enz.) te produceren, zijn er fossiele bronnen nodig, zoals bijvoorbeeld zeldzame metalen, die niet zelden dienen aangevoerd te worden met olie of gas gestookte transportmiddelen. Op die manier dragen hernieuwbare energiebronnen ook zelf weer bij aan de klimaatcrisis.
+          - heading "‘Groen kapitalisme’" [level=3] [ref=e49]:
+            - generic [ref=e50]: ‘Groen kapitalisme’
+          - paragraph [ref=e51]: Daarnaast zijn er de uitingen van ‘groen kapitalisme’. Zoals bijvoorbeeld de technologieën voor ‘direct air capture’ (het afvangen van CO²-uitstoot en het opslaan ervan in de bodem). Ook dit vereist weer fossiele bronnen en draagt daardoor ook weer bij aan de klimaatcrisis. Niet toevallig vind dit soort technologische ‘oplossingen’ zijn oorsprong in de nood voor het kapitalisme tot voortdurende groei van de productiekrachten. ‘Degrowth’ of ‘ontgroeiïng’ is dan ook een bij uitstek antikapitalistisch streven. Maar… ‘degrowth’ moet tegelijk ook sociaal aanvaardbaar zijn. Zo niet, dan zal er geen ‘degrowth’ kunnen komen en stevenen we allemaal af op het ultieme klimaatcataclysme.
+          - heading "Langdurige discussies" [level=3] [ref=e52]:
+            - generic [ref=e53]: Langdurige discussies
+          - paragraph [ref=e54]:
+            - text: Onze conclusie – dat we de kapitalistische groei moeten breken – is er niet zomaar gekomen. We hebben er drie jaar lang over nagedacht. Het heeft vele debatten gevergd. Met name de inbreng vanuit het Globale Zuiden was erg belangrijk in die discussies. Zo hebben kameraden uit Bangladesh er ons op gewezen dat ‘degrowth’ eigenlijk neerkomt op agro-agricultuur of
+            - link "agro-ecologie" [ref=e55] [cursor=pointer]:
+              - /url: https://fr.wikipedia.org/wiki/Agro%C3%A9cologie
+            - text: ": het omzichtig omgaan met de natuurlijke bronnen voor (o.a.) de landbouw."
+          - heading "Aanzet tot debat" [level=3] [ref=e56]:
+            - generic [ref=e57]: Aanzet tot debat
+          - paragraph [ref=e58]:
+            - text: Hoewel we dus al lang van gedachten wisselen over ‘degrowth’ is ons Manifest toch nog steeds geen eindpunt. We beschouwen dit Manifest als een voorstel, dat we richten aan sociale bewegingen, aan intellectuelen en aan wetenschappers, met wie we verder in discussie willen gaan. Dat lukt (alle bescheidenheid in acht genomen) ook redelijk goed. In het laatste rapport van het
+            - link "IPCC" [ref=e59] [cursor=pointer]:
+              - /url: https://www.ipcc.ch/
+            - text: (het Intergouvernementeel Panel over Klimaatverandering) wordt bijvoorbeeld tientallen keren verwezen naar de noodzaak van ‘degrowth’. Het is dus absoluut niet zo dat dit Manifest een obscuur documentje is van enkele zonderlingen.
+          - heading "Zes hoofdstukken" [level=3] [ref=e60]:
+            - generic [ref=e61]: Zes hoofdstukken
+          - paragraph [ref=e62]:
+            - text: Het Manifest bestaat uit zes hoofdstukken. Het eerste hoofdstuk maakt een analyse van de objectieve toestand waarin we ons helaas bevinden. Het tweede hoofdstuk beschrijft de wereld die we willen bereiken en is daarmee een poging te komen tot een ‘
+            - link "concrete utopie" [ref=e63] [cursor=pointer]:
+              - /url: https://wikimemoires.net/2013/03/lutopie-concrete-dernst-bloch/
+            - text: ’, zoals Ernst Bloch zou zeggen. Het derde hoofdstuk handelt over methodiek, waarbij we onze overgangsmethode als een brug gebruiken tussen de huidige wanorde en de toekomst van een mogelijke en wenselijke wereld. Het vierde hoofdstuk bevat richtlijnen om te komen tot ‘degrowth’ of ‘ontgroeiïng’. Hierbij dient opgemerkt te worden dat die ‘richtlijnen’ niet afgerond zijn. Ze zijn ook niet helemaal volledig, noch overal zonder meer overal toepasbaar. Wel zijn ze allemaal fundamenteel sociaal van aard, met bijzondere aandacht voor landbouw en veeteelt, maar tegelijk ook voor de gevolgen voor en de rol van vrouwen, van LGBTQI-mensen, van inheemse volkeren, enz. Het vijfde hoofdstuk gaat dieper in op de ongelijke ontwikkeling tussen het Noorden en het Zuiden van de planeet en op de vraag hoe een globale ‘degrowth’ of ‘ontgroeiïng’ dan vorm zou kunnen krijgen – met de nodige aandacht voor de sociale verzuchtingen, van de onderdrukten in het Noorden, maar uiteraard vooral ook met die in het Globale Zuiden. Het laatste en zesde hoofdstuk is dan weer strategisch van aard en benadrukt de noodzaak om alle emancipatorische bewegingen planetair te doen samenvloeien in een machtige beweging om het leven zelf op onze planeet te redden.
+          - heading "Vier akkoorden" [level=3] [ref=e64]:
+            - generic [ref=e65]: Vier akkoorden
+          - paragraph [ref=e66]: Na deze inleiding schoof Tom Seerden van ‘Fridays For Future’ vier akkoorden, maar ook vier constructief-kritische vragen naar voor. Om te beginnen onderschreef hij volkomen de fundamentele kritieken op het kapitalisme, zoals die in het Manifest naar voor worden gebracht. Het is dan ook geen toeval dat ‘System Change, Not Climate Change’ een centrale slogan is en blijft van de klimaatbeweging. Ook is hij het eens met de noodzaak aan een democratische transitie, belichaamt in de collectieve en zelfbeheerde omgang met de schaarse middelen. Hij wees wel op het belang van de zogenaamde ‘commons’ daarbij, eerder dan van staatsgestuurde openbare diensten of bedrijven. De afwijzing van ‘valse’ oplossingen, zoals het ‘groen kapitalisme’ of het blind technologisch optimisme van sommigen, kon op zijn instemming rekenen. Temeer omdat het opvallend is dat zelfs extreemrechts vandaag eerder lijkt af te stappen van hun oude, Malthusiaanse overbevolkingstheorieën, om over te gaan tot techno-optimisme. Tenslotte meende hij dat de tijd rijp is voor een overgangsaanpak. Sloganeske uitdrukkingen, zoals Thatchers TINA (‘There Is No Alternative’), of Fukuyama’s ‘einde van de geschiedenis’ zijn hoe langer hoe minder geloofwaardig. Wat de deur kan openen voor een overgangsstratgie.
+          - heading "Constructief-kritische vragen" [level=3] [ref=e67]:
+            - generic [ref=e68]: Constructief-kritische vragen
+          - paragraph [ref=e69]: Vervolgens werd dieper ingegaan op Toms constructief-kritische vragen. Zo stelde hij dat de tekst van het Manifest soms weinig helder is en daardoor ook weinig toegankelijk is voor lezers, die niet beschikken over veel basiskennis. In zijn ogen is er dan ook veel (meer) verduidelijking nodig. Denk bijvoorbeeld aan een uitdrukking als ‘metabole kloof’ of aan de zin “ecosocialistische
+          - paragraph [ref=e70]:
+            - text: revolutie, op verschillende territoriale niveaus maar met een planetaire dimensie”. Of wat wordt er eigenlijk bedoeld met ‘de regering grijpen’ (een vertaalfout, misschien?) en hoe verhoudt zich dit dan met het streven naar een beweging van onderuit? Verder vroeg Tom zich ook af of het ‘subject’ van de verandering in de tekst niet te weinig ‘agency’ of eigenaarschap krijgt toebedeeld. Dat is belangrijk om in te kunnen gaan tegen de soms wijd verbreide machteloosheid en gelatenheid bij vele mensen. Denk bijvoorbeeld aan het eigenaarschap van de bewegingen van de zogenaamde MAPA-groepen (
+            - link "Most affected peoples and areas" [ref=e71] [cursor=pointer]:
+              - /url: https://fridaysforfuture.org/newsletter/edition-no-1-what-is-mapa-and-why-should-we-pay-attention-to-it/
+            - text: ) op internationale schaal. Het zou overigens ook niet slecht zijn om te benadrukken wat de arbeidersklasse historisch duidelijk wel bereikt heeft, wat al te makkelijk vergeten wordt, terwijl het toch best wel een indrukwekkend palmares is. Kortom, er is nog heel veel verder uit te werken en vooral ook concreter te maken.
+          - paragraph [ref=e72]:
+            - text: Cato Maselis van FOS benadrukte dat er grote raakvlakken zijn tussen de inhoud van het Manifest en de huidige JUST-campagne, met als thema ‘
+            - link "Klimaatrechtvaardigheid" [ref=e73] [cursor=pointer]:
+              - /url: https://www.fos.ngo/wp-content/uploads/2025/03/lr_1402_FOS-magazine-01-febr-2025-01.pdf
+            - text: ’. Deze campagne voert FOS samen met ISVI (
+            - link "Internationale Syndicale Samenwerking" [ref=e74] [cursor=pointer]:
+              - /url: https://www.ifsi-isvi.be/nl/
+            - text: ) en Solsoc (
+            - link "Solidarité Socialiste" [ref=e75] [cursor=pointer]:
+              - /url: https://www.solsoc.be/
+            - text: ), waarmee zij aandacht vragen voor de impact van de klimaatcrisis op werkenden wereldwijd. Want terwijl grote bedrijven hun winsten veiligstellen, zijn het vaak de meest kwetsbare groepen die de gevolgen dragen. Ze willen de stem van werknemers en sociale bewegingen versterken in het klimaatdebat, oproepen tot eerlijke arbeidsvoorwaarden en sociale bescherming in de transitie en internationale solidariteit opbouwen. De strijd voor klimaatrechtvaardigheid is immers onlosmakelijk verbonden met sociale rechtvaardigheid. Samen maken we de transitie eerlijk. Ook in deze JUST-campagne staat de kwestie van de zelfredzaamheid centraal, met name voor vrouwen en inheemse volkeren.
+          - heading "Repliek" [level=3] [ref=e76]:
+            - generic [ref=e77]: Repliek
+          - paragraph [ref=e78]: "In zijn repliek dankte Daniel Tanuro de twee andere sprekers voor hun opmerkingen. Inzake het gebrek aan helderheid van de tekst van het Manifest verwees hij naar de grote ‘breuk in het geheugen’ van de internationale arbeiders- en linkse bewegingen. We moeten leren terug veel zaken in vraag te stellen. Tegelijk is het wel zo dat dit Manifest niet echt bedoeld is voor een breed publiek, maar wel voor wat we ‘kaders’ mogen noemen – gevormde verantwoordelijken van sociale bewegingen. We hopen dat zij zelf in staat zullen zijn (en er de wil toe zullen ontwikkelen) om met dit Manifest aan de slag te gaan en het te vertalen naar hun eigen achterban. Voor wat betreft Toms opmerkingen over het ‘subject’ en hun ‘agency’ gaf Daniel hem gelijk: dit hoofdstuk is te summier uitgewerkt. Bij het hoofdstuk vier (over richtlijnen om te komen tot ‘degrowth’ of ‘ontgroeiïng’) is het zo dat daar een rode draad ontbreekt, waardoor het teveel een opsomming zonder veel samenhang lijkt. De kwestie van de zorg en het belang daarvan zou zo’n rode draad kunnen zijn. Misschien voor een volgende versie? Tenslotte onderschreef Daniel volmondig de opmerking over de MAPA-bewegingen. Het centrale ordewoord dient inderdaad het verenigen van onderuit van allen te zijn. Concreet verwees hij daarbij naar het eenheidswerk van kameraden van de Vierde Internationale op het Filipijnse eiland Mindanao, die daar tegen alle heersende machten in een ecosocialistische samenleving aan het creëren zijn."
+          - heading "Vragen uit het publiek" [level=3] [ref=e79]:
+            - generic [ref=e80]: Vragen uit het publiek
+          - paragraph [ref=e81]: "Vanuit het publiek werden eveneens meerdere vragen en opmerkingen naar voor gebracht. Zo werd benadrukt dat het nog veel meer nodig is om het ‘groene kapitalisme’ te ontmaskeren, vermits het… niet werkt. Ook de onvermijdelijke frustratie bij activisten, die moeten vaststellen dat hun acties weinig resultaat opleveren, kwam aan bod. Daarbij werd ook verwezen naar het gebrek aan organisatie, kennis en bewustzijn en naar de teloorgang van een rijk verenigingsleven. Het individualisme speelt iedereen daarbij parten. Daarop werd dan weer geantwoord dat we nu eenmaal een strijd bergop moeten voeren. Het kapitalisme is niet zomaar iets; het is een historisch gegeven. Het is er niet altijd geweest en het zal ook niet altijd blijven bestaan. Bovendien is het kapitalisme eigenlijk een cultuur van de dood: de groei van de productiekrachten, die het op een plaats veroorzaakt, vereist dood en vernieling op andere plaatsen. Al is het niet altijd makkelijk: dat moeten we duidelijk maken. Moeten we dat dan niet doen in groene partijen en in parlementen?"
+          - heading "Slotwoord" [level=3] [ref=e82]:
+            - generic [ref=e83]: Slotwoord
+          - paragraph [ref=e84]: "Daniel Tanuro ging in zijn slotwoord in op deze kwesties. Hij wees erop dat de mislukking van het ‘groene kapitalisme’ duidelijk is voor wie het wil zien. Sinds de kwestie van de klimaatwijziging op de agenda staat, zijn er steeds meer rampen, die overduidelijk te wijten zijn aan de klimaatwijziging. Ondanks alle beloften over maatregelen om de temperatuurstijging ten gevolge van fossiele emissies te beperken, zullen we uitkomen boven de vooropgestelde doelen. Bovendien zorgen de klimaatwijziging en de rampen die er het gevolg van zijn – samen met de soberheidspolitiek – voor snel toenemende ongelijkheid (zo zijn er in België momenteel 2 miljoen mensen – 18% van de bevolking! – die leven onder de armoedegrens). Het probleem is dus niet dat de mislukking van de bestaande politiek onzichtbaar is. Het probleem is dat er geen of onvoldoende beweging van onderuit is, dat er een tekort is aan organisatievorming én een tekort aan duidelijke, welomschreven eisen en/of programma’s. Daniel verwees daarbij ook naar Greta Thunberg – voor wie hij overigens een zeer grote bewondering koestert. Greta is geweldig, zij heeft een enorme impact, maar tegelijk heeft zij weinig georganiseerd en blijft de beweging daardoor ietwat gepersonaliseerd. Toch hoeft dat niet zo te blijven en zijn er her en der wel positieve ervaringen. In de arbeidersbeweging kan de eis voor een veralgemeende arbeidsduurverkorting wel degelijk enthousiasme opwekken. De productivistische benadering wordt ook in de vakbonden zelf meer en meer in vraag gesteld. Hij verwees daarbij naar het voorbeeld van het debat over ‘degrowth’ in de Franse vakbond CGT en naar de omvorming van een toeleveringsbedrijf voor de autosector naar zelfbeheerde productie van fietsen in Italië. Over werken binnen groene partijen wees hij op grote verschillen: in België, Nederland en Duitsland lijken er daarvoor weinig interessante mogelijkheden te bestaan. In Frankrijk ligt dit dan weer anders, zoals ook blijkt uit de belangrijke rol van de Franse groenen in het Nouveau Front Populaire. Tot slot benadrukte hij het grootste probleem van allemaal: organisatie!"
+          - paragraph [ref=e85]:
+            - text: Het boek
+            - emphasis [ref=e86]: Manifest voor een Ecosocialistische Revolutie – Breek met de Kapitalistische Groei!
+            - text: is een uitgave van vzw Ernest Mandelfonds en kan besteld worden via een mail naar
+            - link "info@ernestmandelfonds.org" [ref=e87] [cursor=pointer]:
+              - /url: mailto:info@ernestmandelfonds.org
+            - text: . De prijs is 5 € (+ verzendkosten).
+      - navigation "Hoofdnavigatie" [ref=e88]:
+        - list [ref=e89]:
+          - listitem [ref=e90]:
+            - link "Ernest Mandelfonds – startpagina" [ref=e91] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e92]: /
+          - listitem [ref=e93]:
+            - link "activiteiten" [ref=e94] [cursor=pointer]:
+              - /url: /activiteiten
+          - listitem [ref=e95]: /
+          - listitem [ref=e96]:
+            - link "nieuws" [ref=e97] [cursor=pointer]:
+              - /url: /nieuws
+          - listitem [ref=e98]: /
+          - listitem [ref=e99]:
+            - link "publicaties" [ref=e100] [cursor=pointer]:
+              - /url: /publicaties
+          - listitem [ref=e101]: /
+          - listitem [ref=e102]:
+            - link "over EMF" [ref=e103] [cursor=pointer]:
+              - /url: /over-emf
+  - generic [ref=e106]:
+    - button "Menu" [ref=e107]:
+      - img [ref=e109]
+      - generic: Menu
+    - button "Inspect" [ref=e113]:
+      - img [ref=e115]
+      - generic: Inspect
+    - button "Audit" [ref=e117]:
+      - img [ref=e119]
+      - generic: Audit
+    - button "Settings" [ref=e122]:
+      - img [ref=e124]
+      - generic: Settings

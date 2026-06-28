@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import NewsListPage from '../../components/NewsListPage.astro';
+import { newsNavItems } from '../../data/newsNav';
 
 const allNews = await getCollection('posts');
 ---
@@ -9,6 +10,7 @@ const allNews = await getCollection('posts');
   title="Nieuws"
   description="Nieuws van Ernest Mandelfonds."
   items={allNews}
+  navItems={newsNavItems(allNews)}
   currentType="all"
   backHref="/"
   latestLabel=""

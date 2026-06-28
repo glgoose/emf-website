@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import NewsListPage from '../../components/NewsListPage.astro';
+import { newsNavItems } from '../../data/newsNav';
 import { newsTypes } from '../../lib/newsTypes';
 
 export async function getStaticPaths() {
@@ -19,6 +20,7 @@ const items = allNews.filter(item => item.data.type === type.slug);
   title={type.pageTitle}
   description={`${type.pageTitle} van Ernest Mandelfonds.`}
   items={items}
+  navItems={newsNavItems(allNews, type.slug)}
   currentType={type.slug}
   backHref="/nieuws"
   latestLabel={type.latestLabel}

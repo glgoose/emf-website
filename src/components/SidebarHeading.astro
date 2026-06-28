@@ -1,4 +1,6 @@
 ---
+import SidebarBackLink from './SidebarBackLink.astro';
+
 interface Props {
   backHref: string;
   title: string;
@@ -12,20 +14,19 @@ const { backHref, title, subtitle, large = false, noBorder = false } = Astro.pro
 ---
 
 <>
-  <a
-    href={backHref}
-    class="lg:hidden block text-[0.75em] leading-none font-normal no-underline hover:no-underline hover:text-[#111111] mb-0.5"
-    aria-label="Terug"
-  >&lt;&lt;</a>
+  <SidebarBackLink href={backHref} variant="mobile" />
   <div class:list={[!noBorder && 'border-t-[2px] border-[#111111] pt-0.5']}>
     <hgroup class:list={[!noBorder && 'mb-4', 'group relative']}>
-      <h1 class:list={['text-[1.25rem] leading-[1.25] font-bold [hyphens:none] [overflow-wrap:normal] [word-break:normal]', large && 'text-[1.4rem]']}><a
-        href={backHref}
-        class="hidden lg:inline-block w-0 overflow-visible whitespace-nowrap lg:mr-1.5 text-[0.75em] font-normal opacity-0 group-hover:opacity-100 transition-opacity no-underline hover:no-underline hover:text-[#111111] [direction:rtl]"
-        aria-label="Terug"
-      >&gt;&gt;</a><span set:html={title} /></h1>
+      <h1 class:list={[
+        'text-[1.25rem] leading-[1.25] font-bold [hyphens:manual] [overflow-wrap:break-word] [word-break:normal]',
+        large && 'text-[1.4rem]',
+      ]}>
+        <span class="sidebar-back-anchor-group relative inline-block max-w-full">
+          <SidebarBackLink href={backHref} variant="desktop" /><span set:html={title} />
+        </span>
+      </h1>
       {subtitle && (
-        <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase">
+        <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic [hyphens:manual] [overflow-wrap:break-word] [word-break:normal]">
           {subtitle}
         </p>
       )}

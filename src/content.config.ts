@@ -47,7 +47,8 @@ const posts = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
   schema: z.object({
     type: z.enum(newsTypeSlugs),
-    title: z.string(),
+    title: z.string().transform(mdInline),
+    subtitle: z.string().optional(),
     date: z.coerce.date(),
     summary: z.string(),
     author: z.string().optional(),

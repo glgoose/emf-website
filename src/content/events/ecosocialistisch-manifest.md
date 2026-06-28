@@ -1,6 +1,6 @@
 ---
 type: "boekvoorstelling"
-title: "Ecosocialistisch Manifest"
+title: "*Manifest voor een eco&shy;socialistische revolutie* van De Vierde Internationale"
 date: 2025-05-10
 time: "19:00"
 location: "De Groene Waterman"
@@ -15,7 +15,9 @@ speakers:
     bio: "FOS vzw"
 registration_open: false
 price: "gratis"
+publication_link:
+  href: /publicaties/ecosocialistisch-manifest/
+  label: Manifest voor een ecosocialistische revolutie
 ---
 
 Begin 2025 nam de Vierde Internationale een *Ecosocialistisch Manifest* aan. We stellen het voor en gaan we erover in gesprek.
-

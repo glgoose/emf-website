@@ -58,3 +58,21 @@ describe('publication detail pages', () => {
     assert.match(detailPage, /\.publication-meta \.original-link[\s\S]*?text-decoration:\s*none/);
   });
 });
+
+describe('news title markdown', () => {
+  it('renders inline markdown in post titles without passing HTML to metadata titles', () => {
+    const config = read('src/content.config.ts');
+    const detailPage = read('src/pages/[type]/[slug].astro');
+    const overview = read('src/components/NewsListPage.astro');
+    const homepage = read('src/pages/index.astro');
+    const post = read('src/content/posts/boekvoorstelling-manifest-ecosocialistische-revolutie.md');
+
+    assert.match(post, /title:\s*"Boek&shy;voorstelling: \*Manifest voor een eco&shy;socialistische revolutie\*"/);
+    assert.match(config, /title:\s*z\.string\(\)\.transform\(mdInline\)/);
+    assert.match(detailPage, /const plainTitle = stripHtml\(title\)/);
+    assert.match(detailPage, /<BaseLayout title=\{plainTitle\}/);
+    assert.match(overview, /set:html=\{lead\.data\.title\}/);
+    assert.match(overview, /set:html=\{item\.data\.title\}/);
+    assert.match(homepage, /set:html=\{post\.data\.title\}/);
+  });
+});

@@ -21,7 +21,7 @@ const nextEvent = upcomingEvents[0] ?? null;
 const allPosts = await getCollection('posts');
 const latestPosts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 4);
+  .slice(0, 2);
 
 const formatDate = (date: Date) => date.toLocaleDateString('nl-BE', {
   day: 'numeric',
@@ -103,7 +103,7 @@ const nextEventSpeakers = nextEvent?.data.speakers?.length
               </p>
               <p class="text-xs text-[#555555] mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>
               <p class="m-0 text-[1rem] leading-[1.15] font-bold group-hover:underline underline-offset-2">
-                {post.data.title}
+                <Fragment set:html={post.data.title} />
               </p>
               <p class="mt-2 text-sm leading-[1.35] text-[#333333]">{post.data.summary}</p>
             </a>

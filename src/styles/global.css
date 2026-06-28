@@ -66,6 +66,7 @@
 
   :root {
     --anchor-scroll-extra: 0px;
+    --content-hard-edge-start: 0.45rem;
   }
 
   body::after {
@@ -174,7 +175,7 @@
 
   .heading-anchor:hover,
   .heading-anchor:focus-visible {
-    color: #bbbbbb;
+    color: #111111;
     text-decoration: none !important;
   }
 
@@ -220,7 +221,7 @@
     border-left: 0;
     font-style: italic;
     padding-left: var(--quote-offset);
-    padding-right: var(--quote-offset);
+    padding-right: 0;
     margin-left: 0;
     margin-right: 0;
     color: #555555;
@@ -236,18 +237,6 @@
     font-size: 1.35em;
     line-height: 1;
     font-style: normal;
-    text-align: left;
-  }
-
-  .prose blockquote > :last-child::after {
-    content: "\2060”";
-    display: inline;
-    margin-left: var(--quote-gap);
-    color: #bbbbbb;
-    font-size: 1.35em;
-    line-height: 1;
-    font-style: normal;
-    vertical-align: -0.08em;
     text-align: left;
   }
 
@@ -273,11 +262,95 @@
     margin-bottom: 1.5em;
   }
 
-  .news-article > p:first-child {
-    font-size: 1.22rem;
-    line-height: 1.4;
+  .news-article > p:first-child img:only-child {
+    margin-top: var(--content-hard-edge-start);
   }
 
+}
+
+/* ─── Shared pop-up surfaces ──────────────────────────────────────────────── */
+
+@layer components {
+  .emf-popup-trigger {
+    border-radius: 2px;
+    color: #111111;
+  }
+
+  .emf-popup-trigger:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px #111111, 0 0 0 3px #ffffff;
+  }
+
+  .emf-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: auto;
+    z-index: 20;
+    width: max-content;
+    min-width: 7rem;
+    max-width: min(11.8rem, calc(100vw - 2rem));
+    box-sizing: border-box;
+    margin-top: 0.45rem;
+    padding: 0.55rem 1rem 0.6rem 0.65rem;
+    border: 1px solid #111111;
+    border-radius: 0;
+    background: #ffffff;
+    color: #555555;
+    font-family: inherit;
+    text-align: left;
+  }
+
+  [data-emf-popup-align="right"] .emf-popup {
+    right: 0;
+    left: auto;
+  }
+
+  .emf-popup-item {
+    display: block;
+    padding: 0.06rem 0;
+    border-top: 1px solid #eeeeee;
+    color: #555555;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .emf-popup-item:first-of-type {
+    border-top: 0;
+  }
+
+  .emf-popup-item:hover,
+  .emf-popup-item:focus-visible {
+    background: transparent;
+    color: #111111;
+    text-decoration: underline;
+    text-decoration-color: #999999;
+    text-decoration-thickness: 0.035em;
+    text-underline-offset: 2px;
+  }
+
+  .emf-popup-close {
+    position: absolute;
+    top: 0.14rem;
+    right: 0.2rem;
+    width: 0.72rem;
+    height: 0.72rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #777777;
+    font: inherit;
+    font-size: 0.68rem;
+    line-height: 0.72rem;
+    text-align: center;
+  }
+
+  .emf-popup-close:hover,
+  .emf-popup-close:focus-visible {
+    color: #111111;
+  }
 }
 
 /* ─── Custom utilities ────────────────────────────────────────────────────── */

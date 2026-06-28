@@ -1,6 +1,6 @@
 ---
 type: boekvoorstelling
-title: '*Inleiding tot het marxisme* van Ernest Mandel'
+title: "*Inleiding tot het marxisme* van Ernest Mandel"
 date: 2026-05-09
 time: "14:00"
 end_time: "16:30"

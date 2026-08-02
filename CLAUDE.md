@@ -23,6 +23,8 @@ for html in Path('dist').rglob('*.html'):
 
 Keep `script-src` hash-only — do **not** add `'unsafe-inline'`. Per CSP3, `'unsafe-inline'` is ignored whenever a hash or nonce is present, so it's dead weight that confuses debugging (browser console complains about it).
 
+**Conditionally-rendered scripts are a blind spot.** Rebuilding after a *code* change to a `<script>` block isn't enough — a component with an inline script that only renders under certain content conditions (e.g. `RegistrationForm.astro`, shown only when `registration_open && !isPast`) can have its hash silently missing from `_headers` if no page in the last hash-recompute had that condition true. Symptom: the button/feature looks present in the HTML but does nothing — no CSP console error is obvious unless you check devtools. Rule: after publishing content that activates a previously-dormant component (a new event with `registration_open: true`, a toggled CTA, etc.), rebuild and recompute hashes even if you didn't touch any script code, and manually click the feature on the live URL — don't just trust a clean local build.
+
 ### Cloudflare must not inject inline scripts
 
 Hash-based CSP breaks if Cloudflare rewrites the HTML to add a `<script>` with rotating content. Keep these **OFF** in the CF dashboard for zone `ernestmandelfonds.org`:

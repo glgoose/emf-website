@@ -5,7 +5,7 @@ import RegistrationForm from '../../components/RegistrationForm.astro';
 import AddToCalendarDropdown from '../../components/AddToCalendarDropdown.astro';
 import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
-import { formatLongDate, formatTimeRange, formatSpeakersLine, stripHtml } from '../../lib/formatDateTime';
+import { formatLongDate, formatTimeRange, stripHtml } from '../../lib/formatDateTime';
 import { newsItemHref } from '../../lib/newsTypes';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
@@ -57,8 +57,8 @@ const relatedPostLinks = relatedPosts.map(post => ({
 
 const dateFormatted = formatLongDate(date);
 const timeFormatted = formatTimeRange(time, end_time);
-const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) : '';
-const subline = speakersLine ? `${type} ${speakersLine}` : type;
+const hasSpeakers = Boolean(speakers && speakers.length);
+const sublineIntro = hasSpeakers ? `${type} met` : type;
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -123,7 +123,10 @@ const eventStructuredData: Record<string, unknown> = {
       title={title}
       subtitle={subtitle}
     >
-      <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase mb-4">{subline}</p>
+      <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase mb-4">
+        {sublineIntro}
+        {hasSpeakers && speakers.map(s => <span class="block">{s.name}</span>)}
+      </p>
       <p class="text-xs leading-snug mb-0">{dateFormatted}</p>
       <p class="text-xs leading-snug mb-2">{timeFormatted}</p>
       {location && (
@@ -133,7 +136,7 @@ const eventStructuredData: Record<string, unknown> = {
         </p>
       )}
       {price && (
-        <p class="text-xs leading-snug mt-1">{price}</p>
+        <p class="text-xs leading-snug mt-1" set:html={price} />
       )}
       <AddToCalendarDropdown
         event={event}

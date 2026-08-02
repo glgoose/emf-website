@@ -5,7 +5,7 @@ import NewsletterForm from '../components/NewsletterForm.astro';
 import PillButton from '../components/PillButton.astro';
 import { getCollection } from 'astro:content';
 import symbolImg from '../assets/images/symbolORANGY-RED.png';
-import { formatLongDate } from '../lib/formatDateTime';
+import { formatLongDate, formatTimeRange } from '../lib/formatDateTime';
 import { newsItemHref, newsTypeLabel } from '../lib/newsTypes';
 
 const today = new Date();
@@ -32,13 +32,12 @@ const formatDate = (date: Date) => date.toLocaleDateString('nl-BE', {
 const formatPostMeta = (date: Date, author?: string) =>
   [formatDate(date), author].filter(Boolean).join(' · ');
 
-const formatClockTime = (time: string) => time;
-const formatHomepageTimeRange = (start: string, end?: string | null) =>
-  end ? `${formatClockTime(start)}-${formatClockTime(end)}` : formatClockTime(start);
-
+const nextEventTitle = nextEvent
+  ? [nextEvent.data.title, nextEvent.data.subtitle].filter(Boolean).join(' ')
+  : '';
 const nextEventDate = nextEvent ? formatLongDate(nextEvent.data.date) : '';
 const nextEventTime = nextEvent
-  ? formatHomepageTimeRange(nextEvent.data.time, nextEvent.data.end_time)
+  ? formatTimeRange(nextEvent.data.time, nextEvent.data.end_time)
   : '';
 const nextEventLocation = nextEvent?.data.location ?? '';
 const nextEventMeta = nextEvent
@@ -77,7 +76,7 @@ const nextEventSpeakers = nextEvent?.data.speakers?.length
       <a href={`/activiteiten/${nextEvent.id}`} class="group block no-underline hover:no-underline focus-visible:no-underline">
         <article>
           <p class="mt-0 mb-[0.34rem] text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em]">volgende activiteit</p>
-          <h3 class="mt-0 mb-[0.42rem] text-[1.15rem] leading-[1.12] font-normal italic normal-case tracking-normal [font-variant:normal] group-hover:underline underline-offset-2" set:html={nextEvent.data.title} />
+          <h3 class="mt-0 mb-[0.42rem] text-[1.15rem] leading-[1.12] font-normal italic normal-case tracking-normal [font-variant:normal] group-hover:underline underline-offset-2" set:html={nextEventTitle} />
           <div class="text-[0.88rem] leading-[1.26]">
             <p>{nextEventMeta}</p>
             {nextEventSpeakers && (

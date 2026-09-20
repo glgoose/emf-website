@@ -28,6 +28,12 @@ const events = defineCollection({
       name: z.string(),
       bio: z.union([z.string().transform(mdInline), z.array(z.string().transform(mdInline))]).optional(),
     })).optional(),
+    programme: z.array(z.object({
+      time: z.string(),
+      end_time: z.string().optional(),
+      title: z.string().transform(mdInline),
+      language: z.string().nullish(),
+    })).optional(),
     organizer_note: z.string().optional(),
     registration_open: z.boolean().default(false),
     registration_deadline: z.preprocess(v => (v === '' || v == null) ? undefined : v, z.coerce.date().optional()),

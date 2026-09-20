@@ -5,7 +5,7 @@ import RegistrationForm from '../../components/RegistrationForm.astro';
 import AddToCalendarDropdown from '../../components/AddToCalendarDropdown.astro';
 import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
-import { formatLongDate, formatTimeRange, stripHtml } from '../../lib/formatDateTime';
+import { formatLongDate, formatProgrammeRange, formatTimeRange, stripHtml } from '../../lib/formatDateTime';
 import { newsItemHref } from '../../lib/newsTypes';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
@@ -36,6 +36,7 @@ const {
   location,
   address,
   speakers,
+  programme,
   registration_open,
   registration_deadline,
   cover,
@@ -188,6 +189,25 @@ const eventStructuredData: Record<string, unknown> = {
   <article class="prose">
     <Content />
   </article>
+
+  {programme && programme.length > 0 && (
+    <section class="prose mb-6">
+      <h3>Programma</h3>
+      <table class="not-prose w-full border-collapse text-[1rem] leading-[1.35]">
+        <tbody>
+          {programme.map(item => (
+            <tr class="border-t border-[#e8e8e8] last:border-b align-baseline">
+              <th scope="row" class="whitespace-nowrap py-1.5 pr-5 text-left font-normal tabular-nums text-[#555555]">
+                {formatProgrammeRange(item.time, item.end_time)}
+              </th>
+              <td class="py-1.5 pr-3" set:html={item.title} />
+              <td class="py-1.5 text-right text-[0.85em] tracking-[0.08em] text-[#777777]">{item.language}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  )}
 
   {speakers && speakers.length > 0 && (
     <section class="prose mb-6">

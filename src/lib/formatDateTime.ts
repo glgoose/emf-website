@@ -22,6 +22,11 @@ export function formatTimeRange(start: string, end?: string | null): string {
   return end ? `${formatEventTime(start)}–${formatEventTime(end)}` : formatEventTime(start);
 }
 
+export function formatProgrammeRange(start: string, end?: string | null): string {
+  const fmt = (t: string) => t.replace(':', 'u');
+  return end ? `${fmt(start)}–${fmt(end)}` : fmt(start);
+}
+
 export function formatSpeakersLine(speakers: { name: string }[]): string {
   if (speakers.length === 0) return '';
   const names = speakers.map(s => s.name);

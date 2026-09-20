@@ -98,6 +98,29 @@ collections:
               name: item
               widget: string
 
+      - label: Programma
+        name: programme
+        widget: list
+        required: false
+        summary: "{{fields.time}} {{fields.title}}"
+        fields:
+          - label: Van
+            name: time
+            widget: string
+            hint: "Bijv. 10:15"
+          - label: Tot
+            name: end_time
+            widget: string
+            required: false
+          - label: Onderdeel
+            name: title
+            widget: string
+          - label: Taal
+            name: language
+            widget: string
+            required: false
+            hint: "Bijv. NL of EN"
+
       - label: Prijs
         name: price
         widget: string

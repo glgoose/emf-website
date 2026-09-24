@@ -11,7 +11,9 @@ wheelchair_accessible: true
 description: "Studiedag over queerness en antikapitalisme, met Peter Drucker, Marcia Poelman en Guido Totté."
 speakers:
   - name: "Peter Drucker"
-    bio: 'auteur van <a href="https://www.historicalmaterialism.org/book-series/warped-gay-normality-and-queer-anti-capitalism/"><em>Warped: Gay Normality and Queer Anti-Capitalism</em></a>, voormalig codirecteur van het <a href="https://www.iire.org/">IIRE</a> (1993-2006)'
+    bio:
+      - 'auteur van <a href="https://www.historicalmaterialism.org/book-series/warped-gay-normality-and-queer-anti-capitalism/"><em>Warped: Gay Normality and Queer Anti-Capitalism</em></a>'
+      - 'voormalig codirecteur van het <a href="https://www.iire.org/">IIRE</a> (1993-2006)'
   - name: "Marcia Poelman"
     bio: '<a href="https://www.queerarts.be/">Antwerp Queer Arts Festival</a>'
   - name: "Guido Totté"

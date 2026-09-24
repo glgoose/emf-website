@@ -29,7 +29,7 @@ programme:
     title: "Q&A"
   - time: "12:15"
     end_time: "13:15"
-    title: "Lunch"
+    title: 'Lunch, door <a href="https://www.veganarchy.be/">Veganarchy</a>'
   - time: "13:15"
     end_time: "14:00"
     title: "Peter Drucker"

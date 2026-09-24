@@ -188,10 +188,6 @@ const eventStructuredData: Record<string, unknown> = {
     </aside>
   )}
 
-  <article class="prose">
-    <Content />
-  </article>
-
   {programme && programme.length > 0 && (
     <section class="prose mb-6">
       <h3>Programma</h3>
@@ -211,20 +207,34 @@ const eventStructuredData: Record<string, unknown> = {
     </section>
   )}
 
+  <article class="prose">
+    <Content />
+  </article>
+
   {speakers && speakers.length > 0 && (
     <section class="prose mb-6">
       <h3>Bio</h3>
-      <ul>
-        {speakers.map(s => (
-          <li>
-            <strong>{s.name}</strong>{(() => {
-              const bio = Array.isArray(s.bio) ? s.bio.join(', ') : (s.bio ?? '');
-              return bio ? <Fragment>: <span set:html={bio} /></Fragment> : null;
-            })()}
-          </li>
-        ))}
-      </ul>
+      <table class="not-prose w-full border-collapse text-[1rem] leading-[1.35]">
+        <tbody>
+          {speakers.map(s => (
+            <tr class="border-t border-[#e8e8e8] last:border-b align-baseline">
+              <th scope="row" class="whitespace-nowrap py-1.5 pr-5 text-left font-normal">
+                {s.name}
+              </th>
+              <td class="py-1.5 text-[#555555] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+                {(Array.isArray(s.bio) ? s.bio : s.bio ? [s.bio] : []).map(line => (
+                  <span class="block" set:html={line} />
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
+  )}
+
+  {event.data.organizer_note && (
+    <p class="prose mb-6 text-[#555555]" set:html={event.data.organizer_note} />
   )}
 
   {registration_open && !isPast && (

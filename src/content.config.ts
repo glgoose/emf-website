@@ -35,7 +35,7 @@ const events = defineCollection({
       title: z.string().transform(mdInline),
       language: z.string().nullish(),
     })).optional(),
-    organizer_note: z.string().optional(),
+    organizer_note: z.string().transform(mdInline).optional(),
     registration_open: z.boolean().default(false),
     registration_deadline: z.preprocess(v => (v === '' || v == null) ? undefined : v, z.coerce.date().optional()),
     capacity: z.union([z.number(), z.null()]).optional().transform(v => v ?? undefined),

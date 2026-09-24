@@ -48,7 +48,7 @@ cover: /images/events/260926-fight-the-cis-tem.jpg
 
 Een studiedag over queer antikapitalisme: waarom horen de strijd voor seksuele en genderbevrijding en de strijd tegen het kapitalisme bij elkaar?
 
-In de voormiddag spreekt Guido Totté. In 1976 richtte hij mee De Rooie Vlinder op, een socialistische homobevrijdingsgroep uit Gent, verwant aan de Revolutionaire Arbeiders Liga (voorloper van SAP – Antikapitalisten). De groep organiseerde de eerste Internationale Homodag (1978), het eerste homofilmfestival in België (1978) en de eerste homobetoging in Antwerpen (1979). Hun slogan: "Wij willen geen plaatsje onder de zon, wij willen een ander strand."
+In de voormiddag spreekt Guido Totté. In 1976 richtte hij mee De Rooie Vlinder op, een socialistische homobevrijdingsgroep uit Gent, verwant aan de Revolutionaire Arbeiders Liga (voorloper van SAP – Antikapitalisten). De groep organiseerde de eerste Internationale Homodag (1978), het eerste homofilmfestival in België (1978) en de eerste homobetoging in Antwerpen (1979). Hun slogan: "Wij vragen geen plaatsje onder de zon, wij willen een ander strand."
 
 Die slogan werd de titel van [*Ander Strand*](https://www.destudio.com/nl/project/ander-strand) (2026), een voorstelling waaraan Guido meewerkte. Marcia Poelman droeg er in De Studio een pamflet voor, dat ze in de voormiddag opnieuw brengt: "We dromen nog steeds van een ander strand, van een andere stad."
 

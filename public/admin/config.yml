@@ -75,6 +75,12 @@ collections:
         widget: string
         required: false
 
+      - label: Rolstoeltoegankelijk
+        name: wheelchair_accessible
+        widget: boolean
+        default: false
+        required: false
+
       - label: Korte beschrijving
         name: description
         widget: text

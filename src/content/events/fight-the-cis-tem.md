@@ -7,6 +7,7 @@ time: "10:00"
 end_time: "15:00"
 location: "Peperfabriek"
 address: "Breughelstraat 31, Antwerpen"
+wheelchair_accessible: true
 description: "Studiedag over queerness en antikapitalisme, met Peter Drucker, Marcia Poelman en Guido Totté."
 speakers:
   - name: "Peter Drucker"
@@ -24,7 +25,7 @@ programme:
     end_time: "11:15"
     title: "Marcia Poelman en Guido Totté"
     language: "NL"
-  - time: "11:20"
+  - time: "11:15"
     end_time: "12:15"
     title: "Q&A"
   - time: "12:15"
@@ -34,7 +35,7 @@ programme:
     end_time: "14:00"
     title: "Peter Drucker"
     language: "EN"
-  - time: "14:05"
+  - time: "14:00"
     end_time: "15:00"
     title: "Q&A"
 registration_open: true

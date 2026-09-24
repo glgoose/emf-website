@@ -23,6 +23,7 @@ const events = defineCollection({
     end_time: z.string().optional(),
     location: z.string().nullish(),
     address: z.string().nullish(),
+    wheelchair_accessible: z.boolean().default(false),
     description: z.string(),
     speakers: z.array(z.object({
       name: z.string(),

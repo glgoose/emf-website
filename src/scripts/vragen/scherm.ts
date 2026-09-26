@@ -64,7 +64,7 @@ function fitQueue(root: HTMLElement) {
   });
 }
 
-let curStart = 3.4;
+let curStart = 3.0;
 
 function render(vragen: Vraag[]) {
   if (!main) return;
@@ -84,7 +84,7 @@ function render(vragen: Vraag[]) {
   }
   main.innerHTML = html;
 
-  curStart = cur.length > 1 ? 2.7 : 3.4;
+  curStart = cur.length > 1 ? 2.5 : 3.0;
   fitCurrent(main, curStart);
   fitQueue(main);
 }

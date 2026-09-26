@@ -1,7 +1,7 @@
 // Gedeeld tussen browser en Cloudflare Functions. Geen astro:*-imports hier:
 // dit bestand wordt zowel door Vite (browserbundel) als door esbuild (Functions) gebundeld.
 
-export const MAX_TEKST = 300;
+export const MAX_TEKST = 350;
 export const MAX_NAAM = 60;
 export const MAX_VOOR_WIE = 100;
 

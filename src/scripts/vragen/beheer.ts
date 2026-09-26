@@ -183,7 +183,6 @@ async function stuurStatus(id: number, status: Status): Promise<boolean> {
 }
 
 async function verwijder(id: number) {
-  if (!confirm("Deze vraag definitief verwijderen? Dit kan niet ongedaan gemaakt worden.")) return;
   const pincode = leesPincode();
   if (!pincode) return;
   bezig++;

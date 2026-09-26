@@ -166,7 +166,9 @@ import VragenLayout from "../../layouts/VragenLayout.astro";
   .filters {
     display: flex;
     gap: 22px;
-    margin: 18px 0 10px;
+    margin-top: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e3e3e3;
     font-size: 0.95rem;
   }
   :global(.filters button) {
@@ -202,6 +204,9 @@ import VragenLayout from "../../layouts/VragenLayout.astro";
     align-items: center;
     padding: 12px 14px;
     border-top: 1px solid #e3e3e3;
+  }
+  :global(.rows li:first-child) {
+    border-top: 0;
   }
   :global(.rows li.is-now) {
     background: #f4f3ef;

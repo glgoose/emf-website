@@ -25,8 +25,7 @@ const ICONEN: Record<string, string> = {
   open: '<svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
   verborgen:
     '<svg viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M2 2l20 20"/></svg>',
-  tonen:
-    '<svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  tonen: '<svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
   verwijderen:
     '<svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/></svg>',
 };
@@ -56,6 +55,7 @@ function knop(actie: string, id: number, primair: string | undefined, weergave =
 }
 
 // Vaste kolommen [nu of terug] [beantwoord] [verbergen of verwijderen], lege cel waar de actie niet geldt.
+// Verborgen vragen zetten 'weer tonen' in de middelste kolom, naast verwijderen.
 function knoppenVoor(q: Vraag): string {
   const id = q.id;
   let kol1 = "";
@@ -73,7 +73,7 @@ function knoppenVoor(q: Vraag): string {
     kol1 = knop("open", id, undefined);
     kol3 = knop("verborgen", id, undefined);
   } else {
-    kol1 = knop("open", id, undefined, "tonen");
+    kol2 = knop("open", id, undefined, "tonen");
     kol3 = knop("verwijderen", id, undefined);
   }
   const cel = (k: string) => k || "<span></span>";

@@ -150,9 +150,20 @@ function pasTaalToe(nieuw: Taal) {
   }
 }
 
+// nl hoort bij /vragen, en/fr horen bij /questions: bij een taal uit de andere
+// groep navigeren we naar die pagina in plaats van de tekst hier te vervangen.
+const PAD_VOOR_TAALGROEP: Record<Taal, string> = { nl: "/vragen", en: "/questions", fr: "/questions" };
+const huidigPad = location.pathname.replace(/\/$/, "") || "/";
+
 taalKnoppen.forEach((b) =>
   b.addEventListener("click", () => {
     const gekozen = leesTaal(b.dataset.taal);
+    const doelPad = PAD_VOOR_TAALGROEP[gekozen];
+    if (doelPad !== huidigPad) {
+      bewaarTaal(gekozen);
+      location.href = doelPad;
+      return;
+    }
     pasTaalToe(gekozen);
   }),
 );

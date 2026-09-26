@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - schermweergave vragen</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: "EB Garamond", Georgia, serif;
+        background: #e9e7e2;
+        color: #111;
+        padding: 24px;
+      }
+
+      /* ---------- mockup chrome ---------- */
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        align-items: center;
+        max-width: 1280px;
+        margin: 0 auto 16px;
+        font-size: 15px;
+      }
+      .toolbar .group { display: flex; gap: 6px; align-items: center; }
+      .toolbar .label {
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        color: #666;
+        margin-right: 4px;
+      }
+      .toolbar button {
+        font: inherit;
+        padding: 4px 12px;
+        border: 1px solid #bbb;
+        background: #fff;
+        cursor: pointer;
+      }
+      .toolbar button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+      .note { max-width: 1280px; margin: 14px auto 0; font-size: 15px; color: #444; }
+
+      /* ---------- the projected screen ---------- */
+      .screen {
+        max-width: 1280px;
+        margin: 0 auto;
+        aspect-ratio: 16 / 9;
+        background: #faf9f6;
+        box-shadow: 0 0 0 1px #ccc, 0 8px 30px rgba(0, 0, 0, 0.12);
+        container-type: size;
+        overflow: hidden;
+      }
+      .frame {
+        height: 100%;
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+      }
+      .main {
+        min-height: 0;
+        overflow: hidden;
+        padding: 4cqw 5cqw 2cqw;
+      }
+
+      /* footer strip: identity left, QR right; own row, so it never overlaps */
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 3cqw;
+        padding: 1.4cqw 5cqw;
+        border-top: 1px solid #ddd;
+      }
+      .footer .event { display: flex; flex-direction: column; line-height: 1.25; }
+      .footer .event .title { font-size: 1.9cqw; font-weight: 500; }
+      .footer .event .sub { font-size: 1.6cqw; color: #666; font-style: italic; }
+      .footer .ask { display: flex; align-items: center; gap: 1.4cqw; }
+      .footer .ask-text { line-height: 1.25; }
+      .footer .ask-text .small { font-size: 1.6cqw; color: #444; }
+      .footer .ask-text .url { font-size: 1.9cqw; font-weight: 500; }
+      .qr { display: block; width: 7cqw; height: 7cqw; }
+
+      .kicker {
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        font-size: 1.4cqw;
+        color: #666;
+        margin-bottom: 1cqw;
+      }
+      .meta { font-size: 1.4cqw; color: #666; margin-top: 0.5cqw; }
+      /* section title, not a status: sentence case, no small caps */
+      .kicker.title-k { font-variant: normal; letter-spacing: 0; font-style: italic; }
+
+      .clamp { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+
+      /* current question(s) */
+      .current { display: flex; flex-direction: column; gap: 2cqw; }
+      .current .q {
+        border-left: 0.5cqw solid #111;
+        padding-left: 2cqw;
+      }
+      .current .text {
+        font-size: var(--cur-size, 3.4cqw);
+        line-height: 1.18;
+        font-weight: 500;
+        -webkit-line-clamp: 6;
+      }
+
+      /* queue */
+      .queue { list-style: none; }
+      .queue li { padding: 1cqw 0; border-top: 1px solid #e3e3e3; }
+      .queue li:first-child { border-top: 0; }
+      .queue .text { font-size: var(--queue-size, 1.9cqw); line-height: 1.25; -webkit-line-clamp: 2; }
+      .queue .meta { font-size: 1.2cqw; }
+      .more { font-size: 1.3cqw; color: #666; margin-top: 0.6cqw; }
+
+      /* A: current on top, queue below in two columns */
+      .a { display: flex; flex-direction: column; gap: 2.4cqw; height: 100%; }
+      .a .queue-wrap { min-height: 0; flex: 1; display: flex; flex-direction: column; }
+      .a .queue { display: grid; grid-template-columns: 1fr 1fr; column-gap: 4cqw; align-content: start; min-height: 0; flex: 1; overflow: hidden; }
+      .a .queue li:nth-child(2) { border-top: 0; }
+
+      /* B: two columns */
+      .b { display: grid; grid-template-columns: 3fr 2fr; gap: 4cqw; height: 100%; }
+      .b .left, .b .right { min-height: 0; display: flex; flex-direction: column; }
+      .b .right { border-left: 1px solid #ddd; padding-left: 4cqw; }
+      .b .queue { min-height: 0; flex: 1; overflow: hidden; }
+      .b .queue .text { -webkit-line-clamp: 3; }
+
+      /* C: one list, current highlighted in place */
+      .c { height: 100%; display: flex; flex-direction: column; }
+      .c .queue { min-height: 0; flex: 1; overflow: hidden; }
+      .c .queue li { padding: 1.1cqw 1.6cqw; border-top: 1px solid #e3e3e3; }
+      .c .queue .text { font-size: 2.3cqw; }
+      .c .queue .meta { font-size: 1.3cqw; }
+      .c .queue li.is-current {
+        background: #ecebe7;
+        border-left: 0.5cqw solid #111;
+        border-top-color: transparent;
+      }
+      .c .queue li.is-current .text { font-weight: 600; }
+      .c .queue li.is-current + li { border-top-color: transparent; }
+
+      /* invite / empty states */
+      .invite { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+      .invite .big { font-size: 3.8cqw; line-height: 1.15; font-weight: 500; }
+      .invite .sub { font-size: 1.9cqw; color: #555; margin-top: 1.4cqw; }
+      .empty { height: 100%; display: flex; align-items: center; justify-content: center; gap: 5cqw; }
+      .empty .qr { width: 16cqw; height: 16cqw; }
+      .empty .big { font-size: 4cqw; line-height: 1.15; font-weight: 500; }
+      .empty .sub { font-size: 2.2cqw; color: #555; margin-top: 1.2cqw; }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <div class="group" id="variants">
+        <span class="label">variant</span>
+        <button data-v="a">A · groot boven</button>
+        <button data-v="b">B · twee kolommen</button>
+        <button data-v="c">C · gemarkeerd in lijst</button>
+      </div>
+      <div class="group" id="states">
+        <span class="label">toestand</span>
+        <button data-s="one">1 vraag nu</button>
+        <button data-s="two">2 vragen nu</button>
+        <button data-s="none">niets uitgelicht</button>
+        <button data-s="empty">nog geen vragen</button>
+      </div>
+    </div>
+
+    <div class="screen"><div class="frame">
+      <div class="main" id="main"></div>
+      <div class="footer">
+        <div class="event"><span class="title">Fight the cis-tem!</span><span class="sub">Queerness en antikapitalisme</span></div>
+        <div class="ask">
+          <svg class="qr" viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path stroke="#111" transform="translate(0,0.5)" d="M0,0h1M1,0h1M2,0h1M3,0h1M4,0h1M5,0h1M6,0h1M10,0h1M12,0h1M13,0h1M15,0h1M17,0h1M18,0h1M19,0h1M20,0h1M22,0h1M23,0h1M24,0h1M25,0h1M26,0h1M27,0h1M28,0h1M0,1h1M6,1h1M8,1h1M10,1h1M13,1h1M14,1h1M15,1h1M17,1h1M20,1h1M22,1h1M28,1h1M0,2h1M2,2h1M3,2h1M4,2h1M6,2h1M12,2h1M13,2h1M16,2h1M18,2h1M19,2h1M20,2h1M22,2h1M24,2h1M25,2h1M26,2h1M28,2h1M0,3h1M2,3h1M3,3h1M4,3h1M6,3h1M8,3h1M9,3h1M10,3h1M12,3h1M14,3h1M17,3h1M19,3h1M22,3h1M24,3h1M25,3h1M26,3h1M28,3h1M0,4h1M2,4h1M3,4h1M4,4h1M6,4h1M9,4h1M16,4h1M18,4h1M19,4h1M20,4h1M22,4h1M24,4h1M25,4h1M26,4h1M28,4h1M0,5h1M6,5h1M8,5h1M9,5h1M11,5h1M12,5h1M15,5h1M16,5h1M22,5h1M28,5h1M0,6h1M1,6h1M2,6h1M3,6h1M4,6h1M5,6h1M6,6h1M8,6h1M10,6h1M12,6h1M14,6h1M16,6h1M18,6h1M20,6h1M22,6h1M23,6h1M24,6h1M25,6h1M26,6h1M27,6h1M28,6h1M9,7h1M10,7h1M11,7h1M14,7h1M15,7h1M16,7h1M18,7h1M19,7h1M20,7h1M0,8h1M1,8h1M2,8h1M3,8h1M4,8h1M6,8h1M7,8h1M8,8h1M9,8h1M11,8h1M15,8h1M17,8h1M21,8h1M23,8h1M25,8h1M27,8h1M1,9h1M7,9h1M10,9h1M12,9h1M13,9h1M14,9h1M16,9h1M19,9h1M20,9h1M22,9h1M23,9h1M24,9h1M28,9h1M2,10h1M3,10h1M6,10h1M8,10h1M10,10h1M13,10h1M14,10h1M15,10h1M16,10h1M17,10h1M18,10h1M21,10h1M23,10h1M24,10h1M5,11h1M12,11h1M13,11h1M16,11h1M20,11h1M22,11h1M23,11h1M24,11h1M25,11h1M27,11h1M0,12h1M3,12h1M5,12h1M6,12h1M7,12h1M8,12h1M9,12h1M10,12h1M12,12h1M14,12h1M15,12h1M17,12h1M18,12h1M19,12h1M25,12h1M26,12h1M0,13h1M2,13h1M3,13h1M4,13h1M7,13h1M9,13h1M16,13h1M17,13h1M18,13h1M19,13h1M20,13h1M22,13h1M23,13h1M24,13h1M28,13h1M1,14h1M6,14h1M7,14h1M8,14h1M9,14h1M10,14h1M11,14h1M12,14h1M15,14h1M16,14h1M17,14h1M20,14h1M25,14h1M26,14h1M0,15h1M2,15h1M3,15h1M5,15h1M9,15h1M11,15h1M14,15h1M15,15h1M18,15h1M20,15h1M21,15h1M23,15h1M27,15h1M0,16h1M1,16h1M2,16h1M6,16h1M7,16h1M11,16h1M15,16h1M17,16h1M25,16h1M26,16h1M0,17h1M1,17h1M4,17h1M7,17h1M8,17h1M10,17h1M12,17h1M13,17h1M14,17h1M16,17h1M17,17h1M18,17h1M19,17h1M20,17h1M21,17h1M22,17h1M23,17h1M24,17h1M26,17h1M28,17h1M0,18h1M3,18h1M4,18h1M6,18h1M7,18h1M8,18h1M9,18h1M10,18h1M13,18h1M14,18h1M15,18h1M17,18h1M22,18h1M26,18h1M0,19h1M2,19h1M3,19h1M4,19h1M8,19h1M10,19h1M12,19h1M13,19h1M20,19h1M24,19h1M27,19h1M0,20h1M2,20h1M4,20h1M6,20h1M7,20h1M12,20h1M14,20h1M15,20h1M16,20h1M17,20h1M20,20h1M21,20h1M22,20h1M23,20h1M24,20h1M26,20h1M27,20h1M28,20h1M8,21h1M9,21h1M10,21h1M16,21h1M20,21h1M24,21h1M25,21h1M26,21h1M27,21h1M28,21h1M0,22h1M1,22h1M2,22h1M3,22h1M4,22h1M5,22h1M6,22h1M8,22h1M9,22h1M10,22h1M11,22h1M12,22h1M15,22h1M17,22h1M18,22h1M19,22h1M20,22h1M22,22h1M24,22h1M25,22h1M26,22h1M0,23h1M6,23h1M9,23h1M11,23h1M14,23h1M16,23h1M18,23h1M19,23h1M20,23h1M24,23h1M27,23h1M0,24h1M2,24h1M3,24h1M4,24h1M6,24h1M8,24h1M9,24h1M10,24h1M11,24h1M15,24h1M16,24h1M17,24h1M20,24h1M21,24h1M22,24h1M23,24h1M24,24h1M26,24h1M0,25h1M2,25h1M3,25h1M4,25h1M6,25h1M8,25h1M9,25h1M10,25h1M12,25h1M13,25h1M14,25h1M16,25h1M18,25h1M20,25h1M23,25h1M25,25h1M26,25h1M27,25h1M28,25h1M0,26h1M2,26h1M3,26h1M4,26h1M6,26h1M8,26h1M13,26h1M14,26h1M15,26h1M16,26h1M17,26h1M19,26h1M20,26h1M21,26h1M22,26h1M23,26h1M24,26h1M25,26h1M26,26h1M27,26h1M0,27h1M6,27h1M8,27h1M12,27h1M13,27h1M16,27h1M20,27h1M21,27h1M23,27h1M24,27h1M25,27h1M27,27h1M0,28h1M1,28h1M2,28h1M3,28h1M4,28h1M5,28h1M6,28h1M8,28h1M9,28h1M12,28h1M14,28h1M17,28h1M18,28h1M19,28h1M23,28h1M24,28h1M26,28h1"/></svg>
+          <div class="ask-text">
+            <div class="url">ernestmandelfonds.org/vragen</div>
+            <div class="small">scan om een vraag te stellen</div>
+          </div>
+        </div>
+    </div></div>
+
+    <p class="note" id="note"></p>
+
+    <template id="qr-tpl"><svg class="qr" viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path stroke="#111" transform="translate(0,0.5)" d="M0,0h1M1,0h1M2,0h1M3,0h1M4,0h1M5,0h1M6,0h1M10,0h1M12,0h1M13,0h1M15,0h1M17,0h1M18,0h1M19,0h1M20,0h1M22,0h1M23,0h1M24,0h1M25,0h1M26,0h1M27,0h1M28,0h1M0,1h1M6,1h1M8,1h1M10,1h1M13,1h1M14,1h1M15,1h1M17,1h1M20,1h1M22,1h1M28,1h1M0,2h1M2,2h1M3,2h1M4,2h1M6,2h1M12,2h1M13,2h1M16,2h1M18,2h1M19,2h1M20,2h1M22,2h1M24,2h1M25,2h1M26,2h1M28,2h1M0,3h1M2,3h1M3,3h1M4,3h1M6,3h1M8,3h1M9,3h1M10,3h1M12,3h1M14,3h1M17,3h1M19,3h1M22,3h1M24,3h1M25,3h1M26,3h1M28,3h1M0,4h1M2,4h1M3,4h1M4,4h1M6,4h1M9,4h1M16,4h1M18,4h1M19,4h1M20,4h1M22,4h1M24,4h1M25,4h1M26,4h1M28,4h1M0,5h1M6,5h1M8,5h1M9,5h1M11,5h1M12,5h1M15,5h1M16,5h1M22,5h1M28,5h1M0,6h1M1,6h1M2,6h1M3,6h1M4,6h1M5,6h1M6,6h1M8,6h1M10,6h1M12,6h1M14,6h1M16,6h1M18,6h1M20,6h1M22,6h1M23,6h1M24,6h1M25,6h1M26,6h1M27,6h1M28,6h1M9,7h1M10,7h1M11,7h1M14,7h1M15,7h1M16,7h1M18,7h1M19,7h1M20,7h1M0,8h1M1,8h1M2,8h1M3,8h1M4,8h1M6,8h1M7,8h1M8,8h1M9,8h1M11,8h1M15,8h1M17,8h1M21,8h1M23,8h1M25,8h1M27,8h1M1,9h1M7,9h1M10,9h1M12,9h1M13,9h1M14,9h1M16,9h1M19,9h1M20,9h1M22,9h1M23,9h1M24,9h1M28,9h1M2,10h1M3,10h1M6,10h1M8,10h1M10,10h1M13,10h1M14,10h1M15,10h1M16,10h1M17,10h1M18,10h1M21,10h1M23,10h1M24,10h1M5,11h1M12,11h1M13,11h1M16,11h1M20,11h1M22,11h1M23,11h1M24,11h1M25,11h1M27,11h1M0,12h1M3,12h1M5,12h1M6,12h1M7,12h1M8,12h1M9,12h1M10,12h1M12,12h1M14,12h1M15,12h1M17,12h1M18,12h1M19,12h1M25,12h1M26,12h1M0,13h1M2,13h1M3,13h1M4,13h1M7,13h1M9,13h1M16,13h1M17,13h1M18,13h1M19,13h1M20,13h1M22,13h1M23,13h1M24,13h1M28,13h1M1,14h1M6,14h1M7,14h1M8,14h1M9,14h1M10,14h1M11,14h1M12,14h1M15,14h1M16,14h1M17,14h1M20,14h1M25,14h1M26,14h1M0,15h1M2,15h1M3,15h1M5,15h1M9,15h1M11,15h1M14,15h1M15,15h1M18,15h1M20,15h1M21,15h1M23,15h1M27,15h1M0,16h1M1,16h1M2,16h1M6,16h1M7,16h1M11,16h1M15,16h1M17,16h1M25,16h1M26,16h1M0,17h1M1,17h1M4,17h1M7,17h1M8,17h1M10,17h1M12,17h1M13,17h1M14,17h1M16,17h1M17,17h1M18,17h1M19,17h1M20,17h1M21,17h1M22,17h1M23,17h1M24,17h1M26,17h1M28,17h1M0,18h1M3,18h1M4,18h1M6,18h1M7,18h1M8,18h1M9,18h1M10,18h1M13,18h1M14,18h1M15,18h1M17,18h1M22,18h1M26,18h1M0,19h1M2,19h1M3,19h1M4,19h1M8,19h1M10,19h1M12,19h1M13,19h1M20,19h1M24,19h1M27,19h1M0,20h1M2,20h1M4,20h1M6,20h1M7,20h1M12,20h1M14,20h1M15,20h1M16,20h1M17,20h1M20,20h1M21,20h1M22,20h1M23,20h1M24,20h1M26,20h1M27,20h1M28,20h1M8,21h1M9,21h1M10,21h1M16,21h1M20,21h1M24,21h1M25,21h1M26,21h1M27,21h1M28,21h1M0,22h1M1,22h1M2,22h1M3,22h1M4,22h1M5,22h1M6,22h1M8,22h1M9,22h1M10,22h1M11,22h1M12,22h1M15,22h1M17,22h1M18,22h1M19,22h1M20,22h1M22,22h1M24,22h1M25,22h1M26,22h1M0,23h1M6,23h1M9,23h1M11,23h1M14,23h1M16,23h1M18,23h1M19,23h1M20,23h1M24,23h1M27,23h1M0,24h1M2,24h1M3,24h1M4,24h1M6,24h1M8,24h1M9,24h1M10,24h1M11,24h1M15,24h1M16,24h1M17,24h1M20,24h1M21,24h1M22,24h1M23,24h1M24,24h1M26,24h1M0,25h1M2,25h1M3,25h1M4,25h1M6,25h1M8,25h1M9,25h1M10,25h1M12,25h1M13,25h1M14,25h1M16,25h1M18,25h1M20,25h1M23,25h1M25,25h1M26,25h1M27,25h1M28,25h1M0,26h1M2,26h1M3,26h1M4,26h1M6,26h1M8,26h1M13,26h1M14,26h1M15,26h1M16,26h1M17,26h1M19,26h1M20,26h1M21,26h1M22,26h1M23,26h1M24,26h1M25,26h1M26,26h1M27,26h1M0,27h1M6,27h1M8,27h1M12,27h1M13,27h1M16,27h1M20,27h1M21,27h1M23,27h1M24,27h1M25,27h1M27,27h1M0,28h1M1,28h1M2,28h1M3,28h1M4,28h1M5,28h1M6,28h1M8,28h1M9,28h1M12,28h1M14,28h1M17,28h1M18,28h1M19,28h1M23,28h1M24,28h1M26,28h1"/></svg></template>
+
+    <script>
+      const Q = [
+        { id: 1, text: "Hoe kijken jullie naar pinkwashing door bedrijven tijdens Pride? Is een regenboog op een bankfiliaal winst of verlies?", name: "Sofie", for: "allen" },
+        { id: 2, text: "Is dit niet hetzelfde als rainbow capitalism? Kan Pride nog zonder sponsors?", name: "", for: "Peter Drucker" },
+        { id: 3, text: "Wat is het verschil tussen liberale LGBTQ+-emancipatie en een antikapitalistische queerpolitiek?", name: "", for: "Peter Drucker" },
+        { id: 4, text: "Hoe zag de samenwerking met de vakbonden eruit in de tijd van De Rooie Vlinder?", name: "Jan", for: "Guido Totté" },
+        { id: 5, text: "Welke rol speelt kunst vandaag nog in queer verzet, nu festivals steeds meer subsidies verliezen?", name: "", for: "Marcia Poelman" },
+        { id: 6, text: "Hoe verbinden we queer strijd met de strijd van mensen zonder papieren?", name: "Amal", for: "allen" },
+        { id: 7, text: "Kan de vakbeweging een plek zijn voor queer arbeiders, of blijft dat een mannenbastion?", name: "", for: "allen" },
+        { id: 8, text: "Welk boek raden jullie aan om mee te beginnen?", name: "", for: "allen" },
+      ];
+      const STATES = { one: [1], two: [1, 2], none: [], empty: null };
+      const NOTES = {
+        a: "A · huidige vraag groot bovenaan, wachtrij kleiner eronder in twee kolommen. Wat niet past, wordt samengevat als \"+ N andere vragen\".",
+        b: "B · huidige vraag links, wachtrij altijd zichtbaar rechts. Zonder uitgelichte vraag toont de linkerkant een uitnodiging.",
+        c: "C · één lijst, nieuwste eerst; de huidige vraag krijgt een lijn en een achtergrond op haar plek in de lijst.",
+      };
+
+      const qrTpl = document.getElementById("qr-tpl");
+      const main = document.getElementById("main");
+      let variant = "b", state = "one";
+
+      const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+      const meta = (q) =>
+        `<div class="meta">${q.name ? esc(q.name) : "anoniem"}${q.for ? ` · voor ${esc(q.for)}` : ""}</div>`;
+      const curHtml = (qs) =>
+        `<div class="current">${qs.map((q) => `<div class="q"><div class="text clamp">${esc(q.text)}</div>${meta(q)}</div>`).join("")}</div>`;
+      const listHtml = (qs, curIds = []) =>
+        `<ul class="queue">${qs
+          .map((q) => `<li class="${curIds.includes(q.id) ? "is-current" : ""}"><div class="text clamp">${esc(q.text)}</div>${meta(q)}</li>`)
+          .join("")}</ul><div class="more" hidden></div>`;
+
+      // Oldest on top, so the newest drop off the end first until the list fits; show "+ N andere vragen".
+      function fitQueue(root) {
+        root.querySelectorAll(".queue").forEach((ul) => {
+          const more = ul.nextElementSibling;
+          const total = ul.children.length;
+          more.hidden = false; // reserve its line up front, so the check below is honest
+          const fits = () => ul.scrollHeight <= ul.clientHeight + 1;
+          // Drop the oldest non-current question until the list fits; current ones always stay.
+          while (!fits()) {
+            const drop = [...ul.children].reverse().find((li) => !li.classList.contains("is-current"));
+            if (!drop) break;
+            drop.remove();
+          }
+          const hidden = total - ul.children.length;
+          more.hidden = hidden === 0;
+          more.textContent = `+ ${hidden} andere ${hidden === 1 ? "vraag" : "vragen"}`;
+        });
+      }
+
+      function render() {
+        const curIds = STATES[state];
+        const oldestFirst = [...Q].sort((a, b) => a.id - b.id);
+        let html;
+
+        if (curIds === null) {
+          html = `<div class="empty"><div><div class="big">Nog geen vragen.</div><div class="sub">Scan de code rechtsonder en stel de eerste.</div></div></div>`;
+        } else {
+          const cur = Q.filter((q) => curIds.includes(q.id));
+          const rest = oldestFirst.filter((q) => !curIds.includes(q.id));
+          if (variant === "a") {
+            html = `<div class="a">${cur.length ? `<div><div class="kicker">nu</div>${curHtml(cur)}</div>` : ""}
+              <div class="queue-wrap">${cur.length ? `<div class="kicker">volgende</div>` : `<div class="kicker title-k">Vragen uit de zaal</div>`}${listHtml(rest)}</div></div>`;
+          } else if (variant === "b") {
+            const left = cur.length
+              ? `<div class="kicker">nu</div>${curHtml(cur)}`
+              : `<div class="invite"><div class="big">Vragen uit de zaal</div><div class="sub">Stel je vraag liever niet hardop? Stuur ze online, bijvoorbeeld via je smartphone.</div></div>`;
+            html = `<div class="b"><div class="left">${left}</div><div class="right"><div class="kicker">${cur.length ? "volgende" : "binnengekomen"}</div>${listHtml(rest)}</div></div>`;
+          } else {
+            html = `<div class="c"><div class="kicker title-k">Vragen uit de zaal</div>${listHtml(oldestFirst, curIds)}</div>`;
+          }
+        }
+        main.innerHTML = html;
+
+        // A with several current questions: smaller text so the queue keeps room.
+        const n = curIds ? curIds.length : 0;
+        main.style.setProperty("--cur-size", n > 1 ? (variant === "b" ? "2.7cqw" : "2.6cqw") : variant === "b" ? "3.4cqw" : "3.4cqw");
+        fitQueue(main);
+
+        document.getElementById("note").textContent = NOTES[variant];
+        document.querySelectorAll("[data-v]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === variant));
+        document.querySelectorAll("[data-s]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === state));
+      }
+
+      document.querySelectorAll("[data-v]").forEach((b) => b.addEventListener("click", () => { variant = b.dataset.v; render(); }));
+      document.querySelectorAll("[data-s]").forEach((b) => b.addEventListener("click", () => { state = b.dataset.s; render(); }));
+      document.addEventListener("keydown", (e) => {
+        const vs = ["a", "b", "c"];
+        if (e.key === "ArrowRight") variant = vs[(vs.indexOf(variant) + 1) % 3];
+        else if (e.key === "ArrowLeft") variant = vs[(vs.indexOf(variant) + 2) % 3];
+        else return;
+        render();
+      });
+      const p = new URLSearchParams(location.search);
+      variant = p.get("v") || variant;
+      state = p.get("s") || state;
+      document.fonts.ready.then(render);
+      window.addEventListener("resize", render);
+      render();
+    </script>
+  </body>
+</html>

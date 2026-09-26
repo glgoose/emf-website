@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - vragen: keuze voor wie</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: "EB Garamond", Georgia, serif; background: #e9e7e2; color: #111; padding: 24px; font-size: 18px; }
+      button, input, select, textarea { font: inherit; color: inherit; }
+      .grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+      .card { width: 390px; background: #fff; padding: 20px 24px 28px; box-shadow: 0 0 0 1px #ccc, 0 8px 30px rgba(0,0,0,.12); border-radius: 28px; }
+      .vlabel { font-variant: small-caps; letter-spacing: 0.08em; color: #666; font-size: 0.9rem; margin-bottom: 4px; }
+      .vname { font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+      .note { font-size: 0.85rem; color: #777; line-height: 1.35; margin-top: 14px; }
+
+      .form { display: flex; flex-direction: column; gap: 14px; }
+      .field { display: block; width: 100%; border: 0; border-bottom: 1px solid #111; background: transparent; outline: none; padding: 0.4em 0; }
+      .field::placeholder { color: #999; }
+      textarea.field { resize: none; line-height: 1.35; overflow: hidden; }
+      .send { display: flex; justify-content: flex-end; }
+      .send button { background: none; border: 0; cursor: pointer; font-size: 1.05rem; }
+
+      .chev { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: 0.75em auto; }
+
+      /* A: label boven, small caps, kader rond de keuzelijst */
+      .a-label { display: block; font-variant: small-caps; letter-spacing: 0.08em; color: #111; font-size: 0.95rem; margin: 6px 0 4px; }
+      .a-select { appearance: none; width: 100%; border: 1px solid #111; border-radius: 3px; background-color: #fff; padding: 0.35em 2em 0.35em 0.6em; background-position: right 0.7em center; cursor: pointer; }
+
+      /* B: grijze knop, label ervoor in zwart */
+      .b-row { display: flex; align-items: center; gap: 0.7em; margin-top: 6px; }
+      .b-row span { color: #111; white-space: nowrap; }
+      .b-select { appearance: none; flex: 1; border: 0; border-radius: 3px; background-color: #efefef; padding: 0.35em 2em 0.35em 0.7em; background-position: right 0.7em center; cursor: pointer; }
+
+      /* C: knoppen in plaats van keuzelijst */
+      .c-label { display: block; font-variant: small-caps; letter-spacing: 0.08em; color: #111; font-size: 0.95rem; margin: 6px 0 6px; }
+      .c-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+      .c-opts label { cursor: pointer; }
+      .c-opts input { position: absolute; opacity: 0; pointer-events: none; }
+      .c-opts span { display: inline-block; border: 1px solid #bbb; border-radius: 999px; padding: 0.15em 0.8em; font-size: 0.95rem; }
+      .c-opts input:checked + span { background: #111; border-color: #111; color: #fff; }
+
+      /* D: zin met onderlijnde keuze */
+      .d-row { margin-top: 6px; }
+      .d-select { appearance: none; border: 0; border-bottom: 1px dashed #111; background-color: transparent; padding: 0 1.2em 0 0; background-position: right 0.1em center; cursor: pointer; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="card">
+        <div class="vlabel">variant A</div>
+        <div class="vname">Label erboven, keuzelijst in een kader</div>
+        <form class="form" onsubmit="return false">
+          <textarea class="field" rows="1" placeholder="Je vraag"></textarea>
+          <input class="field" placeholder="Naam (niet verplicht)" />
+          <div>
+            <label class="a-label" for="a">Voor wie is je vraag?</label>
+            <select id="a" class="a-select chev"><option>Allen</option><option>Marcia Poelman</option><option>Guido Totté</option><option>Peter Drucker</option></select>
+          </div>
+          <div class="send"><button type="submit">versturen &gt;&gt;</button></div>
+        </form>
+        <p class="note">Het kader onderscheidt zich duidelijk van de onderlijnde velden. Het label staat in zwart en small caps, niet in placeholder-grijs.</p>
+      </div>
+
+      <div class="card">
+        <div class="vlabel">variant B</div>
+        <div class="vname">Label ervoor, keuze als grijze knop</div>
+        <form class="form" onsubmit="return false">
+          <textarea class="field" rows="1" placeholder="Je vraag"></textarea>
+          <input class="field" placeholder="Naam (niet verplicht)" />
+          <label class="b-row"><span>Voor wie?</span>
+            <select class="b-select chev"><option>Allen</option><option>Marcia Poelman</option><option>Guido Totté</option><option>Peter Drucker</option></select>
+          </label>
+          <div class="send"><button type="submit">versturen &gt;&gt;</button></div>
+        </form>
+        <p class="note">Geen lijn eronder, zodat het niet als invulveld leest. De grijze vulling maakt er een knop van.</p>
+      </div>
+
+      <div class="card">
+        <div class="vlabel">variant C</div>
+        <div class="vname">Geen keuzelijst: tik een naam aan</div>
+        <form class="form" onsubmit="return false">
+          <textarea class="field" rows="1" placeholder="Je vraag"></textarea>
+          <input class="field" placeholder="Naam (niet verplicht)" />
+          <div>
+            <span class="c-label">Voor wie is je vraag?</span>
+            <div class="c-opts">
+              <label><input type="radio" name="c" checked><span>Allen</span></label>
+              <label><input type="radio" name="c"><span>Marcia Poelman</span></label>
+              <label><input type="radio" name="c"><span>Guido Totté</span></label>
+              <label><input type="radio" name="c"><span>Peter Drucker</span></label>
+            </div>
+          </div>
+          <div class="send"><button type="submit">versturen &gt;&gt;</button></div>
+        </form>
+        <p class="note">Alle keuzes zijn meteen zichtbaar, één tik. Werkt goed met drie of vier sprekers, minder bij een lang panel.</p>
+      </div>
+
+      <div class="card">
+        <div class="vlabel">variant D</div>
+        <div class="vname">Als zin, keuze vet en gestippeld onderlijnd</div>
+        <form class="form" onsubmit="return false">
+          <textarea class="field" rows="1" placeholder="Je vraag"></textarea>
+          <input class="field" placeholder="Naam (niet verplicht)" />
+          <label class="d-row">Deze vraag is voor
+            <select class="d-select chev"><option>Allen</option><option>Marcia Poelman</option><option>Guido Totté</option><option>Peter Drucker</option></select>
+          </label>
+          <div class="send"><button type="submit">versturen &gt;&gt;</button></div>
+        </form>
+        <p class="note">Leest als gewone tekst met één aanpasbaar woord. Het minst zwaar, maar ook het minst opvallend.</p>
+      </div>
+    </div>
+    <script>
+      document.querySelectorAll("textarea").forEach((t) => t.addEventListener("input", () => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }));
+    </script>
+  </body>
+</html>

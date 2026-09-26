@@ -8,6 +8,14 @@ compatibility_flags = ["nodejs_compat_v2"]
 
 pages_build_output_dir = "dist"
 
+# Vragen uit de zaal (D1). Aanmaken: wrangler d1 create emf-vragen --location weur
+# Migratie toepassen: wrangler d1 migrations apply emf-vragen --local|--remote
+[[d1_databases]]
+binding = "DB"
+database_name = "emf-vragen"
+database_id = "61f802b1-6518-4e6f-bad4-4234fdcfdaf3"
+migrations_dir = "migrations"
+
 # Email is sent via MailChannels (free, works automatically on Cloudflare Pages).
 # Optional: override the default recipient (info@ernestmandelfonds.org):
 # npx wrangler pages secret put EMAIL_TO --project-name ernestmandelfonds-website

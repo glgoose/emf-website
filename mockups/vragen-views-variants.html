@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - vragen: publiek en beheer</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: italic;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-italic-latin.woff2") format("woff2");
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: "EB Garamond", Georgia, serif; background: #e9e7e2; color: #111; padding: 24px; font-size: 18px; }
+      button, input, select, textarea { font: inherit; color: inherit; }
+
+      .toolbar { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; margin: 0 auto 20px; max-width: 1200px; font-size: 15px; }
+      .toolbar .group { display: flex; gap: 6px; align-items: center; }
+      .toolbar .label { font-variant: small-caps; letter-spacing: 0.08em; color: #666; margin-right: 4px; }
+      .toolbar button { padding: 4px 12px; border: 1px solid #bbb; background: #fff; cursor: pointer; }
+      .toolbar button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+      .view[hidden] { display: none; }
+
+      .h3 { font-variant: small-caps; letter-spacing: 0.08em; font-weight: 700; font-size: 1.05rem; }
+      .meta { font-size: 0.85rem; color: #666; }
+
+      /* ---------- publiek: telefoon ---------- */
+      .phone {
+        width: 390px; margin: 0 auto; background: #fff; min-height: 780px;
+        padding: 20px 24px 40px; box-shadow: 0 0 0 1px #ccc, 0 8px 30px rgba(0,0,0,.12); border-radius: 28px;
+      }
+      .back { color: #999; font-size: 0.9rem; border-bottom: 1px solid #111; padding-bottom: 2px; margin-bottom: 6px; }
+      .title { font-size: 1.75rem; font-weight: 700; line-height: 1.15; }
+      .subtitle { font-size: 1.3rem; font-style: italic; color: #555; line-height: 1.2; }
+      .intro { margin: 18px 0 14px; line-height: 1.35; }
+      .field { display: block; width: 100%; border: 0; border-bottom: 1px solid #111; background: transparent; outline: none; padding: 0.4em 0; }
+      .field::placeholder { color: #999; }
+      textarea.field { resize: none; line-height: 1.35; overflow: hidden; }
+      select.field { appearance: none; color: #111; cursor: pointer; padding-right: 1.6em; background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 0.2em center / 0.75em auto; }
+      .c-label { display: block; font-variant: small-caps; letter-spacing: 0.08em; color: #111; font-size: 0.95rem; margin: 6px 0 6px; }
+      .c-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+      .c-opts label { cursor: pointer; }
+      .c-opts input { position: absolute; opacity: 0; pointer-events: none; }
+      .c-opts span { display: inline-block; border: 1px solid #bbb; border-radius: 999px; padding: 0.15em 0.8em; font-size: 0.95rem; }
+      .c-opts input:checked + span { background: #111; border-color: #111; color: #fff; }
+      .c-opts input:focus-visible + span { outline: 2px solid #111; outline-offset: 2px; }
+      .form { display: flex; flex-direction: column; gap: 14px; }
+      .send { display: flex; justify-content: flex-end; }
+      .send button { background: none; border: 0; cursor: pointer; font-size: 1.05rem; }
+      .ok { font-size: 0.9rem; color: #111; margin-top: 10px; }
+      .hint { font-size: 0.85rem; color: #777; line-height: 1.35; margin-top: 10px; }
+      .plist { list-style: none; margin-top: 10px; }
+      .plist li { padding: 12px 0; border-top: 1px solid #e3e3e3; }
+      .plist li:first-child { border-top: 0; }
+      .plist .text { line-height: 1.3; }
+      .plist li.is-now { border-left: 3px solid #111; padding-left: 12px; }
+      .plist li.is-answered { color: #999; }
+      .plist li.is-answered .meta { color: #aaa; }
+      .tag { font-variant: small-caps; letter-spacing: 0.08em; font-size: 0.85rem; }
+      .plist li.is-now .tag { font-weight: 700; color: #111; }
+      .empty-note { color: #666; font-style: italic; margin-top: 10px; }
+      section + section { margin-top: 30px; }
+
+      /* ---------- beheer: computer ---------- */
+      .desk { max-width: 1200px; margin: 0 auto; background: #fff; padding: 32px 48px 48px; box-shadow: 0 0 0 1px #ccc, 0 8px 30px rgba(0,0,0,.12); }
+      .desk-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-bottom: 1px solid #111; padding-bottom: 10px; }
+      .desk-head .title { font-size: 1.6rem; }
+      .desk-head a { color: #111; font-size: 0.95rem; }
+      .filters { display: flex; gap: 22px; margin: 18px 0 10px; font-size: 0.95rem; }
+      .filters button { background: none; border: 0; padding: 0 0 2px; cursor: pointer; color: #666; }
+      .filters button { display: inline-flex; align-items: center; gap: 5px; }
+      .filters svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .filters button.on { color: #111; border-bottom: 1px solid #111; }
+      .rows { list-style: none; }
+      .rows li { display: grid; grid-template-columns: 1fr auto 52px; gap: 18px; align-items: center; padding: 12px 14px; border-top: 1px solid #e3e3e3; }
+      .rows li.is-now { background: #f4f3ef; box-shadow: inset 3px 0 0 #111; }
+      .rows li.is-dim .text { color: #888; }
+      .rows .text { line-height: 1.3; }
+      .rows .status { font-variant: small-caps; letter-spacing: 0.08em; font-size: 0.85rem; color: #111; font-weight: 700; }
+      .btns { display: flex; gap: 6px; justify-content: flex-end; }
+      .btns button { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.9rem; border-radius: 3px; white-space: nowrap; }
+      .btns button:hover { border-color: #111; }
+      .btns button.primary { background: #111; border-color: #111; color: #fff; }
+      .btns svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .btns button { position: relative; padding: 6px 8px; }
+      .btns button[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); right: 0; background: #111; color: #fff; font-size: 0.8rem; padding: 3px 8px; border-radius: 3px; white-space: nowrap; pointer-events: none; z-index: 2; }
+      .btns svg { width: 16px; height: 16px; }
+      .btns button.primary svg.play { fill: currentColor; }
+      .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: #111; color: #fff; padding: 8px 16px; font-size: 0.95rem; display: flex; gap: 16px; align-items: center; border-radius: 3px; }
+      .toast[hidden] { display: none; }
+      .toast button { background: none; border: 0; color: #fff; text-decoration: underline; cursor: pointer; }
+      .rows .time { font-size: 0.85rem; color: #999; text-align: right; padding-top: 2px; }
+      .hint { font-size: 0.85rem; color: #777; margin-top: 16px; font-style: italic; }
+      .note { max-width: 1200px; margin: 16px auto 0; font-size: 15px; color: #444; }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <div class="group">
+        <span class="label">view</span>
+        <button data-view="pub" aria-pressed="true">/vragen · telefoon</button>
+        <button data-view="adm" aria-pressed="false">/vragen/beheer · computer</button>
+      </div>
+      <div class="group" id="pub-states">
+        <span class="label">toestand</span>
+        <button data-ps="list" aria-pressed="true">met vragen</button>
+        <button data-ps="sent" aria-pressed="false">net verstuurd</button>
+        <button data-ps="empty" aria-pressed="false">nog geen vragen</button>
+      </div>
+    </div>
+
+    <!-- ================= publiek ================= -->
+    <div class="view" id="pub">
+      <div class="phone">
+        <div class="back">&lt;&lt;</div>
+        <div class="title">Fight the cis-tem!</div>
+        <div class="subtitle">Queerness en antikapitalisme</div>
+
+        <section>
+          <p class="intro">Stel je vraag liever niet hardop? Stuur ze hier.</p>
+          <form class="form" onsubmit="return false">
+            <textarea class="field" rows="1" placeholder="Je vraag" id="qfield"></textarea>
+            <input class="field" placeholder="Naam (niet verplicht)" />
+            <div>
+              <span class="c-label">Voor wie is je vraag?</span>
+              <div class="c-opts">
+                <label><input type="radio" name="voor" checked><span>Allen</span></label>
+                <label><input type="radio" name="voor"><span>Marcia Poelman</span></label>
+                <label><input type="radio" name="voor"><span>Guido Totté</span></label>
+                <label><input type="radio" name="voor"><span>Peter Drucker</span></label>
+              </div>
+            </div>
+            <div class="send"><button type="submit">versturen &gt;&gt;</button></div>
+          </form>
+          <p class="hint" id="hint">Je vraag verschijnt meteen in de lijst hieronder en op het scherm in de zaal.</p>
+          <p class="ok" id="ok" hidden>Verstuurd, dank je. Je vraag staat in de lijst hieronder.</p>
+        </section>
+
+        <section>
+          <div class="h3">Vragen</div>
+          <ul class="plist" id="plist"></ul>
+          <p class="empty-note" id="pempty" hidden>Nog geen vragen. Stel gerust de eerste.</p>
+        </section>
+      </div>
+      <p class="note">Formulier bovenaan, lijst eronder met de nieuwste eerst. De vraag die nu behandeld wordt, staat bovenaan met een lijn en het label "nu". Beantwoorde vragen blijven gedimd staan, zodat je ziet dat je vraag aan bod kwam. Verborgen vragen verdwijnen.</p>
+    </div>
+
+    <!-- ================= beheer ================= -->
+    <div class="view" id="adm" hidden>
+      <div class="desk">
+        <div class="desk-head">
+          <div>
+            <div class="title">Beheer <span style="color:#999;font-weight:400">›</span> Vragen</div>
+          </div>
+          <a href="#">schermweergave openen ↗</a>
+        </div>
+
+        <div class="filters" id="filters"></div>
+
+        <ul class="rows" id="rows"></ul>
+        <div class="toast" id="toast" hidden><span id="toast-msg"></span><button id="undo">ongedaan maken</button></div>
+      </div>
+      <p class="note">Werkt: de knoppen per vraag, ongedaan maken en de filters zijn klikbaar in deze mockup. Meerdere vragen op "nu" zetten kan: ze komen samen op het scherm tot je ze op beantwoord zet. Geen formulier. De sleutel wordt één keer gevraagd en daarna onthouden (niet getoond in de mockup).</p>
+    </div>
+
+    <script>
+      const qf = document.getElementById("qfield");
+      const grow = () => { qf.style.height = "auto"; qf.style.height = qf.scrollHeight + "px"; };
+      qf.addEventListener("input", grow);
+      const Q = [
+        { id: 1, t: "10:41", text: "Hoe kijken jullie naar pinkwashing door bedrijven tijdens Pride? Is een regenboog op een bankfiliaal winst of verlies?", name: "Sofie", for: "allen", s: "beantwoord" },
+        { id: 2, t: "10:44", text: "Hoe zag de samenwerking met de vakbonden eruit in de tijd van De Rooie Vlinder?", name: "Jan", for: "Guido Totté", s: "nu" },
+        { id: 3, t: "10:52", text: "Wat is het verschil tussen liberale LGBTQ+-emancipatie en een antikapitalistische queerpolitiek?", name: "", for: "Peter Drucker", s: "open" },
+        { id: 4, t: "11:03", text: "Welke rol speelt kunst vandaag nog in queer verzet, nu festivals steeds meer subsidies verliezen?", name: "", for: "Marcia Poelman", s: "open" },
+        { id: 5, t: "11:07", text: "Is dit niet hetzelfde als rainbow capitalism? Kan Pride nog zonder sponsors?", name: "", for: "", s: "open" },
+        { id: 6, t: "11:12", text: "Hoe verbinden we queer strijd met de strijd van mensen zonder papieren?", name: "Amal", for: "allen", s: "open" },
+        { id: 7, t: "11:15", text: "test test", name: "", for: "", s: "verborgen" },
+        { id: 8, t: "11:18", text: "Welk boek raden jullie aan om mee te beginnen?", name: "", for: "", s: "open" },
+      ];
+      const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+      const meta = (q) => `${q.name ? esc(q.name) : "anoniem"}${q.for ? ` · voor ${esc(q.for)}` : ""}`;
+      const newest = () => [...Q].sort((a, b) => b.id - a.id);
+
+      // ---- publiek
+      let ps = "list";
+      function renderPub() {
+        const ul = document.getElementById("plist");
+        const visible = ps === "empty" ? [] : newest().filter((q) => q.s !== "verborgen");
+        visible.sort((a, b) => (b.s === "nu") - (a.s === "nu")); // "nu" pinned on top
+        if (ps === "sent") visible.splice(visible.filter((q) => q.s === "nu").length, 0, { id: 99, text: "Hoe ga je om met transfobie binnen linkse organisaties zelf?", name: "", for: "allen", s: "open" });
+        ul.innerHTML = visible
+          .map((q) => {
+            const cls = q.s === "nu" ? "is-now" : q.s === "beantwoord" ? "is-answered" : "";
+            const tag = q.s === "nu" ? `<span class="tag">nu · </span>` : q.s === "beantwoord" ? `<span class="tag">beantwoord · </span>` : "";
+            return `<li class="${cls}"><div class="text">${esc(q.text)}</div><div class="meta">${tag}${meta(q)}</div></li>`;
+          })
+          .join("");
+        document.getElementById("pempty").hidden = visible.length > 0;
+        document.getElementById("ok").hidden = ps !== "sent";
+        document.getElementById("hint").hidden = ps === "sent";
+        document.querySelectorAll("[data-ps]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.ps === ps));
+      }
+
+      // ---- beheer
+      let filter = "actief";
+      const FILTERS = {
+        actief: (q) => q.s === "open" || q.s === "nu",
+        beantwoord: (q) => q.s === "beantwoord",
+        verborgen: (q) => q.s === "verborgen",
+        alle: () => true,
+      };
+      const I = {
+        nu: '<svg viewBox="0 0 24 24" class="play"><polygon points="7 4 19 12 7 20 7 4"/></svg>',
+        beantwoord: '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>',
+        open: '<svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
+        verborgen: '<svg viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M2 2l20 20"/></svg>',
+      };
+            const TITLE = {
+        nu: "Nu behandelen, komt op het scherm",
+        beantwoord: "Beantwoord, verdwijnt van het scherm",
+        open: "Terug naar open",
+        verborgen: "Verbergen, voor iedereen onzichtbaar",
+      };
+      function actionsFor(q) {
+        if (q.s === "open") return ["nu", "beantwoord", "verborgen"];
+        if (q.s === "nu") return ["open", "beantwoord", "verborgen"];
+        if (q.s === "beantwoord") return ["open", "verborgen"];
+        return ["open"];
+      }
+      const btn = (a, id, primary) => `<button data-a="${a}" data-id="${id}" data-tip="${TITLE[a]}" aria-label="${TITLE[a]}" class="${a === primary ? "primary" : ""}">${I[a]}</button>`;
+      // Dominant action per state gets the black button: nu for open questions, beantwoord for the current one.
+      const PRIMARY = { open: "nu", nu: "beantwoord" };
+      function renderAdm() {
+        document.getElementById("filters").innerHTML = Object.keys(FILTERS)
+          .map((f) => `<button data-f="${f}" class="${f === filter ? "on" : ""}">${I[f] || ""}${f} (${Q.filter(FILTERS[f]).length})</button>`)
+          .join("");
+        const rows = [...Q].sort((a, b) => a.id - b.id).filter(FILTERS[filter]);
+        rows.sort((a, b) => (b.s === "nu") - (a.s === "nu"));
+        document.getElementById("rows").innerHTML = rows
+          .map((q) => {
+            const cls = q.s === "nu" ? "is-now" : q.s === "open" ? "" : "is-dim";
+            const status = q.s === "open" ? "" : `<span class="status">${q.s} · </span>`;
+            return `<li class="${cls}">
+              <div><div class="text">${esc(q.text)}</div><div class="meta">${status}${meta(q)}</div></div>
+              <div class="btns">${actionsFor(q).map((a) => btn(a, q.id, PRIMARY[q.s])).join("")}</div>
+              <div class="time">${q.t}</div></li>`;
+          })
+          .join("");
+      }
+      document.getElementById("filters").addEventListener("click", (e) => {
+        const f = e.target.closest("button")?.dataset.f;
+        if (f) { filter = f; renderAdm(); }
+      });
+      let snapshot = null, toastTimer = null;
+      const MSG = { nu: "Staat nu op het scherm", beantwoord: "Beantwoord", open: "Terug naar open", verborgen: "Verborgen" };
+      document.getElementById("rows").addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-a]");
+        if (!b) return;
+        snapshot = Q.map((q) => ({ ...q }));
+        const a = b.dataset.a, id = +b.dataset.id;
+        const q = Q.find((q) => q.id === id);
+        q.s = a;
+        renderAdm(); renderPub();
+        document.getElementById("toast-msg").textContent = MSG[a];
+        document.getElementById("toast").hidden = false;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => (document.getElementById("toast").hidden = true), 5000);
+      });
+      document.getElementById("undo").addEventListener("click", () => {
+        if (!snapshot) return;
+        Q.splice(0, Q.length, ...snapshot); snapshot = null;
+        document.getElementById("toast").hidden = true;
+        renderAdm(); renderPub();
+      });
+
+      // ---- view switch
+      let view = new URLSearchParams(location.search).get("view") || "pub";
+      ps = new URLSearchParams(location.search).get("s") || ps;
+      function renderView() {
+        document.getElementById("pub").hidden = view !== "pub";
+        document.getElementById("adm").hidden = view !== "adm";
+        document.getElementById("pub-states").style.visibility = view === "pub" ? "visible" : "hidden";
+        document.querySelectorAll("[data-view]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.view === view));
+      }
+      document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => { view = b.dataset.view; renderView(); }));
+      document.querySelectorAll("[data-ps]").forEach((b) => b.addEventListener("click", () => { ps = b.dataset.ps; renderPub(); }));
+      renderView(); renderPub(); renderAdm();
+    </script>
+  </body>
+</html>

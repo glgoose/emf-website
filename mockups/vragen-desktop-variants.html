@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockup - vragen: publiek op desktop (B breed, A smal)</title>
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-normal-latin.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "EB Garamond";
+        font-style: italic;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("../public/fonts/eb-garamond-italic-latin.woff2") format("woff2");
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: "EB Garamond", Georgia, serif; background: #e9e7e2; color: #111; padding: 24px; font-size: 18px; }
+      button, input, textarea { font: inherit; color: inherit; }
+
+      .toolbar { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; margin: 0 auto 20px; max-width: 1280px; font-size: 15px; }
+      .toolbar .group { display: flex; gap: 6px; align-items: center; }
+      .toolbar .label { font-variant: small-caps; letter-spacing: 0.08em; color: #666; margin-right: 4px; }
+      .toolbar button { padding: 4px 12px; border: 1px solid #bbb; background: #fff; cursor: pointer; }
+      .toolbar button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+      .note { max-width: 1280px; margin: 16px auto 0; font-size: 15px; color: #444; }
+
+      /* laptop browser window, 1280 x 800 */
+      .laptop { max-width: 1280px; height: 800px; margin: 0 auto; background: #fff; overflow: auto; box-shadow: 0 0 0 1px #ccc, 0 8px 30px rgba(0,0,0,.12); }
+      .page { padding: 48px 64px 64px; }
+
+      /* shared pieces, same as the phone view */
+      .h3 { font-variant: small-caps; letter-spacing: 0.08em; font-weight: 700; font-size: 1.05rem; }
+      .back { color: #999; font-size: 0.9rem; border-bottom: 1px solid #111; padding-bottom: 2px; margin-bottom: 6px; display: inline-block; }
+      .head { margin-bottom: 8px; }
+      .title { font-size: 1.75rem; font-weight: 700; line-height: 1.15; }
+      .subtitle { font-size: 1.3rem; font-style: italic; color: #555; line-height: 1.2; }
+      .intro { margin: 18px 0 14px; line-height: 1.35; }
+      .form { display: flex; flex-direction: column; gap: 14px; }
+      .field { display: block; width: 100%; border: 0; border-bottom: 1px solid #111; background: transparent; outline: none; padding: 0.4em 0; }
+      .field::placeholder { color: #999; }
+      textarea.field { resize: none; line-height: 1.35; overflow: hidden; }
+      .c-label { display: block; font-variant: small-caps; letter-spacing: 0.08em; color: #111; font-size: 0.95rem; margin: 6px 0 6px; }
+      .c-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+      .c-opts label { cursor: pointer; }
+      .c-opts input { position: absolute; opacity: 0; pointer-events: none; }
+      .c-opts span { display: inline-block; border: 1px solid #bbb; border-radius: 999px; padding: 0.15em 0.8em; font-size: 0.95rem; }
+      .c-opts input:checked + span { background: #111; border-color: #111; color: #fff; }
+      .send { display: flex; justify-content: flex-end; }
+      .send button { background: none; border: 0; cursor: pointer; font-size: 1.05rem; }
+      .hint { font-size: 0.85rem; color: #777; margin-top: 16px; font-style: italic; }
+      .ok { font-size: 0.9rem; color: #111; margin-top: 10px; }
+      .meta { font-size: 0.85rem; color: #666; margin-top: 2px; }
+      .plist { list-style: none; margin-top: 10px; }
+      .plist li { padding: 12px 0; border-top: 1px solid #e3e3e3; }
+      .plist li:first-child { border-top: 0; }
+      .plist .text { line-height: 1.3; }
+      .plist li.is-now { border-left: 3px solid #111; padding-left: 12px; }
+      .plist li.is-answered { color: #999; }
+      .plist li.is-answered .meta { color: #aaa; }
+      .tag { font-variant: small-caps; letter-spacing: 0.08em; font-size: 0.85rem; }
+      .plist li.is-now .tag { font-weight: 700; color: #111; }
+      .empty-note { color: #666; font-style: italic; margin-top: 10px; }
+      section + section { margin-top: 40px; }
+
+      /* Responsive: B on wide screens, A below 1000px. Container query stands in for the viewport here. */
+      .laptop { container-type: inline-size; transition: max-width .2s; }
+      .resp { max-width: 640px; margin: 0 auto; }
+      .resp .cols > section + section { margin-top: 40px; }
+      @container (min-width: 1000px) {
+        .resp { max-width: none; }
+        /* both columns start at the same line: title left, "Vragen" right */
+        .resp .cols { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: start; }
+        .resp .cols > section + section { margin-top: 0; }
+        .resp .form-col { position: sticky; top: 0; }
+        .resp .list-col { border-left: 1px solid #e3e3e3; padding-left: 48px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <div class="group" id="widths">
+        <span class="label">schermbreedte</span>
+        <button data-w="1280">1280 · laptop</button>
+        <button data-w="1100">1100</button>
+        <button data-w="900">900 · smal venster</button>
+      </div>
+      <div class="group" id="states">
+        <span class="label">toestand</span>
+        <button data-s="list">met vragen</button>
+        <button data-s="sent">net verstuurd</button>
+        <button data-s="empty">nog geen vragen</button>
+      </div>
+    </div>
+
+    <div class="laptop"><div class="page" id="page"></div></div>
+    <p class="note" id="note"></p>
+
+    <script>
+      const Q = [
+        { id: 1, text: "Hoe kijken jullie naar pinkwashing door bedrijven tijdens Pride? Is een regenboog op een bankfiliaal winst of verlies?", name: "Sofie", for: "allen", s: "beantwoord" },
+        { id: 2, text: "Hoe zag de samenwerking met de vakbonden eruit in de tijd van De Rooie Vlinder?", name: "Jan", for: "Guido Totté", s: "nu" },
+        { id: 3, text: "Wat is het verschil tussen liberale LGBTQ+-emancipatie en een antikapitalistische queerpolitiek?", name: "", for: "Peter Drucker", s: "open" },
+        { id: 4, text: "Welke rol speelt kunst vandaag nog in queer verzet, nu festivals steeds meer subsidies verliezen?", name: "", for: "Marcia Poelman", s: "open" },
+        { id: 5, text: "Is dit niet hetzelfde als rainbow capitalism? Kan Pride nog zonder sponsors?", name: "", for: "", s: "open" },
+        { id: 6, text: "Hoe verbinden we queer strijd met de strijd van mensen zonder papieren?", name: "Amal", for: "allen", s: "open" },
+        { id: 8, text: "Welk boek raden jullie aan om mee te beginnen?", name: "", for: "", s: "open" },
+      ];
+      const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+      const meta = (q) => `${q.name ? esc(q.name) : "anoniem"}${q.for ? ` · voor ${esc(q.for)}` : ""}`;
+      const SPEAKERS = ["Allen", "Marcia Poelman", "Guido Totté", "Peter Drucker"];
+      const opts = () => `<div class="c-opts">${SPEAKERS.map((n, i) => `<label><input type="radio" name="voor"${i ? "" : " checked"}><span>${n}</span></label>`).join("")}</div>`;
+      const intro = `<p class="intro">Stel je vraag liever niet hardop? Stuur ze hier.</p>`;
+      const stackedForm = () => `<form class="form" onsubmit="return false">
+          <textarea class="field" rows="1" placeholder="Je vraag"></textarea>
+          <input class="field" placeholder="Naam (niet verplicht)" />
+          <div><span class="c-label">Voor wie is je vraag?</span>${opts()}</div>
+          <div class="send"><button type="submit">versturen &gt;&gt;</button></div>
+        </form>`;
+      function listHtml() {
+        const visible = state === "empty" ? [] : [...Q].sort((a, b) => b.id - a.id).filter((q) => q.s !== "verborgen");
+        visible.sort((a, b) => (b.s === "nu") - (a.s === "nu"));
+        if (state === "sent") visible.splice(1, 0, { id: 99, text: "Hoe ga je om met transfobie binnen linkse organisaties zelf?", name: "", for: "allen", s: "open" });
+        if (!visible.length) return `<p class="empty-note">Nog geen vragen. Stel gerust de eerste.</p>`;
+        return `<ul class="plist">${visible.map((q) => {
+          const cls = q.s === "nu" ? "is-now" : q.s === "beantwoord" ? "is-answered" : "";
+          const tag = q.s === "nu" ? `<span class="tag">nu · </span>` : q.s === "beantwoord" ? `<span class="tag">beantwoord · </span>` : "";
+          return `<li class="${cls}"><div class="text">${esc(q.text)}</div><div class="meta">${tag}${meta(q)}</div></li>`;
+        }).join("")}</ul>`;
+      }
+
+      let width = "1280", state = "list";
+      function render() {
+        const sent = state === "sent";
+        const where = +width >= 1000 ? "hiernaast" : "hieronder";
+        const fb = sent
+          ? `<p class="ok">Verstuurd, dank je. Je vraag staat in de lijst ${where}.</p>`
+          : `<p class="hint">Je vraag verschijnt meteen in de lijst ${where} en op het scherm in de zaal.</p>`;
+        document.getElementById("page").innerHTML = `<div class="resp"><a class="back">&lt;&lt;</a><div class="cols">
+          <section class="form-col"><div class="head"><div class="title">Fight the cis-tem!</div><div class="subtitle">Queerness en antikapitalisme</div></div>${intro}${stackedForm()}${fb}</section>
+          <section class="list-col"><div class="h3">Vragen</div>${listHtml()}</section></div></div>`;
+        document.querySelector(".laptop").style.maxWidth = width + "px";
+        document.getElementById("note").textContent = +width >= 1000
+          ? "Vanaf 1000px: B. Formulier links en vastgezet, lijst rechts. De kop \"Vragen\" begint op dezelfde hoogte als de eventtitel."
+          : "Onder 1000px: A. Eén leeskolom van 640px, zoals op de telefoon: formulier boven, lijst eronder met de kleine kop \"Vragen\".";
+        document.querySelectorAll("[data-w]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.w === width));
+        document.querySelectorAll("[data-s]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === state));
+        document.querySelectorAll("#page textarea").forEach((t) => t.addEventListener("input", () => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }));
+      }
+      document.querySelectorAll("[data-w]").forEach((b) => b.addEventListener("click", () => { width = b.dataset.w; render(); }));
+      document.querySelectorAll("[data-s]").forEach((b) => b.addEventListener("click", () => { state = b.dataset.s; render(); }));
+      const p = new URLSearchParams(location.search);
+      width = p.get("w") || width;
+      state = p.get("s") || state;
+      render();
+    </script>
+  </body>
+</html>

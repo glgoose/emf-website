@@ -1,0 +1,219 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import VragenLayout from "../../layouts/VragenLayout.astro";
+
+const qrRaw = fs.readFileSync(
+  path.join(process.cwd(), "public/vragen-assets/qr-vragen.svg"),
+  "utf-8",
+);
+const viewBox = qrRaw.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 37 37";
+const qrInner = qrRaw.match(/<g id="QRcode">([\s\S]*)<\/g>\s*<\/svg>/)?.[1] ?? "";
+const qrSvg = `<svg class="qr" viewBox="${viewBox}" shape-rendering="crispEdges" aria-hidden="true"><g>${qrInner}</g></svg>`;
+---
+
+<VragenLayout title="Zaalscherm – vragen – Ernest Mandelfonds">
+  <div class="screen">
+    <div class="frame">
+      <div class="main" id="main"></div>
+      <div class="footer">
+        <div class="event">
+          <span class="title" id="footer-title"></span>
+          <span class="sub" id="footer-sub"></span>
+        </div>
+        <div class="ask">
+          <Fragment set:html={qrSvg} />
+          <div class="ask-text">
+            <div class="url">ernestmandelfonds.org/vragen</div>
+            <div class="small">scan om een vraag te stellen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    import "../../scripts/vragen/scherm";
+  </script>
+</VragenLayout>
+
+<style>
+  :global(body) {
+    background: #e9e7e2;
+    padding: 0;
+  }
+  .screen {
+    width: 100vw;
+    height: 100vh;
+    background: #faf9f6;
+    container-type: size;
+    overflow: hidden;
+  }
+  .frame {
+    height: 100%;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+  .main {
+    min-height: 0;
+    overflow: hidden;
+    padding: 4cqw 5cqw 2cqw;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3cqw;
+    padding: 1.4cqw 5cqw;
+    border-top: 1px solid #ddd;
+  }
+  .footer .event {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+  .footer .event .title {
+    font-size: 1.9cqw;
+    font-weight: 500;
+  }
+  .footer .event .sub {
+    font-size: 1.6cqw;
+    color: #666;
+    font-style: italic;
+  }
+  .footer .event .sub:empty {
+    display: none;
+  }
+  .footer .ask {
+    display: flex;
+    align-items: center;
+    gap: 1.4cqw;
+  }
+  .footer .ask-text {
+    line-height: 1.25;
+  }
+  .footer .ask-text .small {
+    font-size: 1.6cqw;
+    color: #444;
+  }
+  .footer .ask-text .url {
+    font-size: 1.9cqw;
+    font-weight: 500;
+  }
+  :global(.qr) {
+    display: block;
+    width: 7cqw;
+    height: 7cqw;
+  }
+
+  :global(.kicker) {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-size: 1.4cqw;
+    color: #666;
+    margin-bottom: 1cqw;
+  }
+  :global(.meta) {
+    font-size: 1.4cqw;
+    color: #666;
+    margin-top: 0.5cqw;
+  }
+
+  :global(.current) {
+    display: flex;
+    flex-direction: column;
+    gap: 2cqw;
+  }
+  :global(.current .q) {
+    border-left: 0.5cqw solid #111;
+    padding-left: 2cqw;
+  }
+  :global(.current .text) {
+    font-size: var(--cur-size, 3.4cqw);
+    line-height: 1.18;
+    font-weight: 500;
+  }
+
+  :global(.queue) {
+    list-style: none;
+  }
+  :global(.queue li) {
+    padding: 1cqw 0;
+    border-top: 1px solid #e3e3e3;
+  }
+  :global(.queue li:first-child) {
+    border-top: 0;
+  }
+  :global(.queue .text) {
+    font-size: 1.9cqw;
+    line-height: 1.25;
+  }
+  :global(.queue .meta) {
+    font-size: 1.2cqw;
+  }
+  :global(.more) {
+    font-size: 1.3cqw;
+    color: #666;
+    margin-top: 0.6cqw;
+  }
+
+  :global(.b) {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 4cqw;
+    height: 100%;
+  }
+  :global(.b .left),
+  :global(.b .right) {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  :global(.b .left) {
+    overflow: hidden;
+  }
+  :global(.b .right) {
+    border-left: 1px solid #ddd;
+    padding-left: 4cqw;
+  }
+  :global(.b .queue) {
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  :global(.invite) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  :global(.invite .big) {
+    font-size: 3.8cqw;
+    line-height: 1.15;
+    font-weight: 500;
+    font-style: italic;
+  }
+  :global(.invite .sub) {
+    font-size: 1.9cqw;
+    color: #555;
+    margin-top: 1.4cqw;
+  }
+  :global(.empty) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5cqw;
+  }
+  :global(.empty .big) {
+    font-size: 4cqw;
+    line-height: 1.15;
+    font-weight: 500;
+  }
+  :global(.empty .sub) {
+    font-size: 2.2cqw;
+    color: #555;
+    margin-top: 1.2cqw;
+  }
+</style>

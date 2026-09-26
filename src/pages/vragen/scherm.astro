@@ -3,13 +3,14 @@ import fs from "node:fs";
 import path from "node:path";
 import VragenLayout from "../../layouts/VragenLayout.astro";
 
-const qrRaw = fs.readFileSync(
-  path.join(process.cwd(), "public/vragen-assets/qr-vragen.svg"),
-  "utf-8",
-);
-const viewBox = qrRaw.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 37 37";
-const qrInner = qrRaw.match(/<g id="QRcode">([\s\S]*)<\/g>\s*<\/svg>/)?.[1] ?? "";
-const qrSvg = `<svg class="qr" viewBox="${viewBox}" shape-rendering="crispEdges" aria-hidden="true"><g>${qrInner}</g></svg>`;
+function qrSvg(bestand: string): string {
+  const raw = fs.readFileSync(path.join(process.cwd(), "public/vragen-assets", bestand), "utf-8");
+  const viewBox = raw.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 37 37";
+  const inner = raw.match(/<g id="QRcode">([\s\S]*)<\/g>\s*<\/svg>/)?.[1] ?? "";
+  return `<svg class="qr" viewBox="${viewBox}" shape-rendering="crispEdges" aria-hidden="true"><g>${inner}</g></svg>`;
+}
+const qrNl = qrSvg("qr-vragen.svg");
+const qrEn = qrSvg("qr-questions.svg");
 ---
 
 <VragenLayout title="Zaalscherm – vragen – Ernest Mandelfonds">
@@ -21,11 +22,18 @@ const qrSvg = `<svg class="qr" viewBox="${viewBox}" shape-rendering="crispEdges"
           <span class="title" id="footer-title"></span>
           <span class="sub" id="footer-sub"></span>
         </div>
-        <div class="ask">
-          <Fragment set:html={qrSvg} />
+        <div class="ask" data-taal="nl">
+          <Fragment set:html={qrNl} />
           <div class="ask-text">
             <div class="url">ernestmandelfonds.org/vragen</div>
             <div class="small">scan om een vraag te stellen</div>
+          </div>
+        </div>
+        <div class="ask" data-taal="en" hidden>
+          <Fragment set:html={qrEn} />
+          <div class="ask-text">
+            <div class="url">ernestmandelfonds.org/questions</div>
+            <div class="small">scan to ask a question</div>
           </div>
         </div>
       </div>
@@ -82,6 +90,9 @@ const qrSvg = `<svg class="qr" viewBox="${viewBox}" shape-rendering="crispEdges"
     font-style: italic;
   }
   .footer .event .sub:empty {
+    display: none;
+  }
+  .footer .ask[hidden] {
     display: none;
   }
   .footer .ask {

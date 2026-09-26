@@ -13,3 +13,9 @@
 
 /vragen/*
   X-Robots-Tag: noindex, nofollow
+
+/questions
+  X-Robots-Tag: noindex, nofollow
+
+/questions/*
+  X-Robots-Tag: noindex, nofollow

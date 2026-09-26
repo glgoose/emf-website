@@ -49,8 +49,35 @@ export function normaliseerVoorWie(input: unknown): string | null {
   return trimmed === "" || trimmed === "Allen" ? null : trimmed;
 }
 
+export type Taal = "nl" | "en";
+
+export function leesTaal(input: unknown): Taal {
+  return input === "en" ? "en" : "nl";
+}
+
 export interface ValidatieFout {
   error: string;
+}
+
+const FOUTEN = {
+  nl: {
+    leeg: "Schrijf eerst je vraag.",
+    tekst: (max: number) => `Je vraag is te lang (max. ${max} tekens).`,
+    naam: (max: number) => `Je naam is te lang (max. ${max} tekens).`,
+    voorWie: "Kies voor wie je vraag is.",
+    afgesloten: "Vragen insturen is afgesloten voor deze activiteit.",
+  },
+  en: {
+    leeg: "Write your question first.",
+    tekst: (max: number) => `Your question is too long (max. ${max} characters).`,
+    naam: (max: number) => `Your name is too long (max. ${max} characters).`,
+    voorWie: "Choose who your question is for.",
+    afgesloten: "Questions are closed for this event.",
+  },
+};
+
+export function afgeslotenFout(taal: Taal = "nl"): string {
+  return FOUTEN[taal].afgesloten;
 }
 
 export function valideerVraag(
@@ -58,17 +85,13 @@ export function valideerVraag(
   naam: string | null,
   voorWie: string | null,
   speakers: string[],
+  taal: Taal = "nl",
 ): ValidatieFout | null {
-  if (tekst.length < 1) return { error: "Schrijf eerst je vraag." };
-  if (tekst.length > MAX_TEKST) {
-    return { error: `Je vraag is te lang (max. ${MAX_TEKST} tekens).` };
-  }
-  if (naam !== null && naam.length > MAX_NAAM) {
-    return { error: `Je naam is te lang (max. ${MAX_NAAM} tekens).` };
-  }
-  if (voorWie !== null && !speakers.includes(voorWie)) {
-    return { error: "Kies voor wie je vraag is." };
-  }
+  const f = FOUTEN[taal];
+  if (tekst.length < 1) return { error: f.leeg };
+  if (tekst.length > MAX_TEKST) return { error: f.tekst(MAX_TEKST) };
+  if (naam !== null && naam.length > MAX_NAAM) return { error: f.naam(MAX_NAAM) };
+  if (voorWie !== null && !speakers.includes(voorWie)) return { error: f.voorWie };
   return null;
 }
 
@@ -97,7 +120,7 @@ export function isVoorbij(e: VragenEvent, vandaag: string = brusselsVandaag()): 
   return e.date < vandaag;
 }
 
-export function metaTekst(naam: string | null, voorWie: string | null): string {
-  const wie = naam ?? "anoniem";
-  return voorWie ? `${wie} · voor ${voorWie}` : wie;
+export function metaTekst(naam: string | null, voorWie: string | null, taal: Taal = "nl"): string {
+  const wie = naam ?? (taal === "en" ? "anonymous" : "anoniem");
+  return voorWie ? `${wie} · ${taal === "en" ? "for" : "voor"} ${voorWie}` : wie;
 }

@@ -1,4 +1,4 @@
-import { kiesHuidigEvent, type VragenEvent } from "../../lib/vragen";
+import { kiesHuidigEvent, type Taal, type VragenEvent } from "../../lib/vragen";
 
 export function leesEvents(): VragenEvent[] {
   try {
@@ -67,6 +67,26 @@ export function startPoller<T extends { versie: number; ongewijzigd?: boolean }>
 // de nieuwe lijst meteen door, zonder op de volgende poll van het scherm te wachten.
 export function vragenKanaal(): BroadcastChannel | null {
   return typeof BroadcastChannel === "undefined" ? null : new BroadcastChannel("emf-vragen");
+}
+
+// Taal van het zaalscherm, gekozen in beheer. Gedeeld via localStorage en het kanaal.
+const SCHERMTAAL_KEY = "emf-vragen-schermtaal";
+
+export function leesSchermTaal(): Taal | null {
+  try {
+    const t = localStorage.getItem(SCHERMTAAL_KEY);
+    return t === "nl" || t === "en" ? t : null;
+  } catch {
+    return null;
+  }
+}
+
+export function bewaarSchermTaal(taal: Taal) {
+  try {
+    localStorage.setItem(SCHERMTAAL_KEY, taal);
+  } catch {
+    // geen lokale opslag, het kanaal en de URL dragen de keuze nog
+  }
 }
 
 const PINCODE_KEY = "emf-vragen-pincode";

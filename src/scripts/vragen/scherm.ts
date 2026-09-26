@@ -1,5 +1,5 @@
-import type { Vraag, VragenEvent } from "../../lib/vragen";
-import { huidigEvent, escapeHtml, vragenKanaal } from "./client";
+import { leesTaal, metaTekst, type Taal, type Vraag, type VragenEvent } from "../../lib/vragen";
+import { huidigEvent, escapeHtml, vragenKanaal, leesSchermTaal } from "./client";
 
 interface SchermAntwoord {
   versie: number;
@@ -12,7 +12,37 @@ const main = document.getElementById("main") as HTMLElement | null;
 const footerTitle = document.getElementById("footer-title");
 const footerSub = document.getElementById("footer-sub");
 
-const meta = (q: Vraag) => escapeHtml(`${q.naam ?? "anoniem"}${q.voor_wie ? ` · voor ${q.voor_wie}` : ""}`);
+const TEKST = {
+  nl: {
+    nu: "nu",
+    volgende: "volgende",
+    binnengekomen: "binnengekomen",
+    meer: (n: number) => `+ ${n} andere ${n === 1 ? "vraag" : "vragen"}`,
+    leeg: "Nog geen vragen.",
+    leegSub: "Scan de code rechtsonder en stel de eerste.",
+    uitnodiging: "Vragen uit de zaal",
+    uitnodigingSub: "Stel je vraag liever niet hardop? Stuur ze online, bijvoorbeeld via je smartphone.",
+    geenEvent: "Geen actieve activiteit.",
+  },
+  en: {
+    nu: "now",
+    volgende: "next",
+    binnengekomen: "incoming",
+    meer: (n: number) => `+ ${n} more ${n === 1 ? "question" : "questions"}`,
+    leeg: "No questions yet.",
+    leegSub: "Scan the code at the bottom right and ask the first one.",
+    uitnodiging: "Questions from the floor",
+    uitnodigingSub: "Rather not ask your question out loud? Send it online, for instance from your smartphone.",
+    geenEvent: "No active event.",
+  },
+};
+
+// URL-parameter voor een scherm op een andere machine, anders de keuze uit beheer in deze browser.
+const urlTaal = new URLSearchParams(location.search).get("lang");
+let taal: Taal = urlTaal ? leesTaal(urlTaal) : (leesSchermTaal() ?? "nl");
+let T = TEKST[taal];
+
+const meta = (q: Vraag) => escapeHtml(metaTekst(q.naam, q.voor_wie, taal));
 
 function curHtml(qs: Vraag[]): string {
   return `<div class="current">${qs
@@ -60,14 +90,16 @@ function fitQueue(root: HTMLElement) {
     }
     const hidden = total - ul.children.length;
     more.hidden = hidden === 0;
-    more.textContent = `+ ${hidden} andere ${hidden === 1 ? "vraag" : "vragen"}`;
+    more.textContent = T.meer(hidden);
   });
 }
 
 let curStart = 3.0;
+let laatste: Vraag[] | null = null;
 
 function render(vragen: Vraag[]) {
   if (!main) return;
+  laatste = vragen;
   const zichtbaar = vragen.filter((q) => q.status !== "beantwoord" && q.status !== "verborgen");
   const oudsteEerst = [...zichtbaar].sort((a, b) => a.id - b.id);
   const cur = oudsteEerst.filter((q) => q.status === "nu");
@@ -75,12 +107,12 @@ function render(vragen: Vraag[]) {
 
   let html: string;
   if (!zichtbaar.length) {
-    html = `<div class="empty"><div><div class="big">Nog geen vragen.</div><div class="sub">Scan de code rechtsonder en stel de eerste.</div></div></div>`;
+    html = `<div class="empty"><div><div class="big">${T.leeg}</div><div class="sub">${T.leegSub}</div></div></div>`;
   } else {
     const left = cur.length
-      ? `<div class="kicker">nu</div>${curHtml(cur)}`
-      : `<div class="invite"><div class="big">Vragen uit de zaal</div><div class="sub">Stel je vraag liever niet hardop? Stuur ze online, bijvoorbeeld via je smartphone.</div></div>`;
-    html = `<div class="b"><div class="left">${left}</div><div class="right"><div class="kicker">${cur.length ? "volgende" : "binnengekomen"}</div>${listHtml(rest)}</div></div>`;
+      ? `<div class="kicker">${T.nu}</div>${curHtml(cur)}`
+      : `<div class="invite"><div class="big">${T.uitnodiging}</div><div class="sub">${T.uitnodigingSub}</div></div>`;
+    html = `<div class="b"><div class="left">${left}</div><div class="right"><div class="kicker">${cur.length ? T.volgende : T.binnengekomen}</div>${listHtml(rest)}</div></div>`;
   }
   main.innerHTML = html;
 
@@ -94,11 +126,31 @@ function vulFooter(ev: VragenEvent) {
   if (footerSub) footerSub.textContent = ev.subtitle ?? "";
 }
 
+function renderGeenEvent() {
+  if (main) main.innerHTML = `<div class="empty"><div><div class="big">${T.geenEvent}</div></div></div>`;
+}
+
+function zetTaal(nieuw: Taal) {
+  taal = nieuw;
+  T = TEKST[taal];
+  document.documentElement.lang = taal;
+  document.querySelectorAll<HTMLElement>(".footer .ask").forEach((el) => {
+    el.hidden = el.dataset.taal !== taal;
+  });
+  // Een herlaad van dit venster houdt de taal die beheer laatst koos.
+  const url = new URL(location.href);
+  url.searchParams.set("lang", taal);
+  history.replaceState(null, "", url);
+  if (!event) renderGeenEvent();
+  else if (laatste) render(laatste);
+}
+
+zetTaal(taal);
+
 if (!event) {
-  if (main) {
-    main.innerHTML =
-      '<div class="empty"><div><div class="big">Geen actieve activiteit.</div></div></div>';
-  }
+  vragenKanaal()?.addEventListener("message", (e: MessageEvent<{ taal?: string }>) => {
+    if (e.data?.taal) zetTaal(leesTaal(e.data.taal));
+  });
 } else {
   vulFooter(event);
 
@@ -128,9 +180,13 @@ if (!event) {
   }
 
   poll();
-  vragenKanaal()?.addEventListener("message", (e: MessageEvent<{ event?: string; vragen?: Vraag[] }>) => {
-    if (e.data?.event === event!.slug && Array.isArray(e.data.vragen)) render(e.data.vragen);
-  });
+  vragenKanaal()?.addEventListener(
+    "message",
+    (e: MessageEvent<{ event?: string; vragen?: Vraag[]; taal?: string }>) => {
+      if (e.data?.taal) zetTaal(leesTaal(e.data.taal));
+      if (e.data?.event === event!.slug && Array.isArray(e.data.vragen)) render(e.data.vragen);
+    },
+  );
   window.addEventListener("resize", () => {
     if (!main) return;
     fitCurrent(main, curStart);

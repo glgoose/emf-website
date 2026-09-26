@@ -1,0 +1,321 @@
+---
+import { MAX_TEKST, type Taal } from "../../lib/vragen";
+
+interface Props {
+  taal: Taal;
+}
+
+const { taal } = Astro.props;
+
+const TEKST = {
+  nl: {
+    terug: "Terug",
+    intro: "Stel je vraag liever niet hardop? Stuur ze hier.",
+    vraag: "Je vraag",
+    naam: "Naam (niet verplicht)",
+    voorWie: "Voor wie is je vraag?",
+    tekens: "tekens",
+    versturen: "versturen",
+    ok: "Verstuurd, dank je. Je vraag staat in de lijst hieronder.",
+    lijst: "Vragen",
+    leeg: "Nog geen vragen. Stel gerust de eerste.",
+  },
+  en: {
+    terug: "Back",
+    intro: "Rather not ask your question out loud? Send it here.",
+    vraag: "Your question",
+    naam: "Name (optional)",
+    voorWie: "Who is your question for?",
+    tekens: "characters",
+    versturen: "send",
+    ok: "Sent, thank you. Your question is in the list below.",
+    lijst: "Questions",
+    leeg: "No questions yet. Feel free to ask the first one.",
+  },
+};
+const t = TEKST[taal];
+---
+
+<main id="vragen" class="vragen-pub">
+  <div class="cols">
+    <section class="form-col">
+      <div class="head">
+        <a href="/" class="back" aria-label={t.terug}>&lt;&lt;</a>
+        <div class="title" id="event-title"></div>
+        <div class="subtitle" id="event-subtitle"></div>
+      </div>
+      <p class="intro">{t.intro}</p>
+      <form class="form" id="vragen-form">
+        <textarea
+          class="field"
+          rows="1"
+          placeholder={t.vraag}
+          id="vragen-tekst"
+          name="tekst"
+          maxlength={MAX_TEKST}
+          aria-describedby="vragen-teller"></textarea>
+        <input class="field" placeholder={t.naam} name="naam" />
+        <div>
+          <span class="c-label">{t.voorWie}</span>
+          <div class="c-opts" id="vragen-voorwie"></div>
+        </div>
+        <div class="send">
+          <span class="teller" id="vragen-teller">0 / {MAX_TEKST} {t.tekens}</span>
+          <button type="submit">{t.versturen} &gt;&gt;</button>
+        </div>
+      </form>
+      <p class="hint" id="vragen-hint"></p>
+      <p class="ok" id="vragen-ok" hidden>
+        {t.ok}
+      </p>
+    </section>
+
+    <section class="list-col">
+      <div class="h3">{t.lijst}</div>
+      <ul class="plist" id="vragen-lijst"></ul>
+      <p class="empty-note" id="vragen-leeg" hidden>
+        {t.leeg}
+      </p>
+    </section>
+  </div>
+</main>
+<script>
+  import "../../scripts/vragen/publiek";
+</script>
+
+<style>
+  .vragen-pub {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    font-size: 18px;
+  }
+  button,
+  input,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Same treatment as SidebarBackLink on the rest of the site. */
+  .back {
+    color: #bbb;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: 6px;
+    display: inline-block;
+  }
+  .back:hover,
+  .back:focus-visible {
+    color: #111;
+    text-decoration: none;
+  }
+  .head {
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #555;
+    line-height: 1.2;
+  }
+  .subtitle:empty {
+    display: none;
+  }
+  .intro {
+    margin: 18px 0 14px;
+    line-height: 1.35;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .field {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #111;
+    background: transparent;
+    outline: none;
+    padding: 0.45em 0.6em;
+  }
+  .field::placeholder {
+    color: #999;
+  }
+  textarea.field {
+    resize: none;
+    line-height: 1.35;
+    overflow: hidden;
+  }
+  .c-label {
+    display: block;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    color: #111;
+    font-size: 0.95rem;
+    margin: 6px 0 6px;
+  }
+  .c-opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .c-opts :global(label) {
+    cursor: pointer;
+  }
+  .c-opts :global(input) {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .c-opts :global(span) {
+    display: inline-block;
+    border: 1px solid #bbb;
+    border-radius: 999px;
+    padding: 0.15em 0.8em;
+    font-size: 0.95rem;
+  }
+  .c-opts :global(input:checked + span) {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+  }
+  .c-opts :global(input:focus-visible + span) {
+    outline: 2px solid #111;
+    outline-offset: 2px;
+  }
+  .send {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .teller {
+    font-size: 0.85rem;
+    color: #999;
+    font-variant-numeric: tabular-nums;
+  }
+  .send button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 1.05rem;
+    text-underline-offset: 2px;
+  }
+  .send button:hover {
+    text-decoration: underline;
+  }
+  .hint {
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.35;
+    margin-top: 16px;
+    font-style: italic;
+  }
+  .ok {
+    font-size: 0.9rem;
+    color: #111;
+    margin-top: 10px;
+  }
+  .h3 {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .plist :global(.meta) {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 2px;
+  }
+  .plist {
+    list-style: none;
+    margin-top: 10px;
+  }
+  .plist :global(li) {
+    padding: 12px 0;
+    border-top: 1px solid #e3e3e3;
+  }
+  .plist :global(li:first-child) {
+    border-top: 0;
+  }
+  .plist :global(.text) {
+    line-height: 1.3;
+  }
+  .plist :global(li.is-now) {
+    border-left: 3px solid #111;
+    padding-left: 12px;
+  }
+  .plist :global(li.is-answered) {
+    color: #999;
+  }
+  .plist :global(li.is-answered .meta) {
+    color: #aaa;
+  }
+  .plist :global(.tag) {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+  }
+  .plist :global(li.is-now .tag) {
+    font-weight: 700;
+    color: #111;
+  }
+  .vragen-pub :global(.empty-note) {
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+  }
+  .cols > section + section {
+    margin-top: 40px;
+  }
+
+  @media (min-width: 1000px) {
+    .vragen-pub {
+      max-width: none;
+      padding: 96px 64px 112px;
+    }
+    /* Back link moves into the left gutter beside the title, revealed on hover. */
+    .back {
+      position: absolute;
+      right: 100%;
+      top: 0.55rem;
+      margin: 0 0.6em 0 0;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+      transition:
+        color 140ms ease,
+        opacity 140ms ease;
+    }
+    .head:hover .back,
+    .back:focus-visible {
+      opacity: 1;
+    }
+    .cols {
+      display: grid;
+      grid-template-columns: minmax(430px, 6fr) minmax(0, 7fr);
+      gap: 80px;
+      align-items: start;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .cols > section + section {
+      margin-top: 0;
+    }
+    .form-col {
+      position: sticky;
+      top: 0;
+    }
+    .list-col {
+      border-left: 1px solid #e3e3e3;
+      padding-left: 56px;
+    }
+  }
+</style>

@@ -8,6 +8,8 @@ import {
   valideerVraag,
   brusselsVandaag,
   isVoorbij,
+  leesTaal,
+  afgeslotenFout,
   type Vraag,
 } from "../../../src/lib/vragen";
 import { type Env, json, valideerEventSlug } from "../../_lib/vragen";
@@ -60,16 +62,17 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const uitkomst = await valideerEventSlug(env, request.url, body?.event);
   if ("fout" in uitkomst) return uitkomst.fout;
   const { event } = uitkomst;
+  const taal = leesTaal(body?.taal);
 
   if (isVoorbij(event, brusselsVandaag())) {
-    return json({ error: "Vragen insturen is afgesloten voor deze activiteit." }, 409);
+    return json({ error: afgeslotenFout(taal) }, 409);
   }
 
   const tekst = normaliseerTekst(body?.tekst);
   const naam = normaliseerNaam(body?.naam);
   const voorWie = normaliseerVoorWie(body?.voor_wie);
 
-  const fout = valideerVraag(tekst, naam, voorWie, event.speakers);
+  const fout = valideerVraag(tekst, naam, voorWie, event.speakers, taal);
   if (fout) return json(fout, 400);
 
   const insert = await env.DB.prepare(

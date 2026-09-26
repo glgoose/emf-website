@@ -24,18 +24,27 @@ import VragenLayout from "../../layouts/VragenLayout.astro";
     <div id="paneel" hidden>
       <div class="desk-head">
         <div class="title">beheer <span class="chevron">›</span> vragen</div>
-        <a
-          href="/vragen/scherm"
-          target="_blank"
-          rel="noopener"
-          class="present"
-          aria-label="Zaalscherm openen in een nieuw venster"
-          data-tip="Zaalscherm openen in een nieuw venster"
-          ><svg viewBox="0 0 24 24" aria-hidden="true"
-            ><path d="M3 4h18"></path><rect x="4" y="4" width="16" height="11"></rect
-            ><path d="M12 15v3M8 21l4-3 4 3"></path></svg
-          ></a
-        >
+        <div class="head-tools">
+          <div class="taal" role="group" aria-label="Taal van het zaalscherm">
+            <button type="button" data-taal="nl" aria-pressed="true" data-tip="Zaalscherm in het Nederlands"
+              >NL</button
+            ><button type="button" data-taal="en" aria-pressed="false" data-tip="Zaalscherm in het Engels"
+              >EN</button
+            >
+          </div>
+          <a
+            href="/vragen/scherm"
+            target="_blank"
+            rel="noopener"
+            class="present"
+            aria-label="Zaalscherm openen in een nieuw venster"
+            data-tip="Zaalscherm openen in een nieuw venster"
+            ><svg viewBox="0 0 24 24" aria-hidden="true"
+              ><path d="M3 4h18"></path><rect x="4" y="4" width="16" height="11"></rect
+              ><path d="M12 15v3M8 21l4-3 4 3"></path></svg
+            ></a
+          >
+        </div>
       </div>
 
       <div class="filters" id="filters"></div>
@@ -130,6 +139,48 @@ import VragenLayout from "../../layouts/VragenLayout.astro";
   .desk-head a {
     color: #111;
     font-size: 0.95rem;
+  }
+  .head-tools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .taal {
+    display: flex;
+    gap: 10px;
+    font-size: 0.95rem;
+  }
+  .taal button {
+    position: relative;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    padding: 0 0 2px;
+    cursor: pointer;
+    color: #666;
+    letter-spacing: 0.08em;
+  }
+  .taal button:hover {
+    color: #111;
+  }
+  .taal button[aria-pressed="true"] {
+    color: #111;
+    border-bottom-color: #111;
+  }
+  .taal button:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: #111;
+    color: #fff;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
   }
   .present {
     position: relative;

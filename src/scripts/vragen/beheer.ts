@@ -1,5 +1,15 @@
-import type { Status, Vraag } from "../../lib/vragen";
-import { huidigEvent, leesPincode, bewaarPincode, wisPincode, escapeHtml, startPoller, vragenKanaal } from "./client";
+import { leesTaal, type Status, type Taal, type Vraag } from "../../lib/vragen";
+import {
+  huidigEvent,
+  leesPincode,
+  bewaarPincode,
+  wisPincode,
+  escapeHtml,
+  startPoller,
+  vragenKanaal,
+  leesSchermTaal,
+  bewaarSchermTaal,
+} from "./client";
 
 interface BeheerAntwoord {
   versie: number;
@@ -255,8 +265,29 @@ rowsEl?.addEventListener("click", async (e) => {
   poller?.pollNu();
 });
 
+// Taal van het zaalscherm: een open scherm in deze browser wisselt meteen via het kanaal,
+// de URL-parameter draagt de keuze naar een scherm dat later of elders geopend wordt.
+const presentLink = document.querySelector<HTMLAnchorElement>("a.present");
+const taalKnoppen = document.querySelectorAll<HTMLButtonElement>(".taal button");
+
+function toonSchermTaal(taal: Taal) {
+  taalKnoppen.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.taal === taal)));
+  if (presentLink) presentLink.href = `/vragen/scherm?lang=${taal}`;
+}
+
+toonSchermTaal(leesSchermTaal() ?? "nl");
+
+taalKnoppen.forEach((b) =>
+  b.addEventListener("click", () => {
+    const taal = leesTaal(b.dataset.taal);
+    bewaarSchermTaal(taal);
+    toonSchermTaal(taal);
+    kanaal?.postMessage({ taal });
+  }),
+);
+
 // Eigen venster zodat het naar de beamer kan en de beheertab zichtbaar blijft
-document.querySelector<HTMLAnchorElement>("a.present")?.addEventListener("click", (e) => {
+presentLink?.addEventListener("click", (e) => {
   const link = e.currentTarget as HTMLAnchorElement;
   const venster = window.open(link.href, "zaalscherm", "popup,width=1280,height=720");
   if (venster) {

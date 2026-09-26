@@ -4,14 +4,15 @@ import { getVragenEvents } from '../lib/vragenEvents';
 
 interface Props {
   title: string;
+  lang?: "nl" | "en";
 }
 
-const { title } = Astro.props;
+const { title, lang = "nl" } = Astro.props;
 const events = await getVragenEvents();
 ---
 
 <!doctype html>
-<html lang="nl">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

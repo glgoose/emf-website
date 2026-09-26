@@ -49,10 +49,12 @@ export function normaliseerVoorWie(input: unknown): string | null {
   return trimmed === "" || trimmed === "Allen" ? null : trimmed;
 }
 
-export type Taal = "nl" | "en";
+export type Taal = "nl" | "en" | "fr";
+export const TALEN = ["nl", "en", "fr"] as const;
 
 export function leesTaal(input: unknown): Taal {
-  return input === "en" ? "en" : "nl";
+  if (input === "en" || input === "fr") return input;
+  return "nl";
 }
 
 export interface ValidatieFout {
@@ -73,6 +75,13 @@ const FOUTEN = {
     naam: (max: number) => `Your name is too long (max. ${max} characters).`,
     voorWie: "Choose who your question is for.",
     afgesloten: "Questions are closed for this event.",
+  },
+  fr: {
+    leeg: "Écrivez d’abord votre question.",
+    tekst: (max: number) => `Votre question est trop longue (max. ${max} caractères).`,
+    naam: (max: number) => `Votre nom est trop long (max. ${max} caractères).`,
+    voorWie: "Choisissez à qui s’adresse votre question.",
+    afgesloten: "L’envoi de questions est clôturé pour cette activité.",
   },
 };
 
@@ -120,7 +129,10 @@ export function isVoorbij(e: VragenEvent, vandaag: string = brusselsVandaag()): 
   return e.date < vandaag;
 }
 
+const ANONIEM: Record<Taal, string> = { nl: "anoniem", en: "anonymous", fr: "anonyme" };
+const VOOR: Record<Taal, string> = { nl: "voor", en: "for", fr: "pour" };
+
 export function metaTekst(naam: string | null, voorWie: string | null, taal: Taal = "nl"): string {
-  const wie = naam ?? (taal === "en" ? "anonymous" : "anoniem");
-  return voorWie ? `${wie} · ${taal === "en" ? "for" : "voor"} ${voorWie}` : wie;
+  const wie = naam ?? ANONIEM[taal];
+  return voorWie ? `${wie} · ${VOOR[taal]} ${voorWie}` : wie;
 }

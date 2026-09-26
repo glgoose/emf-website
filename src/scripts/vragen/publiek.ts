@@ -6,9 +6,11 @@ import {
   valideerVraag,
   metaTekst,
   leesTaal,
+  type Taal,
   type Vraag,
 } from "../../lib/vragen";
 import { huidigEvent, startPoller, escapeHtml } from "./client";
+import { TEKST } from "./tekst";
 
 interface PubliekAntwoord {
   versie: number;
@@ -16,35 +18,37 @@ interface PubliekAntwoord {
   ongewijzigd?: boolean;
 }
 
-const taal = leesTaal(document.documentElement.lang);
-const T = {
-  nl: {
-    hiernaast: "hiernaast",
-    hieronder: "hieronder",
-    hint: (waar: string) => `Je vraag verschijnt meteen in de lijst ${waar} en op het scherm in de zaal.`,
-    ok: (waar: string) => `Verstuurd, dank je. Je vraag staat in de lijst ${waar}.`,
-    tekens: "tekens",
-    nu: "nu",
-    beantwoord: "beantwoord",
-    allen: "Allen",
-    geenEvent: "Op dit moment is er geen activiteit waarvoor je een vraag kan insturen.",
-    fout: "Er ging iets mis. Probeer opnieuw.",
-    netwerk: "Netwerkfout. Probeer later opnieuw.",
-  },
-  en: {
-    hiernaast: "on the right",
-    hieronder: "below",
-    hint: (waar: string) => `Your question appears right away in the list ${waar} and on the screen in the room.`,
-    ok: (waar: string) => `Sent, thank you. Your question is in the list ${waar}.`,
-    tekens: "characters",
-    nu: "now",
-    beantwoord: "answered",
-    allen: "Everyone",
-    geenEvent: "There is currently no event for which you can submit a question.",
-    fout: "Something went wrong. Please try again.",
-    netwerk: "Network error. Please try again later.",
-  },
-}[taal];
+const TAAL_KEY = "emf-vragen-taal";
+
+function leesOpgeslagenTaal(): Taal | null {
+  try {
+    const t = localStorage.getItem(TAAL_KEY);
+    return t === "nl" || t === "en" || t === "fr" ? t : null;
+  } catch {
+    return null;
+  }
+}
+
+function bewaarTaal(t: Taal) {
+  try {
+    localStorage.setItem(TAAL_KEY, t);
+  } catch {
+    // geen lokale opslag, keuze geldt alleen voor deze paginaweergave
+  }
+}
+
+// Paginadefault: het lang van de server-gerenderde HTML (nl op /vragen, en op /questions).
+const paginaDefault = leesTaal(document.documentElement.lang);
+
+function begintaal(): Taal {
+  const opgeslagen = leesOpgeslagenTaal();
+  if (opgeslagen) return opgeslagen;
+  if (paginaDefault === "en" && navigator.language.toLowerCase().startsWith("fr")) return "fr";
+  return paginaDefault;
+}
+
+let taal: Taal = begintaal();
+let T = TEKST[taal];
 
 const event = huidigEvent();
 const main = document.getElementById("vragen") as HTMLElement;
@@ -59,6 +63,7 @@ const titel = document.getElementById("event-title");
 const subtitel = document.getElementById("event-subtitle");
 const voorWieWrap = document.getElementById("vragen-voorwie");
 const teller = document.getElementById("vragen-teller");
+const taalKnoppen = document.querySelectorAll<HTMLButtonElement>(".talen button");
 
 const breed = window.matchMedia("(min-width: 1000px)");
 function waar(): string {
@@ -79,7 +84,10 @@ function groei() {
 veld?.addEventListener("input", groei);
 groei();
 
+let laatsteVragen: Vraag[] = [];
+
 function renderLijst(vragen: Vraag[]) {
+  laatsteVragen = vragen;
   if (!lijst || !leeg) return;
   const zichtbaar = [...vragen].sort((a, b) => b.id - a.id);
   zichtbaar.sort((a, b) => Number(b.status === "nu") - Number(a.status === "nu"));
@@ -99,11 +107,64 @@ function renderLijst(vragen: Vraag[]) {
     .join("");
 }
 
+function pasStatischeTekstToe() {
+  document.querySelectorAll<HTMLElement>("[data-t]").forEach((el) => {
+    const key = el.dataset.t as keyof typeof T;
+    const waarde = T[key];
+    if (typeof waarde === "string") el.textContent = waarde;
+  });
+  document.querySelectorAll<HTMLElement>("[data-t-placeholder]").forEach((el) => {
+    const key = el.dataset.tPlaceholder as keyof typeof T;
+    const waarde = T[key];
+    if (typeof waarde === "string") (el as HTMLInputElement | HTMLTextAreaElement).placeholder = waarde;
+  });
+  document.querySelectorAll<HTMLElement>("[data-t-aria]").forEach((el) => {
+    const key = el.dataset.tAria as keyof typeof T;
+    const waarde = T[key];
+    if (typeof waarde === "string") el.setAttribute("aria-label", waarde);
+  });
+  if (teller && veld) teller.textContent = `${veld.value.length} / ${MAX_TEKST} ${T.tekens}`;
+}
+
+function pasVoorWieLabelToe() {
+  if (!voorWieWrap) return;
+  const eersteSpan = voorWieWrap.querySelector("label:first-child span");
+  if (eersteSpan) eersteSpan.textContent = T.allen;
+}
+
+function pasTaalToe(nieuw: Taal) {
+  taal = nieuw;
+  T = TEKST[taal];
+  document.documentElement.lang = taal;
+  document.title = T.titel;
+  bewaarTaal(taal);
+  taalKnoppen.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.taal === taal)));
+
+  pasStatischeTekstToe();
+  pasVoorWieLabelToe();
+  initHint();
+  if (event) renderLijst(laatsteVragen);
+  else {
+    const geenEventNote = document.getElementById("vragen-geen");
+    if (geenEventNote) geenEventNote.textContent = T.geenEvent;
+  }
+}
+
+taalKnoppen.forEach((b) =>
+  b.addEventListener("click", () => {
+    const gekozen = leesTaal(b.dataset.taal);
+    pasTaalToe(gekozen);
+  }),
+);
+
 let poller: { pollNu: () => void } | null = null;
 
 if (!event) {
   if (main) {
-    main.innerHTML = `<p class="empty-note">${T.geenEvent}</p>`;
+    const cols = main.querySelector(".cols");
+    if (cols) {
+      cols.innerHTML = `<p class="empty-note" id="vragen-geen">${T.geenEvent}</p>`;
+    }
   }
 } else {
   if (titel) titel.textContent = event.title;
@@ -129,6 +190,10 @@ if (!event) {
     onData: (data) => renderLijst(data.vragen),
   });
 }
+
+// Server-render was in paginaDefault; als de begintaal daarvan afwijkt, meteen aanpassen.
+if (taal !== paginaDefault) pasTaalToe(taal);
+else taalKnoppen.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.taal === taal)));
 
 function toonFout(bericht: string) {
   if (!hint) return;

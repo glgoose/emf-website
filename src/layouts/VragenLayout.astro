@@ -1,10 +1,11 @@
 ---
 import '../styles/global.css';
 import { getVragenEvents } from '../lib/vragenEvents';
+import type { Taal } from '../lib/vragen';
 
 interface Props {
   title: string;
-  lang?: "nl" | "en";
+  lang?: Taal;
 }
 
 const { title, lang = "nl" } = Astro.props;

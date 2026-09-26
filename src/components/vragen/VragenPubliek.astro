@@ -1,79 +1,59 @@
 ---
 import { MAX_TEKST, type Taal } from "../../lib/vragen";
+import { TEKST } from "../../scripts/vragen/tekst";
 
 interface Props {
   taal: Taal;
 }
 
 const { taal } = Astro.props;
-
-const TEKST = {
-  nl: {
-    terug: "Terug",
-    intro: "Stel je vraag liever niet hardop? Stuur ze hier.",
-    vraag: "Je vraag",
-    naam: "Naam (niet verplicht)",
-    voorWie: "Voor wie is je vraag?",
-    tekens: "tekens",
-    versturen: "versturen",
-    ok: "Verstuurd, dank je. Je vraag staat in de lijst hieronder.",
-    lijst: "Vragen",
-    leeg: "Nog geen vragen. Stel gerust de eerste.",
-  },
-  en: {
-    terug: "Back",
-    intro: "Rather not ask your question out loud? Send it here.",
-    vraag: "Your question",
-    naam: "Name (optional)",
-    voorWie: "Who is your question for?",
-    tekens: "characters",
-    versturen: "send",
-    ok: "Sent, thank you. Your question is in the list below.",
-    lijst: "Questions",
-    leeg: "No questions yet. Feel free to ask the first one.",
-  },
-};
 const t = TEKST[taal];
 ---
 
 <main id="vragen" class="vragen-pub">
+  <div class="talen" role="group" aria-label="Taal · Language · Langue">
+    <button type="button" data-taal="nl" aria-pressed={taal === "nl"}>NL</button
+    ><button type="button" data-taal="en" aria-pressed={taal === "en"}>EN</button
+    ><button type="button" data-taal="fr" aria-pressed={taal === "fr"}>FR</button>
+  </div>
   <div class="cols">
     <section class="form-col">
       <div class="head">
-        <a href="/" class="back" aria-label={t.terug}>&lt;&lt;</a>
+        <a href="/" class="back" data-t-aria="terug" aria-label={t.terug}>&lt;&lt;</a>
         <div class="title" id="event-title"></div>
         <div class="subtitle" id="event-subtitle"></div>
       </div>
-      <p class="intro">{t.intro}</p>
+      <p class="intro" data-t="intro">{t.intro}</p>
       <form class="form" id="vragen-form">
         <textarea
           class="field"
           rows="1"
           placeholder={t.vraag}
+          data-t-placeholder="vraag"
           id="vragen-tekst"
           name="tekst"
           maxlength={MAX_TEKST}
           aria-describedby="vragen-teller"></textarea>
-        <input class="field" placeholder={t.naam} name="naam" />
+        <input class="field" placeholder={t.naam} data-t-placeholder="naam" name="naam" />
         <div>
-          <span class="c-label">{t.voorWie}</span>
+          <span class="c-label" data-t="voorWie">{t.voorWie}</span>
           <div class="c-opts" id="vragen-voorwie"></div>
         </div>
         <div class="send">
           <span class="teller" id="vragen-teller">0 / {MAX_TEKST} {t.tekens}</span>
-          <button type="submit">{t.versturen} &gt;&gt;</button>
+          <button type="submit"><span data-t="versturen">{t.versturen}</span> &gt;&gt;</button>
         </div>
       </form>
       <p class="hint" id="vragen-hint"></p>
       <p class="ok" id="vragen-ok" hidden>
-        {t.ok}
+        {t.ok("")}
       </p>
     </section>
 
     <section class="list-col">
-      <div class="h3">{t.lijst}</div>
+      <div class="h3" data-t="lijst">{t.lijst}</div>
       <ul class="plist" id="vragen-lijst"></ul>
-      <p class="empty-note" id="vragen-leeg" hidden>
+      <p class="empty-note" id="vragen-leeg" data-t="leeg" hidden>
         {t.leeg}
       </p>
     </section>
@@ -85,6 +65,7 @@ const t = TEKST[taal];
 
 <style>
   .vragen-pub {
+    position: relative;
     max-width: 640px;
     margin: 0 auto;
     padding: 32px 24px 64px;
@@ -127,6 +108,31 @@ const t = TEKST[taal];
   }
   .subtitle:empty {
     display: none;
+  }
+  .talen {
+    position: absolute;
+    top: 32px;
+    right: 24px;
+    display: flex;
+    gap: 10px;
+  }
+  .talen button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.85rem;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    color: #999;
+  }
+  .talen button:hover,
+  .talen button:focus-visible {
+    color: #111;
+  }
+  .talen button[aria-pressed="true"] {
+    color: #111;
+    font-weight: 700;
   }
   .intro {
     margin: 18px 0 14px;
@@ -297,6 +303,10 @@ const t = TEKST[taal];
     .head:hover .back,
     .back:focus-visible {
       opacity: 1;
+    }
+    .talen {
+      top: 96px;
+      right: max(64px, calc((100% - 1000px) / 2));
     }
     .cols {
       display: grid;

@@ -1,4 +1,4 @@
-import { kiesHuidigEvent, type Taal, type VragenEvent } from "../../lib/vragen";
+import { kiesHuidigEvent, TALEN, type Taal, type VragenEvent } from "../../lib/vragen";
 
 export function leesEvents(): VragenEvent[] {
   try {
@@ -75,7 +75,7 @@ const SCHERMTAAL_KEY = "emf-vragen-schermtaal";
 export function leesSchermTaal(): Taal | null {
   try {
     const t = localStorage.getItem(SCHERMTAAL_KEY);
-    return t === "nl" || t === "en" ? t : null;
+    return (TALEN as readonly string[]).includes(t ?? "") ? (t as Taal) : null;
   } catch {
     return null;
   }

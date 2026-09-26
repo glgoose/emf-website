@@ -35,6 +35,17 @@ const TEKST = {
     uitnodigingSub: "Rather not ask your question out loud? Send it online, for instance from your smartphone.",
     geenEvent: "No active event.",
   },
+  fr: {
+    nu: "en cours",
+    volgende: "suivante",
+    binnengekomen: "reçues",
+    meer: (n: number) => `+ ${n} autre${n === 1 ? "" : "s"} question${n === 1 ? "" : "s"}`,
+    leeg: "Pas encore de questions.",
+    leegSub: "Scannez le code en bas à droite et posez la première.",
+    uitnodiging: "Questions de la salle",
+    uitnodigingSub: "Vous préférez ne pas poser votre question à voix haute ? Envoyez-la en ligne, par exemple depuis votre smartphone.",
+    geenEvent: "Aucune activité en cours.",
+  },
 };
 
 // URL-parameter voor een scherm op een andere machine, anders de keuze uit beheer in deze browser.
@@ -134,8 +145,10 @@ function zetTaal(nieuw: Taal) {
   taal = nieuw;
   T = TEKST[taal];
   document.documentElement.lang = taal;
+  // FR heeft geen eigen QR-blok: het toont hetzelfde /questions-blok als EN.
+  const askTaal = taal === "fr" ? "en" : taal;
   document.querySelectorAll<HTMLElement>(".footer .ask").forEach((el) => {
-    el.hidden = el.dataset.taal !== taal;
+    el.hidden = el.dataset.taal !== askTaal;
   });
   // Een herlaad van dit venster houdt de taal die beheer laatst koos.
   const url = new URL(location.href);

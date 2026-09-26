@@ -193,6 +193,10 @@ if (!event) {
   }
 
   initHint();
+  // Meteen renderen met de (lege) starttoestand, niet wachten tot de eerste poll
+  // binnen is - anders blijft "nog geen vragen" ten onrechte verborgen (statische
+  // hidden uit de template) totdat het netwerk voor het eerst antwoordt.
+  renderLijst(laatsteVragen);
 
   poller = startPoller<PubliekAntwoord>({
     url: (versie) =>

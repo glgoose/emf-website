@@ -113,7 +113,10 @@ import { MAX_TEKST } from "../../lib/vragen";
     border-bottom: 1px solid #111;
     background: transparent;
     outline: none;
-    padding: 0.4em 0;
+    padding: 0.45em 0.6em;
+  }
+  .field:focus {
+    background: #fafafa;
   }
   .field::placeholder {
     color: #999;
@@ -248,7 +251,7 @@ import { MAX_TEKST } from "../../lib/vragen";
   @media (min-width: 1000px) {
     .vragen-pub {
       max-width: none;
-      padding: 48px 64px 64px;
+      padding: 96px 64px 112px;
     }
     /* Back link moves into the left gutter beside the title, revealed on hover. */
     .back {
@@ -269,9 +272,11 @@ import { MAX_TEKST } from "../../lib/vragen";
     }
     .cols {
       display: grid;
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      gap: 72px;
+      grid-template-columns: minmax(430px, 6fr) minmax(0, 7fr);
+      gap: 80px;
       align-items: start;
+      max-width: 1000px;
+      margin: 0 auto;
     }
     .cols > section + section {
       margin-top: 0;
@@ -282,7 +287,7 @@ import { MAX_TEKST } from "../../lib/vragen";
     }
     .list-col {
       border-left: 1px solid #e3e3e3;
-      padding-left: 48px;
+      padding-left: 56px;
     }
   }
 </style>

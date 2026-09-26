@@ -27,6 +27,8 @@ const ICONEN: Record<string, string> = {
     '<svg viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M2 2l20 20"/></svg>',
   tonen:
     '<svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  verwijderen:
+    '<svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/></svg>',
 };
 
 const TITEL: Record<string, string> = {
@@ -35,6 +37,7 @@ const TITEL: Record<string, string> = {
   open: "Terug naar open",
   verborgen: "Verbergen, voor iedereen onzichtbaar",
   tonen: "Weer tonen, terug naar open",
+  verwijderen: "Definitief verwijderen",
 };
 
 const MELDING: Record<string, string> = {
@@ -43,6 +46,7 @@ const MELDING: Record<string, string> = {
   open: "Terug naar open",
   verborgen: "Verborgen",
   tonen: "Weer zichtbaar",
+  verwijderen: "Verwijderd",
 };
 
 // `weergave` kiest icoon, tooltip en melding los van de status die de knop zet.
@@ -51,7 +55,7 @@ function knop(actie: string, id: number, primair: string | undefined, weergave =
   return `<button data-a="${actie}" data-w="${weergave}" data-id="${id}" data-tip="${TITEL[weergave]}" aria-label="${TITEL[weergave]}" class="${isPrimary ? "primary" : ""}">${ICONEN[weergave]}</button>`;
 }
 
-// Vaste kolommen [nu of terug] [beantwoord] [verbergen], lege cel waar de actie niet geldt.
+// Vaste kolommen [nu of terug] [beantwoord] [verbergen of verwijderen], lege cel waar de actie niet geldt.
 function knoppenVoor(q: Vraag): string {
   const id = q.id;
   let kol1 = "";
@@ -69,9 +73,11 @@ function knoppenVoor(q: Vraag): string {
     kol1 = knop("open", id, undefined);
     kol3 = knop("verborgen", id, undefined);
   } else {
-    kol3 = knop("open", id, undefined, "tonen");
+    kol1 = knop("open", id, undefined, "tonen");
+    kol3 = knop("verwijderen", id, undefined);
   }
-  return `<div class="btns">${kol1}${kol2}${kol3}</div>`;
+  const cel = (k: string) => k || "<span></span>";
+  return `<div class="btns">${cel(kol1)}${cel(kol2)}${cel(kol3)}</div>`;
 }
 
 const meta = (q: Vraag) =>
@@ -176,9 +182,53 @@ async function stuurStatus(id: number, status: Status): Promise<boolean> {
   return true;
 }
 
+async function verwijder(id: number) {
+  if (!confirm("Deze vraag definitief verwijderen? Dit kan niet ongedaan gemaakt worden.")) return;
+  const pincode = leesPincode();
+  if (!pincode) return;
+  bezig++;
+  try {
+    const res = await fetch(`/api/vragen/${id}`, { method: "DELETE", headers: { "X-Admin-Key": pincode } });
+    if (res.status === 401) {
+      toonGate("Ongeldige pincode.");
+      wisPincode();
+      return;
+    }
+    if (res.status === 429) {
+      const data = await res.json().catch(() => null);
+      toonGate(wachtMelding(data?.wachtSeconden));
+      return;
+    }
+    if (!res.ok && res.status !== 404) {
+      toonGate("Server niet bereikbaar, probeer later opnieuw.");
+      return;
+    }
+  } catch {
+    toonGate("Server niet bereikbaar, probeer later opnieuw.");
+    return;
+  } finally {
+    bezig--;
+  }
+  vragen = vragen.filter((q) => q.id !== id);
+  snapshot = null;
+  render();
+  if (toastMsg) toastMsg.textContent = MELDING.verwijderen;
+  if (undoBtn) undoBtn.hidden = true;
+  if (toast) toast.hidden = false;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    if (toast) toast.hidden = true;
+  }, 5000);
+  poller?.pollNu();
+}
+
 rowsEl?.addEventListener("click", async (e) => {
   const b = (e.target as HTMLElement).closest("button[data-a]") as HTMLButtonElement | null;
   if (!b) return;
+  if (b.dataset.a === "verwijderen") {
+    verwijder(Number(b.dataset.id));
+    return;
+  }
   const actie = b.dataset.a as Status;
   const id = Number(b.dataset.id);
   const vorige = vragen.find((q) => q.id === id);
@@ -189,6 +239,7 @@ rowsEl?.addEventListener("click", async (e) => {
   render();
 
   if (toastMsg) toastMsg.textContent = MELDING[b.dataset.w ?? actie];
+  if (undoBtn) undoBtn.hidden = false;
   if (toast) toast.hidden = false;
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {

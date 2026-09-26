@@ -1,4 +1,5 @@
-// PATCH /api/vragen/<id>   status wijzigen, pincode vereist
+// PATCH  /api/vragen/<id>   status wijzigen, pincode vereist
+// DELETE /api/vragen/<id>   verborgen vraag definitief verwijderen, pincode vereist
 import { STATUSSEN, type Status, type Vraag } from "../../../src/lib/vragen";
 import { type Env, json, controleerPincode } from "../../_lib/vragen";
 
@@ -49,4 +50,35 @@ export const onRequestPatch: PagesFunction<Env> = async ({ request, env, params 
     .first<{ versie: number }>();
 
   return json({ vraag, versie: versieRow?.versie ?? 1 });
+};
+
+export const onRequestDelete: PagesFunction<Env> = async ({ request, env, params }) => {
+  const pincodeFout = await controleerPincode(request, env);
+  if (pincodeFout) return pincodeFout;
+
+  const idParam = String(params.id ?? "");
+  if (!ID_RE.test(idParam)) {
+    return json({ error: "Ongeldige vraag." }, 400);
+  }
+
+  // Alleen verborgen vragen, zodat een misklik geen zichtbare vraag wist.
+  const verwijderd = await env.DB.prepare(
+    `DELETE FROM vragen WHERE id = ?1 AND status = 'verborgen' RETURNING event_slug`,
+  )
+    .bind(Number(idParam))
+    .first<{ event_slug: string }>();
+
+  if (!verwijderd) {
+    return json({ error: "Vraag niet gevonden of niet verborgen." }, 404);
+  }
+
+  const versieRow = await env.DB.prepare(
+    `INSERT INTO vragen_versie (event_slug, versie) VALUES (?1, 1)
+     ON CONFLICT (event_slug) DO UPDATE SET versie = versie + 1
+     RETURNING versie`,
+  )
+    .bind(verwijderd.event_slug)
+    .first<{ versie: number }>();
+
+  return json({ versie: versieRow?.versie ?? 1 });
 };

@@ -2,9 +2,16 @@
 interface Props {
   address: string;
   class?: string;
+  /** Onderwerpregel, bv. met een pagina-URL erin. */
+  subject?: string;
+  /** Linktekst; standaard het adres zelf. */
+  label?: string;
 }
-const { address, class: className } = Astro.props;
+const { address, class: className, subject, label } = Astro.props;
 const encoded = [...address].map((c) => `&#${c.charCodeAt(0)};`).join('');
 const classAttr = className ? ` class="${className}"` : '';
+const query = subject ? `?subject=${encodeURIComponent(subject)}` : '';
+const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const text = label ? escapeHtml(label) : encoded;
 ---
-<Fragment set:html={`<a href="mailto:${encoded}"${classAttr}>${encoded}</a>`} />
+<Fragment set:html={`<a href="mailto:${encoded}${query}"${classAttr}>${text}</a>`} />

@@ -1,0 +1,29 @@
+---
+// Taalaanbod in de zijbalk, variant A uit
+// ~/.claude/mockups/emf-website/taalaanbod-lezing/mockup.html.
+// Zie docs/adr/0001-i18n.md #5/#6 en het plan (Modelkeuze stap 4).
+import { t } from '../i18n/ui';
+import { localeMeta } from '../i18n/config';
+import type { Locale } from '../i18n/config';
+import type { PostVersion } from '../lib/posts';
+
+interface Props {
+  currentLocale: Locale;
+  versions: PostVersion[];
+}
+
+const { currentLocale, versions } = Astro.props;
+const ui = t(currentLocale);
+const others = versions.filter(version => version.locale !== currentLocale);
+---
+
+{others.length > 0 && (
+  <div class="mt-4 flex flex-col items-end text-xs leading-snug text-[#555555] max-lg:items-start">
+    {others.map(version => (
+      <span class="mb-1">
+        <a href={version.href} lang={localeMeta[version.locale].lang} hreflang={localeMeta[version.locale].lang}>{localeMeta[version.locale].nativeName}</a>
+        {version.isOriginal && <span class="italic"> ({ui.languageOffer.original})</span>}
+      </span>
+    ))}
+  </div>
+)}

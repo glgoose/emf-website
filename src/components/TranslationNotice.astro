@@ -1,0 +1,38 @@
+---
+// Melding op een vertaalde lezing, variant C uit
+// ~/.claude/mockups/emf-website/machinevertaling-melding/mockup.html.
+// Zie docs/adr/0001-i18n.md #6 en #9 en src/i18n/ui.ts.
+import Email from './Email.astro';
+import { t, fill } from '../i18n/ui';
+import type { Locale } from '../i18n/config';
+
+interface Props {
+  locale: Locale;
+  fromLocale: Locale;
+  originalHref: string;
+  machineTranslated: boolean;
+  translator?: string;
+  pageUrl: string;
+}
+
+const { locale, fromLocale, originalHref, machineTranslated, translator, pageUrl } = Astro.props;
+const ui = t(locale);
+const notice = ui.machineTranslationNotice;
+const sourceLanguage = ui.languageName[fromLocale];
+const fromLanguage = ui.fromLanguage[fromLocale];
+
+const label = machineTranslated ? notice.labelMachine : notice.labelHuman;
+const bodyText = fill(machineTranslated ? notice.machine : notice.human, { sourceLanguage, fromLanguage });
+const bylineTemplate = translator && (machineTranslated ? notice.reviewedBy : notice.translatedBy);
+const byline = bylineTemplate ? fill(bylineTemplate, { translator }) : undefined;
+const originalLinkText = fill(notice.originalLinkText, { sourceLanguage });
+---
+
+<aside class="not-prose mb-6 py-3 text-[0.95rem] leading-[1.45] text-[#555555] border-t border-b border-[#dddddd] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+  <div class="mb-1 text-[0.8rem] text-[#111111] lowercase" style="font-variant:small-caps;letter-spacing:0.08em">{label}</div>
+  <p class="m-0">
+    {bodyText}{byline && ` ${byline}`}
+    {' '}{notice.quotePrefix} <a href={originalHref}>{originalLinkText}</a>.
+    {' '}<Email address="info@ernestmandelfonds.be" subject={`Translation feedback — ${pageUrl}`} label={notice.feedbackLinkText} />{notice.feedbackSuffix}
+  </p>
+</aside>

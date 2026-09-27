@@ -21,24 +21,32 @@ const nl = {
     previous: 'Vorige',
     next: 'Volgende',
   },
-  // Melding bovenaan een vertaling. Tekst in een latere stap; de component
-  // (nog te bouwen) vult {fromLanguage} en {translator} in
-  // en linkt readOriginal naar het origineel.
+  // Melding bovenaan een vertaling (TranslationNotice.astro). {fromLanguage}
+  // en {translator} worden ingevuld met `fill()`; {sourceLanguage} met
+  // `languageName` hieronder. quotePrefix + originalLinkText vormen samen de
+  // zin rond de link naar het origineel, feedbackLinkText + feedbackSuffix
+  // rond de link naar het contactadres.
   machineTranslationNotice: {
-    machine: 'Deze tekst is automatisch vertaald {fromLanguage}.',
-    human: 'Vertaald {fromLanguage}.',
-    reviewedBy: 'Nagelezen door {translator}.',
-    translatedBy: 'Vertaling: {translator}.',
-    readOriginal: 'Lees het origineel',
+    labelMachine: 'Machine translation',
+    labelHuman: 'Translation',
+    machine: 'This text was written in {sourceLanguage} and translated automatically. The translation has not been checked by the author.',
+    human: 'Translated {fromLanguage}.',
+    reviewedBy: 'Reviewed by {translator}.',
+    translatedBy: 'Translation: {translator}.',
+    quotePrefix: 'Please quote from the',
+    originalLinkText: '{sourceLanguage} original',
+    feedbackLinkText: 'let us know',
+    feedbackSuffix: ' if something reads wrong.',
   },
   // Taalaanbod: links naar de andere taalversies. Tekst in een latere stap.
   languageOffer: {
-    label: 'Ook beschikbaar in',
     original: 'origineel',
   },
   // "vertaald {fromLanguage}": bronnaam met voorzetsel, want het lidwoord
   // verschilt per taal (fr: "du néerlandais", maar "de l'anglais").
   fromLanguage: { nl: 'uit het Nederlands', en: 'uit het Engels', fr: 'uit het Frans' } as Record<Locale, string>,
+  // Taalnaam in deze taal, voor {sourceLanguage} in de melding hierboven.
+  languageName: { nl: 'Nederlands', en: 'Engels', fr: 'Frans' } as Record<Locale, string>,
 };
 
 export type UiStrings = typeof nl;
@@ -65,17 +73,22 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       next: 'Next',
     },
     machineTranslationNotice: {
-      machine: 'This text was machine-translated {fromLanguage}.',
+      labelMachine: 'Machine translation',
+      labelHuman: 'Translation',
+      machine: 'This text was written in {sourceLanguage} and translated automatically. The translation has not been checked by the author.',
       human: 'Translated {fromLanguage}.',
       reviewedBy: 'Reviewed by {translator}.',
       translatedBy: 'Translation: {translator}.',
-      readOriginal: 'Read the original',
+      quotePrefix: 'Please quote from the',
+      originalLinkText: '{sourceLanguage} original',
+      feedbackLinkText: 'let us know',
+      feedbackSuffix: ' if something reads wrong.',
     },
     languageOffer: {
-      label: 'Also available in',
       original: 'original',
     },
     fromLanguage: { nl: 'from Dutch', en: 'from English', fr: 'from French' },
+    languageName: { nl: 'Dutch', en: 'English', fr: 'French' },
   },
   fr: {
     nav: {
@@ -96,17 +109,22 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       next: 'Suivante',
     },
     machineTranslationNotice: {
-      machine: 'Ce texte a été traduit automatiquement {fromLanguage}.',
+      labelMachine: 'Traduction automatique',
+      labelHuman: 'Traduction',
+      machine: 'Ce texte a été écrit en {sourceLanguage} et traduit automatiquement. La traduction n’a pas été relue par l’auteur.',
       human: 'Traduit {fromLanguage}.',
       reviewedBy: 'Relu par {translator}.',
       translatedBy: 'Traduction : {translator}.',
-      readOriginal: 'Lire l’original',
+      quotePrefix: 'Merci de citer de préférence',
+      originalLinkText: 'l’original en {sourceLanguage}',
+      feedbackLinkText: 'signalez-le-nous',
+      feedbackSuffix: ' si quelque chose sonne faux.',
     },
     languageOffer: {
-      label: 'Également disponible en',
       original: 'original',
     },
     fromLanguage: { nl: 'du néerlandais', en: 'de l’anglais', fr: 'du français' },
+    languageName: { nl: 'néerlandais', en: 'anglais', fr: 'français' },
   },
 };
 

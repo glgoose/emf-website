@@ -4,6 +4,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SidebarHeading from './SidebarHeading.astro';
 import DraftBanner from './DraftBanner.astro';
+import TranslationNotice from './TranslationNotice.astro';
+import LanguageLinks from './LanguageLinks.astro';
 import { render } from 'astro:content';
 import { stripHtml } from '../lib/formatDateTime';
 import { newsTypeLabel } from '../lib/newsTypes';
@@ -18,7 +20,7 @@ interface Props {
 const { item } = Astro.props;
 const { Content } = await render(item);
 
-const { title, subtitle, date, author, summary, source_event, lead_images, lead_credit, context_note, type, draft, lang, translator } = item.data;
+const { title, subtitle, date, author, summary, source_event, lead_images, lead_credit, context_note, type, draft, lang, translator, translation_of, machine_translated } = item.data;
 const ui = t(lang);
 const plainTitle = stripHtml(title);
 const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
@@ -95,11 +97,22 @@ const articleStructuredData: Record<string, unknown> = {
         <span class="mb-1">{dateFormatted}</span>
         <span class="lowercase">{newsTypeLabel(type)}</span>
       </div>
+      <LanguageLinks currentLocale={lang} versions={versions} />
     </SidebarHeading>
   </Fragment>
 
   <article class="prose news-article">
     {draft && <DraftBanner title={plainTitle} sourcePath={`src/content/posts/${item.id}.md`} />}
+    {translation_of && original && (
+      <TranslationNotice
+        locale={lang}
+        fromLocale={original.locale}
+        originalHref={original.href}
+        machineTranslated={machine_translated ?? true}
+        translator={translator}
+        pageUrl={canonicalURL}
+      />
+    )}
     {lead_images && lead_images.length > 0 && (
       <figure class="lead-images">
         <div class="lead-images-row">

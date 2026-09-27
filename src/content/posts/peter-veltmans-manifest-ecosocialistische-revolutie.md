@@ -8,6 +8,8 @@ source_event:
   slug: "ecosocialistisch-manifest"
   label: "boekvoorstelling van het *Ecosocialistisch Manifest*"
   note: "Dit verslag gaat over de"
+redirect_from:
+  - "/verslag/boekvoorstelling-manifest-ecosocialistische-revolutie"
 ---
 
 ![Boekvoorstelling van het Ecosocialistisch Manifest in De Groene Waterman](/images/boekvoorstelling-ecosocialistisch-manifest-2025.jpeg)

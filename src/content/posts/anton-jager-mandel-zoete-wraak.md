@@ -8,6 +8,9 @@ source_event:
   slug: "boekvoorstelling-inleiding-tot-het-marxisme"
   label: "boekvoorstelling van *Inleiding tot het marxisme*"
   note: "Deze tekst werd voorgesteld op de"
+redirect_from:
+  - "/lezing/mandel-zoete-wraak-geschiedenis"
+  - "/nieuws/mandel-zoete-wraak-geschiedenis"
 ---
 
 Ik wil vooreerst mijn dank uitspreken voor de uitnodiging. Het is een eer om commentaar te voorzien bij deze heruitgave van *Inleiding tot het marxisme* van Ernest Mandel.

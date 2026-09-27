@@ -71,6 +71,7 @@ const posts = defineCollection({
     lead_credit: z.string().transform(mdInline).optional(),
     context_note: z.string().transform(mdInline).optional(),
     draft: z.boolean().nullish().transform(v => v ?? false),
+    redirect_from: z.array(z.string()).optional(),
   }),
 });
 

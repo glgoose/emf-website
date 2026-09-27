@@ -8,6 +8,9 @@ source_event:
   slug: "boekvoorstelling-inleiding-tot-het-marxisme"
   label: "boekvoorstelling van *Inleiding tot het marxisme*"
   note: "Deze tekst werd voorgesteld op de"
+redirect_from:
+  - "/lezing/mandels-orthodox-open-romantisch-marxisme"
+  - "/nieuws/mandels-orthodox-open-romantisch-marxisme"
 ---
 
 Elke *Inleiding tot het marxisme* is een interpretatie van het marxisme, omdat juist in een inleiding geprobeerd wordt de essentie ervan weer te geven. Wat marxisme is, daar waren en zijn marxisten het onderling vaak over oneens. Ik zal dus niet proberen om het boek samen te vatten, maar ik wil iets zeggen over het soort marxisme waar Mandel de lezers een inleiding toe biedt.

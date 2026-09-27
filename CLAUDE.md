@@ -48,6 +48,16 @@ Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specif
 
 ## SEO
 
+- **Slug-schema (posts)**: `/<type>/<voornaam-achternaam>-<kern>` — volledige auteursnaam voorop (bij 3+
+  auteurs alleen de eerste achternaam, geen auteur: alleen kernwoorden), dan 2-5 kernwoorden uit de
+  titel zonder lidwoorden/voegwoorden, kleine letters, ASCII (diacritics weg), koppeltekens. Zachte
+  grens 50 tekens, harde grens 60. Logica in `src/lib/slugify.ts`. Geen datum in de URL.
+  **Een slug is bevroren na publicatie** — wijzigen kan alleen via `redirect_from` (frontmatter-veld op
+  posts, array van oude paden). `scripts/generate-redirects.mjs` draait als `prebuild` en vult het
+  gegenereerde blok in `public/_redirects` aan uit alle `redirect_from`-waarden; verwijder een redirect
+  nooit (Google: minstens een jaar bewaren) en laat een ketting altijd naar de eindbestemming wijzen,
+  niet naar een tussenstop. Activiteiten (`/activiteiten/<slug>`) volgen dit schema niet: geen auteur,
+  jaartal alleen bij een terugkerend evenement.
 - **Sitemap filter**: `astro.config.mjs` excludes `/vragen`, `/questions` and `/admin` from `@astrojs/sitemap` because those are already `X-Robots-Tag: noindex` in `_headers`. Add any new noindex route to that same `filter` array, not just to `_headers`.
 - **URLs zonder trailing slash**: `trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`, gekozen omdat `/vragen` korter typt en mooier oogt. Schrijf interne links, markdown-links en `href:`-velden in frontmatter zonder slotslash. Tijdens de build is `Astro.url.pathname` het outputbestand (`/activiteiten.html`), gebruik daarom altijd `pagePath(Astro.url)` uit `src/lib/pagePath.ts` voor canonical, `og:url` en nav-state. Check na een build: `grep -rhoE 'href="/[^"#?]+/"' dist | sort -u` moet leeg zijn. Uitzondering: `/admin/` (Sveltia, statisch in `public/admin/`).
 - **Eén host**: `www.` → apex is een Cloudflare Redirect Rule ("www naar apex", phase `http_request_dynamic_redirect`, 301, query string behouden), niet `_redirects`, want dat kan niet op host matchen. Oude `.html`-URLs van de vorige site staan als 301 in `public/_redirects`. Check: `curl -sI https://www.ernestmandelfonds.org/contact` moet 301 naar de apex geven.

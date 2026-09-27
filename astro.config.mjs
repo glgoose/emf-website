@@ -11,7 +11,13 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: 'https://ernestmandelfonds.org',
 
+  // URLs without trailing slash: pages build to `foo.html`, which Cloudflare
+  // Pages serves at `/foo` (and 308s `/foo/` there). `never` makes the dev
+  // server reject a slashed link, so a miss shows up before deploy.
+  trailingSlash: 'never',
+
   build: {
+    format: 'file',
     inlineStylesheets: 'always',
   },
 

@@ -16,7 +16,7 @@ speakers:
 registration_open: false
 price: "gratis"
 publication_link:
-  href: /publicaties/ecosocialistisch-manifest/
+  href: /publicaties/ecosocialistisch-manifest
   label: Manifest voor een ecosocialistische revolutie
 ---
 

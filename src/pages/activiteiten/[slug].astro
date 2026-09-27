@@ -8,6 +8,7 @@ import { getCollection, render } from 'astro:content';
 import { formatLongDate, formatProgrammeRange, formatTimeRange, stripHtml } from '../../lib/formatDateTime';
 import { newsItemHref } from '../../lib/newsTypes';
 import { getPosts } from '../../lib/posts';
+import { pagePath } from '../../lib/pagePath';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
   '../../assets/images/events/*',
@@ -70,7 +71,7 @@ const showRegistration = registration_open && !isPast;
 // Met een programma staat inschrijven erboven, anders onderaan.
 const hasProgramme = Boolean(programme && programme.length);
 
-const segments = Astro.url.pathname.split('/').filter(Boolean);
+const segments = pagePath(Astro.url).split('/').filter(Boolean);
 const parentPath = segments.length <= 1 ? '/' : '/' + segments.slice(0, -1).join('/');
 
 const plainTitle = stripHtml(title);
@@ -84,7 +85,7 @@ const ogImageObj = coverMeta
   ? await getImage({ src: coverMeta, width: 1200, format: 'jpeg', quality: 85 })
   : undefined;
 const ogImage = ogImageObj ? new URL(ogImageObj.src, siteBase).toString() : undefined;
-const canonicalURL = new URL(Astro.url.pathname, siteBase).toString();
+const canonicalURL = new URL(pagePath(Astro.url), siteBase).toString();
 
 const dateStr = date.toISOString().split('T')[0];
 const startDate = `${dateStr}T${time}`;

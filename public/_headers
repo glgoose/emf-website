@@ -28,3 +28,6 @@
 
 /questions/*
   X-Robots-Tag: noindex, nofollow
+
+/*.ics
+  X-Robots-Tag: noindex

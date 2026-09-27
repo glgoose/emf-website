@@ -1,4 +1,6 @@
 ---
+import { pagePath } from '../lib/pagePath';
+
 interface Props {
   title: string;
   sourcePath: string;
@@ -6,7 +8,7 @@ interface Props {
 
 const { title, sourcePath } = Astro.props;
 
-const previewUrl = new URL(Astro.url.pathname, 'https://concepten.ernestmandelfonds-website.pages.dev').toString();
+const previewUrl = new URL(pagePath(Astro.url), 'https://concepten.ernestmandelfonds-website.pages.dev').toString();
 const sourceUrl = `https://github.com/glgoose/emf-website/blob/main/${sourcePath}`;
 
 const issueTitle = `Feedback: ${title}`;

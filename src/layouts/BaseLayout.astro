@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import { pagePath } from '../lib/pagePath';
 
 interface Props {
   title?: string;
@@ -24,8 +25,8 @@ const {
 
 const ogTitle = title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ernestmandelfonds.org');
-const currentPath = Astro.url.pathname;
+const currentPath = pagePath(Astro.url);
+const canonicalURL = new URL(currentPath, Astro.site ?? 'https://ernestmandelfonds.org');
 const socialProfiles = [
   'https://www.facebook.com/p/Ernest-Mandelfonds-vzw-61575587833328/',
   'https://www.instagram.com/ernestmandelfondsvzw/',
@@ -54,7 +55,7 @@ const organizationStructuredData = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={canonicalURL} />
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />

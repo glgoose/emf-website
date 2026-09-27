@@ -49,6 +49,7 @@ Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specif
 ## SEO
 
 - **Sitemap filter**: `astro.config.mjs` excludes `/vragen`, `/questions` and `/admin` from `@astrojs/sitemap` because those are already `X-Robots-Tag: noindex` in `_headers`. Add any new noindex route to that same `filter` array, not just to `_headers`.
+- **URLs zonder trailing slash**: `trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`, gekozen omdat `/vragen` korter typt en mooier oogt. Schrijf interne links, markdown-links en `href:`-velden in frontmatter zonder slotslash. Tijdens de build is `Astro.url.pathname` het outputbestand (`/activiteiten.html`), gebruik daarom altijd `pagePath(Astro.url)` uit `src/lib/pagePath.ts` voor canonical, `og:url` en nav-state. Check na een build: `grep -rhoE 'href="/[^"#?]+/"' dist | sort -u` moet leeg zijn. Uitzondering: `/admin/` (Sveltia, statisch in `public/admin/`).
 - **Titel-eerst**: op posts (`src/pages/[type]/[slug].astro`) staat de auteur voor de titel (`${author}: ${plainTitle}`) omdat mensen op de auteursnaam zoeken, niet op het artikel. `ogTitle`/`twitter:title` volgen automatisch uit `BaseLayout`'s `title` prop.
 - **JSON-LD heeft geen CSP-hash nodig**: `<script type="application/ld+json">` staat buiten `script-src` en hoeft niet in de sha256-lijst in `_headers`. Alleen `<script>`-blokken zonder `type` of met `type="text/javascript"` tellen mee voor de CSP-hashcheck hierboven.
 

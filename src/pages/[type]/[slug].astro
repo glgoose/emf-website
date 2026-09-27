@@ -5,6 +5,7 @@ import { render } from 'astro:content';
 import { stripHtml } from '../../lib/formatDateTime';
 import { newsTypeLabel } from '../../lib/newsTypes';
 import { getPosts } from '../../lib/posts';
+import { pagePath } from '../../lib/pagePath';
 import DraftBanner from '../../components/DraftBanner.astro';
 
 export async function getStaticPaths() {
@@ -29,7 +30,7 @@ const dateFormatted = date.toLocaleDateString('nl-BE', {
 });
 
 const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
-const canonicalURL = new URL(Astro.url.pathname, siteBase).toString();
+const canonicalURL = new URL(pagePath(Astro.url), siteBase).toString();
 const isoDate = date.toISOString();
 
 const articleStructuredData: Record<string, unknown> = {

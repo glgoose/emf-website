@@ -3,12 +3,34 @@ name: Deploy to Cloudflare Pages
 on:
   push:
     branches: [main]
+  # Dagelijkse controle (02:15 Brusselse zomertijd / 01:15 wintertijd): alleen
+  # herbouwen als er gisteren een activiteit was, zodat die van de homepagina verdwijnt
+  schedule:
+    - cron: '15 0 * * *'
+  workflow_dispatch:
 
 jobs:
+  check:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    outputs:
+      rebuild: ${{ steps.check.outputs.rebuild }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        run: |
+          yesterday=$(TZ=Europe/Brussels date -d yesterday +%F)
+          if grep -qE "^date: *[\"']?$yesterday" src/content/events/*.md; then
+            echo "rebuild=true" >> "$GITHUB_OUTPUT"
+          fi
+
   deploy:
+    needs: check
+    if: always() && (github.event_name != 'schedule' || needs.check.outputs.rebuild == 'true')
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      TZ: Europe/Brussels
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

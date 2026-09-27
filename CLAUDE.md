@@ -46,6 +46,12 @@ curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/bot_management"
 
 Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specific zone. Verify with `curl .../bot_management` — expect `"enable_js": false`.
 
+## SEO
+
+- **Sitemap filter**: `astro.config.mjs` excludes `/vragen`, `/questions` and `/admin` from `@astrojs/sitemap` because those are already `X-Robots-Tag: noindex` in `_headers`. Add any new noindex route to that same `filter` array, not just to `_headers`.
+- **Titel-eerst**: op posts (`src/pages/[type]/[slug].astro`) staat de auteur voor de titel (`${author}: ${plainTitle}`) omdat mensen op de auteursnaam zoeken, niet op het artikel. `ogTitle`/`twitter:title` volgen automatisch uit `BaseLayout`'s `title` prop.
+- **JSON-LD heeft geen CSP-hash nodig**: `<script type="application/ld+json">` staat buiten `script-src` en hoeft niet in de sha256-lijst in `_headers`. Alleen `<script>`-blokken zonder `type` of met `type="text/javascript"` tellen mee voor de CSP-hashcheck hierboven.
+
 ## Fonts
 
 ### Metric-adjusted fallback (`EB Garamond Fallback`)
@@ -68,6 +74,21 @@ export default defineConfig({
   vite: { plugins: [fontaine()] },
 });
 ```
+
+## Posts collection
+
+### `source_event` attribution line
+
+When a post's text was voorgedragen/voorgesteld at one of our own events, add `source_event` frontmatter instead of writing the attribution by hand in the markdown body:
+
+```yaml
+source_event:
+  slug: "fight-the-cis-tem"
+  label: "studiedag *Fight the cis‑tem!*"
+  note: "Marcia Poelman droeg deze tekst voor op de"
+```
+
+`src/pages/[type]/[slug].astro` auto-renders this as a small italic line above the article body, linking to `/activiteiten/${source_event.slug}`. It only renders when `type !== "verslag"` — so a `"verslag"` post never shows it, and any other type (`"lezing"`, `"recensie"`) does. Pick the type with this gating in mind, not just for the URL segment it produces.
 
 ## Typography
 

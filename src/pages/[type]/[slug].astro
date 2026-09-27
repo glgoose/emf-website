@@ -20,15 +20,43 @@ const { Content } = await render(item);
 
 const { title, subtitle, date, author, summary, source_event, type, draft } = item.data;
 const plainTitle = stripHtml(title);
+const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
 
 const dateFormatted = date.toLocaleDateString('nl-BE', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
 });
+
+const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
+const canonicalURL = new URL(Astro.url.pathname, siteBase).toString();
+const isoDate = date.toISOString();
+
+const articleStructuredData: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: plainTitle,
+  ...(author && { author: { '@type': 'Person', name: author } }),
+  datePublished: isoDate,
+  dateModified: isoDate,
+  ...(summary && { description: summary }),
+  url: canonicalURL,
+  mainEntityOfPage: canonicalURL,
+  inLanguage: 'nl-BE',
+  publisher: {
+    '@type': 'Organization',
+    name: 'vzw Ernest Mandelfonds',
+  },
+  ...(source_event && {
+    isBasedOn: new URL(`/activiteiten/${source_event.slug}`, siteBase).toString(),
+  }),
+};
 ---
 
-<BaseLayout title={plainTitle} description={summary} ogType="article" noindex={draft}>
+<BaseLayout title={pageTitle} description={summary} ogType="article" noindex={draft}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleStructuredData)} />
+  </Fragment>
   <Fragment slot="aside">
     <SidebarHeading backHref="/nieuws" title={title} subtitle={subtitle}>
       <div

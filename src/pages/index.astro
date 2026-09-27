@@ -51,9 +51,20 @@ const nextEventMeta = nextEvent
 const nextEventSpeakers = nextEvent?.data.speakers?.length
   ? nextEvent.data.speakers.map(speaker => speaker.name).join(' · ')
   : '';
+
+const websiteStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Ernest Mandelfonds',
+  alternateName: 'EMF',
+  url: Astro.site ?? 'https://ernestmandelfonds.org',
+};
 ---
 
 <BaseLayout isHomepage={true}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(websiteStructuredData)} />
+  </Fragment>
   <Fragment slot="aside">
     <a href="/" class="flex flex-row items-center gap-4 lg:flex-col lg:items-end hover:no-underline">
       <p class="whitespace-nowrap italic text-[1.5rem] leading-[1.25] lg:mt-3 lowercase text-[#f0573e] rotate-[-10deg]">Ernest Mandelfonds</p>

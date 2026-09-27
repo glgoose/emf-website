@@ -1,10 +1,20 @@
 // Slug schema, zie CLAUDE.md > SEO > Slug-schema:
 // /<type>/<voornaam-achternaam>-<kern>, auteur voorop, dan 2-5 kernwoorden.
 
+// Lidwoorden, voegwoorden en het "van"-voorzetsel (met samentrekkingen als du/des).
 const STOPWORDS: Record<string, string[]> = {
-  nl: ['de', 'het', 'een', 'en', 'van'],
-  en: ['the', 'of', 'and'],
-  fr: ['le', 'la', 'les', 'de', 'du', 'et'],
+  nl: ['de', 'het', 'een', 'en', 'of', 'van'],
+  en: ['the', 'a', 'an', 'and', 'or', 'of'],
+  fr: ['le', 'la', 'les', 'un', 'une', 'des', 'de', 'du', 'et', 'ou'],
+};
+
+// Weglatingen die bij het weglaten van de apostrof als los fragment zouden
+// achterblijven en een kernwoordplaats innemen: fr "d'une" -> "une" (daarna
+// stopwoord), "l'histoire" -> "histoire"; en "Mandel's" -> "mandel". Alleen aan
+// het woordbegin (fr) of -einde (en), zodat "aujourd'hui" heel blijft.
+const ELISIONS: Record<string, RegExp> = {
+  fr: /\b(?:c|d|j|l|m|n|s|t|qu|jusqu|lorsqu|puisqu|quoiqu)'/g,
+  en: /'s\b/g,
 };
 
 const SOFT_LIMIT = 50;
@@ -14,9 +24,16 @@ function stripDiacritics(input: string): string {
   return input.normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
 
-function toAsciiSlugWords(input: string): string[] {
-  return stripDiacritics(input)
+function toAsciiSlugWords(input: string, lang?: string): string[] {
+  let text = stripDiacritics(input)
     .toLowerCase()
+    .replace(/&shy;|\u00ad/g, '')
+    .replace(/&[a-z]+;/g, ' ')
+    .replace(/[\u2018\u2019]/g, "'");
+  const elision = lang ? ELISIONS[lang] : undefined;
+  if (elision) text = text.replace(elision, '');
+  return text
+    .replace(/'/g, '')
     .replace(/[^a-z0-9\s-]/g, ' ')
     .split(/[\s-]+/)
     .filter(Boolean);
@@ -43,7 +60,7 @@ export function authorSlugPart(authors: string[]): string {
 /** Kernwoorden uit een titel, stopwoorden per taal eruit gefilterd. */
 export function keywordSlugPart(title: string, lang: keyof typeof STOPWORDS = 'nl', maxWords = 5): string {
   const stopwords = new Set(STOPWORDS[lang] ?? []);
-  const words = toAsciiSlugWords(title).filter(word => !stopwords.has(word));
+  const words = toAsciiSlugWords(title, lang).filter(word => !stopwords.has(word));
   return words.slice(0, maxWords).join('-');
 }
 

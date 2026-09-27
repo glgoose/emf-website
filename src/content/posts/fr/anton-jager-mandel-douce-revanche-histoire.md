@@ -11,6 +11,8 @@ source_event:
 lang: "fr"
 translation_of: "anton-jager-mandel-zoete-wraak"
 machine_translated: true
+redirect_from:
+  - "/fr/conference/anton-jager-mandel-douce-revanche-l-histoire"
 ---
 
 Je tiens tout d'abord à vous remercier pour l'invitation. C'est un honneur de commenter cette réédition de l'*Introduction au marxisme* d'Ernest Mandel.

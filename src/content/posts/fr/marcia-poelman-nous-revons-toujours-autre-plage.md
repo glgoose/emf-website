@@ -18,6 +18,8 @@ lead_credit: "conception : [ccroissant](https://ccroissant.be/) · édition : [E
 lang: "fr"
 translation_of: "marcia-poelman-ander-strand"
 machine_translated: true
+redirect_from:
+  - "/fr/conference/marcia-poelman-nous-revons-toujours-d-une"
 ---
 
 2013 : nous étions 500 devant les portes du consulat russe, ici à Anvers, et nous nous embrassions à tout va. Sur le perron des laquais de Poutine et à la lumière de leurs haineuses « lois contre la propagande homosexuelle ».

@@ -20,9 +20,12 @@ jobs:
       - id: check
         run: |
           yesterday=$(TZ=Europe/Brussels date -d yesterday +%F)
-          if grep -qE "^date: *[\"']?$yesterday" src/content/events/*.md; then
-            echo "rebuild=true" >> "$GITHUB_OUTPUT"
-          fi
+          for f in src/content/events/*.md; do
+            if [ "$(yq --front-matter=extract '.date' "$f")" = "$yesterday" ]; then
+              echo "rebuild=true" >> "$GITHUB_OUTPUT"
+              break
+            fi
+          done
 
   deploy:
     needs: check

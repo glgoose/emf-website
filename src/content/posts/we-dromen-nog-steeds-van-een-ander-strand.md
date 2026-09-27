@@ -3,12 +3,12 @@ title: "*We dromen nog steeds van een ander strand*"
 type: "lezing"
 date: 2026-09-26
 author: "Marcia Poelman"
-summary: "Marcia Poelman schreef dit pamflet voor Ander Strand en Antwerp Queer Arts Festival (2026): een tekst die de leuze van de Rooie Vlinder ('wij willen een ander strand') doortrekt naar vandaag, van Tsjetsjenië en Palestina tot de arrestatie van 17 queers op de Antwerpse Pride."
+summary: "Marcia Poelman schreef dit pamflet voor Ander Strand en Antwerp Queer Arts Festival: een tekst die de leuze van de Rooie Vlinder ('wij willen een ander strand') doortrekt naar vandaag, van Tsjetsjenië en Palestina tot de arrestatie van 17 queers op de Antwerpse Pride."
 source_event:
   slug: "fight-the-cis-tem"
   label: "studiedag *Fight the cis‑tem!*"
   note: "Marcia Poelman droeg deze tekst voor op de"
-context_note: "Ze schreef de tekst oorspronkelijk voor *[Ander Strand](https://www.destudio.com/nl/project/ander-strand)* en [Antwerp Queer Arts Festival](https://www.queerarts.be/), en droeg hem daar ook voor. *Ander Strand* is de voorstelling van De Studio die de queer geschiedenis van de Rooie Vlinder (de socialistische homobevrijdingsgroep die in 1978 de eerste Belgische Pride organiseerde in Gent) doortrok naar vandaag."
+context_note: "Ze schreef de tekst oorspronkelijk voor *[Ander Strand](https://www.destudio.com/nl/project/ander-strand)* en [Antwerp Queer Arts Festival](https://www.queerarts.be/), en droeg hem daar ook voor."
 lead_images:
   - src: "/images/ander-strand-pamflet-slot-2026.jpg"
     alt: "Voorzijde van het pamflet, met de slotregels in grote letters"
@@ -61,4 +61,4 @@ Voorpost op de Pride, een Israëlische vlag aan het stadhuis, het Centrum voor G
 
 Een stad die opkomt voor al haar bewoners, mensen die hier veiligheid en een thuis zoeken die de straat op gaan en gewoon zichzelf willen zijn ♥
 
-<p class="image-credit footnote">* Verwijst naar de leuze van de Rooie Vlinder: 'Wij vragen geen plaatsje onder de zon, wij willen een ander strand.' Ze vroegen geen tolerantie binnen de bestaande samenleving, maar bevrijding: een andere samenleving.</p>
+<p class="image-credit footnote">* Verwijst naar de leuze van de Rooie Vlinder (de socialistische homobevrijdingsgroep die in 1978 de eerste Belgische Pride organiseerde in Gent): 'Wij vragen geen plaatsje onder de zon, wij willen een ander strand.' Ze vroegen geen tolerantie binnen de bestaande samenleving, maar bevrijding: een andere samenleving.</p>

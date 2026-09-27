@@ -1,0 +1,25 @@
+---
+// Posts in andere talen dan de standaardtaal: /<locale>/<type-woord>/<slug>,
+// bv. /en/lecture/…, /fr/conference/…. Het type-woord komt uit `slugs` in
+// src/lib/newsTypes.ts. Zelfde paginacomponent als de nl-route.
+// Zie docs/adr/0001-i18n.md.
+import PostPage from '../../../components/PostPage.astro';
+import { prefixedLocales } from '../../../i18n/config';
+import { typeSlugFor } from '../../../lib/newsTypes';
+import { getPostsInLocale } from '../../../lib/posts';
+import { slugFromId } from '../../../lib/postRoutes';
+
+export async function getStaticPaths() {
+  const perLocale = await Promise.all(
+    prefixedLocales.map(async locale => (await getPostsInLocale(locale)).map(item => ({
+      params: { locale, type: typeSlugFor(item.data.type, locale), slug: slugFromId(item.id) },
+      props: { item },
+    }))),
+  );
+  return perLocale.flat();
+}
+
+const { item } = Astro.props;
+---
+
+<PostPage item={item} />

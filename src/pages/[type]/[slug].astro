@@ -1,117 +1,21 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SidebarHeading from '../../components/SidebarHeading.astro';
-import { render } from 'astro:content';
-import { stripHtml } from '../../lib/formatDateTime';
-import { newsTypeLabel } from '../../lib/newsTypes';
-import { getPosts } from '../../lib/posts';
-import { pagePath } from '../../lib/pagePath';
-import DraftBanner from '../../components/DraftBanner.astro';
+// Posts in de standaardtaal (nl): /<type>/<slug>. Andere talen:
+// src/pages/[locale]/[type]/[slug].astro. Zie docs/adr/0001-i18n.md.
+import PostPage from '../../components/PostPage.astro';
+import { defaultLocale } from '../../i18n/config';
+import { typeSlugFor } from '../../lib/newsTypes';
+import { getPostsInLocale } from '../../lib/posts';
+import { slugFromId } from '../../lib/postRoutes';
 
 export async function getStaticPaths() {
-  const items = await getPosts();
+  const items = await getPostsInLocale(defaultLocale);
   return items.map(item => ({
-    params: { type: item.data.type, slug: item.id },
+    params: { type: typeSlugFor(item.data.type, defaultLocale), slug: slugFromId(item.id) },
     props: { item },
   }));
 }
 
 const { item } = Astro.props;
-const { Content } = await render(item);
-
-const { title, subtitle, date, author, summary, source_event, lead_images, lead_credit, context_note, type, draft } = item.data;
-const plainTitle = stripHtml(title);
-const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
-
-const dateFormatted = date.toLocaleDateString('nl-BE', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-});
-
-const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
-const canonicalURL = new URL(pagePath(Astro.url), siteBase).toString();
-const isoDate = date.toISOString();
-
-const articleStructuredData: Record<string, unknown> = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: plainTitle,
-  ...(author && { author: { '@type': 'Person', name: author } }),
-  datePublished: isoDate,
-  dateModified: isoDate,
-  ...(summary && { description: summary }),
-  url: canonicalURL,
-  mainEntityOfPage: canonicalURL,
-  inLanguage: 'nl-BE',
-  publisher: {
-    '@type': 'Organization',
-    name: 'vzw Ernest Mandelfonds',
-  },
-  ...(source_event && {
-    isBasedOn: new URL(`/activiteiten/${source_event.slug}`, siteBase).toString(),
-  }),
-};
 ---
 
-<BaseLayout title={pageTitle} description={summary} ogType="article" noindex={draft}>
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(articleStructuredData)} />
-  </Fragment>
-  <Fragment slot="aside">
-    <SidebarHeading backHref="/nieuws" title={title} subtitle={subtitle}>
-      <div
-        class="flex flex-col items-end text-xs leading-snug text-[#555555] max-lg:items-start"
-        aria-label="Berichtgegevens"
-      >
-        {author && <span class="mb-1">{author}</span>}
-        <span class="mb-1">{dateFormatted}</span>
-        <span class="lowercase">{newsTypeLabel(type)}</span>
-      </div>
-    </SidebarHeading>
-  </Fragment>
-
-  <article class="prose news-article">
-    {draft && <DraftBanner title={plainTitle} sourcePath={`src/content/posts/${item.id}.md`} />}
-    {lead_images && lead_images.length > 0 && (
-      <figure class="lead-images">
-        <div class="lead-images-row">
-          {lead_images.map((img) => (
-            <a href={img.src} data-lightbox aria-label={`${img.alt} (vergroten)`}><img src={img.src} alt={img.alt} /></a>
-          ))}
-        </div>
-        {lead_credit && <figcaption class="image-credit" set:html={lead_credit} />}
-      </figure>
-    )}
-    {lead_images && lead_images.length > 0 && (
-      <dialog class="lightbox not-prose" aria-label="Afbeelding vergroot" tabindex="-1">
-        <div class="lightbox-stage">
-          <img alt="" />
-        </div>
-        <button type="button" class="lightbox-btn lightbox-close" data-close aria-label="Sluiten">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
-        </button>
-        {lead_images.length > 1 && (
-          <>
-            <button type="button" class="lightbox-btn lightbox-prev" data-prev aria-label="Vorige">
-              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
-            </button>
-            <button type="button" class="lightbox-btn lightbox-next" data-next aria-label="Volgende">
-              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
-            </button>
-          </>
-        )}
-      </dialog>
-      <script is:inline src="/js/lightbox.js" defer></script>
-    )}
-    {((source_event && item.data.type !== 'verslag') || context_note) && (
-      <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
-        {source_event && item.data.type !== 'verslag' && (
-          <>{source_event.note}{' '}<a href={`/activiteiten/${source_event.slug}`}><Fragment set:html={source_event.label} /></a>.</>
-        )}
-        {context_note && <span set:html={' ' + context_note} />}
-      </aside>
-    )}
-    <Content />
-  </article>
-</BaseLayout>
+<PostPage item={item} />

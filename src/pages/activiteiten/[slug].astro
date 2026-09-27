@@ -6,8 +6,8 @@ import AddToCalendarDropdown from '../../components/AddToCalendarDropdown.astro'
 import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { formatLongDate, formatProgrammeRange, formatTimeRange, stripHtml } from '../../lib/formatDateTime';
-import { newsItemHref } from '../../lib/newsTypes';
-import { getPosts } from '../../lib/posts';
+import { postHref } from '../../lib/postRoutes';
+import { getListedPosts } from '../../lib/posts';
 import { pagePath } from '../../lib/pagePath';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content } = await render(event);
-const relatedPosts = (await getPosts())
+const relatedPosts = (await getListedPosts())
   .filter(post => post.data.source_event?.slug === event.id)
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
@@ -53,7 +53,7 @@ const relatedPostsContext = type === 'panelgesprek' ? 'dit panelgesprek' : `deze
 const relatedPostsNoun = relatedPosts.length === 1 ? 'bijdrage' : 'bijdragen';
 const relatedPostsIntro = `Lees de ${relatedPostsNoun} aan ${relatedPostsContext}:`;
 const relatedPostLinks = relatedPosts.map(post => ({
-  href: newsItemHref(post),
+  href: postHref(post),
   title: post.data.title,
   subtitle: post.data.subtitle,
   author: post.data.author,

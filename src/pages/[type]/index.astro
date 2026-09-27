@@ -2,7 +2,7 @@
 import NewsListPage from '../../components/NewsListPage.astro';
 import { newsNavItems } from '../../data/newsNav';
 import { newsTypes } from '../../lib/newsTypes';
-import { getPosts } from '../../lib/posts';
+import { getListedPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
   return newsTypes.map(type => ({
@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { type } = Astro.props;
-const allNews = await getPosts();
+const allNews = await getListedPosts();
 const items = allNews.filter(item => item.data.type === type.slug);
 ---
 

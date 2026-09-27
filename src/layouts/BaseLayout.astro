@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import { pagePath } from '../lib/pagePath';
+import { defaultLocale, isLocale, localeMeta, type Locale } from '../i18n/config';
 
 interface Props {
   title?: string;
@@ -11,6 +12,12 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   noindex?: boolean;
+  /** Taal van de pagina. Standaard afgeleid uit de URL (Astro.currentLocale). */
+  locale?: Locale;
+  /** Alle taalversies van deze pagina, inclusief zichzelf. Hreflang alleen bij 2+. */
+  alternates?: Array<{ locale: Locale; href: string }>;
+  /** Pad voor hreflang="x-default": de originele versie, niet per se nl. */
+  xDefaultHref?: string;
 }
 
 const {
@@ -21,12 +28,28 @@ const {
   ogImage,
   ogType = 'website',
   noindex = false,
+  alternates = [],
+  xDefaultHref,
 } = Astro.props;
+
+const locale: Locale = Astro.props.locale
+  ?? (isLocale(Astro.currentLocale) ? Astro.currentLocale : defaultLocale);
+const meta = localeMeta[locale];
+const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
+const hreflangLinks = !noindex && alternates.length > 1
+  ? [
+      ...alternates.map(alt => ({ hreflang: localeMeta[alt.locale].lang, href: new URL(alt.href, siteBase).toString() })),
+      ...(xDefaultHref ? [{ hreflang: 'x-default', href: new URL(xDefaultHref, siteBase).toString() }] : []),
+    ]
+  : [];
+const ogLocaleAlternates = [...new Set(
+  alternates.filter(alt => alt.locale !== locale).map(alt => localeMeta[alt.locale].ogLocale),
+)];
 
 const ogTitle = title === 'Ernest Mandelfonds' ? title : `${title} – Ernest Mandelfonds`;
 
 const currentPath = pagePath(Astro.url);
-const canonicalURL = new URL(currentPath, Astro.site ?? 'https://ernestmandelfonds.org');
+const canonicalURL = new URL(currentPath, siteBase);
 const socialProfiles = [
   'https://www.facebook.com/p/Ernest-Mandelfonds-vzw-61575587833328/',
   'https://www.instagram.com/ernestmandelfondsvzw/',
@@ -35,7 +58,7 @@ const organizationStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'vzw Ernest Mandelfonds',
-  url: new URL('/', Astro.site ?? 'https://ernestmandelfonds.org').toString(),
+  url: new URL('/', siteBase).toString(),
   email: 'info@ernestmandelfonds.org',
   sameAs: socialProfiles,
   address: {
@@ -49,20 +72,22 @@ const organizationStructuredData = {
 ---
 
 <!doctype html>
-<html lang="nl">
+<html lang={meta.lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     {!noindex && <link rel="canonical" href={canonicalURL} />}
+    {hreflangLinks.map(link => <link rel="alternate" hreflang={link.hreflang} href={link.href} />)}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Ernest Mandelfonds" />
-    <meta property="og:locale" content="nl_BE" />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {ogLocaleAlternates.map(ogLocale => <meta property="og:locale:alternate" content={ogLocale} />)}
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={ogTitle} />
@@ -90,11 +115,11 @@ const organizationStructuredData = {
 
         <!-- Inhoudskolom: navbar at top (homepage) or bottom (all other pages) -->
         <div class="flex flex-col" style="min-height:calc(100vh - 6rem)">
-          {isHomepage && <Navbar currentPath={currentPath} atTop={true} />}
+          {isHomepage && <Navbar currentPath={currentPath} atTop={true} locale={locale} />}
           <main class="flex-1" data-disable-heading-anchors={isHomepage ? 'true' : undefined}>
             <slot />
           </main>
-          {!isHomepage && <Navbar currentPath={currentPath} atTop={false} />}
+          {!isHomepage && <Navbar currentPath={currentPath} atTop={false} locale={locale} />}
         </div>
       </div>
     </div>

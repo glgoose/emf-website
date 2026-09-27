@@ -2,6 +2,11 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { mdInline } from "./lib/mdInline";
 import { newsTypeSlugs } from "./lib/newsTypes";
+import { defaultLocale, locales } from "./i18n/config";
+
+// Sveltia schrijft '' of null voor lege optionele velden.
+const emptyToUndefined = <T extends z.ZodType>(schema: T) =>
+  z.preprocess(v => (v === "" || v === null ? undefined : v), schema);
 
 const eventTypes = [
   "boekvoorstelling",
@@ -72,6 +77,37 @@ const posts = defineCollection({
     context_note: z.string().transform(mdInline).optional(),
     draft: z.boolean().nullish().transform(v => v ?? false),
     redirect_from: z.array(z.string()).optional(),
+
+    // Meertaligheid, zie docs/adr/0001-i18n.md. De taal moet overeenkomen met de
+    // map (posts/<slug>.md = nl, posts/en/<slug>.md = en); dat controleert
+    // src/lib/posts.ts, want het schema ziet het bestandspad niet.
+    lang: z.enum(locales).default(defaultLocale),
+    // Id van het origineel (pad onder src/content/posts zonder .md, bv.
+    // "anton-jager-mandel-zoete-wraak" of "en/peter-drucker-three-periods-queer-marxism").
+    // Leeg = dit bestand is zelf een origineel, in welke taal ook.
+    translation_of: emptyToUndefined(z.string().optional()),
+    machine_translated: emptyToUndefined(z.boolean().optional()),
+    translator: emptyToUndefined(z.string().optional()),
+  }).superRefine((data, ctx) => {
+    if (data.translation_of) {
+      if (data.machine_translated === undefined) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["machine_translated"],
+          message: "Verplicht op een vertaling (translation_of is gezet): true of false.",
+        });
+      }
+    } else {
+      for (const field of ["machine_translated", "translator"] as const) {
+        if (data[field] !== undefined) {
+          ctx.addIssue({
+            code: "custom",
+            path: [field],
+            message: `${field} hoort alleen op een vertaling; zet ook translation_of.`,
+          });
+        }
+      }
+    }
   }),
 });
 

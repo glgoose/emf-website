@@ -1,27 +1,32 @@
 ---
 import { Image } from 'astro:assets';
 import symbolBlack from '../assets/images/symbolBLACK.png';
-
-const navLinks = [
-  { href: '/activiteiten', label: 'activiteiten' },
-  { href: '/nieuws', label: 'nieuws' },
-  { href: '/publicaties', label: 'publicaties' },
-  { href: '/over-emf', label: 'over EMF' },
-];
+import { defaultLocale, type Locale } from '../i18n/config';
+import { t } from '../i18n/ui';
 
 interface Props {
   currentPath?: string;
   atTop?: boolean;
+  locale?: Locale;
 }
 
-const { currentPath = '', atTop = false } = Astro.props;
+const { currentPath = '', atTop = false, locale = defaultLocale } = Astro.props;
+const ui = t(locale);
+
+// Labels per taal; de doelen bestaan (nog) alleen in het Nederlands.
+const navLinks = [
+  { href: '/activiteiten', label: ui.nav.activiteiten },
+  { href: '/nieuws', label: ui.nav.nieuws },
+  { href: '/publicaties', label: ui.nav.publicaties },
+  { href: '/over-emf', label: ui.nav.overEmf },
+];
 
 const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
 ---
 
 <nav
   class:list={[atTop ? 'border-b border-[#111111] pb-3 mb-5' : 'border-t border-[#111111] pt-3 mt-5']}
-  aria-label="Hoofdnavigatie"
+  aria-label={ui.nav.label}
 >
   <ul
     class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-y-1 list-none m-0 p-0 lowercase text-[1.5rem] italic"
@@ -29,7 +34,7 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
     {!atTop && (
       <>
         <li>
-          <a href="/" aria-label="Ernest Mandelfonds – startpagina">
+          <a href="/" aria-label={ui.nav.home}>
             <Image src={symbolBlack} alt="" width={56} format="avif" quality={80} class="h-[1.1em] w-auto block" />
           </a>
         </li>

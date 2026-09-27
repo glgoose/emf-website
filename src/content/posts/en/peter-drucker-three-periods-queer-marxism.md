@@ -2,13 +2,14 @@
 title: "Three Periods of Queer Marxism"
 subtitle: "From the prehistory to the rise of the far right"
 type: "lezing"
+lang: "en"
 date: 2026-09-26
 author: "Peter Drucker"
-summary: "Peter Drucker schetst de geschiedenis van queer marxisme in drie periodes: de voorgeschiedenis in de socialistische en communistische beweging, de klassieke queer theorie en het queer activisme van de jaren negentig, en vandaag, nu homonationalisme en heteronationalisme elkaar versterken en extreemrechts oprukt."
+summary: "Peter Drucker traces the history of queer Marxism in three periods: its prehistory in the socialist and communist movements, the classic queer theory and queer activism of the 1990s, and today, as homonationalism and heteronationalism reinforce each other and the far right advances."
 source_event:
   slug: "fight-the-cis-tem"
-  label: "studiedag *Fight the cis‑tem!*"
-  note: "Deze lezing werd gegeven op de"
+  label: "study day *Fight the cis‑tem!*"
+  note: "This lecture was given at the"
 draft: true
 ---
 

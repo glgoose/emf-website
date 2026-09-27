@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 const { item } = Astro.props;
 const { Content } = await render(item);
 
-const { title, subtitle, date, author, summary, source_event, type, draft } = item.data;
+const { title, subtitle, date, author, summary, source_event, lead_images, lead_credit, context_note, type, draft } = item.data;
 const plainTitle = stripHtml(title);
 const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
 
@@ -73,12 +73,43 @@ const articleStructuredData: Record<string, unknown> = {
 
   <article class="prose news-article">
     {draft && <DraftBanner title={plainTitle} sourcePath={`src/content/posts/${item.id}.md`} />}
-    {source_event && item.data.type !== 'verslag' && (
-      <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
-        {source_event.note}{' '}
-        <a href={`/activiteiten/${source_event.slug}`} class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]">
-          <Fragment set:html={source_event.label} />
-        </a>.
+    {lead_images && lead_images.length > 0 && (
+      <figure class="lead-images">
+        <div class="lead-images-row">
+          {lead_images.map((img) => (
+            <a href={img.src} data-lightbox aria-label={`${img.alt} (vergroten)`}><img src={img.src} alt={img.alt} /></a>
+          ))}
+        </div>
+        {lead_credit && <figcaption class="image-credit" set:html={lead_credit} />}
+      </figure>
+    )}
+    {lead_images && lead_images.length > 0 && (
+      <dialog class="lightbox not-prose" aria-label="Afbeelding vergroot" tabindex="-1">
+        <div class="lightbox-stage">
+          <img alt="" />
+        </div>
+        <button type="button" class="lightbox-btn lightbox-close" data-close aria-label="Sluiten">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
+        </button>
+        {lead_images.length > 1 && (
+          <>
+            <button type="button" class="lightbox-btn lightbox-prev" data-prev aria-label="Vorige">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
+            </button>
+            <button type="button" class="lightbox-btn lightbox-next" data-next aria-label="Volgende">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
+            </button>
+          </>
+        )}
+      </dialog>
+      <script is:inline src="/js/lightbox.js" defer></script>
+    )}
+    {((source_event && item.data.type !== 'verslag') || context_note) && (
+      <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+        {source_event && item.data.type !== 'verslag' && (
+          <>{source_event.note}{' '}<a href={`/activiteiten/${source_event.slug}`}><Fragment set:html={source_event.label} /></a>.</>
+        )}
+        {context_note && <span set:html={' ' + context_note} />}
       </aside>
     )}
     <Content />

@@ -64,6 +64,12 @@ const posts = defineCollection({
       label: z.string().transform(mdInline),
       note: z.string(),
     }).optional(),
+    lead_images: z.array(z.object({
+      src: z.string(),
+      alt: z.string(),
+    })).optional(),
+    lead_credit: z.string().transform(mdInline).optional(),
+    context_note: z.string().transform(mdInline).optional(),
     draft: z.boolean().nullish().transform(v => v ?? false),
   }),
 });

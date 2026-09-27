@@ -258,6 +258,13 @@ collections:
         widget: markdown
         required: false
 
+      - label: Concept
+        name: draft
+        widget: boolean
+        default: true
+        required: false
+        hint: "Aan = alleen zichtbaar op de conceptenpagina, niet op de live site."
+
   # ── Pagina's (enkelvoudig) ─────────────────────────────────────────────────
   - name: pages
     label: Pagina's

@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import NewsListPage from '../../components/NewsListPage.astro';
 import { newsNavItems } from '../../data/newsNav';
+import { getPosts } from '../../lib/posts';
 
-const allNews = await getCollection('posts');
+const allNews = await getPosts();
 ---
 
 <NewsListPage

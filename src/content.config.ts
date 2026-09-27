@@ -64,6 +64,7 @@ const posts = defineCollection({
       label: z.string().transform(mdInline),
       note: z.string(),
     }).optional(),
+    draft: z.boolean().nullish().transform(v => v ?? false),
   }),
 });
 

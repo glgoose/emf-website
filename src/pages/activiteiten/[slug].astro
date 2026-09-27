@@ -7,6 +7,7 @@ import { Picture, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { formatLongDate, formatProgrammeRange, formatTimeRange, stripHtml } from '../../lib/formatDateTime';
 import { newsItemHref } from '../../lib/newsTypes';
+import { getPosts } from '../../lib/posts';
 
 const coverImages = import.meta.glob<{ default: ImageMetadata }>(
   '../../assets/images/events/*',
@@ -23,7 +24,7 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content } = await render(event);
-const relatedPosts = (await getCollection('posts'))
+const relatedPosts = (await getPosts())
   .filter(post => post.data.source_event?.slug === event.id)
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 

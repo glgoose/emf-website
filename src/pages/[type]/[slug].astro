@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SidebarHeading from '../../components/SidebarHeading.astro';
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import { stripHtml } from '../../lib/formatDateTime';
 import { newsTypeLabel } from '../../lib/newsTypes';
+import { getPosts } from '../../lib/posts';
+import DraftBanner from '../../components/DraftBanner.astro';
 
 export async function getStaticPaths() {
-  const items = await getCollection('posts');
+  const items = await getPosts();
   return items.map(item => ({
     params: { type: item.data.type, slug: item.id },
     props: { item },
@@ -16,7 +18,7 @@ export async function getStaticPaths() {
 const { item } = Astro.props;
 const { Content } = await render(item);
 
-const { title, subtitle, date, author, summary, source_event, type } = item.data;
+const { title, subtitle, date, author, summary, source_event, type, draft } = item.data;
 const plainTitle = stripHtml(title);
 
 const dateFormatted = date.toLocaleDateString('nl-BE', {
@@ -26,7 +28,7 @@ const dateFormatted = date.toLocaleDateString('nl-BE', {
 });
 ---
 
-<BaseLayout title={plainTitle} description={summary} ogType="article">
+<BaseLayout title={plainTitle} description={summary} ogType="article" noindex={draft}>
   <Fragment slot="aside">
     <SidebarHeading backHref="/nieuws" title={title} subtitle={subtitle}>
       <div
@@ -41,6 +43,7 @@ const dateFormatted = date.toLocaleDateString('nl-BE', {
   </Fragment>
 
   <article class="prose news-article">
+    {draft && <DraftBanner title={plainTitle} sourcePath={`src/content/posts/${item.id}.md`} />}
     {source_event && item.data.type !== 'verslag' && (
       <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
         {source_event.note}{' '}

@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content';
 import symbolImg from '../assets/images/symbolORANGY-RED.png';
 import { formatLongDate, formatTimeRange } from '../lib/formatDateTime';
 import { newsItemHref, newsTypeLabel } from '../lib/newsTypes';
+import { getPosts } from '../lib/posts';
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -18,7 +19,7 @@ const upcomingEvents = allEvents
 
 const nextEvent = upcomingEvents[0] ?? null;
 
-const allPosts = await getCollection('posts');
+const allPosts = await getPosts();
 const latestPosts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 2);
@@ -99,6 +100,7 @@ const nextEventSpeakers = nextEvent?.data.speakers?.length
             <a href={newsItemHref(post)} class="block no-underline hover:no-underline group">
               <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-1.5">
                 {newsTypeLabel(post.data.type)}
+                {post.data.draft && <span class="border border-[#999999] px-1 py-0.5 ml-1.5 normal-case [font-variant:normal] tracking-normal">Concept</span>}
               </p>
               <p class="text-xs text-[#555555] mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>
               <p class="m-0 text-[1rem] leading-[1.15] font-bold group-hover:underline underline-offset-2">

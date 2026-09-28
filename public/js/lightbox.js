@@ -27,9 +27,11 @@
     ? [widthScale, maxScale]
     : [maxScale];
 
-  // De zoomknop wordt grijs op ware grootte.
+  // Op ware grootte wordt de zoomknop een uitzoomknop (min in plaats van plus).
   const updateButtons = () => {
-    zoomInBtn.disabled = scale >= maxScale;
+    const atMax = scale >= maxScale / 1.01;
+    dialog.classList.toggle('at-max', atMax);
+    zoomInBtn.setAttribute('aria-label', atMax ? zoomInBtn.dataset.labelOut : zoomInBtn.dataset.labelIn);
   };
 
   const measure = () => {
@@ -128,7 +130,7 @@
       : all.filter((l) => l < scale / 1.01).pop();
     if (next !== undefined) zoomTo(next);
   };
-  zoomInBtn.addEventListener('click', () => stepTo(1));
+  zoomInBtn.addEventListener('click', () => stepTo(dialog.classList.contains('at-max') ? -1 : 1));
 
   // Knijpen op de trackpad komt binnen als wheel met ctrlKey, net als Ctrl+scrollwiel.
   // Op macOS vangt het systeem Ctrl+scrollwiel soms zelf af, daarom ook Cmd.

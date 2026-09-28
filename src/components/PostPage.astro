@@ -133,8 +133,8 @@ const articleStructuredData: Record<string, unknown> = {
         <button type="button" class="lightbox-btn lightbox-close" data-close aria-label={ui.post.close}>
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
         </button>
-        <button type="button" class="lightbox-btn lightbox-zoom-in" data-zoom-in aria-label={ui.post.zoomIn}>
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5L20 20M7.5 10.5h6M10.5 7.5v6" /></svg>
+        <button type="button" class="lightbox-btn lightbox-zoom-in" data-zoom-in data-label-in={ui.post.zoomIn} data-label-out={ui.post.zoomOut} aria-label={ui.post.zoomIn}>
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5L20 20M7.5 10.5h6" /><path class="zoom-plus" d="M10.5 7.5v6" /></svg>
         </button>
         {lead_images.length > 1 && (
           <>

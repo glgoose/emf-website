@@ -394,6 +394,10 @@
 .lightbox-zoom-in { top: 0.75rem; right: 3.625rem; width: 1.5rem; }
 
 /* Zoomknop alleen als het origineel groter is dan het scherm; grijs op ware grootte. */
+.lightbox.at-max .zoom-plus {
+  display: none;
+}
+
 .lightbox:not(.can-zoom) .lightbox-zoom-in { visibility: hidden; }
 
 .lightbox-btn:disabled,

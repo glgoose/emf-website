@@ -52,6 +52,12 @@ Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specif
   auteurs alleen de eerste achternaam, geen auteur: alleen kernwoorden), dan 2-5 kernwoorden uit de
   titel zonder lidwoorden/voegwoorden, kleine letters, ASCII (diacritics weg), koppeltekens. Zachte
   grens 50 tekens, harde grens 60. Logica in `src/lib/slugify.ts`. Geen datum in de URL.
+  De kernwoorden zijn een redactionele keuze, geen automatische uitkomst: `buildSlug()` geeft een voorstel,
+  kort dat in tot het kernbeeld van de titel (`marcia-poelman-another-beach`, niet `…-we-still-dream-another-beach`),
+  maar houd een vaste uitdrukking heel (`anton-jager-mandel-zoete-wraak-geschiedenis`, niet `…-zoete-wraak`).
+  **Vraag de gebruiker de slug te bevestigen vóór de eerste publicatie** (nieuwe post of vertaling). De
+  build controleert de vorm: auteursdeel voorop, alleen `[a-z0-9-]`, max 60 tekens (`validate()` in
+  `src/lib/posts.ts`).
   **Een slug is bevroren na publicatie** — wijzigen kan alleen via `redirect_from` (frontmatter-veld op
   posts, array van oude paden). `scripts/generate-redirects.mjs` draait als `prebuild` en vult het
   gegenereerde blok in `public/_redirects` aan uit alle `redirect_from`-waarden; verwijder een redirect

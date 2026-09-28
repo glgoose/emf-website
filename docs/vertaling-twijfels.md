@@ -73,3 +73,18 @@ Franse woord erft die rekbaarheid en voegt geen nieuwe dubbelzinnigheid toe.
 hierboven geldt alleen nog als het type-woord ooit terugkeert. De hernoemde paden hierboven verwijzen nu in
 één hop naar `/marcia-poelman-nous-revons-toujours-autre-plage`, `/anton-jager-mandel-douce-revanche-histoire`
 en `/alex-de-jong-mandel-orthodox-open-romantic-marxism`.
+
+## 2026-09-28: slugs ingekort tot het kernbeeld
+
+Na de overstap naar `/<slug>` gekozen door de redactie:
+
+| Taal | Oud | Nieuw |
+|---|---|---|
+| nl | `/anton-jager-mandel-zoete-wraak` | `/anton-jager-mandel-zoete-wraak-geschiedenis` |
+| en | `/marcia-poelman-we-still-dream-another-beach` | `/marcia-poelman-another-beach` |
+| fr | `/marcia-poelman-nous-revons-toujours-autre-plage` | `/marcia-poelman-autre-plage` |
+
+Logica: auteur voorop, dan het kernbeeld van de titel. Werkwoorden en bijwoorden (*we still dream*, *nous
+rêvons toujours*) vallen weg, een vaste uitdrukking (*de zoete wraak van de geschiedenis*) blijft heel. Zo
+volgen de drie talen van één werk hetzelfde beeld (`ander-strand`, `another-beach`, `autre-plage`). Vanaf
+nu bevestigt de gebruiker elke slug vóór de eerste publicatie. Alle oude paden staan in `redirect_from`.

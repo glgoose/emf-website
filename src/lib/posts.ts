@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { defaultLocale, type Locale } from "../i18n/config";
 import { newsTypes } from "./newsTypes";
 import { localeFromId, postHref, slugFromId } from "./postRoutes";
+import { authorSlugPart } from "./slugify";
 
 export type Post = CollectionEntry<"posts">;
 
@@ -44,6 +45,21 @@ function validate(posts: Post[]): void {
     if (sameSlug) {
       throw new Error(`${where}: slug "${slug}" wordt al gebruikt door src/content/posts/${sameSlug}.md; beide zouden op /${slug} staan.`);
     }
+    // Slug-schema (CLAUDE.md): auteur voorop, dan kernwoorden uit de titel. De kernwoorden zijn
+    // een redactionele keuze; alleen de vorm en het auteursdeel zijn te controleren.
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
+      throw new Error(`${where}: slug "${slug}" mag alleen kleine letters, cijfers en enkele koppeltekens bevatten.`);
+    }
+    if (slug.length > 60) {
+      throw new Error(`${where}: slug "${slug}" is ${slug.length} tekens, de harde grens is 60.`);
+    }
+    if (post.data.author) {
+      const authors = post.data.author.split(/\s*(?:,|&|\ben\b|\band\b|\bet\b)\s*/).filter(Boolean);
+      const authorPart = authorSlugPart(authors);
+      if (authorPart && !slug.startsWith(`${authorPart}-`)) {
+        throw new Error(`${where}: slug "${slug}" moet beginnen met de auteur ("${authorPart}-").`);
+      }
+    }
     if (listingSlugs.has(slug)) {
       throw new Error(`${where}: slug "${slug}" is het pad van een overzichtspagina (/${slug}).`);
     }
@@ -54,7 +70,7 @@ function validate(posts: Post[]): void {
 
     const original = byId.get(originalId);
     if (!original) {
-      throw new Error(`${where}: translation_of "${originalId}" bestaat niet (verwacht een id zoals "anton-jager-mandel-zoete-wraak").`);
+      throw new Error(`${where}: translation_of "${originalId}" bestaat niet (verwacht een id zoals "anton-jager-mandel-zoete-wraak-geschiedenis").`);
     }
     if (original.data.translation_of) {
       throw new Error(`${where}: translation_of wijst naar "${originalId}", dat zelf een vertaling is. Wijs naar het origineel.`);

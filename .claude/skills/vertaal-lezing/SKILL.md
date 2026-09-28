@@ -16,11 +16,11 @@ datamodel; deze skill past het toe, ze herhaalt het niet.
 ```
 
 - `<post-id>`: pad onder `src/content/posts` zonder `.md` en zonder taalprefix voor het origineel
-  (bv. `anton-jager-mandel-zoete-wraak`, of `en/peter-drucker-three-periods-queer-marxism` als het
+  (bv. `anton-jager-mandel-zoete-wraak-geschiedenis`, of `en/peter-drucker-three-periods-queer-marxism` als het
   origineel zelf al niet-Nederlands is).
 - `<talen>`: kommagescheiden doeltalen uit `src/i18n/config.ts` (`en`, `fr`), nooit de brontaal zelf.
 
-Voorbeeld: `/vertaal-lezing anton-jager-mandel-zoete-wraak en,fr`
+Voorbeeld: `/vertaal-lezing anton-jager-mandel-zoete-wraak-geschiedenis en,fr`
 
 ## Voorwaarden
 
@@ -62,9 +62,12 @@ Alle velden van het origineel overnemen en waar nodig vertalen:
 
 ### Slug
 
-Bereken met `src/lib/slugify.ts`, met de kernwoorden van de **vertaalde titel** in de doeltaal
-(`buildSlug(authors, translatedTitle, doeltaal)`), niet de nl-kernwoorden vertaald woord voor woord.
-Leg het resultaat één keer vast in de bestandsnaam en nergens anders. Bij een lengtewaarschuwing
+Bereken een voorstel met `src/lib/slugify.ts`, met de kernwoorden van de **vertaalde titel** in de
+doeltaal (`buildSlug(authors, translatedTitle, doeltaal)`), niet de nl-kernwoorden vertaald woord voor
+woord. Dat is een voorstel, geen besluit: kort het in tot het kernbeeld van de titel (`marcia-poelman-another-beach`,
+niet `…-we-still-dream-another-beach`) en **vraag de gebruiker de slug te bevestigen voordat de vertaling
+gepubliceerd wordt** (`draft: false`). Na publicatie is een slug bevroren. Leg het resultaat één keer
+vast in de bestandsnaam en nergens anders. Bij een lengtewaarschuwing
 (`overSoftLimit`) gewoon doorgaan — de harde grens (60) faalt met een throw, dan de titelkeuze in de
 kernwoorden aanpassen (minder woorden), nooit de auteursnaam inkorten.
 

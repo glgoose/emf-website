@@ -9,7 +9,7 @@ source_event:
   label: "launch of the Dutch reissue of *Introduction to Marxism*"
   note: "This text was presented at the"
 lang: "en"
-translation_of: "anton-jager-mandel-zoete-wraak"
+translation_of: "anton-jager-mandel-zoete-wraak-geschiedenis"
 machine_translated: true
 redirect_from:
   - "/en/lecture/anton-jager-mandel-sweet-revenge-history"

@@ -21,6 +21,7 @@ machine_translated: true
 redirect_from:
   - "/fr/conference/marcia-poelman-nous-revons-toujours-d-une"
   - "/fr/conference/marcia-poelman-nous-revons-toujours-autre-plage"
+  - "/marcia-poelman-nous-revons-toujours-autre-plage"
 ---
 
 2013 : nous étions 500 devant les portes du consulat russe, ici à Anvers, et nous nous embrassions à tout va. Sur le perron des laquais de Poutine et à la lumière de leurs haineuses « lois contre la propagande homosexuelle ».

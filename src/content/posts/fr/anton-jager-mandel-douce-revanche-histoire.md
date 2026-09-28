@@ -9,7 +9,7 @@ source_event:
   label: "présentation de la réédition néerlandaise de l'*Introduction au marxisme*"
   note: "Ce texte a été présenté lors de la"
 lang: "fr"
-translation_of: "anton-jager-mandel-zoete-wraak"
+translation_of: "anton-jager-mandel-zoete-wraak-geschiedenis"
 machine_translated: true
 redirect_from:
   - "/fr/conference/anton-jager-mandel-douce-revanche-l-histoire"

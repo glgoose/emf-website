@@ -83,7 +83,7 @@ const posts = defineCollection({
     // src/lib/posts.ts, want het schema ziet het bestandspad niet.
     lang: z.enum(locales).default(defaultLocale),
     // Id van het origineel (pad onder src/content/posts zonder .md, bv.
-    // "anton-jager-mandel-zoete-wraak" of "en/peter-drucker-three-periods-queer-marxism").
+    // "anton-jager-mandel-zoete-wraak-geschiedenis" of "en/peter-drucker-three-periods-queer-marxism").
     // Leeg = dit bestand is zelf een origineel, in welke taal ook.
     translation_of: emptyToUndefined(z.string().optional()),
     machine_translated: emptyToUndefined(z.boolean().optional()),

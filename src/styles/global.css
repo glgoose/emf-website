@@ -349,6 +349,27 @@
   object-fit: contain;
 }
 
+.lightbox.can-zoom .lightbox-stage img { cursor: zoom-in; }
+
+/* Ware grootte: de stage scrollt, margin:auto centreert zonder links af te snijden. */
+.lightbox.is-zoomed .lightbox-stage {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  overflow: auto;
+}
+
+.lightbox.is-zoomed .lightbox-stage img {
+  flex-shrink: 0;
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  /* Ingezoomd toont de cursor dat je kunt verschuiven; het niveau regelen de knoppen. */
+  cursor: grab;
+}
+
+.lightbox.is-dragging .lightbox-stage img { cursor: grabbing; }
+
 .lightbox-btn {
   position: absolute;
   display: flex;
@@ -369,6 +390,14 @@
 }
 
 .lightbox-close { top: 0.75rem; right: 0.75rem; }
+/* Zoomknop smaller dan de sluitknop, zodat hij er dicht naast staat. */
+.lightbox-zoom-in { top: 0.75rem; right: 3.625rem; width: 1.5rem; }
+
+/* Zoomknop alleen als het origineel groter is dan het scherm; grijs op ware grootte. */
+.lightbox:not(.can-zoom) .lightbox-zoom-in { visibility: hidden; }
+
+.lightbox-btn:disabled,
+.lightbox-btn:disabled:hover { color: #e0e0e0; cursor: default; }
 .lightbox-prev { top: 50%; left: 0.75rem; transform: translateY(-50%); }
 .lightbox-next { top: 50%; right: 0.75rem; transform: translateY(-50%); }
 

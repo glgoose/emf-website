@@ -20,6 +20,7 @@ const nl = {
     close: 'Sluiten',
     previous: 'Vorige',
     next: 'Volgende',
+    zoomIn: 'Inzoomen',
   },
   // Melding bovenaan een vertaling (TranslationNotice.astro). {fromLanguage}
   // en {translator} worden ingevuld met `fill()`; {sourceLanguage} met
@@ -71,6 +72,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       close: 'Close',
       previous: 'Previous',
       next: 'Next',
+      zoomIn: 'Zoom in',
     },
     machineTranslationNotice: {
       labelMachine: 'Machine translation',
@@ -107,6 +109,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       close: 'Fermer',
       previous: 'Précédente',
       next: 'Suivante',
+      zoomIn: 'Zoomer',
     },
     machineTranslationNotice: {
       labelMachine: 'Traduction automatique',

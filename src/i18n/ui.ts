@@ -27,16 +27,16 @@ const nl = {
   // zin rond de link naar het origineel, feedbackLinkText + feedbackSuffix
   // rond de link naar het contactadres.
   machineTranslationNotice: {
-    labelMachine: 'Machine translation',
-    labelHuman: 'Translation',
-    machine: 'This text was written in {sourceLanguage} and translated automatically. The translation has not been checked by the author.',
-    human: 'Translated {fromLanguage}.',
-    reviewedBy: 'Reviewed by {translator}.',
-    translatedBy: 'Translation: {translator}.',
-    quotePrefix: 'Please quote from the',
-    originalLinkText: '{sourceLanguage} original',
-    feedbackLinkText: 'let us know',
-    feedbackSuffix: ' if something reads wrong.',
+    labelMachine: 'Machinevertaling',
+    labelHuman: 'Vertaling',
+    machine: 'Deze tekst is geschreven in het {sourceLanguage} en automatisch vertaald. De vertaling is niet door de auteur nagelezen.',
+    human: 'Vertaald {fromLanguage}.',
+    reviewedBy: 'Nagelezen door {translator}.',
+    translatedBy: 'Vertaling: {translator}.',
+    quotePrefix: 'Citeer bij voorkeur uit het',
+    originalLinkText: '{sourceLanguage}e origineel',
+    feedbackLinkText: 'Laat het ons weten',
+    feedbackSuffix: ' als iets niet klopt.',
   },
   // Taalaanbod: links naar de andere taalversies. Tekst in een latere stap.
   languageOffer: {
@@ -81,7 +81,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       translatedBy: 'Translation: {translator}.',
       quotePrefix: 'Please quote from the',
       originalLinkText: '{sourceLanguage} original',
-      feedbackLinkText: 'let us know',
+      feedbackLinkText: 'Let us know',
       feedbackSuffix: ' if something reads wrong.',
     },
     languageOffer: {
@@ -117,7 +117,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       translatedBy: 'Traduction : {translator}.',
       quotePrefix: 'Merci de citer de préférence',
       originalLinkText: 'l’original en {sourceLanguage}',
-      feedbackLinkText: 'signalez-le-nous',
+      feedbackLinkText: 'Signalez-le-nous',
       feedbackSuffix: ' si quelque chose sonne faux.',
     },
     languageOffer: {

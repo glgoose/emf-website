@@ -8,7 +8,7 @@
 
 ### Open punt: van Pages naar Workers
 
-Cloudflare stuurt nieuwe projecten naar Workers (met static assets) en Pages is in onderhoud. Te onderzoeken vóór een migratie, en wat het voor CI/CD betekent:
+Cloudflare noemt Workers zijn primaire platform en zegt in de Pages-docs: "Start new projects with Workers" (docs gelezen 2026-09-28). Pages werkt gewoon door. Voordelen voor ons zijn beperkt (zie hieronder), dus geen haast. Te onderzoeken vóór een migratie, en wat het voor CI/CD betekent:
 
 - Deploy-commando: `wrangler pages deploy dist` wordt `wrangler deploy` met een `wrangler.jsonc` (`assets.directory: ./dist`). Beide stappen in `deploy.yml` moeten mee.
 - `functions/` (Pages Functions, `functions/api`) bestaat niet meer in Workers: routes moeten een Worker-entrypoint worden.

@@ -11,6 +11,7 @@ source_event:
 redirect_from:
   - "/lezing/mandel-zoete-wraak-geschiedenis"
   - "/nieuws/mandel-zoete-wraak-geschiedenis"
+  - "/lezing/anton-jager-mandel-zoete-wraak"
 ---
 
 Ik wil vooreerst mijn dank uitspreken voor de uitnodiging. Het is een eer om commentaar te voorzien bij deze heruitgave van *Inleiding tot het marxisme* van Ernest Mandel.

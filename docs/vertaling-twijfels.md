@@ -67,3 +67,9 @@ De vertaalde titels zelf zijn in orde en ongewijzigd.
 
 Kanttekening: ook het nl `lezing` dekt zowel een uitgeschreven voordracht als een voorgelezen tekst; het
 Franse woord erft die rekbaarheid en voegt geen nieuwe dubbelzinnigheid toe.
+
+**Later dezelfde dag:** posts staan nu in elke taal op `/<slug>`, zonder taalprefix en zonder type-woord
+(beslissing 11 in `docs/adr/0001-i18n.md`). `conference` komt dus niet meer in een URL voor; het verdict
+hierboven geldt alleen nog als het type-woord ooit terugkeert. De hernoemde paden hierboven verwijzen nu in
+één hop naar `/marcia-poelman-nous-revons-toujours-autre-plage`, `/anton-jager-mandel-douce-revanche-histoire`
+en `/alex-de-jong-mandel-orthodox-open-romantic-marxism`.

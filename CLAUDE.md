@@ -48,7 +48,7 @@ Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specif
 
 ## SEO
 
-- **Slug-schema (posts)**: `/<type>/<voornaam-achternaam>-<kern>` — volledige auteursnaam voorop (bij 3+
+- **Slug-schema (posts)**: `/<voornaam-achternaam>-<kern>` (direct op de root, geen type-woord of taalprefix, in elke taal) — volledige auteursnaam voorop (bij 3+
   auteurs alleen de eerste achternaam, geen auteur: alleen kernwoorden), dan 2-5 kernwoorden uit de
   titel zonder lidwoorden/voegwoorden, kleine letters, ASCII (diacritics weg), koppeltekens. Zachte
   grens 50 tekens, harde grens 60. Logica in `src/lib/slugify.ts`. Geen datum in de URL.
@@ -59,14 +59,15 @@ Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specif
   niet naar een tussenstop. Activiteiten (`/activiteiten/<slug>`) volgen dit schema niet: geen auteur,
   jaartal alleen bij een terugkerend evenement.
 - **Meertaligheid (lezingen)**: nl op de root, vertalingen in `src/content/posts/<lang>/<slug>.md` met
-  `lang`, `translation_of` (id van het origineel) en `machine_translated`; URL `/<lang>/<type-woord>/<slug>`
-  met het type-woord uit `slugs` in `src/lib/newsTypes.ts`. Talen in `src/i18n/config.ts`, UI-teksten in
+  `lang`, `translation_of` (id van het origineel) en `machine_translated`; URL `/<slug>`, net als
+  het origineel. Een slug is uniek over alle talen en mag niet samenvallen met een overzicht (`/lezing`) of een
+  vaste pagina in `src/pages` (de build faalt anders). Talen in `src/i18n/config.ts`, UI-teksten in
   `src/i18n/ui.ts`, paden altijd via `postHref`/`postPath` uit `src/lib/postRoutes.ts`. Een origineel mag
   elke taal hebben (Drucker is Engels). Keuzes en afwijzingen: `docs/adr/0001-i18n.md`.
 - **Sitemap filter**: `astro.config.mjs` excludes `/vragen`, `/questions` and `/admin` from `@astrojs/sitemap` because those are already `X-Robots-Tag: noindex` in `_headers`. Add any new noindex route to that same `filter` array, not just to `_headers`.
 - **URLs zonder trailing slash**: `trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`, gekozen omdat `/vragen` korter typt en mooier oogt. Schrijf interne links, markdown-links en `href:`-velden in frontmatter zonder slotslash. Tijdens de build is `Astro.url.pathname` het outputbestand (`/activiteiten.html`), gebruik daarom altijd `pagePath(Astro.url)` uit `src/lib/pagePath.ts` voor canonical, `og:url` en nav-state. Check na een build: `grep -rhoE 'href="/[^"#?]+/"' dist | sort -u` moet leeg zijn. Uitzondering: `/admin/` (Sveltia, statisch in `public/admin/`).
 - **Eén host**: `www.` → apex is een Cloudflare Redirect Rule ("www naar apex", phase `http_request_dynamic_redirect`, 301, query string behouden), niet `_redirects`, want dat kan niet op host matchen. Oude `.html`-URLs van de vorige site staan als 301 in `public/_redirects`. Check: `curl -sI https://www.ernestmandelfonds.org/contact` moet 301 naar de apex geven.
-- **Titel-eerst**: op posts (`src/pages/[type]/[slug].astro`) staat de auteur voor de titel (`${author}: ${plainTitle}`) omdat mensen op de auteursnaam zoeken, niet op het artikel. `ogTitle`/`twitter:title` volgen automatisch uit `BaseLayout`'s `title` prop.
+- **Titel-eerst**: op posts (`src/components/PostPage.astro`) staat de auteur voor de titel (`${author}: ${plainTitle}`) omdat mensen op de auteursnaam zoeken, niet op het artikel. `ogTitle`/`twitter:title` volgen automatisch uit `BaseLayout`'s `title` prop.
 - **JSON-LD heeft geen CSP-hash nodig**: `<script type="application/ld+json">` staat buiten `script-src` en hoeft niet in de sha256-lijst in `_headers`. Alleen `<script>`-blokken zonder `type` of met `type="text/javascript"` tellen mee voor de CSP-hashcheck hierboven.
 
 ## Fonts
@@ -105,7 +106,7 @@ source_event:
   note: "Marcia Poelman droeg deze tekst voor op de"
 ```
 
-`src/pages/[type]/[slug].astro` auto-renders this as a small italic line above the article body, linking to `/activiteiten/${source_event.slug}`. It only renders when `type !== "verslag"` — so a `"verslag"` post never shows it, and any other type (`"lezing"`, `"recensie"`) does. Pick the type with this gating in mind, not just for the URL segment it produces.
+`src/components/PostPage.astro` auto-renders this as a small italic line above the article body, linking to `/activiteiten/${source_event.slug}`. It only renders when `type !== "verslag"` — so a `"verslag"` post never shows it, and any other type (`"lezing"`, `"recensie"`) does. Pick the type with this gating in mind, not for the URL: posts live at `/<slug>` whatever their type.
 
 ## Typography
 

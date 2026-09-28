@@ -1,5 +1,5 @@
 // Slug schema, zie CLAUDE.md > SEO > Slug-schema:
-// /<type>/<voornaam-achternaam>-<kern>, auteur voorop, dan 2-5 kernwoorden.
+// /<voornaam-achternaam>-<kern>, auteur voorop, dan 2-5 kernwoorden.
 
 // Lidwoorden, voegwoorden en het "van"-voorzetsel (met samentrekkingen als du/des).
 const STOPWORDS: Record<string, string[]> = {

@@ -5,7 +5,7 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import yaml from 'js-yaml';
 // TypeScript rechtstreeks in Node (type stripping, Node >= 22.18, zie engines).
-import { defaultLocale, prefixedLocales } from '../src/i18n/config.ts';
+import { defaultLocale, translationLocales } from '../src/i18n/config.ts';
 import { postPath } from '../src/lib/postRoutes.ts';
 
 const POSTS_DIR = join(import.meta.dirname, '..', 'src', 'content', 'posts');
@@ -22,13 +22,13 @@ function parseFrontmatter(content) {
 
 // Posts in de standaardtaal staan direct in POSTS_DIR, andere talen in
 // POSTS_DIR/<locale>/ (zie docs/adr/0001-i18n.md). Het doelpad komt uit
-// dezelfde postPath als de routes, zodat /en/lecture/… hier ook klopt.
+// dezelfde postPath als de routes.
 function listPostFiles() {
   const files = [];
   for (const entry of readdirSync(POSTS_DIR, { withFileTypes: true })) {
     if (entry.isFile() && entry.name.endsWith('.md')) {
       files.push({ locale: defaultLocale, filename: entry.name, path: join(POSTS_DIR, entry.name) });
-    } else if (entry.isDirectory() && prefixedLocales.includes(entry.name)) {
+    } else if (entry.isDirectory() && translationLocales.includes(entry.name)) {
       for (const filename of readdirSync(join(POSTS_DIR, entry.name))) {
         if (filename.endsWith('.md')) {
           files.push({ locale: entry.name, filename, path: join(POSTS_DIR, entry.name, filename) });
@@ -46,7 +46,7 @@ function collectRedirects() {
     const content = readFileSync(path, 'utf-8');
     const frontmatter = parseFrontmatter(content);
     if (!frontmatter?.redirect_from?.length) continue;
-    const target = postPath(locale, frontmatter.type, slug);
+    const target = postPath(slug);
     for (const oldPath of frontmatter.redirect_from) {
       lines.push(`${oldPath} ${target} 301`);
     }

@@ -1,0 +1,55 @@
+---
+// Eén segment op de root: de overzichten per type (/lezing, /verslag, /recensie)
+// en alle posts in alle talen (/<slug>, zonder type-woord of taalprefix).
+// Beide in één route, zodat een botsing de build breekt in plaats van dat Astro
+// stil één van de twee kiest. Zie docs/adr/0001-i18n.md.
+import NewsListPage from '../components/NewsListPage.astro';
+import PostPage from '../components/PostPage.astro';
+import { newsNavItems } from '../data/newsNav';
+import { newsTypes } from '../lib/newsTypes';
+import { getAllPosts, getListedPosts } from '../lib/posts';
+import { slugFromId } from '../lib/postRoutes';
+
+export async function getStaticPaths() {
+  // Vaste pagina's op de root (contact, activiteiten, api, …). Astro geeft die
+  // voorrang op deze route, dus een post met zo'n slug zou stil verdwijnen.
+  // Binnen getStaticPaths, want die ziet de rest van het script niet.
+  const staticRootNames = new Set(
+    Object.keys(import.meta.glob('./**/*.{astro,ts,js}'))
+      .map(path => path.slice(2).split('/')[0].replace(/\.(astro|ts|js)$/, ''))
+      .filter(name => !name.startsWith('[')),
+  );
+  const listings = newsTypes.map(type => ({
+    params: { slug: type.slug },
+    props: { kind: 'listing' as const, type },
+  }));
+  const posts = (await getAllPosts()).map(item => ({
+    params: { slug: slugFromId(item.id) },
+    props: { kind: 'post' as const, item },
+  }));
+  for (const { params } of posts) {
+    if (staticRootNames.has(params.slug)) {
+      throw new Error(`Post-slug "${params.slug}" botst met de vaste pagina /${params.slug} in src/pages.`);
+    }
+  }
+  return [...listings, ...posts];
+}
+
+const props = Astro.props;
+const allNews = props.kind === 'listing' ? await getListedPosts() : [];
+---
+
+{props.kind === 'post' ? (
+  <PostPage item={props.item} />
+) : (
+  <NewsListPage
+    title={props.type.pageTitle}
+    description={`${props.type.pageTitle} van Ernest Mandelfonds.`}
+    items={allNews.filter(item => item.data.type === props.type.slug)}
+    navItems={newsNavItems(allNews, props.type.slug)}
+    currentType={props.type.slug}
+    backHref="/nieuws"
+    latestLabel={props.type.latestLabel}
+    emptyMessage={`Er zijn nog geen ${props.type.pluralLabel} beschikbaar.`}
+  />
+)}

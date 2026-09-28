@@ -2,7 +2,6 @@
 // scripts/generate-redirects.mjs (gewone Node) ze kan gebruiken.
 // Imports met `.ts`-extensie: Node's type stripping lost geen extensieloze paden op.
 import { defaultLocale, isLocale, type Locale } from '../i18n/config.ts';
-import { typeSlugFor } from './newsTypes.ts';
 
 // Bestandsindeling (zie docs/adr/0001-i18n.md):
 //   src/content/posts/<slug>.md          standaardtaal (nl), id "<slug>"
@@ -22,21 +21,15 @@ export function slugFromId(id: string): string {
 }
 
 /**
- * Publiek pad van een post: `/lezing/<slug>` of `/en/lecture/<slug>`.
- * Gooit een fout als het type in die taal geen type-woord heeft.
+ * Publiek pad van een post: `/<slug>`, in elke taal en voor elk type. Geen taalprefix en geen
+ * type-woord: de slug (auteur voorop) beschrijft de tekst al. `src/lib/posts.ts` en
+ * `src/pages/[slug].astro` laten de build falen als twee paden botsen. Zie docs/adr/0001-i18n.md.
  */
-export function postPath(locale: Locale, type: string, slug: string): string {
-  const typeSlug = typeSlugFor(type, locale);
-  if (!typeSlug) {
-    throw new Error(
-      `Type "${type}" heeft geen URL-woord voor taal "${locale}". Voeg het toe aan \`slugs\` in src/lib/newsTypes.ts.`,
-    );
-  }
-  return locale === defaultLocale ? `/${typeSlug}/${slug}` : `/${locale}/${typeSlug}/${slug}`;
+export function postPath(slug: string): string {
+  return `/${slug}`;
 }
 
 /** Pad van een collectie-entry. */
-export function postHref(item: { id: string; data: { type: string } }): string {
-  const locale = localeFromId(item.id);
-  return postPath(locale, item.data.type, slugFromId(item.id));
+export function postHref(item: { id: string }): string {
+  return postPath(slugFromId(item.id));
 }

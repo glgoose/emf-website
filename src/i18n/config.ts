@@ -35,5 +35,5 @@ export function isLocale(value: string | undefined): value is Locale {
   return (locales as readonly string[]).includes(value ?? '');
 }
 
-/** Talen met een URL-prefix (`/en/…`, `/fr/…`): alles behalve de standaardtaal. */
-export const prefixedLocales = locales.filter(locale => locale !== defaultLocale);
+/** Talen van vertalingen (`src/content/posts/<locale>/`): alles behalve de standaardtaal. */
+export const translationLocales = locales.filter(locale => locale !== defaultLocale);

@@ -17,6 +17,7 @@ lead_images:
 lead_credit: "ontwerp: [ccroissant](https://ccroissant.be/) · uitgave: [Ernest Mandelfonds](/) x [samenschool](https://samenschool.org/) · lettertype: Adelphe Trouble van [Bye Bye Binary](https://genderfluid.space/)"
 redirect_from:
   - "/lezing/we-dromen-nog-steeds-van-een-ander-strand"
+  - "/lezing/marcia-poelman-ander-strand"
 ---
 
 2013: we waren met 500 en we stonden voor de deuren van het Russische consulaat, hier in Antwerpen en we zoenden erop los. Op de stoep van de lakeien van Poetin en in het licht van hun haatdragende 'homopropagandawetten'.

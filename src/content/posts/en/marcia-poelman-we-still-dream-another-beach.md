@@ -18,6 +18,8 @@ lead_credit: "design: [ccroissant](https://ccroissant.be/) · published by: [Ern
 lang: "en"
 translation_of: "marcia-poelman-ander-strand"
 machine_translated: true
+redirect_from:
+  - "/en/lecture/marcia-poelman-we-still-dream-another-beach"
 ---
 
 2013: there were 500 of us and we stood at the doors of the Russian consulate, here in Antwerp, and we kissed away. On the doorstep of Putin's lackeys and in the light of their hateful 'gay propaganda laws'.

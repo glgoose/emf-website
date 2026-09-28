@@ -11,6 +11,8 @@ source_event:
 lang: "en"
 translation_of: "anton-jager-mandel-zoete-wraak"
 machine_translated: true
+redirect_from:
+  - "/en/lecture/anton-jager-mandel-sweet-revenge-history"
 ---
 
 First of all, I want to thank you for the invitation. It is an honour to comment on this reissue of Ernest Mandel's *Introduction to Marxism*.

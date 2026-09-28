@@ -1,7 +1,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { defaultLocale, type Locale } from "../i18n/config";
-import { typeSlugFor } from "./newsTypes";
-import { localeFromId, postHref } from "./postRoutes";
+import { newsTypes } from "./newsTypes";
+import { localeFromId, postHref, slugFromId } from "./postRoutes";
 
 export type Post = CollectionEntry<"posts">;
 
@@ -23,6 +23,8 @@ const isVisible = (post: Post) => showDrafts() || !post.data.draft;
 function validate(posts: Post[]): void {
   const byId = new Map(posts.map(post => [post.id, post]));
   const seen = new Map<string, string>();
+  const bySlug = new Map<string, string>();
+  const listingSlugs = new Set<string>(newsTypes.map(type => type.slug));
 
   for (const post of posts) {
     const where = `src/content/posts/${post.id}.md`;
@@ -36,11 +38,16 @@ function validate(posts: Post[]): void {
     if (post.id.startsWith(`${defaultLocale}/`)) {
       throw new Error(`${where}: ${defaultLocale}-posts staan direct in src/content/posts/, zonder taalmap.`);
     }
-    if (!typeSlugFor(post.data.type, post.data.lang)) {
-      throw new Error(
-        `${where}: type "${post.data.type}" heeft geen URL-woord voor "${post.data.lang}" in src/lib/newsTypes.ts.`,
-      );
+    // Posts staan op /<slug>, in alle talen: een slug is uniek over de hele collectie.
+    const slug = slugFromId(post.id);
+    const sameSlug = bySlug.get(slug);
+    if (sameSlug) {
+      throw new Error(`${where}: slug "${slug}" wordt al gebruikt door src/content/posts/${sameSlug}.md; beide zouden op /${slug} staan.`);
     }
+    if (listingSlugs.has(slug)) {
+      throw new Error(`${where}: slug "${slug}" is het pad van een overzichtspagina (/${slug}).`);
+    }
+    bySlug.set(slug, post.id);
 
     const originalId = post.data.translation_of;
     if (!originalId) continue;
@@ -90,7 +97,7 @@ export async function getPostsInLocale(locale: Locale): Promise<Post[]> {
  * Posts voor overzichten in `locale` (nieuws, type-overzichten, homepage,
  * activiteitpagina's): één item per werk, de versie in `locale` als die er is,
  * anders het origineel. Zo verschijnt een Engels origineel zonder Nederlandse
- * vertaling toch in de Nederlandse overzichten, met een link naar /en/….
+ * vertaling toch in de Nederlandse overzichten, met een link naar /<slug>.
  */
 export async function getListedPosts(locale: Locale = defaultLocale): Promise<Post[]> {
   const all = await getAllPosts();

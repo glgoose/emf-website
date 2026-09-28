@@ -11,6 +11,8 @@ source_event:
 lang: "fr"
 translation_of: "alex-de-jong-orthodox-open-romantisch-marxisme"
 machine_translated: true
+redirect_from:
+  - "/fr/conference/alex-de-jong-marxisme-orthodoxe-ouvert-romantique-mandel"
 ---
 
 Toute *Introduction au marxisme* est une interprétation du marxisme, parce que c'est justement dans une introduction qu'on tente d'en restituer l'essence. Sur ce qu'est le marxisme, les marxistes ont souvent été et sont encore souvent en désaccord entre eux. Je n'essaierai donc pas de résumer le livre, mais je voudrais dire quelque chose du type de marxisme auquel Mandel offre une introduction à ses lecteurs.

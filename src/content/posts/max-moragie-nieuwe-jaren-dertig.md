@@ -11,6 +11,7 @@ source_event:
   note: "Dit verslag gaat over de"
 redirect_from:
   - "/verslag/de-nieuwe-jaren-dertig-zullen-andere-zijn"
+  - "/verslag/max-moragie-nieuwe-jaren-dertig"
 ---
 
 Op zaterdag 13 december ging in het EcoHuis in Antwerpen de [studiedag over verrechtsing](/activiteiten/studiedag-verrechtsing) door. Het Ernest Mandelfonds had twee historici gevraagd hun licht te laten schijnen over deze trend, ten behoeve van Vlaamse militanten van de SAP en andere geïnteresseerden. Het was dan ook een mix van beide die luisterden naar de uiteenzetting van Vincent Scheltiens-Ortigosa, gastprofessor aan de Universiteit van Antwerpen, en die van Alex de Jong, directeur van het International Institute for Research and Education te Amsterdam. De organisatie had vooraf een syllabus verstuurd met onder meer teksten over het klassieke fascisme. Als de studiedag echter één ding duidelijk maakte, was het dat vergelijkingen tussen oud en nieuw fascisme vandaag de dag misschien wel opgaan maar contraproductief zijn om te maken. In ons verweer moeten we juist niet te veel naar het bruine verleden verwijzen.

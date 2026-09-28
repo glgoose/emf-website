@@ -5,11 +5,11 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
-import { defaultLocale, localeMeta, locales } from "./src/i18n/config.ts";
 
-// Hreflang voor de sitemap, gelezen uit de gebouwde HTML. De sitemap-integratie
-// koppelt talen alleen bij een identiek pad (`/x` <-> `/en/x`), maar vertaalde
-// posts hebben een vertaald type-woord en een vertaalde slug. De
+// Hreflang voor de sitemap, gelezen uit de gebouwde HTML. URL's hebben geen
+// taalprefix en vertaalde posts hebben een vertaald type-woord en een vertaalde
+// slug, dus de i18n-optie van de sitemap-integratie (die talen koppelt op een
+// identiek pad na het prefix) kan ze niet koppelen. De
 // `<link rel="alternate" hreflang>` in BaseLayout is de enige bron; de sitemap
 // neemt die over. Zie docs/adr/0001-i18n.md.
 const DIST = join(process.cwd(), "dist");
@@ -45,16 +45,6 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
-  // nl op de root, andere talen onder /<locale>/. Talen komen uit
-  // src/i18n/config.ts. Zie docs/adr/0001-i18n.md.
-  i18n: {
-    defaultLocale,
-    locales: [...locales],
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
-
   vite: {
     plugins: [tailwindcss()],
   },
@@ -66,10 +56,6 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: page => !['/vragen', '/questions', '/admin'].some(prefix => page.includes(prefix)),
-      i18n: {
-        defaultLocale,
-        locales: Object.fromEntries(locales.map(locale => [locale, localeMeta[locale].lang])),
-      },
       serialize(item) {
         const links = hreflangLinksFromHtml(item.url);
         return links ? { ...item, links } : item;

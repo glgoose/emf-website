@@ -10,6 +10,7 @@ interface Props {
   isHomepage?: boolean;
   noSidebar?: boolean;
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: string;
   noindex?: boolean;
   /** Taal van de pagina. Standaard afgeleid uit de URL (Astro.currentLocale). */
@@ -26,6 +27,7 @@ const {
   isHomepage = false,
   noSidebar = false,
   ogImage,
+  ogImageAlt,
   ogType = 'website',
   noindex = false,
   alternates = [],
@@ -36,6 +38,8 @@ const locale: Locale = Astro.props.locale
   ?? (isLocale(Astro.currentLocale) ? Astro.currentLocale : defaultLocale);
 const meta = localeMeta[locale];
 const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
+const defaultOgImage = new URL('/og-default.png', siteBase).toString();
+const ogImageAltText = ogImage ? ogImageAlt : 'Ernest Mandelfonds';
 const hreflangLinks = !noindex && alternates.length > 1
   ? [
       ...alternates.map(alt => ({ hreflang: localeMeta[alt.locale].lang, href: new URL(alt.href, siteBase).toString() })),
@@ -88,16 +92,20 @@ const organizationStructuredData = {
     <meta property="og:site_name" content="Ernest Mandelfonds" />
     <meta property="og:locale" content={meta.ogLocale} />
     {ogLocaleAlternates.map(ogLocale => <meta property="og:locale:alternate" content={ogLocale} />)}
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={ogImage ?? defaultOgImage} />
+    {!ogImage && <meta property="og:image:width" content="1200" />}
+    {!ogImage && <meta property="og:image:height" content="630" />}
+    {ogImageAltText && <meta property="og:image:alt" content={ogImageAltText} />}
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={ogImage ?? defaultOgImage} />
     <slot name="head" />
     {socialProfiles.map(profile => <link rel="me" href={profile} />)}
     <link rel="preload" href="/fonts/eb-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/eb-garamond-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
     <title>{ogTitle}</title>
   </head>

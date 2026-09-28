@@ -27,6 +27,7 @@ const dateFormatted = formatDate(date, lang);
 
 const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
 const absolute = (path: string) => new URL(path, siteBase).toString();
+const ogImage = lead_images?.[0] ? absolute(lead_images[0].src) : undefined;
 
 const versions = await getVersions(item);
 const self = versions.find(version => version.post.id === item.id)!;
@@ -78,6 +79,8 @@ const articleStructuredData: Record<string, unknown> = {
   title={pageTitle}
   description={summary}
   ogType="article"
+  ogImage={ogImage}
+  ogImageAlt={lead_images?.[0]?.alt}
   noindex={draft}
   locale={lang}
   alternates={alternates}

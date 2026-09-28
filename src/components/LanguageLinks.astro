@@ -21,8 +21,10 @@ const others = versions.filter(version => version.locale !== currentLocale);
   <div class="mt-4 flex flex-col items-end text-xs leading-snug text-[#555555] max-lg:items-start">
     {others.map(version => (
       <span class="mb-1">
-        <a href={version.href} lang={localeMeta[version.locale].lang} hreflang={localeMeta[version.locale].lang}>{localeMeta[version.locale].nativeName}</a>
-        {version.isOriginal && <span class="italic"> ({ui.languageOffer.original})</span>}
+        <a href={version.href} lang={localeMeta[version.locale].lang} hreflang={localeMeta[version.locale].lang}>
+          {localeMeta[version.locale].nativeName}
+          {version.isOriginal && <span class="italic"> ({ui.languageOffer.original})</span>}
+        </a>
       </span>
     ))}
   </div>

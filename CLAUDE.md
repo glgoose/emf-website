@@ -2,6 +2,22 @@
 
 ## Deployment
 
+### Publiceren = pushen
+
+`git push` naar `main` deployt de site: `.github/workflows/deploy.yml` bouwt en draait `wrangler pages deploy` (productie, plus een `concepten`-preview met `SHOW_DRAFTS`). Draai **niet** ook `npm run deploy`, dat is een dubbele deploy. Cloudflare toont "Git Provider: No" omdat de koppeling via GitHub Actions loopt, niet via Cloudflare zelf. Volg een run met `gh run watch`, of controleer met `gh run list --limit 3`. De workflow draait ook dagelijks om 02:15 en bouwt dan alleen opnieuw als er gisteren een activiteit was. Browsers cachen `/js/*` vier uur (`max-age=14400`), dus test na een deploy met Cmd+Shift+R.
+
+### Open punt: van Pages naar Workers
+
+Cloudflare stuurt nieuwe projecten naar Workers (met static assets) en Pages is in onderhoud. Te onderzoeken vóór een migratie, en wat het voor CI/CD betekent:
+
+- Deploy-commando: `wrangler pages deploy dist` wordt `wrangler deploy` met een `wrangler.jsonc` (`assets.directory: ./dist`). Beide stappen in `deploy.yml` moeten mee.
+- `functions/` (Pages Functions, `functions/api`) bestaat niet meer in Workers: routes moeten een Worker-entrypoint worden.
+- `public/_headers` en `public/_redirects` blijven werken voor static assets, maar de limieten en regelvolgorde verschillen. Controleer de CSP-hashes en de gegenereerde redirects (`scripts/generate-redirects.mjs`).
+- De `concepten`-preview draait nu als Pages-branch (`--branch concepten`). Workers heeft daarvoor versies of een tweede Worker met eigen URL nodig, en dan verandert de preview-URL.
+- Domeinen `ernestmandelfonds.org` en `www` moeten van het Pages-project naar de Worker. Let op de Redirect Rule voor `www` en de instellingen voor JS Detections, Bot Fight Mode en Rocket Loader (zie CSP).
+- Het API-token heeft Workers-rechten nodig (nu Pages). De secrets `CLOUDFLARE_API_TOKEN` en `CLOUDFLARE_ACCOUNT_ID` blijven.
+- Eerst doen: de Cloudflare-docs over Pages naar Workers migreren lezen en een proefdeploy op een aparte Worker draaien, zonder het domein te verplaatsen.
+
 ### Content-Security-Policy — One Source Rule
 
 CSP header is set in `public/_headers`. Do **not** add a Content-Security-Policy rule in Cloudflare Rules — two sources = duplicate headers = CSP breakage.

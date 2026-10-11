@@ -47,6 +47,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // Geen inline scripts: dan volstaat script-src 'self' en zijn er geen hashes te onderhouden.
+    build: { assetsInlineLimit: 0 },
   },
 
   experimental: {

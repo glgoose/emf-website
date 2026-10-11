@@ -12,7 +12,7 @@ Cloudflare noemt Workers zijn primaire platform en zegt in de Pages-docs: "Start
 
 - Deploy-commando: `wrangler pages deploy dist` wordt `wrangler deploy` met een `wrangler.jsonc` (`assets.directory: ./dist`). Beide stappen in `deploy.yml` moeten mee.
 - `functions/` (Pages Functions, `functions/api`) bestaat niet meer in Workers: routes moeten een Worker-entrypoint worden.
-- `public/_headers` en `public/_redirects` blijven werken voor static assets, maar de limieten en regelvolgorde verschillen. Controleer de CSP-hashes en de gegenereerde redirects (`scripts/generate-redirects.mjs`).
+- `public/_headers` en `public/_redirects` blijven werken voor static assets, maar de limieten en regelvolgorde verschillen. Controleer de CSP en de gegenereerde redirects (`scripts/generate-redirects.mjs`).
 - De `concepten`-preview draait nu als Pages-branch (`--branch concepten`). Workers heeft daarvoor versies of een tweede Worker met eigen URL nodig, en dan verandert de preview-URL.
 - Domeinen `ernestmandelfonds.org` en `www` moeten van het Pages-project naar de Worker. Let op de Redirect Rule voor `www` en de instellingen voor JS Detections, Bot Fight Mode en Rocket Loader (zie CSP).
 - Het API-token heeft Workers-rechten nodig (nu Pages). De secrets `CLOUDFLARE_API_TOKEN` en `CLOUDFLARE_ACCOUNT_ID` blijven.
@@ -22,34 +22,21 @@ Cloudflare noemt Workers zijn primaire platform en zegt in de Pages-docs: "Start
 
 CSP header is set in `public/_headers`. Do **not** add a Content-Security-Policy rule in Cloudflare Rules — two sources = duplicate headers = CSP breakage.
 
-When inline scripts change (e.g. new `<script>` block in a component), rebuild and recompute the sha256 hashes needed for `script-src` in `_headers`:
+`script-src` is `'self'` (plus unpkg alleen op `/admin/*`, voor Sveltia). Er zijn geen inline scripts en dus geen sha256-hashes om bij te houden: `vite.build.assetsInlineLimit: 0` in `astro.config.mjs` laat Astro elk `<script>` in een component als bestand in `_astro/` uitleveren. Voeg niets toe aan `script-src` en gebruik geen `'unsafe-inline'`.
 
-```bash
-python3 -c "
-import base64, hashlib, re
-from pathlib import Path
-for html in Path('dist').rglob('*.html'):
-    content = html.read_text()
-    for s in re.findall(r'<script(?:\s[^>]*)?>(.+?)</script>', content, re.DOTALL):
-        if not s.startswith('{'):
-            h = base64.b64encode(hashlib.sha256(s.encode()).digest()).decode()
-            print(f'sha256-{h}  {s[:60].strip()}')
-" | sort -u
-```
+`npm run build` draait daarna `scripts/check-no-inline-scripts.mjs` (postbuild) en faalt bij een inline `<script>` in `dist/` (JSON-LD telt niet mee). Dat vangt ook componenten die alleen onder een voorwaarde renderen, zoals `RegistrationForm.astro`. Een hit oplossen: het script naar een bestand verplaatsen, niet de CSP verruimen.
 
-Keep `script-src` hash-only — do **not** add `'unsafe-inline'`. Per CSP3, `'unsafe-inline'` is ignored whenever a hash or nonce is present, so it's dead weight that confuses debugging (browser console complains about it).
-
-**Conditionally-rendered scripts are a blind spot.** Rebuilding after a *code* change to a `<script>` block isn't enough — a component with an inline script that only renders under certain content conditions (e.g. `RegistrationForm.astro`, shown only when `registration_open && !isPast`) can have its hash silently missing from `_headers` if no page in the last hash-recompute had that condition true. Symptom: the button/feature looks present in the HTML but does nothing — no CSP console error is obvious unless you check devtools. Rule: after publishing content that activates a previously-dormant component (a new event with `registration_open: true`, a toggled CTA, etc.), rebuild and recompute hashes even if you didn't touch any script code, and manually click the feature on the live URL — don't just trust a clean local build.
+`/admin/*` heeft een eigen CSP-blok in `_headers` (met `! Content-Security-Policy` om de globale te ontkoppelen), omdat alleen `public/admin/index.html` unpkg laadt. Wijzig je de globale CSP, houd dan dat blok in de pas.
 
 ### Cloudflare must not inject inline scripts
 
-Hash-based CSP breaks if Cloudflare rewrites the HTML to add a `<script>` with rotating content. Keep these **OFF** in the CF dashboard for zone `ernestmandelfonds.org`:
+The CSP (`script-src 'self'`) breaks if Cloudflare rewrites the HTML to add an inline `<script>`. Keep these **OFF** in the CF dashboard for zone `ernestmandelfonds.org`:
 
-- **Security → Bots → Bot Fight Mode** — injects `window.__CF$cv$params={r:'<req-id>',t:'<ts>'}` + `/cdn-cgi/challenge-platform/scripts/jsd/main.js` loader. `r` and `t` rotate every request, so no static sha256 hash can match.
+- **Security → Bots → Bot Fight Mode** — injects `window.__CF$cv$params={r:'<req-id>',t:'<ts>'}` + `/cdn-cgi/challenge-platform/scripts/jsd/main.js` loader. `r` and `t` rotate every request, so it would be blocked.
 - **Speed → Optimization → Rocket Loader** — wraps scripts in an inline bootstrapper.
 - **Scrape Shield → Email Address Obfuscation** — redundant with `src/components/Email.astro`, and some variants add an inline helper.
 
-Symptom when one of these is on: Lighthouse / DevTools Console shows `Executing inline script violates … Content Security Policy` with source `(index):4` or similar, even though every repo-authored inline script is correctly hashed. Verify with `curl -s https://ernestmandelfonds.org/ | grep -c '<script'` — should return 3 (2 inline + 1 JSON-LD), not 4+.
+Symptom when one of these is on: Lighthouse / DevTools Console shows `Executing inline script violates … Content Security Policy` with source `(index):4` or similar, even though the repo itself ships no inline scripts. Verify with `curl -s https://ernestmandelfonds.org/ | grep -c '<script'` — should only count the JSON-LD block and `src=` scripts, no inline ones.
 
 **JS Detections caveat (Free plan).** On Free plans the dashboard *also* runs Bot Management's "JavaScript Detections" which injects the same rotating-hash inline script even when Bot Fight Mode is toggled Off. The UI toggle is greyed-out on Free, but the Bot Management API accepts `enable_js: false`:
 
@@ -90,7 +77,7 @@ Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specif
 - **URLs zonder trailing slash**: `trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`, gekozen omdat `/vragen` korter typt en mooier oogt. Schrijf interne links, markdown-links en `href:`-velden in frontmatter zonder slotslash. Tijdens de build is `Astro.url.pathname` het outputbestand (`/activiteiten.html`), gebruik daarom altijd `pagePath(Astro.url)` uit `src/lib/pagePath.ts` voor canonical, `og:url` en nav-state. Check na een build: `grep -rhoE 'href="/[^"#?]+/"' dist | sort -u` moet leeg zijn. Uitzondering: `/admin/` (Sveltia, statisch in `public/admin/`).
 - **Eén host**: `www.` → apex is een Cloudflare Redirect Rule ("www naar apex", phase `http_request_dynamic_redirect`, 301, query string behouden), niet `_redirects`, want dat kan niet op host matchen. Oude `.html`-URLs van de vorige site staan als 301 in `public/_redirects`. Check: `curl -sI https://www.ernestmandelfonds.org/contact` moet 301 naar de apex geven.
 - **Titel-eerst**: op posts (`src/components/PostPage.astro`) staat de auteur voor de titel (`${author}: ${plainTitle}`) omdat mensen op de auteursnaam zoeken, niet op het artikel. `ogTitle`/`twitter:title` volgen automatisch uit `BaseLayout`'s `title` prop.
-- **JSON-LD heeft geen CSP-hash nodig**: `<script type="application/ld+json">` staat buiten `script-src` en hoeft niet in de sha256-lijst in `_headers`. Alleen `<script>`-blokken zonder `type` of met `type="text/javascript"` tellen mee voor de CSP-hashcheck hierboven.
+- **JSON-LD heeft geen CSP-hash nodig**: `<script type="application/ld+json">` staat buiten `script-src`; de postbuild-check negeert het.
 
 ## Fonts
 

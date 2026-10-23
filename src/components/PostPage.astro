@@ -24,6 +24,8 @@ const ui = t(lang);
 const plainTitle = stripHtml(title);
 const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
 const dateFormatted = formatDate(date, lang);
+// Geen punt na een titel die zelf al op ! of ? eindigt ("Fight the cis‑tem!").
+const sourceEventPeriod = source_event && /[!?]$/.test(stripHtml(source_event.label).replace(/[*_]+$/, '')) ? '' : '.';
 
 const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
 const absolute = (path: string) => new URL(path, siteBase).toString();
@@ -152,7 +154,7 @@ const articleStructuredData: Record<string, unknown> = {
     {((source_event && type !== 'verslag') || context_note) && (
       <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
         {source_event && type !== 'verslag' && (
-          <>{source_event.note}{' '}<a href={`/activiteiten/${source_event.slug}`}><Fragment set:html={source_event.label} /></a>.</>
+          <>{source_event.note}{' '}<a href={`/activiteiten/${source_event.slug}`}><Fragment set:html={source_event.label} /></a>{sourceEventPeriod}</>
         )}
         {context_note && <span set:html={' ' + context_note} />}
       </aside>

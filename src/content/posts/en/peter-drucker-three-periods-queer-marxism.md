@@ -1,6 +1,6 @@
 ---
-title: "Three Periods of Queer Marxism"
-subtitle: "From the prehistory to the rise of the far right"
+title: "A Short History of Queer Marxism"
+subtitle: "Three periods, from the 1860s to the present"
 type: "lezing"
 lang: "en"
 date: 2026-09-26
@@ -9,7 +9,7 @@ summary: "Peter Drucker traces the history of queer Marxism in three periods: it
 source_event:
   slug: "fight-the-cis-tem"
   label: "study day *Fight the cis‑tem!*"
-  note: "This is a lightly edited transcript of a lecture given at the"
+  note: "This is an edited version of a lecture given at the"
 draft: true
 ---
 

@@ -179,6 +179,14 @@
     text-decoration: none !important;
   }
 
+  /* Op een smal scherm (geen hover) valt het #-anker rechts buiten de tekstkolom en
+     maakt het de pagina horizontaal scrollbaar. */
+  @media (max-width: 639px) {
+    .heading-anchor {
+      display: none;
+    }
+  }
+
   /* ─── Article (Markdown) typography ──────────────────────────────────────── */
 
   .prose > :first-child {
@@ -308,6 +316,60 @@
     text-decoration-color: #bbbbbb;
     text-decoration-thickness: 0.035em;
     text-underline-offset: 2px;
+  }
+
+  /* Markdown-voetnoten ([^1]): nummer in de tekst, lijst onderaan, popover via /js/footnotes.js */
+  .prose [data-footnote-ref] {
+    padding: 0 0.1em 0 0.05em;
+    color: #555555;
+    text-decoration: none;
+  }
+
+  .prose [data-footnote-ref]:hover,
+  .prose [data-footnote-ref]:focus-visible {
+    color: #111111;
+  }
+
+  .prose sup {
+    line-height: 0;
+  }
+
+  .prose .footnotes {
+    margin-top: 3em;
+    padding-top: 1em;
+    border-top: 1px solid #dddddd;
+    color: #555555;
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+  }
+
+  .prose .footnotes ol {
+    margin-bottom: 0;
+  }
+
+  .prose .footnotes li {
+    line-height: 1.4;
+    margin-bottom: 0.5em;
+    scroll-margin-top: 1.5rem;
+  }
+
+  .prose .footnotes li::marker {
+    color: #777777;
+  }
+
+  .prose .footnotes p {
+    line-height: inherit;
+    margin-bottom: 0;
+  }
+
+  .prose .footnotes a {
+    text-decoration-color: #bbbbbb;
+  }
+
+  .prose [data-footnote-backref] {
+    margin-left: 0.25em;
+    color: #777777;
+    text-decoration: none;
   }
 
   .news-article > p:first-child img:only-child {
@@ -510,4 +572,36 @@
     border-color: #E8320A;
   }
 
+}
+
+/* ─── Voetnoot-popover (public/js/footnotes.js) ───────────────────────────── */
+
+.fn-popover {
+  position: absolute;
+  z-index: 50;
+  max-width: min(24rem, calc(100vw - 2rem));
+  padding: 0.75rem 1rem;
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+  color: #555555;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.fn-popover[hidden] {
+  display: none;
+}
+
+.fn-popover p {
+  margin: 0;
+}
+
+.fn-popover a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #bbbbbb;
+  text-decoration-thickness: 0.035em;
+  text-underline-offset: 2px;
 }

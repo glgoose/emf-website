@@ -31,13 +31,15 @@ So in the 1920s, the Bolsheviks, the communists, played a progressive role. Dan 
 
 Alexandra Kollontai, the first Bolshevik commissar for social welfare, didn't particularly work on issues of homosexuality. Nonetheless, she fought for women's sexual freedom and sexual freedom in general. Family abolition was really part of her programme at that point, with some resistance from other Bolsheviks, of course, sometimes even including Vladimir Lenin. But the whole campaign for communal dining halls and communal childcare was very much done in the perspective of liberating women from household tasks, and liberating human beings generally from the sexual constraints of the traditional family. So that was part of the original Bolshevik vision.
 
+### After the Stalinist intermission
+
 Then came a big intermission, the Stalinist intermission and the Maoist intermission, lasting several decades, when virtually nothing of this sexual libertarianism survived. There was a return to it, a remembering of it, in the 1960s and the 1970s.
 
 You even have individuals who make a connection with the modest role played by the Fourth International. Daniel Guérin, for example, had been a supporter of the Fourth International in the 1930s, important for the Marxist fight against fascism. He was later a libertarian Marxist, as he identified himself, and an important figure in May '68 and in the FHAR, the Homosexual Revolutionary Action Front, in France. There was a similar group in Argentina, the Frente de Liberación Homosexual (FLH), founded the same year, inspired, I think, by the French example, before the military dictatorship took hold there. And again you have a connection through the Fourth International in Mexico, where Rosario Ibarra was the presidential candidate of the Mexican section of the Fourth International, at a point when that was a significant party of several thousand people.
 
 There were definite connections made between the PRT (Partido Revolucionario de los Trabajadores, Revolutionary Workers' Party) and the gay liberation movement in Mexico in that period. These connections also mattered in Nicaragua, where the Sandinistas were not so positive initially but were nonetheless put under pressure by gay organizing in the 1980s. That made a difference. So all this can be called part of the prehistory of queer Marxism.
 
-## II. Classic queer activism and queer theory, 1990s–2000s
+## II. Classic queer activism and queer theory, 1990s–2008
 
 Then you get the start of something different in the early 1990s. It's tricky, particularly now, because the movement is fragmented. You don't have centralized organizations that hold congresses, pass resolutions and define the terms. So you could have a whole discussion about the difference between homosexual, gay, lesbian and queer, for example, and there was no authority to say: this is the difference, this is what it means. We're continuing to invent the definitions of these terms, and it's not always simple.
 
@@ -52,6 +54,8 @@ That has been important for feminism, I think, and certainly for queer politics:
 So people at universities or in the movement were not likely initially to identify as queer Marxists. There was a sense that Marxism had been too narrow, too economically determinist, all of which was true, I think. In fact, in the 1980s, socialist feminists and Marxist feminists had very much complicated the picture of Marxism, stressing the importance of social reproduction alongside production. So by the early 1990s there was a more sophisticated Marxism, not an economically narrow Marxism. Nonetheless, in that geopolitical situation, it was very easy to write off Marxism altogether.
 
 And a certain number of queer theorists, Judith Butler, for example – I think Butler is a more positive example among queer theorists than some – have always identified with the left, have been pro-Palestinian, and are old enough: Butler is a contemporary of mine. But though they're familiar with Marxism, and not anti-Marxist, I would say, they haven't identified as Marxist as such.
+
+### Queer theory meets Marxism
 
 All that has complicated the story. But early in the 21st century, you had queer theorists, writers and activists who begin explicitly to make the link between queer thought and Marxist thought. A crucial book was Kevin Floyd's *The Reification of Desire*,[^6] which made connections between queer theory and Marxism. It looked, for example, at Butler's concept of performativity, a concept that is easily misunderstood, because it could give the impression that gender is merely a performance, merely something voluntary. I don't think Butler ever meant that. What they meant, and I think this is true, is that it is not necessarily the case that people are assigned female or male at birth, are from that point on assigned gender roles and functions in society, and that from that point their gender is fixed and static. One of Butler's essential points was that the assignment of gender never or rarely happens automatically and easily. There are always contradictions.
 
@@ -107,6 +111,8 @@ It's a very half-hearted image of tolerance, actually. In Ukraine today, for exa
 
 I would say in general, and this is perhaps a gross generalization, that the trend towards greater "tolerance", particularly in Western Europe and North America, remained fairly strong into the 21st century until about the outbreak of the economic and financial crisis in 2008. And it's from about that time that the trend gradually dried up, you could say, became weaker.
 
+### The far right's sexual turn in Europe
+
 Looking at Europe specifically, I would say a turning point came in France in 2012, when the social democratic government proposed opening up legal marriage to same-sex couples. This was a neoliberal social democratic government, with not-so-progressive policies at many levels, and as for many governments, its sexual politics were something of an alibi: at least we're for same-sex marriage, so you can say we're progressive.
 
 They thought they were going with the trend of the times, that it wouldn't be that hard to push through. But there was an enormous reaction, with the most reactionary sectors of the Catholic Church playing a big role. LGBTIQ people I knew in France were shocked and afraid at how they were targeted in that society. Same-sex marriage was pushed through eventually, but with big psychological damage to the people who experienced the force of the reaction.
@@ -115,7 +121,7 @@ It's funny: if you look at the rise of the far right in Europe today, in recent 
 
 And this has only grown worse in the years since then, with the rise of transphobia, which was also a turn on the right. In the Netherlands, for example, in the November 2023 election, the far-right party PVV, the Freedom Party, became the biggest party in the Dutch parliament, and it too had a somewhat moderate, tolerant profile on sexual issues. The previous government, a center-right government, had proposed a law to make legal gender change somewhat easier in the Netherlands. Right after the election, even before the far right came into government, the far right and the right-wing parties killed that law in parliament.
 
-### Without the mainstream
+### Organizing without the mainstream
 
 There was a whole period in the Netherlands when, every four years or however often the elections were, the different LGBTIQ organizations met with the parties and signed what were called rainbow electoral agreements, setting out the next stages of emancipation. And generally, slowly and reluctantly, the governments tended to carry out those agreements, for a while. Not lately. There's a sense that progress has stalled, and I think that poses a certain kind of problem for us queer Marxists, particularly for queer activists on the left. Queer activists have been good at protesting against Pride, for example, against the mainstream Pride, the commercialization, the links to the military and the police.
 

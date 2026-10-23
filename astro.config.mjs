@@ -45,6 +45,12 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
+  // Voetnoot-ID's zonder het standaardvoorvoegsel `user-content-`, zodat de
+  // link in de adresbalk `#fn-9` is en niet `#user-content-fn-9`.
+  markdown: {
+    remarkRehype: { clobberPrefix: '' },
+  },
+
   vite: {
     plugins: [tailwindcss()],
     // Geen inline scripts: dan volstaat script-src 'self' en zijn er geen hashes te onderhouden.

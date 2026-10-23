@@ -144,18 +144,14 @@
     scroll-margin-top: 2rem;
   }
 
+  /* Narrow: inline after the heading text. Wide (sidebar gutter available): hanging before it. */
   .heading-anchor {
-    position: absolute;
-    left: calc(100% + 0.15em);
-    top: 0.62em;
-    transform: translateY(-50%);
+    display: inline-block;
+    margin-left: 0.3em;
+    padding: 0.2em 0.35em;
     color: #bbbbbb;
     text-decoration: none !important;
     opacity: 0;
-    visibility: hidden;
-    display: block;
-    width: 0.75em;
-    text-align: center;
     font-weight: 400;
     line-height: 1;
   }
@@ -170,7 +166,25 @@
   .heading-anchor:hover,
   .heading-anchor:focus-visible {
     opacity: 1;
-    visibility: visible;
+  }
+
+  @media (hover: none) {
+    .heading-anchor {
+      opacity: 0.6;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .heading-anchor {
+      position: absolute;
+      right: 100%;
+      left: auto;
+      top: 0.62em;
+      transform: translateY(-50%);
+      margin-left: 0;
+      padding: 0.3em 0.4em 0.3em 0.3em;
+      text-align: center;
+    }
   }
 
   .heading-anchor:hover,

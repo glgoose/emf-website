@@ -9,7 +9,7 @@ summary: "Peter Drucker traces the history of queer Marxism in three periods: it
 source_event:
   slug: "fight-the-cis-tem"
   label: "study day *Fight the cis‑tem!*"
-  note: "This lecture was given at the"
+  note: "This is a lightly edited transcript of a lecture given at the"
 draft: true
 ---
 

@@ -263,7 +263,7 @@ collections:
         widget: boolean
         default: true
         required: false
-        hint: "Aan = alleen zichtbaar op de conceptenpagina, niet op de live site."
+        hint: "Aan = niet in de overzichten en niet in Google, wel te lezen via de directe link (om te delen ter controle)."
 
   # ── Pagina's (enkelvoudig) ─────────────────────────────────────────────────
   - name: pages

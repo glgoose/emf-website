@@ -112,7 +112,7 @@ const articleStructuredData: Record<string, unknown> = {
 
   <article class="prose news-article">
     {toc && <ArticleToc toc={toc} variant="head" hasNotes={hasNotes} label={ui.post.contents} notesLabel={ui.post.notes} topLabel={ui.post.topLabel} />}
-    {draft && <DraftBanner title={plainTitle} sourcePath={`src/content/posts/${item.id}.md`} />}
+    {draft && <DraftBanner label={ui.post.draftNotice} />}
     {translation_of && original && (
       <TranslationNotice
         locale={lang}

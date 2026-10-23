@@ -14,8 +14,10 @@ export interface PostVersion {
   isOriginal: boolean;
 }
 
-const showDrafts = () => process.env.SHOW_DRAFTS === "true";
-const isVisible = (post: Post) => showDrafts() || !post.data.draft;
+// Concepten (draft: true) worden gebouwd op hun definitieve URL, met noindex, maar staan
+// alleen in `npm run dev` in de overzichten: wie de link heeft, kan ze lezen.
+// Zie docs/adr/0002-concepten-unlisted.md.
+const isListed = (post: Post) => import.meta.env.DEV || !post.data.draft;
 
 /**
  * Regels over meerdere bestanden heen, die het zod-schema niet kan zien.
@@ -95,11 +97,11 @@ function validate(posts: Post[]): void {
 
 let cache: Promise<Post[]> | undefined;
 
-/** Alle zichtbare posts in alle talen (concepten alleen met SHOW_DRAFTS=true). Voor routes. */
+/** Alle posts in alle talen, concepten inbegrepen. Voor routes, niet voor overzichten. */
 export function getAllPosts(): Promise<Post[]> {
   cache ??= getCollection("posts").then(posts => {
     validate(posts);
-    return posts.filter(isVisible);
+    return posts;
   });
   return cache;
 }
@@ -116,7 +118,7 @@ export async function getPostsInLocale(locale: Locale): Promise<Post[]> {
  * vertaling toch in de Nederlandse overzichten, met een link naar /<slug>.
  */
 export async function getListedPosts(locale: Locale = defaultLocale): Promise<Post[]> {
-  const all = await getAllPosts();
+  const all = (await getAllPosts()).filter(isListed);
   const workId = (post: Post) => post.data.translation_of ?? post.id;
   const byWork = new Map<string, Post[]>();
   for (const post of all) {
@@ -130,12 +132,16 @@ export async function getListedPosts(locale: Locale = defaultLocale): Promise<Po
   });
 }
 
-/** Alle zichtbare taalversies van hetzelfde werk als `post`, origineel eerst. */
+/**
+ * Alle taalversies van hetzelfde werk als `post`, origineel eerst. Een gepubliceerde
+ * versie linkt niet naar een concept; een concept ziet alle versies.
+ */
 export async function getVersions(post: Post): Promise<PostVersion[]> {
   const all = await getAllPosts();
   const originalId = post.data.translation_of ?? post.id;
   return all
     .filter(candidate => candidate.id === originalId || candidate.data.translation_of === originalId)
+    .filter(candidate => post.data.draft || !candidate.data.draft)
     .map(candidate => ({
       locale: candidate.data.lang,
       href: postHref(candidate),

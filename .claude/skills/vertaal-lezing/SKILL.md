@@ -92,7 +92,7 @@ kernwoorden aanpassen (minder woorden), nooit de auteursnaam inkorten.
 
 ### Na het schrijven
 
-- `npm run build` (met `SHOW_DRAFTS=true` als de lezing `draft: true` is) om te zien of het bestand
+- `npm run build` om te zien of het bestand
   door de validatie in `src/lib/posts.ts` en het zod-schema komt.
 - Bij twijfel over een term, citaat of feit (zie hierboven, of iets anders): een regel toevoegen aan
   `docs/vertaling-twijfels.md` (aanmaken als het nog niet bestaat) met de post-id, de taal, het

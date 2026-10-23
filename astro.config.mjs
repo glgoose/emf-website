@@ -17,11 +17,15 @@ import rehypeHeadingIds from "./src/lib/rehypeHeadingIds.mjs";
 const DIST = join(process.cwd(), "dist");
 const ALTERNATE_LINK = /<link\b[^>]*\brel="alternate"[^>]*>/g;
 /** @param {string} url */
-function hreflangLinksFromHtml(url) {
+function builtHtml(url) {
   const path = new URL(url).pathname.replace(/\/$/, "");
   const file = join(DIST, path === "" ? "index.html" : `${path}.html`);
-  if (!existsSync(file)) return undefined;
-  const html = readFileSync(file, "utf-8");
+  return existsSync(file) ? readFileSync(file, "utf-8") : undefined;
+}
+/** @param {string} url */
+function hreflangLinksFromHtml(url) {
+  const html = builtHtml(url);
+  if (!html) return undefined;
   const links = [...html.matchAll(ALTERNATE_LINK)].flatMap(([tag]) => {
     const lang = tag.match(/\bhreflang="([^"]+)"/)?.[1];
     const href = tag.match(/\bhref="([^"]+)"/)?.[1];
@@ -68,7 +72,10 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      filter: page => !['/vragen', '/questions', '/admin'].some(prefix => page.includes(prefix)),
+      // Ook elke pagina met <meta name="robots" content="noindex">, zoals concepten
+      // (draft: true), die unlisted op hun definitieve URL staan.
+      filter: page => !['/vragen', '/questions', '/admin'].some(prefix => page.includes(prefix))
+        && !/<meta name="robots" content="noindex/.test(builtHtml(page) ?? ''),
       serialize(item) {
         const links = hreflangLinksFromHtml(item.url);
         return links ? { ...item, links } : item;

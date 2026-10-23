@@ -9,7 +9,7 @@
     "dev": "astro dev --host",
     "prebuild": "node scripts/generate-redirects.mjs",
     "build": "astro build",
-    "postbuild": "node scripts/check-no-inline-scripts.mjs",
+    "postbuild": "node scripts/check-no-inline-scripts.mjs && node scripts/check-drafts-unlisted.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "visual:test": "playwright test",

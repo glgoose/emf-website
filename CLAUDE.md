@@ -4,16 +4,15 @@
 
 ### Publiceren = pushen
 
-`git push` naar `main` deployt de site: `.github/workflows/deploy.yml` bouwt en draait `wrangler pages deploy` (productie, plus een `concepten`-preview met `SHOW_DRAFTS`). Draai **niet** ook `npm run deploy`, dat is een dubbele deploy. Cloudflare toont "Git Provider: No" omdat de koppeling via GitHub Actions loopt, niet via Cloudflare zelf. Volg een run met `gh run watch`, of controleer met `gh run list --limit 3`. De workflow draait ook dagelijks om 02:15 en bouwt dan alleen opnieuw als er gisteren een activiteit was. Browsers cachen `/js/*` vier uur (`max-age=14400`), dus test na een deploy met Cmd+Shift+R.
+`git push` naar `main` deployt de site: `.github/workflows/deploy.yml` bouwt en draait `wrangler pages deploy`. Draai **niet** ook `npm run deploy`, dat is een dubbele deploy. Cloudflare toont "Git Provider: No" omdat de koppeling via GitHub Actions loopt, niet via Cloudflare zelf. Volg een run met `gh run watch`, of controleer met `gh run list --limit 3`. De workflow draait ook dagelijks om 02:15 en bouwt dan alleen opnieuw als er gisteren een activiteit was. Browsers cachen `/js/*` vier uur (`max-age=14400`), dus test na een deploy met Cmd+Shift+R.
 
 ### Open punt: van Pages naar Workers
 
 Cloudflare noemt Workers zijn primaire platform en zegt in de Pages-docs: "Start new projects with Workers" (docs gelezen 2026-09-28). Pages werkt gewoon door. Voordelen voor ons zijn beperkt (zie hieronder), dus geen haast. Te onderzoeken vóór een migratie, en wat het voor CI/CD betekent:
 
-- Deploy-commando: `wrangler pages deploy dist` wordt `wrangler deploy` met een `wrangler.jsonc` (`assets.directory: ./dist`). Beide stappen in `deploy.yml` moeten mee.
+- Deploy-commando: `wrangler pages deploy dist` wordt `wrangler deploy` met een `wrangler.jsonc` (`assets.directory: ./dist`). De deploystap in `deploy.yml` moet mee.
 - `functions/` (Pages Functions, `functions/api`) bestaat niet meer in Workers: routes moeten een Worker-entrypoint worden.
 - `public/_headers` en `public/_redirects` blijven werken voor static assets, maar de limieten en regelvolgorde verschillen. Controleer de CSP en de gegenereerde redirects (`scripts/generate-redirects.mjs`).
-- De `concepten`-preview draait nu als Pages-branch (`--branch concepten`). Workers heeft daarvoor versies of een tweede Worker met eigen URL nodig, en dan verandert de preview-URL.
 - Domeinen `ernestmandelfonds.org` en `www` moeten van het Pages-project naar de Worker. Let op de Redirect Rule voor `www` en de instellingen voor JS Detections, Bot Fight Mode en Rocket Loader (zie CSP).
 - Het API-token heeft Workers-rechten nodig (nu Pages). De secrets `CLOUDFLARE_API_TOKEN` en `CLOUDFLARE_ACCOUNT_ID` blijven.
 - Eerst doen: de Cloudflare-docs over Pages naar Workers migreren lezen en een proefdeploy op een aparte Worker draaien, zonder het domein te verplaatsen.
@@ -48,6 +47,10 @@ curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/bot_management"
 ```
 
 Requires a token with **Zone:Read** + **Zone:Bot Management:Edit** on the specific zone. Verify with `curl .../bot_management` — expect `"enable_js": false`.
+
+### Concepten delen
+
+Een post met `draft: true` staat unlisted op de live site, op zijn definitieve URL: noindex, niet in overzichten of sitemap, met een conceptmelding bovenaan. Stuur gewoon `https://ernestmandelfonds.org/<slug>`. Publiceren is `draft: false`, de link blijft dezelfde. Alleen `npm run dev` toont concepten in de overzichten. `scripts/check-drafts-unlisted.mjs` (postbuild) bewaakt dat geen pagina of sitemap naar een concept wijst. Keuze en afgewezen alternatieven: `docs/adr/0002-concepten-unlisted.md`.
 
 ## SEO
 

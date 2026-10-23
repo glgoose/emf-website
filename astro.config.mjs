@@ -5,6 +5,8 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
+import rehypeFootnoteLabel from "./src/lib/rehypeFootnoteLabel.mjs";
+import rehypeHeadingIds from "./src/lib/rehypeHeadingIds.mjs";
 
 // Hreflang voor de sitemap, gelezen uit de gebouwde HTML. URL's hebben geen
 // taalprefix en vertaalde posts hebben een vertaald type-woord en een vertaalde
@@ -46,9 +48,12 @@ export default defineConfig({
   },
 
   // Voetnoot-ID's zonder het standaardvoorvoegsel `user-content-`, zodat de
-  // link in de adresbalk `#fn-9` is en niet `#user-content-fn-9`.
+  // link in de adresbalk `#fn-9` is en niet `#user-content-fn-9`. De kop
+  // "Notes" is zichtbaar (geen `sr-only`); de tekst per taal zet de plugin.
+  // Kop-ID's met een koppelteken voor een streepje: src/lib/rehypeHeadingIds.mjs.
   markdown: {
-    remarkRehype: { clobberPrefix: '' },
+    remarkRehype: { clobberPrefix: '', footnoteLabelProperties: {} },
+    rehypePlugins: [rehypeFootnoteLabel, rehypeHeadingIds],
   },
 
   vite: {

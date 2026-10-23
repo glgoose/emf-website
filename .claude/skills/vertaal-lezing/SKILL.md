@@ -16,7 +16,7 @@ datamodel; deze skill past het toe, ze herhaalt het niet.
 ```
 
 - `<post-id>`: pad onder `src/content/posts` zonder `.md` en zonder taalprefix voor het origineel
-  (bv. `anton-jager-mandel-zoete-wraak-geschiedenis`, of `en/peter-drucker-three-periods-queer-marxism` als het
+  (bv. `anton-jager-mandel-zoete-wraak-geschiedenis`, of `en/peter-drucker-short-history-queer-marxism` als het
   origineel zelf al niet-Nederlands is).
 - `<talen>`: kommagescheiden doeltalen uit `src/i18n/config.ts` (`en`, `fr`), nooit de brontaal zelf.
 

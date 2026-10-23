@@ -1,0 +1,56 @@
+---
+// Inhoudsopgave van een artikel: `spine` in de zijbalk (≥1024px), `head` als
+// lopende kop boven de tekst (<1024px). Gedrag in public/js/toc.js.
+import { partLabel, type Toc } from '../lib/toc';
+
+interface Props {
+  toc: Toc;
+  variant: 'spine' | 'head';
+  hasNotes: boolean;
+  label: string;
+  notesLabel: string;
+  topLabel: string;
+}
+
+const { toc, variant, hasNotes, label, notesLabel, topLabel } = Astro.props;
+const { parts, flat } = toc;
+---
+
+{variant === 'spine' ? (
+  <nav class:list={['toc tl only-lg not-prose', { flat }]} aria-labelledby="tl-label">
+    <p class="tl-label" id="tl-label">{label}</p>
+    <span class="tl-track" aria-hidden="true"><span class="tl-fill"></span></span>
+    <ol>
+      {parts.map(p => (
+        <li class="tl-part">
+          <a class="tl-row tl-title" href={`#${p.id}`}>{p.dates && <span class="tl-dates">{p.dates}</span>}{partLabel(p)}</a>
+          {p.subs.length > 0 && (
+            <ol class="tl-subs">
+              {p.subs.map(s => <li><a class="tl-row tl-sub" href={`#${s.id}`}>{s.text}</a></li>)}
+            </ol>
+          )}
+        </li>
+      ))}
+      {hasNotes && <li class="tl-part tl-notes"><a class="tl-row tl-title" href="#footnote-label">{notesLabel}</a></li>}
+    </ol>
+    <a class="tl-top" href="#top">{topLabel}<span class="tl-top-axis" aria-hidden="true"><svg class="tl-top-ic" viewBox="0 0 10 6"><path d="M1 5.5 5 1.5l4 4" fill="none" stroke="currentColor" stroke-width="1" /></svg></span></a>
+  </nav>
+) : (
+  <nav class:list={['toc rh only-sm not-prose', { flat }]} aria-label={label} data-label={label}>
+    <button type="button" class="rh-bar" aria-expanded="false" aria-controls="rh-panel">
+      <span class="rh-now"><span class="rh-part-now">{label}</span><span class="rh-sec-now"></span></span>
+      <svg viewBox="0 0 10 10" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M2 3.5l3 3 3-3" /></svg>
+    </button>
+    <div class="rh-panel" id="rh-panel" hidden>
+      <ol>
+        {parts.map(p => (
+          <li class="rh-part">
+            <a class="rh-ptitle" href={`#${p.id}`}><span>{partLabel(p)}</span>{p.dates && <span class="rh-dates">{p.dates}</span>}</a>
+            {p.subs.length > 0 && <ol>{p.subs.map(s => <li><a href={`#${s.id}`}>{s.text}</a></li>)}</ol>}
+          </li>
+        ))}
+      </ol>
+    </div>
+    <a class="rh-up" href="#top">{topLabel}</a>
+  </nav>
+)}

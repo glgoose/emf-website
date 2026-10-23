@@ -5,6 +5,8 @@ import SidebarHeading from './SidebarHeading.astro';
 import DraftBanner from './DraftBanner.astro';
 import TranslationNotice from './TranslationNotice.astro';
 import LanguageLinks from './LanguageLinks.astro';
+import ArticleToc from './ArticleToc.astro';
+import { buildToc } from '../lib/toc';
 import { render } from 'astro:content';
 import { stripHtml } from '../lib/formatDateTime';
 import { newsTypeLabel } from '../lib/newsTypes';
@@ -17,10 +19,12 @@ interface Props {
 }
 
 const { item } = Astro.props;
-const { Content } = await render(item);
+const { Content, headings } = await render(item);
 
 const { title, subtitle, date, author, summary, source_event, lead_images, lead_credit, context_note, type, draft, lang, translator, translation_of, machine_translated } = item.data;
 const ui = t(lang);
+const toc = buildToc(headings);
+const hasNotes = /^\[\^[^\]]+\]:/m.test(item.body ?? '');
 const plainTitle = stripHtml(title);
 const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
 const dateFormatted = formatDate(date, lang);
@@ -103,9 +107,11 @@ const articleStructuredData: Record<string, unknown> = {
       </div>
       <LanguageLinks currentLocale={lang} versions={versions} />
     </SidebarHeading>
+    {toc && <ArticleToc toc={toc} variant="spine" hasNotes={hasNotes} label={ui.post.contents} notesLabel={ui.post.notes} topLabel={ui.post.topLabel} />}
   </Fragment>
 
   <article class="prose news-article">
+    {toc && <ArticleToc toc={toc} variant="head" hasNotes={hasNotes} label={ui.post.contents} notesLabel={ui.post.notes} topLabel={ui.post.topLabel} />}
     {draft && <DraftBanner title={plainTitle} sourcePath={`src/content/posts/${item.id}.md`} />}
     {translation_of && original && (
       <TranslationNotice
@@ -162,4 +168,5 @@ const articleStructuredData: Record<string, unknown> = {
     <Content />
   </article>
   <script is:inline src="/js/footnotes.js" defer></script>
+  {toc && <script is:inline src="/js/toc.js" defer></script>}
 </BaseLayout>

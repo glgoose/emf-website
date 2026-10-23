@@ -336,11 +336,21 @@
 
   .prose .footnotes {
     margin-top: 3em;
-    padding-top: 1em;
-    border-top: 1px solid #dddddd;
     color: #555555;
     font-size: 0.8rem;
     overflow-wrap: anywhere;
+  }
+
+  .prose #footnote-label {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    line-height: 1.3;
+    font-weight: 700;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+    color: #111111;
   }
 
   .prose .footnotes ol {
@@ -605,3 +615,62 @@
   text-decoration-thickness: 0.035em;
   text-underline-offset: 2px;
 }
+
+/* ─── Inhoudsopgave van een artikel (ArticleToc.astro, public/js/toc.js) ───── */
+.toc a{text-decoration:none}
+@media (prefers-reduced-motion:reduce){.toc *{transition:none!important}}
+@media (min-width:1024px){aside:has(> .tl){position:static;align-self:stretch}.tl{position:sticky;top:3rem;margin-right:calc(-1 * var(--tl-gap))}}
+.tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:.75rem;line-height:1.375;text-align:right}
+.tl ol{list-style:none;margin:0;padding:0}
+.tl-track{position:absolute;right:0;width:1px;background:#d6d6d6}
+.tl-fill{position:absolute;left:0;top:0;width:1px;height:0;background:#111}
+.tl-part{margin:0 0 1rem}
+.tl.flat .tl-part{margin:0 0 .45rem}
+.tl-dates{display:block;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
+.tl-row{position:relative;display:block;color:#666}
+.tl-row::after{content:"";position:absolute;top:.68em;right:calc(-1 * var(--tl-gap) - 2px);width:5px;height:1px;background:#c4c4c4}
+.tl-title{color:#444}
+.tl:not(.flat) .tl-title::after{right:calc(-1 * var(--tl-gap) - 3px);width:7px}
+.tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
+.tl-subs li{margin:0 0 .25em}
+.tl-row.is-past::after{background:#111}
+.tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:#111}
+/* het actieve deel: de andere delen vervagen (alleen kleur, geen layoutverschuiving) */
+.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover),.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover) .tl-dates{color:#ababab}
+.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(.is-past)::after{background:#dadada}
+/* "terug naar boven": alleen zichtbaar na omhoogscrollen (toc.js zet .is-up) of bij toetsenbordfocus (:focus-visible, dus niet bij een muisklik); neemt altijd ruimte in, dus geen layoutverschuiving */
+.tl-top,.rh-up{font-style:italic;color:#555;text-decoration:none;opacity:0;visibility:hidden;transition:opacity .15s}
+.tl-top:hover,.rh-up:hover{color:#111}
+.tl.is-up .tl-top,.tl:has(:focus-visible) .tl-top,.rh.is-up .rh-up,.rh:has(:focus-visible) .rh-up{opacity:1;visibility:visible}
+.tl .tl-top{position:relative;display:block;margin-top:1.25rem}
+.tl-top-axis{position:absolute;top:.42em;right:calc(-1 * var(--tl-gap) - 4px);width:9px;line-height:0;background:#fff;padding:2px 0}
+.tl-top-ic{display:block;width:9px;height:5.4px}
+.rh-up{position:absolute;top:0;right:calc(12px + .75rem);bottom:1px;display:flex;align-items:center;padding:0 0 0 1.5rem;background:linear-gradient(to right,rgb(255 255 255 / 0),#fff 1.25rem)}
+.rh:is(.is-up,:has(:focus-visible)) .rh-sec-now{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.tl-top,.rh-up{transition:none}}
+.tl-label{margin:0 0 .75rem;font-weight:700;font-style:normal;font-variant:small-caps;text-transform:lowercase;letter-spacing:.08em;color:#111}
+@media (max-width:1023px){.only-lg{display:none}}
+@media (min-width:1024px){.only-sm{display:none}}
+@media (max-width:1023px){body:has(.rh) .prose :is(h2,h3){scroll-margin-top:3.5rem}}
+
+/* lopende kop onder 1024px */
+.rh{position:sticky;top:0;z-index:5;margin:0 0 1.25rem;background:#fff;font-size:.75rem;line-height:1.375}
+.rh-bar{display:flex;align-items:center;gap:.75rem;width:100%;margin:0;padding:.55rem 0;border:0;border-bottom:1px solid #ddd;background:none;font:inherit;color:#555;text-align:left;cursor:pointer}
+.rh-bar:hover{color:#111}
+.rh-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rh-sec-now{font-style:italic;color:#888}
+.rh-sec-now:not(:empty)::before{content:"\2003"}
+.rh-bar svg{flex:none;transition:transform .15s}
+.rh-bar[aria-expanded="true"] svg{transform:rotate(180deg)}
+.rh-panel{position:absolute;left:0;right:0;top:100%;max-height:calc(100vh - 3rem);overflow:auto;padding:1rem 0 .5rem;background:#fff;border-bottom:1px solid #ddd}
+.rh-panel ol{list-style:none;margin:0;padding:0}
+.rh-part{margin:0 0 .9rem}
+.rh.flat .rh-part{margin:0 0 .35rem}
+.rh-ptitle{display:flex;justify-content:space-between;gap:1rem;color:#111}
+.rh.flat .rh-ptitle{color:#555}
+.rh-dates{flex:none;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
+.rh-part ol{margin:.25rem 0 0 1.5rem}
+.rh-part ol li{margin:0 0 .2em}
+.rh-part ol a{color:#666}
+.rh-panel a:hover,.rh-panel a[aria-current]{color:#111}
+.rh-panel a[aria-current] span:first-child,.rh-part ol a[aria-current]{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}

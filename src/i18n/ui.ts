@@ -14,6 +14,9 @@ const nl = {
   },
   post: {
     metaLabel: 'Berichtgegevens',
+    contents: 'Inhoud',
+    notes: 'Noten',
+    topLabel: 'terug naar boven',
     backToNews: 'Terug naar nieuws',
     enlargeImage: 'vergroten',
     imageEnlarged: 'Afbeelding vergroot',
@@ -31,7 +34,7 @@ const nl = {
   machineTranslationNotice: {
     labelMachine: 'Machinevertaling',
     labelHuman: 'Vertaling',
-    machine: 'Deze tekst is geschreven in het {sourceLanguage} en automatisch vertaald. De vertaling is niet door de auteur nagelezen.',
+    machine: 'Deze tekst is geschreven in het {sourceLanguage} en automatisch vertaald.',
     human: 'Vertaald {fromLanguage}.',
     reviewedBy: 'Nagelezen door {translator}.',
     translatedBy: 'Vertaling: {translator}.',
@@ -67,6 +70,9 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     },
     post: {
       metaLabel: 'Article details',
+      contents: 'Contents',
+      notes: 'Notes',
+      topLabel: 'back to top',
       backToNews: 'Back to news',
       enlargeImage: 'enlarge',
       imageEnlarged: 'Enlarged image',
@@ -79,7 +85,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     machineTranslationNotice: {
       labelMachine: 'Machine translation',
       labelHuman: 'Translation',
-      machine: 'This text was written in {sourceLanguage} and translated automatically. The translation has not been checked by the author.',
+      machine: 'This text was written in {sourceLanguage} and translated automatically.',
       human: 'Translated {fromLanguage}.',
       reviewedBy: 'Reviewed by {translator}.',
       translatedBy: 'Translation: {translator}.',
@@ -105,6 +111,9 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     },
     post: {
       metaLabel: 'Détails de l’article',
+      contents: 'Sommaire',
+      notes: 'Notes',
+      topLabel: 'retour en haut',
       backToNews: 'Retour aux actualités',
       enlargeImage: 'agrandir',
       imageEnlarged: 'Image agrandie',
@@ -117,7 +126,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     machineTranslationNotice: {
       labelMachine: 'Traduction automatique',
       labelHuman: 'Traduction',
-      machine: 'Ce texte a été écrit en {sourceLanguage} et traduit automatiquement. La traduction n’a pas été relue par l’auteur.',
+      machine: 'Ce texte a été écrit en {sourceLanguage} et traduit automatiquement.',
       human: 'Traduit {fromLanguage}.',
       reviewedBy: 'Relu par {translator}.',
       translatedBy: 'Traduction : {translator}.',

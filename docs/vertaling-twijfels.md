@@ -88,3 +88,28 @@ Logica: auteur voorop, dan het kernbeeld van de titel. Werkwoorden en bijwoorden
 rêvons toujours*) vallen weg, een vaste uitdrukking (*de zoete wraak van de geschiedenis*) blijft heel. Zo
 volgen de drie talen van één werk hetzelfde beeld (`ander-strand`, `another-beach`, `autre-plage`). Vanaf
 nu bevestigt de gebruiker elke slug vóór de eerste publicatie. Alle oude paden staan in `redirect_from`.
+
+## 2026-10-23: Drucker, "A Short History of Queer Marxism" (nl, fr)
+
+**Posts:** `peter-drucker-korte-geschiedenis-queer-marxisme` (nl), `fr/peter-drucker-breve-histoire-marxisme-queer` (fr), beide vertaald uit
+`en/peter-drucker-short-history-queer-marxism`. Slugs zijn nog niet bevestigd voor publicatie.
+
+**nl**
+
+- *Geschiedenis en klassenbewustzijn* (Lukács): spelling "klassebewustzijn" of "klassenbewustzijn" in de NL-uitgave (Van Gennep) niet gecontroleerd.
+- Wekker: de tekst noemt de NL-titel *Witte onschuld*, de voetnoot de Engelse editie. Eventueel de NL-uitgave citeren.
+- Healey-citaten (vn 3 en 4): vertaald uit Healey's Engels, die zelf uit het Russisch vertaalt.
+- Russische namen volgens NL-conventie: Rachmanov, Gannoesjkin, Jozef Stalin.
+- FHAR als "Homoseksueel Front voor Revolutionaire Actie", vanuit het Engels, niet uit de Franse naam.
+- "war on terror" onvertaald. "legal gender recognition" als "wettelijke erkenning van gender" (gangbaarder: wijziging van geslachtsregistratie).
+- "(Pink Lion)" en "Livable Rotterdam" weggelaten, de Nederlandse namen volstaan. "Leefbaar Rotterdam is de op een na grootste partij (toen de grootste)" volgt de spreker, feit niet nagegaan.
+
+**fr**
+
+- Butler: "Iel" in de tekst en vn 5, daarna "Butler". Inclusief schrijven (théoricien·nes, Palestinien·nes, auteur·ices) is een redactionele keuze, te bevestigen.
+- Instellingsnamen niet tegen een bron gecontroleerd: Institut de sexologie, Comité scientifique-humanitaire, Ligue mondiale pour la réforme sexuelle. Idem "commissaire bolchevique à l'Assistance sociale" (Kollontaj).
+- "lesbian officers as commanders" als "officières lesbiennes comme commandantes": vn 3 gaat over mensen die als man leefden, dat staat zo in het origineel.
+- "Black Pete" als "contre Zwarte Piet (Pierre le Noir)". "mainstream" als "courant" of "mouvement dominant" (kop: "S'organiser sans le mouvement dominant").
+- "Marine Le Pen … présidente de la République" waar het Engels "president of France" heeft.
+- Vn 1 en 7 houden de Engelse editie en hebben er een zin "En français : <titel>" bij gekregen, extra inhoud.
+- 22,3 % en 1 024 hebben een gewone spatie in plaats van nbsp (regelafbreking).

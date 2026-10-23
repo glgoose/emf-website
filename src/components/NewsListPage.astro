@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SidebarNav from './SidebarNav.astro';
+import DraftTag from './DraftTag.astro';
 import type { NavItem } from '../data/overEmfNav';
 import { newsTypeLabel } from '../lib/newsTypes';
 import { postHref } from '../lib/postRoutes';
@@ -70,7 +71,7 @@ function formatMeta(date: Date, author?: string): string {
           {(showItemTypes || lead.data.draft) && (
             <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-2">
               {showItemTypes && newsTypeLabel(lead.data.type)}
-              {lead.data.draft && <span class="border border-[#999999] px-1 py-0.5 ml-1.5 normal-case [font-variant:normal] tracking-normal">Concept</span>}
+              {lead.data.draft && <DraftTag spaced={showItemTypes} />}
             </p>
           )}
           <h2 class="text-[2rem] leading-[0.98] italic font-medium mt-0 mb-2 max-w-[13em] group-hover:underline underline-offset-2">
@@ -89,7 +90,7 @@ function formatMeta(date: Date, author?: string): string {
                 {(showItemTypes || item.data.draft) && (
                   <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-1.5">
                     {showItemTypes && newsTypeLabel(item.data.type)}
-                    {item.data.draft && <span class="border border-[#999999] px-1 py-0.5 ml-1.5 normal-case [font-variant:normal] tracking-normal">Concept</span>}
+                    {item.data.draft && <DraftTag spaced={showItemTypes} />}
                   </p>
                 )}
                 <p class="text-xs leading-snug text-[#555555] mb-1">{formatMeta(item.data.date, item.data.author)}</p>

@@ -3,6 +3,7 @@ import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import PillButton from '../components/PillButton.astro';
+import DraftTag from '../components/DraftTag.astro';
 import { getCollection } from 'astro:content';
 import symbolImg from '../assets/images/symbolORANGY-RED.png';
 import { formatLongDate, formatTimeRange } from '../lib/formatDateTime';
@@ -112,7 +113,7 @@ const websiteStructuredData = {
             <a href={postHref(post)} class="block no-underline hover:no-underline group">
               <p class="text-[0.65rem] leading-none text-[#555555] font-normal lowercase [font-variant:small-caps] [font-variant-caps:small-caps] [font-kerning:normal] tracking-[0.08em] mb-1.5">
                 {newsTypeLabel(post.data.type)}
-                {post.data.draft && <span class="border border-[#999999] px-1 py-0.5 ml-1.5 normal-case [font-variant:normal] tracking-normal">Concept</span>}
+                {post.data.draft && <DraftTag spaced />}
               </p>
               <p class="text-xs text-[#555555] mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>
               <p class="m-0 text-[1rem] leading-[1.15] font-bold group-hover:underline underline-offset-2">

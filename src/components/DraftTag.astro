@@ -1,0 +1,11 @@
+---
+// Conceptmarkering in overzichten (homepagina, /nieuws): een cursief woord na de typeregel,
+// als kanttekening in de marge. Zet de kleine kapitalen van die regel bewust uit.
+interface Props {
+  spaced?: boolean;
+}
+
+const { spaced = false } = Astro.props;
+---
+
+<em class:list={['text-[0.8rem] leading-[0] italic normal-case [font-variant:normal] [font-variant-caps:normal] tracking-normal text-[#555555]', spaced && 'ml-[0.4em]']}>concept</em>

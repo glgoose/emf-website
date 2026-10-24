@@ -1,5 +1,21 @@
 [
   {
+    "id": "2010",
+    "container-title": "<span class=\"nocase\">DutchNews.nl</span>",
+    "issued": {
+      "date-parts": [
+        [
+          "2010",
+          11,
+          9
+        ]
+      ]
+    },
+    "title": "PVV Biggest Party among Gay Krant Readers",
+    "type": "article-newspaper",
+    "URL": "https://www.dutchnews.nl/2010/11/pvv_biggest_party_among_gay_kr/"
+  },
+  {
     "id": "Drucker2000",
     "editor": [
       {
@@ -27,8 +43,8 @@
         "given": "Peter"
       }
     ],
-    "collection-number": "volume 92",
-    "collection-title": "Historical materialism book series",
+    "collection-number": "92",
+    "collection-title": "Historical Materialism Book Series",
     "issued": {
       "date-parts": [
         [
@@ -43,6 +59,44 @@
     "type": "book"
   },
   {
+    "id": "Engels1869",
+    "author": [
+      {
+        "family": "Engels",
+        "given": "Friedrich"
+      }
+    ],
+    "container-title": "Collected Works",
+    "event-date": {
+      "date-parts": [
+        [
+          "1869",
+          6,
+          22
+        ]
+      ]
+    },
+    "event-place": "Manchester",
+    "issued": {
+      "date-parts": [
+        [
+          "1988"
+        ]
+      ]
+    },
+    "publisher": "Lawrence & Wishart",
+    "publisher-place": "London",
+    "recipient": [
+      {
+        "family": "Marx",
+        "given": "Karl"
+      }
+    ],
+    "type": "personal_communication",
+    "volume": "43",
+    "volume-title": "Letters, April 1868–July 1870"
+  },
+  {
     "id": "Engels2010",
     "author": [
       {
@@ -50,16 +104,17 @@
         "given": "Friedrich"
       }
     ],
-    "contributor": [
-      {
-        "family": "Hunt",
-        "given": "Tristram"
-      }
-    ],
     "issued": {
       "date-parts": [
         [
           "2010"
+        ]
+      ]
+    },
+    "original-date": {
+      "date-parts": [
+        [
+          "1884"
         ]
       ]
     },
@@ -132,7 +187,82 @@
     "publisher": "University of Chicago Press",
     "publisher-place": "Chicago",
     "title": "Homosexual Desire in Revolutionary Russia: The Regulation of Sexual and Gender Dissent",
-    "title-short": "Homosexual Desire in Revolutionary Russia",
+    "title-short": "Homosexual Desire",
+    "type": "book"
+  },
+  {
+    "id": "Healey2001a",
+    "author": [
+      {
+        "family": "Healey",
+        "given": "Dan"
+      }
+    ],
+    "collection-title": "Studies in Russian and East European History and Society",
+    "container-title": "Gender in Russian History and Culture",
+    "editor": [
+      {
+        "family": "Edmondson",
+        "given": "Linda"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "2001"
+        ]
+      ]
+    },
+    "publisher": "Palgrave",
+    "publisher-place": "Houndmills",
+    "title": "Unruly Identities: Soviet Psychiatry Confronts the “Female Homosexual” of the 1920s",
+    "type": "chapter"
+  },
+  {
+    "id": "Lukacs1971",
+    "author": [
+      {
+        "family": "Lukács",
+        "given": "Georg"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "1971"
+        ]
+      ]
+    },
+    "publisher": "MIT Press",
+    "publisher-place": "Cambridge, Mass",
+    "title": "History and Class Consciousness: Studies in Marxist Dialectics",
+    "title-short": "History and Class Consciousness",
+    "translator": [
+      {
+        "family": "Livingstone",
+        "given": "Rodney"
+      }
+    ],
+    "type": "book"
+  },
+  {
+    "id": "Puar2007",
+    "author": [
+      {
+        "family": "Puar",
+        "given": "Jasbir K."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "2007"
+        ]
+      ]
+    },
+    "publisher": "Duke University Press",
+    "publisher-place": "Durham, NC",
+    "title": "Terrorist Assemblages: Homonationalism in Queer Times",
     "type": "book"
   },
   {
@@ -155,149 +285,5 @@
     "publisher-place": "Durham",
     "title": "White Innocence: Paradoxes of Colonialism and Race",
     "type": "book"
-  },
-  {
-    "id": "dutchnewsPVV2010",
-    "type": "article-newspaper",
-    "title": "PVV Biggest Party among Gay Krant Readers",
-    "container-title": "<span class=\"nocase\">DutchNews.nl</span>",
-    "issued": {
-      "date-parts": [
-        [
-          2010,
-          11,
-          9
-        ]
-      ]
-    },
-    "URL": "https://www.dutchnews.nl/2010/11/pvv_biggest_party_among_gay_kr/"
-  },
-  {
-    "id": "engelsMarx1869",
-    "type": "personal_communication",
-    "author": [
-      {
-        "family": "Engels",
-        "given": "Friedrich"
-      }
-    ],
-    "recipient": [
-      {
-        "family": "Marx",
-        "given": "Karl"
-      }
-    ],
-    "event-place": "Manchester",
-    "event-date": {
-      "date-parts": [
-        [
-          1869,
-          6,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          1988
-        ]
-      ]
-    },
-    "container-title": "Collected Works",
-    "container-author": [
-      {
-        "family": "Marx",
-        "given": "Karl"
-      },
-      {
-        "family": "Engels",
-        "given": "Frederick"
-      }
-    ],
-    "volume": "43",
-    "publisher": "Lawrence & Wishart",
-    "volume-title": "Letters, April 1868–July 1870"
-  },
-  {
-    "id": "healeyUnrulyIdentities2001",
-    "type": "chapter",
-    "author": [
-      {
-        "family": "Healey",
-        "given": "Dan"
-      }
-    ],
-    "title": "Unruly Identities: Soviet Psychiatry Confronts the ‘Female Homosexual’ of the 1920s",
-    "container-title": "Gender in Russian History and Culture",
-    "editor": [
-      {
-        "family": "Edmondson",
-        "given": "Linda"
-      }
-    ],
-    "publisher": "Palgrave",
-    "publisher-place": "Basingstoke",
-    "issued": {
-      "date-parts": [
-        [
-          2001
-        ]
-      ]
-    }
-  },
-  {
-    "id": "lukacsHistoryClass1976",
-    "author": [
-      {
-        "family": "Lukács",
-        "given": "Georg"
-      }
-    ],
-    "edition": "5. print",
-    "issued": {
-      "date-parts": [
-        [
-          "1976"
-        ]
-      ]
-    },
-    "original-date": {
-      "date-parts": [
-        [
-          "1971"
-        ]
-      ]
-    },
-    "publisher": "MIT Press",
-    "publisher-place": "Cambridge, Mass",
-    "title": "History and Class Consciousness: Studies in Marxist Dialectics",
-    "title-short": "History and Class Consciousness",
-    "translator": [
-      {
-        "family": "Livingstone",
-        "given": "Rodney"
-      }
-    ],
-    "type": "book"
-  },
-  {
-    "id": "puarTerroristAssemblages2007",
-    "type": "book",
-    "author": [
-      {
-        "family": "Puar",
-        "given": "Jasbir K."
-      }
-    ],
-    "title": "Terrorist Assemblages: Homonationalism in Queer Times",
-    "publisher": "Duke University Press",
-    "issued": {
-      "date-parts": [
-        [
-          2007
-        ]
-      ]
-    }
   }
 ]

@@ -100,6 +100,8 @@ export default function remarkCite() {
       { retrieveLocale: (l) => read(`csl/locales-${LOCALES[l.slice(0, 2)] ?? l}.xml`), retrieveItem: (id) => ITEMS[id] },
       STYLE, lang, true);
     engine.setOutputFormat('html');
+    // URL's en DOI's als klikbare link.
+    engine.opt.development_extensions.wrap_url_and_doi = true;
     const done = [], html = {};
     for (const c of clusters) {
       const [, res] = engine.processCitationCluster(

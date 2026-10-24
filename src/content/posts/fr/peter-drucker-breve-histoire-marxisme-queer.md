@@ -143,9 +143,9 @@ Ce sont les défis auxquels nous faisons face, que nous devons relever et pour l
 
 [^1]: [@Engels2010].
 
-[^2]: [@engelsMarx1869, 295–96]. Engels répond à la brochure d'Ulrichs *Argonauticus* (Leipzig, 1869), que Marx lui avait envoyée.
+[^2]: [@Engels1869, 295–96]. Engels répond à la brochure d'Ulrichs *Argonauticus* (Leipzig, 1869), que Marx lui avait envoyée.
 
-[^3]: Parmi les personnes des dossiers psychiatriques des années 1920 qui avaient été assignées femmes à la naissance mais vivaient en hommes (les psychiatres les appelaient « homosexuelles féminines »), trois « avaient servi dans des formations militaires comme commandants ou soldats pendant et après la guerre civile ». [@Healey2001, 143]. Lors d'une réunion du Conseil médical d'experts du Commissariat à la santé, le 8 février 1929, le psychiatre A. K. Rakhmanov a décrit une patiente comme « commandante de l'Armée rouge, occupant un poste de commandement assez élevé » (168). Voir aussi [@healeyUnrulyIdentities2001, 129–30] ; et [@Healey1997, 88].
+[^3]: Parmi les personnes des dossiers psychiatriques des années 1920 qui avaient été assignées femmes à la naissance mais vivaient en hommes (les psychiatres les appelaient « homosexuelles féminines »), trois « avaient servi dans des formations militaires comme commandants ou soldats pendant et après la guerre civile ». [@Healey2001, 143]. Lors d'une réunion du Conseil médical d'experts du Commissariat à la santé, le 8 février 1929, le psychiatre A. K. Rakhmanov a décrit une patiente comme « commandante de l'Armée rouge, occupant un poste de commandement assez élevé » (168). Voir aussi [@Healey2001a, 129–30] ; et [@Healey1997, 88].
 
 [^4]: Healey mentionne une demande de changement de sexe chirurgical en 1923, et un cas moscovite de 1928 dans lequel, selon le psychiatre P. B. Gannouchkine, un praticien « changeait le sexe et faisait des hommes des femmes et inversement, au moyen d'opérations chirurgicales assez primitives ». Des responsables ont alors demandé au Commissariat à la santé de clarifier « le droit \[des médecins\] de pratiquer des opérations pour changer le sexe des travestis ». [@Healey2001, 63, 169, 170].
 
@@ -153,9 +153,9 @@ Ce sont les défis auxquels nous faisons face, que nous devons relever et pour l
 
 [^6]: [@Floyd2009].
 
-[^7]: [@lukacsHistoryClass1976].
+[^7]: [@Lukacs1971].
 
-[^8]: [@puarTerroristAssemblages2007].
+[^8]: [@Puar2007].
 
 [^9]: [@Drucker2015].
 
@@ -163,4 +163,4 @@ Ce sont les défis auxquels nous faisons face, que nous devons relever et pour l
 
 [^11]: [@Wekker2016].
 
-[^12]: Dans un sondage en ligne semestriel sur le site de la *Gay Krant* en novembre 2010, quelques mois après les élections législatives de juin 2010, le PVV est arrivé en tête avec 22,3 % des 1 024 participants, contre 16,6 % en mai. [@dutchnewsPVV2010].
+[^12]: Dans un sondage en ligne semestriel sur le site de la *Gay Krant* en novembre 2010, quelques mois après les élections législatives de juin 2010, le PVV est arrivé en tête avec 22,3 % des 1 024 participants, contre 16,6 % en mai. [@2010].

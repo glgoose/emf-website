@@ -141,9 +141,9 @@ These are the challenges we face, that we have to address and organize for. I th
 
 [^1]: [@Engels2010].
 
-[^2]: [@engelsMarx1869, 295–96]. Engels is responding to Ulrichs's pamphlet *Argonauticus* (Leipzig, 1869), which Marx had sent him.
+[^2]: [@Engels1869, 295–96]. Engels is responding to Ulrichs's pamphlet *Argonauticus* (Leipzig, 1869), which Marx had sent him.
 
-[^3]: Of the people in 1920s psychiatric case histories who were assigned female at birth but lived as men (the psychiatrists called them "female homosexuals"), three "had served in military formations as commanders or soldiers during and after the civil war." [@Healey2001, 143]. At a meeting of the Health Commissariat's Expert Medical Council on 8 February 1929, the psychiatrist A. K. Rakhmanov described a woman patient as "a commander of the Red Army and occupying a rather high command post" (168). See also [@healeyUnrulyIdentities2001, 129–30]; and [@Healey1997, 88].
+[^3]: Of the people in 1920s psychiatric case histories who were assigned female at birth but lived as men (the psychiatrists called them "female homosexuals"), three "had served in military formations as commanders or soldiers during and after the civil war." [@Healey2001, 143]. At a meeting of the Health Commissariat's Expert Medical Council on 8 February 1929, the psychiatrist A. K. Rakhmanov described a woman patient as "a commander of the Red Army and occupying a rather high command post" (168). See also [@Healey2001a, 129–30]; and [@Healey1997, 88].
 
 [^4]: Healey records a request for surgical sex change in 1923, and a 1928 Moscow case in which, according to the psychiatrist P. B. Gannushkin, a practitioner "changed sex and made women of men and vice versa, using rather primitive surgical operations." Officials then asked the Health Commissariat to clarify "the right \[of doctors\] to produce operations to change the sex of transvestites." [@Healey2001, 63, 169, 170].
 
@@ -151,9 +151,9 @@ These are the challenges we face, that we have to address and organize for. I th
 
 [^6]: [@Floyd2009].
 
-[^7]: [@lukacsHistoryClass1976].
+[^7]: [@Lukacs1971].
 
-[^8]: [@puarTerroristAssemblages2007].
+[^8]: [@Puar2007].
 
 [^9]: [@Drucker2015].
 
@@ -161,4 +161,4 @@ These are the challenges we face, that we have to address and organize for. I th
 
 [^11]: [@Wekker2016].
 
-[^12]: In a semi-annual online poll on the *Gay Krant* website in November 2010, a few months after the general election of June 2010, the PVV came first with 22.3% of 1,024 participants, up from 16.6% in May. [@dutchnewsPVV2010].
+[^12]: In a semi-annual online poll on the *Gay Krant* website in November 2010, a few months after the general election of June 2010, the PVV came first with 22.3% of 1,024 participants, up from 16.6% in May. [@2010].

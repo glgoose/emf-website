@@ -143,9 +143,9 @@ Dat zijn de uitdagingen waar we voor staan, die we moeten aanpakken en waarvoor 
 
 [^1]: [@Engels2010].
 
-[^2]: [@engelsMarx1869, 295–96]. Engels reageert op Ulrichs' pamflet *Argonauticus* (Leipzig, 1869), dat Marx hem had gestuurd.
+[^2]: [@Engels1869, 295–96]. Engels reageert op Ulrichs' pamflet *Argonauticus* (Leipzig, 1869), dat Marx hem had gestuurd.
 
-[^3]: Van de mensen in psychiatrische ziektegeschiedenissen uit de jaren twintig die bij de geboorte als vrouw werden ingedeeld maar als man leefden (de psychiaters noemden hen "vrouwelijke homoseksuelen"), hadden er drie "tijdens en na de burgeroorlog als bevelhebbers of soldaten in militaire formaties gediend." [@Healey2001, 143]. Op een vergadering van de Medische Expertenraad van het Volkscommissariaat voor Volksgezondheid op 8 februari 1929 beschreef de psychiater A. K. Rachmanov een vrouwelijke patiënt als "een bevelhebber van het Rode Leger, met een vrij hoge commandopost" (168). Zie ook [@healeyUnrulyIdentities2001, 129–30]; en [@Healey1997, 88].
+[^3]: Van de mensen in psychiatrische ziektegeschiedenissen uit de jaren twintig die bij de geboorte als vrouw werden ingedeeld maar als man leefden (de psychiaters noemden hen "vrouwelijke homoseksuelen"), hadden er drie "tijdens en na de burgeroorlog als bevelhebbers of soldaten in militaire formaties gediend." [@Healey2001, 143]. Op een vergadering van de Medische Expertenraad van het Volkscommissariaat voor Volksgezondheid op 8 februari 1929 beschreef de psychiater A. K. Rachmanov een vrouwelijke patiënt als "een bevelhebber van het Rode Leger, met een vrij hoge commandopost" (168). Zie ook [@Healey2001a, 129–30]; en [@Healey1997, 88].
 
 [^4]: Healey vermeldt een verzoek om chirurgische geslachtsverandering in 1923, en een Moskous geval uit 1928 waarin, volgens de psychiater P. B. Gannoesjkin, een arts "het geslacht veranderde en van mannen vrouwen maakte en omgekeerd, met vrij primitieve chirurgische ingrepen." Ambtenaren vroegen het Volkscommissariaat voor Volksgezondheid vervolgens om duidelijkheid over "het recht \[van artsen\] om operaties uit te voeren om het geslacht van travestieten te veranderen." [@Healey2001, 63, 169, 170].
 
@@ -153,9 +153,9 @@ Dat zijn de uitdagingen waar we voor staan, die we moeten aanpakken en waarvoor 
 
 [^6]: [@Floyd2009].
 
-[^7]: [@lukacsHistoryClass1976].
+[^7]: [@Lukacs1971].
 
-[^8]: [@puarTerroristAssemblages2007].
+[^8]: [@Puar2007].
 
 [^9]: [@Drucker2015].
 
@@ -163,4 +163,4 @@ Dat zijn de uitdagingen waar we voor staan, die we moeten aanpakken en waarvoor 
 
 [^11]: [@Wekker2016].
 
-[^12]: In een halfjaarlijkse online peiling op de website van de *Gay Krant* in november 2010, enkele maanden na de Tweede Kamerverkiezingen van juni 2010, werd de PVV de grootste met 22,3% van 1.024 deelnemers, tegenover 16,6% in mei. [@dutchnewsPVV2010].
+[^12]: In een halfjaarlijkse online peiling op de website van de *Gay Krant* in november 2010, enkele maanden na de Tweede Kamerverkiezingen van juni 2010, werd de PVV de grootste met 22,3% van 1.024 deelnemers, tegenover 16,6% in mei. [@2010].

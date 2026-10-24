@@ -9,7 +9,6 @@ import ArticleToc from './ArticleToc.astro';
 import { buildToc } from '../lib/toc';
 import { render } from 'astro:content';
 import { stripHtml } from '../lib/formatDateTime';
-import { newsTypeLabel } from '../lib/newsTypes';
 import { getVersions, type Post } from '../lib/posts';
 import { localeMeta } from '../i18n/config';
 import { formatDate, t } from '../i18n/ui';
@@ -96,14 +95,14 @@ const articleStructuredData: Record<string, unknown> = {
     <script type="application/ld+json" set:html={JSON.stringify(articleStructuredData)} />
   </Fragment>
   <Fragment slot="aside">
-    <SidebarHeading backHref="/nieuws" title={title} subtitle={subtitle}>
+    <SidebarHeading backHref="/nieuws" backLabel={ui.post.backToNews} title={title} subtitle={subtitle}>
       <div
         class="flex flex-col items-end text-xs leading-snug text-[#555555] max-lg:items-start"
         aria-label={ui.post.metaLabel}
       >
         {author && <span class="mb-1">{author}</span>}
         <span class="mb-1">{dateFormatted}</span>
-        <span class="lowercase">{newsTypeLabel(type)}</span>
+        <span class="lowercase">{ui.newsType[type]}</span>
       </div>
       <LanguageLinks currentLocale={lang} versions={versions} />
     </SidebarHeading>

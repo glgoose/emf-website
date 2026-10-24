@@ -2,9 +2,10 @@
 interface Props {
   href: string;
   variant: 'mobile' | 'desktop';
+  label?: string;
 }
 
-const { href, variant } = Astro.props;
+const { href, variant, label = 'Terug' } = Astro.props;
 ---
 
 <a
@@ -13,7 +14,7 @@ const { href, variant } = Astro.props;
     'sidebar-back-link',
     variant === 'mobile' ? 'sidebar-back-link--mobile' : 'sidebar-back-link--desktop',
   ]}
-  aria-label="Terug"
+  aria-label={label}
 >&lt;&lt;</a>
 
 <style>

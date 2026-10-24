@@ -2,6 +2,7 @@
 // hebben; de rest van de site blijft Nederlands. Een ontbrekende sleutel in
 // en/fr valt terug op nl (zie `t`). Zie docs/adr/0001-i18n.md.
 import { defaultLocale, localeMeta, type Locale } from './config';
+import type { NewsTypeSlug } from '../lib/newsTypes';
 
 const nl = {
   nav: {
@@ -48,6 +49,8 @@ const nl = {
   languageOffer: {
     original: 'origineel',
   },
+  // Categorielabel in de zijbalk van een post, per `type:` uit lib/newsTypes.ts.
+  newsType: { lezing: 'lezing', recensie: 'recensie', verslag: 'verslag' } as Record<NewsTypeSlug, string>,
   // "vertaald {fromLanguage}": bronnaam met voorzetsel, want het lidwoord
   // verschilt per taal (fr: "du néerlandais", maar "de l'anglais").
   fromLanguage: { nl: 'uit het Nederlands', en: 'uit het Engels', fr: 'uit het Frans' } as Record<Locale, string>,
@@ -99,6 +102,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     languageOffer: {
       original: 'original',
     },
+    newsType: { lezing: 'lecture', recensie: 'review', verslag: 'report' },
     fromLanguage: { nl: 'from Dutch', en: 'from English', fr: 'from French' },
     languageName: { nl: 'Dutch', en: 'English', fr: 'French' },
   },
@@ -141,6 +145,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     languageOffer: {
       original: 'original',
     },
+    newsType: { lezing: 'conférence', recensie: 'recension', verslag: 'compte rendu' },
     fromLanguage: { nl: 'du néerlandais', en: 'de l’anglais', fr: 'du français' },
     languageName: { nl: 'néerlandais', en: 'anglais', fr: 'français' },
   },

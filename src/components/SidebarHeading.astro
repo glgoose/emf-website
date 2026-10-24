@@ -3,6 +3,7 @@ import SidebarBackLink from './SidebarBackLink.astro';
 
 interface Props {
   backHref: string;
+  backLabel?: string;
   title: string;
   subtitle?: string;
   eventSubtitle?: string;
@@ -10,11 +11,11 @@ interface Props {
   noBorder?: boolean;
 }
 
-const { backHref, title, subtitle, large = false, noBorder = false } = Astro.props;
+const { backHref, backLabel, title, subtitle, large = false, noBorder = false } = Astro.props;
 ---
 
 <>
-  <SidebarBackLink href={backHref} variant="mobile" />
+  <SidebarBackLink href={backHref} variant="mobile" label={backLabel} />
   <div class:list={[!noBorder && 'border-t-[2px] border-[#111111] pt-0.5']}>
     <hgroup class:list={[!noBorder && 'mb-4', 'group relative']}>
       <h1 class:list={[
@@ -22,7 +23,7 @@ const { backHref, title, subtitle, large = false, noBorder = false } = Astro.pro
         large && 'text-[1.4rem]',
       ]}>
         <span class="sidebar-back-anchor-group relative inline-block max-w-full">
-          <SidebarBackLink href={backHref} variant="desktop" /><span set:html={title} />
+          <SidebarBackLink href={backHref} variant="desktop" label={backLabel} /><span set:html={title} />
         </span>
       </h1>
       {subtitle && (

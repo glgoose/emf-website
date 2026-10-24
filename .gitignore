@@ -30,3 +30,6 @@ test-results/
 # wrangler local state
 .wrangler/
 .dev.vars
+
+# browser-automation snapshots
+.playwright-mcp/

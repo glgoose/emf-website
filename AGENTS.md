@@ -2,26 +2,9 @@
 
 ## Deployment
 
-### Content-Security-Policy — One Source Rule
+### Content-Security-Policy: one source rule
 
-CSP header is set in `public/_headers`. Do **not** add a Content-Security-Policy rule in Cloudflare Rules — two sources = duplicate headers = CSP breakage.
-
-When inline scripts change (e.g. new `<script>` block in a component), rebuild and recompute the sha256 hashes needed for `script-src` in `_headers`:
-
-```bash
-python3 -c "
-import base64, hashlib, re
-from pathlib import Path
-for html in Path('dist').rglob('*.html'):
-    content = html.read_text()
-    for s in re.findall(r'<script(?:\s[^>]*)?>(.+?)</script>', content, re.DOTALL):
-        if not s.startswith('{'):
-            h = base64.b64encode(hashlib.sha256(s.encode()).digest()).decode()
-            print(f'sha256-{h}  {s[:60].strip()}')
-" | sort -u
-```
-
-Keep `script-src` hash-only — do **not** add `'unsafe-inline'`. Per CSP3, `'unsafe-inline'` is ignored whenever a hash or nonce is present, so it's dead weight that confuses debugging (browser console complains about it).
+CSP is set in `public/_headers` only, never in Cloudflare Rules (two sources give duplicate headers). `script-src` is `'self'`, with no inline scripts and no hashes: `assetsInlineLimit: 0` makes Astro emit every component `<script>` as a file, and `npm run build` fails via `scripts/check-no-inline-scripts.mjs` on an inline script. Fix a hit by moving the script to a file, never by loosening the CSP.
 
 ## Previewing web changes
 
@@ -29,13 +12,13 @@ When changing pages, layouts, styles, or other user-visible website UI, always o
 
 ### Cloudflare must not inject inline scripts
 
-Hash-based CSP breaks if Cloudflare rewrites the HTML to add a `<script>` with rotating content. Keep these **OFF** in the CF dashboard for zone `ernestmandelfonds.org`:
+The CSP (`script-src 'self'`) breaks if Cloudflare rewrites the HTML to add an inline `<script>`. Keep these **OFF** in the CF dashboard for zone `ernestmandelfonds.org`:
 
-- **Security → Bots → Bot Fight Mode** — injects `window.__CF$cv$params={r:'<req-id>',t:'<ts>'}` + `/cdn-cgi/challenge-platform/scripts/jsd/main.js` loader. `r` and `t` rotate every request, so no static sha256 hash can match.
-- **Speed → Optimization → Rocket Loader** — wraps scripts in an inline bootstrapper.
-- **Scrape Shield → Email Address Obfuscation** — redundant with `src/components/Email.astro`, and some variants add an inline helper.
+- **Security → Bots → Bot Fight Mode**: injects `window.__CF$cv$params={r:'<req-id>',t:'<ts>'}` + `/cdn-cgi/challenge-platform/scripts/jsd/main.js` loader. `r` and `t` rotate every request, so it would be blocked.
+- **Speed → Optimization → Rocket Loader**: wraps scripts in an inline bootstrapper.
+- **Scrape Shield → Email Address Obfuscation**: redundant with `src/components/Email.astro`, and some variants add an inline helper.
 
-Symptom when one of these is on: Lighthouse / DevTools Console shows `Executing inline script violates … Content Security Policy` with source `(index):4` or similar, even though every repo-authored inline script is correctly hashed. Verify with `curl -s https://ernestmandelfonds.org/ | grep -c '<script'` — should return 3 (2 inline + 1 JSON-LD), not 4+.
+Symptom when one of these is on: Lighthouse / DevTools Console shows `Executing inline script violates … Content Security Policy` with source `(index):4` or similar, even though the repo itself ships no inline scripts. Verify with `curl -s https://ernestmandelfonds.org/ | grep -c '<script'`: it should only count the JSON-LD block and `src=` scripts, no inline ones.
 
 **JS Detections caveat (Free plan).** On Free plans the dashboard *also* runs Bot Management's "JavaScript Detections" which injects the same rotating-hash inline script even when Bot Fight Mode is toggled Off. The UI toggle is greyed-out on Free, but the Bot Management API accepts `enable_js: false`:
 

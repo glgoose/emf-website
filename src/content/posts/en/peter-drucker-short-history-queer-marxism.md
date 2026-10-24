@@ -3,7 +3,7 @@ title: "A Short History of Queer Marxism"
 subtitle: "Three periods, from the 1860s to the present"
 type: "lezing"
 lang: "en"
-date: 2026-09-26
+date: 2026-09-26T13:15:00+02:00
 author: "Peter Drucker"
 summary: "Peter Drucker traces the history of queer Marxism in three periods: its prehistory in the socialist and communist movements, the classic queer theory and queer activism of the 1990s, and today, as homonationalism and heteronationalism reinforce each other and the far right advances."
 source_event:

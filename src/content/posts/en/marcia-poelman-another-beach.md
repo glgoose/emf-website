@@ -1,7 +1,7 @@
 ---
 title: "*We Still Dream of Another Beach*"
 type: "lezing"
-date: 2026-09-26
+date: 2026-09-26T10:15:00+02:00
 author: "Marcia Poelman"
 summary: "Marcia Poelman wrote this pamphlet for Ander Strand and the Antwerp Queer Arts Festival: a text that carries the slogan of the Rooie Vlinder ('we want another beach') through to today, from Chechnya and Palestine to the arrest of 17 queers at Antwerp Pride."
 source_event:

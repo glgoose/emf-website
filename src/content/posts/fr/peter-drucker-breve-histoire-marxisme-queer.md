@@ -5,7 +5,7 @@ type: "lezing"
 lang: "fr"
 translation_of: "en/peter-drucker-short-history-queer-marxism"
 machine_translated: true
-date: 2026-09-26
+date: 2026-09-26T13:15:00+02:00
 author: "Peter Drucker"
 summary: "Peter Drucker retrace l'histoire du marxisme queer en trois périodes : sa préhistoire dans les mouvements socialiste et communiste, la théorie queer et l'activisme queer classiques des années 1990, et aujourd'hui, alors que l'homonationalisme et l'hétéronationalisme se renforcent mutuellement et que l'extrême droite progresse."
 source_event:

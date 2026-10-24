@@ -1,7 +1,7 @@
 ---
 title: "*Nous rêvons toujours d'une autre plage*"
 type: "lezing"
-date: 2026-09-26
+date: 2026-09-26T10:15:00+02:00
 author: "Marcia Poelman"
 summary: "Marcia Poelman a écrit ce pamphlet pour Ander Strand et l'Antwerp Queer Arts Festival : un texte qui prolonge jusqu'à aujourd'hui le mot d'ordre de la Rooie Vlinder (« nous voulons une autre plage »), de la Tchétchénie et la Palestine à l'arrestation de 17 queers lors de la Pride d'Anvers."
 source_event:

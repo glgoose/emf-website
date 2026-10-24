@@ -3,7 +3,7 @@ title: "Een korte geschiedenis van queer marxisme"
 subtitle: "Drie periodes, van de jaren 1860 tot nu"
 type: "lezing"
 lang: "nl"
-date: 2026-09-26
+date: 2026-09-26T13:15:00+02:00
 author: "Peter Drucker"
 summary: "Peter Drucker schetst de geschiedenis van queer marxisme in drie periodes: de voorgeschiedenis in de socialistische en communistische beweging, de klassieke queer theorie en het queer activisme van de jaren negentig, en vandaag, nu homonationalisme en heteronationalisme elkaar versterken en extreemrechts oprukt."
 source_event:

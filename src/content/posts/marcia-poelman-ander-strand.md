@@ -1,7 +1,7 @@
 ---
 title: "*We dromen nog steeds van een ander strand*"
 type: "lezing"
-date: 2026-09-26
+date: 2026-09-26T10:15:00+02:00
 author: "Marcia Poelman"
 summary: "Marcia Poelman schreef dit pamflet voor Ander Strand en Antwerp Queer Arts Festival: een tekst die de leuze van de Rooie Vlinder ('wij willen een ander strand') doortrekt naar vandaag, van Tsjetsjenië en Palestina tot de arrestatie van 17 queers op de Antwerpse Pride."
 source_event:

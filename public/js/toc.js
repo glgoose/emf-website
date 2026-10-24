@@ -13,11 +13,12 @@
     let p = -1; tops.forEach((x, i) => { if (top(x) <= y) p = i; });
     return { h, p, y };
   };
-  // "back to top" shows after scrolling up more than 60px, and hides on any downward scroll;
+  // "back to top" shows after scrolling up more than 60px, and hides after scrolling down more
+  // than 150px in one go, so a nudge or trackpad overshoot does not take it away;
   // the spine also shows it at the very bottom of the page. It first appears below the first
   // viewport, then stays while the nav is still stuck: it goes when the nav starts to move.
   const upToggle = (nav, atEnd) => {
-    let last = scrollY, up = 0, on = false, vis = false;
+    let last = scrollY, up = 0, down = 0, on = false, vis = false;
     const root = document.documentElement;
     const stuck = () => nav.getBoundingClientRect().top <= parseFloat(getComputedStyle(nav).top) + 1;
     const render = () => {
@@ -27,7 +28,8 @@
     };
     addEventListener('scroll', () => {
       const d = scrollY - last; last = scrollY;
-      if (d < 0) { up -= d; if (up > 60) on = true; } else if (d > 0) { up = 0; on = false; }
+      if (d < 0) { up -= d; down = 0; if (up > 60) on = true; }
+      else if (d > 0) { up = 0; down += d; if (down > 150) on = false; }
       render();
     }, { passive: true });
     render();

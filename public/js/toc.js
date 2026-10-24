@@ -48,6 +48,17 @@
     const prose = document.querySelector('.prose');
     const TAIL = 14; // the track runs a little past the last tick
     const RUN = 32;  // scroll left below the last heading, over which the fill covers TAIL
+    // and a little before the first tick when text precedes the first heading; the fill
+    // covers it while that intro is read, from the intro's first paragraph to the first heading
+    const intro = heads[0] && [...prose.querySelectorAll('p')].find(p => !p.closest('.not-prose')
+      && p.compareDocumentPosition(heads[0]) & Node.DOCUMENT_POSITION_FOLLOWING);
+    const HEAD = intro ? 14 : 0;
+    const start = () => Math.max(0, top(intro) - MARGIN);
+    // the two ends of the line are clickable: the top one to the start of the text, the bottom one to the end
+    const capStart = nav.querySelector('.tl-cap-start');
+    if (HEAD) capStart.style.height = `${HEAD}px`; else capStart.remove();
+    nav.querySelectorAll('[data-cap]').forEach(c => c.addEventListener('click', () =>
+      scrollTo({ top: c.dataset.cap === 'start' ? start() : document.documentElement.scrollHeight })));
     // Every position is read when it is used, never cached, so resizes, font swaps and
     // rewrapped labels need no bookkeeping. The click contract: at the scroll position where
     // heading i sits at its scroll-margin-top, the fill ends exactly on tick i.
@@ -71,10 +82,11 @@
       const T = ticks(), P = stops(), L = T.length - 1;
       const s = scrollY, max = document.documentElement.scrollHeight - innerHeight;
       let i = -1; P.forEach((v, j) => { if (v <= s + 1) i = j; });
-      const px = i < 0 ? 0
-        : i < L ? T[i] - T[0] + (P[i + 1] > P[i] ? clamp((s - P[i]) / (P[i + 1] - P[i])) : 1) * (T[i + 1] - T[i])
-        : T[L] - T[0] + (max > P[L] ? clamp((s - P[L]) / (max - P[L])) : 1) * TAIL;
-      const tt = `${T[0]}px`, th = `${T[L] - T[0] + TAIL}px`, fh = `${px}px`;
+      const S0 = HEAD ? start() : 0;
+      const px = i < 0 ? (P[0] > S0 ? clamp((s - S0) / (P[0] - S0)) : 1) * HEAD
+        : HEAD + (i < L ? T[i] - T[0] + (P[i + 1] > P[i] ? clamp((s - P[i]) / (P[i + 1] - P[i])) : 1) * (T[i + 1] - T[i])
+        : T[L] - T[0] + (max > P[L] ? clamp((s - P[L]) / (max - P[L])) : 1) * TAIL);
+      const tt = `${T[0] - HEAD}px`, th = `${T[L] - T[0] + TAIL + HEAD}px`, fh = `${px}px`;
       if (track.style.top !== tt) track.style.top = tt;
       if (track.style.height !== th) track.style.height = th;
       if (fill.style.height !== fh) fill.style.height = fh;
@@ -93,6 +105,11 @@
       queued = true;
       requestAnimationFrame(() => { queued = false; upd(); });
     };
+    // The spine shows once the sidebar heading above it (type, "lezing gegeven op …") has
+    // scrolled out of view; until then it keeps its place but is transparent (global.css).
+    const head = nav.previousElementSibling;
+    if (head) new IntersectionObserver(([e]) => nav.classList.toggle('is-shown', !e.isIntersecting)).observe(head);
+    else nav.classList.add('is-shown');
     room(); upd(); upToggle(nav, true);
     addEventListener('scroll', () => frame(false), { passive: true });
     addEventListener('resize', () => frame(true));

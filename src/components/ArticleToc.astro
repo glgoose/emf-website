@@ -19,7 +19,7 @@ const { parts, flat } = toc;
 {variant === 'spine' ? (
   <nav class:list={['toc tl only-lg not-prose', { flat }]} aria-labelledby="tl-label">
     <p class="tl-label" id="tl-label">{label}</p>
-    <span class="tl-track" aria-hidden="true"><span class="tl-fill"></span></span>
+    <span class="tl-track" aria-hidden="true"><span class="tl-fill"></span><span class="tl-cap tl-cap-start" data-cap="start"></span><span class="tl-cap tl-cap-end" data-cap="end"></span></span>
     <ol>
       {parts.map(p => (
         <li class="tl-part">

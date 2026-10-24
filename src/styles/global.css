@@ -642,6 +642,10 @@
 @media (prefers-reduced-motion:reduce){.toc *{transition:none!important}}
 @media (min-width:1024px){aside:has(> .tl){position:static;align-self:stretch}.tl{position:sticky;top:3rem;margin-right:calc(-1 * var(--tl-gap))}}
 .tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:.75rem;line-height:1.375;text-align:right}
+/* pas zichtbaar als de kop van de zijbalk uit beeld is (toc.js zet .is-shown); neemt altijd ruimte in, en toetsenbordfocus toont hem meteen */
+.tl{transition:opacity .2s}
+.tl:not(.is-shown):not(:focus-within){opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.tl{transition:none}}
 .tl ol{list-style:none;margin:0;padding:0}
 .tl-track{position:absolute;right:0;width:1px;background:#d6d6d6}
 .tl-fill{position:absolute;left:0;top:0;width:1px;height:0;background:#111}
@@ -655,9 +659,12 @@
 .tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
 .tl-subs li{margin:0 0 .25em}
 .tl-row.is-past::after{background:#111}
-/* het streepje hoort bij de link: een onzichtbaar vlak van 14×12px eromheen maakt het klikbaar */
-.tl-row::before{content:"";position:absolute;top:calc(.68em - 6px);right:calc(-1 * var(--tl-gap) - 7px);width:14px;height:12px}
-.tl-row:hover::after{background:#111}
+/* het streepje hoort bij de link: een onzichtbaar vlak van 12px hoog, van de tekst tot 7px voorbij de lijn, maakt het klikbaar zonder gat tussen streepje en titel */
+.tl-row::before{content:"";position:absolute;top:calc(.68em - 6px);right:calc(-1 * var(--tl-gap) - 7px);width:calc(var(--tl-gap) + 7px);height:12px}
+/* de uiteinden van de lijn: bovenaan naar het begin van de tekst, onderaan naar het einde van de pagina (toc.js) */
+.tl-cap{position:absolute;left:-7px;width:15px;cursor:pointer}
+.tl-cap-start{top:0}
+.tl-cap-end{bottom:0;height:14px}.tl-row:hover::after{background:#111}
 .tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:#111}
 /* het actieve deel: de andere delen vervagen (alleen kleur, geen layoutverschuiving) */
 .tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover),.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover) .tl-dates{color:#ababab}

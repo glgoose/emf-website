@@ -168,16 +168,25 @@ const organizationStructuredData = {
           usedIds.add(id);
         }
 
+        // De koptekst zelf linkt naar het anker (werkt ook op touch); de # is alleen een hint.
         const anchor = document.createElement('a');
         anchor.className = 'heading-anchor';
         anchor.href = `#${id}`;
         anchor.textContent = '#';
-        anchor.setAttribute('aria-label', `Link naar sectie ${heading.textContent?.trim() ?? ''}`);
+        anchor.tabIndex = -1;
+        anchor.setAttribute('aria-hidden', 'true');
 
         const label = document.createElement('span');
         label.className = 'heading-label';
+        // Geen geneste links: een kop die al een link bevat, blijft zoals hij is.
+        const text = heading.querySelector('a') ? label : document.createElement('a');
+        if (text !== label) {
+          text.className = 'heading-link';
+          text.href = `#${id}`;
+          label.appendChild(text);
+        }
         while (heading.firstChild) {
-          label.appendChild(heading.firstChild);
+          text.appendChild(heading.firstChild);
         }
         heading.appendChild(label);
         label.appendChild(anchor);

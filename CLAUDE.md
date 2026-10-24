@@ -75,7 +75,7 @@ Een post met `draft: true` staat unlisted op de live site, op zijn definitieve U
   het origineel. Een slug is uniek over alle talen en mag niet samenvallen met een overzicht (`/lezing`) of een
   vaste pagina in `src/pages` (de build faalt anders). Talen in `src/i18n/config.ts`, UI-teksten in
   `src/i18n/ui.ts`, paden altijd via `postHref`/`postPath` uit `src/lib/postRoutes.ts`. Een origineel mag
-  elke taal hebben (Drucker is Engels). Keuzes en afwijzingen: `docs/adr/0001-i18n.md`.
+  elke taal hebben. Keuzes en afwijzingen: `docs/adr/0001-i18n.md`.
 - **Sitemap filter**: `astro.config.mjs` excludes `/vragen`, `/questions` and `/admin` from `@astrojs/sitemap` because those are already `X-Robots-Tag: noindex` in `_headers`. Add any new noindex route to that same `filter` array, not just to `_headers`.
 - **URLs zonder trailing slash**: `trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`, gekozen omdat `/vragen` korter typt en mooier oogt. Schrijf interne links, markdown-links en `href:`-velden in frontmatter zonder slotslash. Tijdens de build is `Astro.url.pathname` het outputbestand (`/activiteiten.html`), gebruik daarom altijd `pagePath(Astro.url)` uit `src/lib/pagePath.ts` voor canonical, `og:url` en nav-state. Check na een build: `grep -rhoE 'href="/[^"#?]+/"' dist | sort -u` moet leeg zijn. Uitzondering: `/admin/` (Sveltia, statisch in `public/admin/`).
 - **Eén host**: `www.` → apex is een Cloudflare Redirect Rule ("www naar apex", phase `http_request_dynamic_redirect`, 301, query string behouden), niet `_redirects`, want dat kan niet op host matchen. Oude `.html`-URLs van de vorige site staan als 301 in `public/_redirects`. Check: `curl -sI https://www.ernestmandelfonds.org/contact` moet 301 naar de apex geven.
@@ -109,16 +109,15 @@ export default defineConfig({
 
 ### `source_event` attribution line
 
-When a post's text was voorgedragen/voorgesteld at one of our own events, add `source_event` frontmatter instead of writing the attribution by hand in the markdown body:
+When a post comes from one of our own events (a lezing, a verslag), add `source_event` frontmatter instead of writing the attribution by hand in the markdown body:
 
 ```yaml
 source_event:
   slug: "fight-the-cis-tem"
   label: "studiedag *Fight the cis‑tem!*"
-  note: "Marcia Poelman droeg deze tekst voor op de"
 ```
 
-`src/components/PostPage.astro` auto-renders this as a small italic line above the article body, linking to `/activiteiten/${source_event.slug}`. It only renders when `type !== "verslag"` — so a `"verslag"` post never shows it, and any other type (`"lezing"`, `"recensie"`) does. Pick the type with this gating in mind, not for the URL: posts live at `/<slug>` whatever their type.
+`src/components/PostPage.astro` renders this in the sidebar, under the type heading, as one sentence with a fixed prefix per type and language (`eventPrefix` in `src/i18n/ui.ts`): "lezing / gegeven op de *studiedag …*", "verslag / van de *studiedag …*". It links to `/activiteiten/${source_event.slug}` and shows for every type, `verslag` included. `source_event.note` is no longer rendered: leave it out of new posts (the field stays optional in the schema for old content).
 
 ### Bronvermeldingen (CMOS 18)
 

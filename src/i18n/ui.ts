@@ -14,8 +14,7 @@ const nl = {
     overEmf: 'over EMF',
   },
   post: {
-    metaLabel: 'Berichtgegevens',
-    contents: 'Inhoud',
+    contents: 'inhoud',
     notes: 'Noten',
     topLabel: 'terug naar boven',
     draftNotice: 'Concept, nog niet gepubliceerd',
@@ -28,22 +27,14 @@ const nl = {
     zoomIn: 'Inzoomen',
     zoomOut: 'Uitzoomen',
   },
-  // Melding bovenaan een vertaling (TranslationNotice.astro). {fromLanguage}
-  // en {translator} worden ingevuld met `fill()`; {sourceLanguage} met
-  // `languageName` hieronder. quotePrefix + originalLinkText vormen samen de
-  // zin rond de link naar het origineel, feedbackLinkText + feedbackSuffix
-  // rond de link naar het contactadres.
+  // Melding in de taalband onder de byline (LanguageLinks.astro). {fromLanguage}
+  // en {translator} worden ingevuld met `fill()`. translatedBy en reviewedBy
+  // hangen met ", " achter de melding.
   machineTranslationNotice: {
-    labelMachine: 'Machinevertaling',
-    labelHuman: 'Vertaling',
-    machine: 'Deze tekst is geschreven in het {sourceLanguage} en automatisch vertaald.',
-    human: 'Vertaald {fromLanguage}.',
-    reviewedBy: 'Nagelezen door {translator}.',
-    translatedBy: 'Vertaling: {translator}.',
-    quotePrefix: 'Citeer bij voorkeur uit het',
-    originalLinkText: '{sourceLanguage}e origineel',
-    feedbackLinkText: 'Laat het ons weten',
-    feedbackSuffix: ' als iets niet klopt.',
+    machine: 'machinevertaling {fromLanguage}',
+    human: 'vertaling {fromLanguage}',
+    reviewedBy: 'nagelezen door {translator}',
+    translatedBy: 'door {translator}',
   },
   // Taalaanbod: links naar de andere taalversies. Tekst in een latere stap.
   languageOffer: {
@@ -51,6 +42,9 @@ const nl = {
   },
   // Categorielabel in de zijbalk van een post, per `type:` uit lib/newsTypes.ts.
   newsType: { lezing: 'lezing', recensie: 'recensie', verslag: 'verslag' } as Record<NewsTypeSlug, string>,
+  // Voorvoegsel van de eventregel in de zijbalk, vormt met newsType één zin
+  // ("lezing / gegeven op de studiedag …"). Daarachter komt source_event.label.
+  eventPrefix: { lezing: 'gegeven op de', recensie: 'over de', verslag: 'van de' } as Record<NewsTypeSlug, string>,
   // "vertaald {fromLanguage}": bronnaam met voorzetsel, want het lidwoord
   // verschilt per taal (fr: "du néerlandais", maar "de l'anglais").
   fromLanguage: { nl: 'uit het Nederlands', en: 'uit het Engels', fr: 'uit het Frans' } as Record<Locale, string>,
@@ -73,8 +67,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       overEmf: 'about EMF',
     },
     post: {
-      metaLabel: 'Article details',
-      contents: 'Contents',
+      contents: 'contents',
       notes: 'Notes',
       topLabel: 'back to top',
       draftNotice: 'Draft, not yet published',
@@ -88,21 +81,16 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       zoomOut: 'Zoom out',
     },
     machineTranslationNotice: {
-      labelMachine: 'Machine translation',
-      labelHuman: 'Translation',
-      machine: 'This text was written in {sourceLanguage} and translated automatically.',
-      human: 'Translated {fromLanguage}.',
-      reviewedBy: 'Reviewed by {translator}.',
-      translatedBy: 'Translation: {translator}.',
-      quotePrefix: 'Please quote from the',
-      originalLinkText: '{sourceLanguage} original',
-      feedbackLinkText: 'Let us know',
-      feedbackSuffix: ' if something reads wrong.',
+      machine: 'machine translation {fromLanguage}',
+      human: 'translation {fromLanguage}',
+      reviewedBy: 'reviewed by {translator}',
+      translatedBy: 'by {translator}',
     },
     languageOffer: {
       original: 'original',
     },
     newsType: { lezing: 'lecture', recensie: 'review', verslag: 'report' },
+    eventPrefix: { lezing: 'given at the', recensie: 'on the', verslag: 'of the' },
     fromLanguage: { nl: 'from Dutch', en: 'from English', fr: 'from French' },
     languageName: { nl: 'Dutch', en: 'English', fr: 'French' },
   },
@@ -116,8 +104,7 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       overEmf: 'à propos',
     },
     post: {
-      metaLabel: 'Détails de l’article',
-      contents: 'Sommaire',
+      contents: 'sommaire',
       notes: 'Notes',
       topLabel: 'retour en haut',
       draftNotice: 'Brouillon, pas encore publié',
@@ -131,21 +118,16 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       zoomOut: 'Dézoomer',
     },
     machineTranslationNotice: {
-      labelMachine: 'Traduction automatique',
-      labelHuman: 'Traduction',
-      machine: 'Ce texte a été écrit en {sourceLanguage} et traduit automatiquement.',
-      human: 'Traduit {fromLanguage}.',
-      reviewedBy: 'Relu par {translator}.',
-      translatedBy: 'Traduction : {translator}.',
-      quotePrefix: 'Merci de citer de préférence',
-      originalLinkText: 'l’original en {sourceLanguage}',
-      feedbackLinkText: 'Signalez-le-nous',
-      feedbackSuffix: ' si quelque chose sonne faux.',
+      machine: 'traduction automatique {fromLanguage}',
+      human: 'traduction {fromLanguage}',
+      reviewedBy: 'relu par {translator}',
+      translatedBy: 'par {translator}',
     },
     languageOffer: {
       original: 'original',
     },
     newsType: { lezing: 'conférence', recensie: 'recension', verslag: 'compte rendu' },
+    eventPrefix: { lezing: 'donnée lors de la', recensie: 'sur la', verslag: 'de la' },
     fromLanguage: { nl: 'du néerlandais', en: 'de l’anglais', fr: 'du français' },
     languageName: { nl: 'néerlandais', en: 'anglais', fr: 'français' },
   },

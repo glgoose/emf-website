@@ -655,10 +655,13 @@
 .tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
 .tl-subs li{margin:0 0 .25em}
 .tl-row.is-past::after{background:#111}
+/* het streepje hoort bij de link: een onzichtbaar vlak van 14×12px eromheen maakt het klikbaar */
+.tl-row::before{content:"";position:absolute;top:calc(.68em - 6px);right:calc(-1 * var(--tl-gap) - 7px);width:14px;height:12px}
+.tl-row:hover::after{background:#111}
 .tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:#111}
 /* het actieve deel: de andere delen vervagen (alleen kleur, geen layoutverschuiving) */
 .tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover),.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover) .tl-dates{color:#ababab}
-.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(.is-past)::after{background:#dadada}
+.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(.is-past):not(:hover)::after{background:#dadada}
 /* "terug naar boven": alleen zichtbaar na omhoogscrollen (toc.js zet .is-up) of bij toetsenbordfocus (:focus-visible, dus niet bij een muisklik); neemt altijd ruimte in, dus geen layoutverschuiving */
 .tl-top,.rh-up{margin:0;border:0;background:none;font:inherit;font-style:italic;text-align:left;cursor:pointer;color:#555;opacity:0;visibility:hidden;transition:opacity .15s}
 .tl-top:hover,.rh-up:hover{color:#111}
@@ -669,7 +672,7 @@
 .rh-up{position:absolute;top:0;right:calc(12px + .75rem);bottom:1px;display:flex;align-items:center;padding:0 0 0 1.5rem;background:linear-gradient(to right,rgb(255 255 255 / 0),#fff 1.25rem)}
 .rh:is(.is-up,:has(:focus-visible)) .rh-sec-now{visibility:hidden}
 @media (prefers-reduced-motion:reduce){.tl-top,.rh-up{transition:none}}
-.tl-label{margin:0 0 .75rem;font-weight:700;font-style:normal;font-variant:small-caps;text-transform:lowercase;letter-spacing:.08em;color:#111}
+.tl-label{margin:0 0 .75rem;font-weight:400;font-style:italic;font-size:.8rem;text-transform:lowercase;color:#888}
 @media (max-width:1023px){.only-lg{display:none}}
 @media (min-width:1024px){.only-sm{display:none}}
 @media (max-width:1023px){body:has(.rh) .prose :is(h2,h3){scroll-margin-top:3.5rem}}

@@ -3,7 +3,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SidebarHeading from './SidebarHeading.astro';
 import DraftBanner from './DraftBanner.astro';
-import TranslationNotice from './TranslationNotice.astro';
 import LanguageLinks from './LanguageLinks.astro';
 import ArticleToc from './ArticleToc.astro';
 import { buildToc } from '../lib/toc';
@@ -11,7 +10,7 @@ import { render } from 'astro:content';
 import { stripHtml } from '../lib/formatDateTime';
 import { getVersions, type Post } from '../lib/posts';
 import { localeMeta } from '../i18n/config';
-import { formatDate, t } from '../i18n/ui';
+import { fill, formatDate, t } from '../i18n/ui';
 
 interface Props {
   item: Post;
@@ -27,8 +26,6 @@ const hasNotes = /^\[\^[^\]]+\]:/m.test(item.body ?? '');
 const plainTitle = stripHtml(title);
 const pageTitle = author ? `${author}: ${plainTitle}` : plainTitle;
 const dateFormatted = formatDate(date, lang);
-// Geen punt na een titel die zelf al op ! of ? eindigt ("Fight the cis‑tem!").
-const sourceEventPeriod = source_event && /[!?]$/.test(stripHtml(source_event.label).replace(/[*_]+$/, '')) ? '' : '.';
 
 const siteBase = Astro.site ?? 'https://ernestmandelfonds.org';
 const absolute = (path: string) => new URL(path, siteBase).toString();
@@ -38,6 +35,16 @@ const versions = await getVersions(item);
 const self = versions.find(version => version.post.id === item.id)!;
 const original = versions.find(version => version.isOriginal);
 const canonicalURL = absolute(self.href);
+
+// Melding rechts in de taalband: alleen op een vertaling.
+const noticeTemplates = ui.machineTranslationNotice;
+const noticeMain = translation_of && original
+  ? fill((machine_translated ?? true) ? noticeTemplates.machine : noticeTemplates.human, { fromLanguage: ui.fromLanguage[original.locale] })
+  : undefined;
+const noticeTranslator = translator
+  ? fill((machine_translated ?? true) ? noticeTemplates.reviewedBy : noticeTemplates.translatedBy, { translator })
+  : undefined;
+const notice = noticeMain && (noticeTranslator ? `${noticeMain}, ${noticeTranslator}` : noticeMain);
 const isoDate = date.toISOString();
 
 const alternates = versions.map(version => ({ locale: version.locale, href: version.href }));
@@ -95,33 +102,27 @@ const articleStructuredData: Record<string, unknown> = {
     <script type="application/ld+json" set:html={JSON.stringify(articleStructuredData)} />
   </Fragment>
   <Fragment slot="aside">
-    <SidebarHeading backHref="/nieuws" backLabel={ui.post.backToNews} title={title} subtitle={subtitle}>
-      <div
-        class="flex flex-col items-end text-xs leading-snug text-[#555555] max-lg:items-start"
-        aria-label={ui.post.metaLabel}
-      >
-        {author && <span class="mb-1">{author}</span>}
-        <span class="mb-1">{dateFormatted}</span>
-        <span class="lowercase">{ui.newsType[type]}</span>
-      </div>
-      <LanguageLinks currentLocale={lang} versions={versions} />
+    <SidebarHeading backHref="/nieuws" backLabel={ui.post.backToNews} title={ui.newsType[type]} as="p">
+      {source_event && (
+        <p class="-mt-3 mb-[1.4rem] text-[0.8rem] leading-[1.3] italic text-[#666666] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+          {ui.eventPrefix[type]} <a href={`/activiteiten/${source_event.slug}`}><Fragment set:html={source_event.label} /></a>
+        </p>
+      )}
     </SidebarHeading>
     {toc && <ArticleToc toc={toc} variant="spine" hasNotes={hasNotes} label={ui.post.contents} notesLabel={ui.post.notes} topLabel={ui.post.topLabel} />}
   </Fragment>
 
   <article class="prose news-article">
+    <header class="not-prose">
+      <hgroup>
+        <h1 class="m-0 text-[1.9rem] leading-[1.05] font-bold tracking-[-0.005em] [text-wrap:balance] lg:text-[2.6rem]" set:html={title} />
+        {subtitle && <p class="mt-[0.45rem] mb-0 text-[1.3rem] leading-[1.25] italic text-[#555555]">{subtitle}</p>}
+      </hgroup>
+      <p class="mt-[0.9rem] mb-5 text-[1rem] text-[#111111]">{author && <>{author}, </>}<span class="whitespace-nowrap">{dateFormatted}</span></p>
+      <LanguageLinks currentLocale={lang} versions={versions} notice={notice} />
+    </header>
     {toc && <ArticleToc toc={toc} variant="head" hasNotes={hasNotes} label={ui.post.contents} notesLabel={ui.post.notes} topLabel={ui.post.topLabel} />}
     {draft && <DraftBanner label={ui.post.draftNotice} />}
-    {translation_of && original && (
-      <TranslationNotice
-        locale={lang}
-        fromLocale={original.locale}
-        originalHref={original.href}
-        machineTranslated={machine_translated ?? true}
-        translator={translator}
-        pageUrl={canonicalURL}
-      />
-    )}
     {lead_images && lead_images.length > 0 && (
       <figure class="lead-images">
         <div class="lead-images-row">
@@ -156,12 +157,9 @@ const articleStructuredData: Record<string, unknown> = {
       </dialog>
       <script is:inline src="/js/lightbox.js" defer></script>
     )}
-    {((source_event && type !== 'verslag') || context_note) && (
+    {context_note && (
       <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
-        {source_event && type !== 'verslag' && (
-          <>{source_event.note}{' '}<a href={`/activiteiten/${source_event.slug}`}><Fragment set:html={source_event.label} /></a>{sourceEventPeriod}</>
-        )}
-        {context_note && <span set:html={' ' + context_note} />}
+        <span set:html={context_note} />
       </aside>
     )}
     <Content />

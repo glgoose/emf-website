@@ -67,7 +67,8 @@ const posts = defineCollection({
     source_event: z.object({
       slug: z.string(),
       label: z.string().transform(mdInline),
-      note: z.string(),
+      // Ongebruikt sinds de eventregel in de zijbalk staat (vaste prefix per type, ui.eventPrefix).
+      note: z.string().optional(),
     }).optional(),
     lead_images: z.array(z.object({
       src: z.string(),

@@ -10,7 +10,7 @@ source_event:
   slug: "fight-the-cis-tem"
   label: "studiedag *Fight the cis‑tem!*"
   note: "Dit is een bewerkte transcriptie van een lezing die werd gegeven op de"
-draft: true
+draft: false
 translation_of: "en/peter-drucker-short-history-queer-marxism"
 machine_translated: true
 ---

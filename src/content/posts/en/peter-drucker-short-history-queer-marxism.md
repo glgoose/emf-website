@@ -10,7 +10,7 @@ source_event:
   slug: "fight-the-cis-tem"
   label: "study day *Fight the cis‑tem!*"
   note: "This is an edited transcript of a lecture given at the"
-draft: true
+draft: false
 ---
 
 To briefly introduce myself: I'm a native English speaker, because I was born in the United States and was politically active in the United States. I moved to the Netherlands in 1993: first to Amsterdam, then to Rotterdam. That's relevant, I think, because Rotterdam, like Antwerp, is a city where the far right is strong. And the far right is strong even in the LGBTIQ movement. So there are some parallels between the movements in the two cities.

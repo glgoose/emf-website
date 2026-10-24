@@ -12,7 +12,7 @@ source_event:
   slug: "fight-the-cis-tem"
   label: "journée d'étude *Fight the cis‑tem!*"
   note: "Ceci est une transcription remaniée d'une conférence donnée lors de la"
-draft: true
+draft: false
 ---
 
 Pour me présenter brièvement : je suis de langue maternelle anglaise, parce que je suis né aux États-Unis et que j'y ai milité politiquement. Je suis venu vivre aux Pays-Bas en 1993 : d'abord à Amsterdam, puis à Rotterdam. Ce n'est pas sans importance, je crois, parce que Rotterdam, comme Anvers, est une ville où l'extrême droite est forte. Et l'extrême droite est forte même au sein du mouvement LGBTIQ. Il y a donc des parallèles entre les mouvements de ces deux villes.

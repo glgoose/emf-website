@@ -3,8 +3,10 @@
 // ~/.claude/mockups/emf-website/artikelpagina-titel-taal/mockup.html:
 // de talen links, de vertaalmelding rechts (onder `lg`: onder elkaar).
 // Eén taalversie: geen band. Zie docs/adr/0001-i18n.md #5, #6 en #9.
+// De talen staan altijd in de volgorde van `locales`, op elke taalversie dezelfde plek:
+// de huidige wordt gemarkeerd (zwart, onderstreept), niet naar voren gezet.
 import { t } from '../i18n/ui';
-import { localeMeta } from '../i18n/config';
+import { localeMeta, locales } from '../i18n/config';
 import type { Locale } from '../i18n/config';
 import type { PostVersion } from '../lib/posts';
 
@@ -16,8 +18,7 @@ interface Props {
 
 const { currentLocale, versions, notice } = Astro.props;
 const ui = t(currentLocale);
-const current = versions.find(version => version.locale === currentLocale);
-const ordered = current ? [current, ...versions.filter(version => version !== current)] : versions;
+const ordered = [...versions].sort((a, b) => locales.indexOf(a.locale) - locales.indexOf(b.locale));
 ---
 
 {versions.length > 1 && (
@@ -43,7 +44,10 @@ const ordered = current ? [current, ...versions.filter(version => version !== cu
     align-items: baseline;
     gap: 0.2rem 1.1rem;
   }
+  /* space-between: de melding staat rechts zolang ze op de regel past; valt ze op een
+     nieuwe regel, dan staat ze alleen en dus links. */
   .k1 {
+    justify-content: space-between;
     font-size: 0.9rem;
     line-height: 1.4;
     color: #555555;
@@ -89,7 +93,7 @@ const ordered = current ? [current, ...versions.filter(version => version !== cu
     }
     .k1-note {
       flex-basis: auto;
-      margin: 0 0 0 auto;
+      margin: 0;
     }
   }
 </style>

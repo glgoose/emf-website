@@ -27,12 +27,12 @@ const nl = {
     zoomIn: 'Inzoomen',
     zoomOut: 'Uitzoomen',
   },
-  // Melding in de taalband onder de byline (LanguageLinks.astro). {fromLanguage}
-  // en {translator} worden ingevuld met `fill()`. translatedBy en reviewedBy
-  // hangen met ", " achter de melding.
+  // Melding in de taalband onder de byline (LanguageLinks.astro), zonder brontaal: het
+  // origineel staat al met "(origineel)" in de taallijst. {translator} wordt ingevuld
+  // met `fill()`. translatedBy en reviewedBy hangen met ", " achter de melding.
   machineTranslationNotice: {
-    machine: 'machinevertaling {fromLanguage}',
-    human: 'vertaling {fromLanguage}',
+    machine: 'machinevertaling',
+    human: 'vertaling',
     reviewedBy: 'nagelezen door {translator}',
     translatedBy: 'door {translator}',
   },
@@ -45,9 +45,6 @@ const nl = {
   // Voorvoegsel van de eventregel in de zijbalk, vormt met newsType één zin
   // ("lezing / gegeven op de studiedag …"). Daarachter komt source_event.label.
   eventPrefix: { lezing: 'gegeven op de', recensie: 'over de', verslag: 'van de' } as Record<NewsTypeSlug, string>,
-  // "vertaald {fromLanguage}": bronnaam met voorzetsel, want het lidwoord
-  // verschilt per taal (fr: "du néerlandais", maar "de l'anglais").
-  fromLanguage: { nl: 'uit het Nederlands', en: 'uit het Engels', fr: 'uit het Frans' } as Record<Locale, string>,
   // Taalnaam in deze taal, voor {sourceLanguage} in de melding hierboven.
   languageName: { nl: 'Nederlands', en: 'Engels', fr: 'Frans' } as Record<Locale, string>,
 };
@@ -81,8 +78,8 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       zoomOut: 'Zoom out',
     },
     machineTranslationNotice: {
-      machine: 'machine translation {fromLanguage}',
-      human: 'translation {fromLanguage}',
+      machine: 'machine translation',
+      human: 'translation',
       reviewedBy: 'reviewed by {translator}',
       translatedBy: 'by {translator}',
     },
@@ -91,7 +88,6 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     },
     newsType: { lezing: 'lecture', recensie: 'review', verslag: 'report' },
     eventPrefix: { lezing: 'given at the', recensie: 'on the', verslag: 'of the' },
-    fromLanguage: { nl: 'from Dutch', en: 'from English', fr: 'from French' },
     languageName: { nl: 'Dutch', en: 'English', fr: 'French' },
   },
   fr: {
@@ -118,8 +114,8 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
       zoomOut: 'Dézoomer',
     },
     machineTranslationNotice: {
-      machine: 'traduction automatique {fromLanguage}',
-      human: 'traduction {fromLanguage}',
+      machine: 'traduction automatique',
+      human: 'traduction',
       reviewedBy: 'relu par {translator}',
       translatedBy: 'par {translator}',
     },
@@ -128,7 +124,6 @@ const translations: Record<Exclude<Locale, typeof defaultLocale>, DeepPartial<Ui
     },
     newsType: { lezing: 'conférence', recensie: 'recension', verslag: 'compte rendu' },
     eventPrefix: { lezing: 'donnée lors de la', recensie: 'sur la', verslag: 'de la' },
-    fromLanguage: { nl: 'du néerlandais', en: 'de l’anglais', fr: 'du français' },
     languageName: { nl: 'néerlandais', en: 'anglais', fr: 'français' },
   },
 };

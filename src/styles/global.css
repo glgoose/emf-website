@@ -642,9 +642,9 @@
 @media (prefers-reduced-motion:reduce){.toc *{transition:none!important}}
 @media (min-width:1024px){aside:has(> .tl){position:static;align-self:stretch}.tl{position:sticky;top:3rem;margin-right:calc(-1 * var(--tl-gap))}}
 .tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:.75rem;line-height:1.375;text-align:right}
-/* pas zichtbaar als de kop van de zijbalk uit beeld is (toc.js zet .is-shown); neemt altijd ruimte in, en toetsenbordfocus toont hem meteen */
+/* pas zichtbaar als de kop van de zijbalk uit beeld is (toc.js zet .is-shown); neemt altijd ruimte in, en toetsenbordfocus toont hem meteen (:focus-visible, dus niet na een muisklik) */
 .tl{transition:opacity .2s}
-.tl:not(.is-shown):not(:focus-within){opacity:0;pointer-events:none}
+.tl:not(.is-shown):not(:has(:focus-visible)){opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){.tl{transition:none}}
 .tl ol{list-style:none;margin:0;padding:0}
 .tl-track{position:absolute;right:0;width:1px;background:#d6d6d6}

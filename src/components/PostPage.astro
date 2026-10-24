@@ -39,7 +39,7 @@ const canonicalURL = absolute(self.href);
 // Melding rechts in de taalband: alleen op een vertaling.
 const noticeTemplates = ui.machineTranslationNotice;
 const noticeMain = translation_of && original
-  ? fill((machine_translated ?? true) ? noticeTemplates.machine : noticeTemplates.human, { fromLanguage: ui.fromLanguage[original.locale] })
+  ? ((machine_translated ?? true) ? noticeTemplates.machine : noticeTemplates.human)
   : undefined;
 const noticeTranslator = translator
   ? fill((machine_translated ?? true) ? noticeTemplates.reviewedBy : noticeTemplates.translatedBy, { translator })

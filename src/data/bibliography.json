@@ -1,0 +1,303 @@
+[
+  {
+    "id": "Drucker2000",
+    "editor": [
+      {
+        "family": "Drucker",
+        "given": "Peter"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "2000"
+        ]
+      ]
+    },
+    "publisher": "Gay Men's Press",
+    "publisher-place": "London",
+    "title": "Different Rainbows",
+    "type": "book"
+  },
+  {
+    "id": "Drucker2015",
+    "author": [
+      {
+        "family": "Drucker",
+        "given": "Peter"
+      }
+    ],
+    "collection-number": "volume 92",
+    "collection-title": "Historical materialism book series",
+    "issued": {
+      "date-parts": [
+        [
+          "2015"
+        ]
+      ]
+    },
+    "publisher": "Brill",
+    "publisher-place": "Leiden ; Boston",
+    "title": "Warped: Gay Normality and Queer Anti-Capitalism",
+    "title-short": "Warped",
+    "type": "book"
+  },
+  {
+    "id": "Engels2010",
+    "author": [
+      {
+        "family": "Engels",
+        "given": "Friedrich"
+      }
+    ],
+    "contributor": [
+      {
+        "family": "Hunt",
+        "given": "Tristram"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "2010"
+        ]
+      ]
+    },
+    "publisher": "Penguin Classics",
+    "publisher-place": "London",
+    "title": "The Origin of the Family, Private Property, and the State",
+    "type": "book"
+  },
+  {
+    "id": "Floyd2009",
+    "author": [
+      {
+        "family": "Floyd",
+        "given": "Kevin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "2009"
+        ]
+      ]
+    },
+    "publisher": "University of Minnesota Press",
+    "publisher-place": "Minneapolis",
+    "title": "The Reification of Desire: Toward a Queer Marxism",
+    "title-short": "Reification of Desire",
+    "type": "book"
+  },
+  {
+    "id": "Healey1997",
+    "author": [
+      {
+        "family": "Healey",
+        "given": "Dan"
+      }
+    ],
+    "container-title": "Gender & History",
+    "DOI": "10.1111/1468-0424.00045",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          "1997"
+        ]
+      ]
+    },
+    "page": "83–106",
+    "title": "Evgeniia/Evgenii: Queer Case Histories in the First Years of Soviet Power",
+    "title-short": "Evgeniia/Evgenii",
+    "type": "article-journal",
+    "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/1468-0424.00045",
+    "volume": "9"
+  },
+  {
+    "id": "Healey2001",
+    "author": [
+      {
+        "family": "Healey",
+        "given": "Dan"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          "2001"
+        ]
+      ]
+    },
+    "publisher": "University of Chicago Press",
+    "publisher-place": "Chicago",
+    "title": "Homosexual Desire in Revolutionary Russia: The Regulation of Sexual and Gender Dissent",
+    "title-short": "Homosexual Desire in Revolutionary Russia",
+    "type": "book"
+  },
+  {
+    "id": "Wekker2016",
+    "author": [
+      {
+        "family": "Wekker",
+        "given": "Gloria"
+      }
+    ],
+    "DOI": "10.1215/9780822374565",
+    "issued": {
+      "date-parts": [
+        [
+          "2016"
+        ]
+      ]
+    },
+    "publisher": "Duke University Press",
+    "publisher-place": "Durham",
+    "title": "White Innocence: Paradoxes of Colonialism and Race",
+    "type": "book"
+  },
+  {
+    "id": "dutchnewsPVV2010",
+    "type": "article-newspaper",
+    "title": "PVV Biggest Party among Gay Krant Readers",
+    "container-title": "<span class=\"nocase\">DutchNews.nl</span>",
+    "issued": {
+      "date-parts": [
+        [
+          2010,
+          11,
+          9
+        ]
+      ]
+    },
+    "URL": "https://www.dutchnews.nl/2010/11/pvv_biggest_party_among_gay_kr/"
+  },
+  {
+    "id": "engelsMarx1869",
+    "type": "personal_communication",
+    "author": [
+      {
+        "family": "Engels",
+        "given": "Friedrich"
+      }
+    ],
+    "recipient": [
+      {
+        "family": "Marx",
+        "given": "Karl"
+      }
+    ],
+    "event-place": "Manchester",
+    "event-date": {
+      "date-parts": [
+        [
+          1869,
+          6,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          1988
+        ]
+      ]
+    },
+    "container-title": "Collected Works",
+    "container-author": [
+      {
+        "family": "Marx",
+        "given": "Karl"
+      },
+      {
+        "family": "Engels",
+        "given": "Frederick"
+      }
+    ],
+    "volume": "43",
+    "publisher": "Lawrence & Wishart",
+    "volume-title": "Letters, April 1868–July 1870"
+  },
+  {
+    "id": "healeyUnrulyIdentities2001",
+    "type": "chapter",
+    "author": [
+      {
+        "family": "Healey",
+        "given": "Dan"
+      }
+    ],
+    "title": "Unruly Identities: Soviet Psychiatry Confronts the ‘Female Homosexual’ of the 1920s",
+    "container-title": "Gender in Russian History and Culture",
+    "editor": [
+      {
+        "family": "Edmondson",
+        "given": "Linda"
+      }
+    ],
+    "publisher": "Palgrave",
+    "publisher-place": "Basingstoke",
+    "issued": {
+      "date-parts": [
+        [
+          2001
+        ]
+      ]
+    }
+  },
+  {
+    "id": "lukacsHistoryClass1976",
+    "author": [
+      {
+        "family": "Lukács",
+        "given": "Georg"
+      }
+    ],
+    "edition": "5. print",
+    "issued": {
+      "date-parts": [
+        [
+          "1976"
+        ]
+      ]
+    },
+    "original-date": {
+      "date-parts": [
+        [
+          "1971"
+        ]
+      ]
+    },
+    "publisher": "MIT Press",
+    "publisher-place": "Cambridge, Mass",
+    "title": "History and Class Consciousness: Studies in Marxist Dialectics",
+    "title-short": "History and Class Consciousness",
+    "translator": [
+      {
+        "family": "Livingstone",
+        "given": "Rodney"
+      }
+    ],
+    "type": "book"
+  },
+  {
+    "id": "puarTerroristAssemblages2007",
+    "type": "book",
+    "author": [
+      {
+        "family": "Puar",
+        "given": "Jasbir K."
+      }
+    ],
+    "title": "Terrorist Assemblages: Homonationalism in Queer Times",
+    "publisher": "Duke University Press",
+    "issued": {
+      "date-parts": [
+        [
+          2007
+        ]
+      ]
+    }
+  }
+]

@@ -15,13 +15,15 @@
     "visual:test": "playwright test",
     "visual:test:update": "playwright test --update-snapshots",
     "visual:report": "playwright show-report",
-    "deploy": "astro build && npx wrangler pages deploy dist --project-name ernestmandelfonds-website --commit-dirty=true"
+    "deploy": "astro build && npx wrangler pages deploy dist --project-name ernestmandelfonds-website --commit-dirty=true",
+    "bib": "node scripts/export-bibliography.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.4",
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.1",
+    "citeproc": "^2.4.63",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {

@@ -141,26 +141,26 @@ Le livre de Wekker a été important dans le cadre de la remise en cause génér
 
 Ce sont les défis auxquels nous faisons face, que nous devons relever et pour lesquels nous devons nous organiser. Je pense que les queers de la gauche radicale doivent abandonner l'idée que le mouvement dominant fera l'essentiel du travail à notre place pour s'attaquer à ces questions. Nous devons trouver des moyens de nous organiser plus largement. Un dernier exemple : dans les syndicats, et je suis sûr que c'est pareil en Belgique, il existe des groupes LGBTIQ. Aux Pays-Bas, ils sont très bien intégrés dans les structures syndicales dominantes, qui sont, je crois, encore plus conservatrices aux Pays-Bas qu'en Belgique. Mais je pense que la gauche radicale doit y être présente aussi, en contestant le type de politique généralement accepté dans ces mouvements larges, afin de développer réellement une politique queer radicale qui réponde aux défis de la montée de l'extrême droite, de la réaction qui monte sur tous les fronts.
 
-[^1]: Friedrich Engels, *The Origin of the Family, Private Property, and the State*, introduction de Tristram Hunt (1884 ; rééd., Londres : Penguin Classics, 2010). En français : *L'Origine de la famille, de la propriété privée et de l'État*.
+[^1]: [@Engels2010].
 
-[^2]: Friedrich Engels à Karl Marx, Manchester, 22 juin 1869, dans Karl Marx et Frederick Engels, *Collected Works*, vol. 43, *Letters, April 1868–July 1870* (Londres : Lawrence & Wishart, 1988), 295–96. Engels répond à la brochure d'Ulrichs *Argonauticus* (Leipzig, 1869), que Marx lui avait envoyée.
+[^2]: [@engelsMarx1869, 295–96]. Engels répond à la brochure d'Ulrichs *Argonauticus* (Leipzig, 1869), que Marx lui avait envoyée.
 
-[^3]: Parmi les personnes des dossiers psychiatriques des années 1920 qui avaient été assignées femmes à la naissance mais vivaient en hommes (les psychiatres les appelaient « homosexuelles féminines »), trois « avaient servi dans des formations militaires comme commandants ou soldats pendant et après la guerre civile ». Dan Healey, *Homosexual Desire in Revolutionary Russia: The Regulation of Sexual and Gender Dissent* (Chicago : University of Chicago Press, 2001), 143. Lors d'une réunion du Conseil médical d'experts du Commissariat à la santé, le 8 février 1929, le psychiatre A. K. Rakhmanov a décrit une patiente comme « commandante de l'Armée rouge, occupant un poste de commandement assez élevé » (168). Voir aussi Healey, « Unruly Identities: Soviet Psychiatry Confronts the 'Female Homosexual' of the 1920s », dans *Gender in Russian History and Culture*, dir. Linda Edmondson (Basingstoke : Palgrave, 2001), 129–30 ; et Healey, « Evgeniia/Evgenii: Queer Case Histories in the First Years of Soviet Power », *Gender & History* 9, n° 1 (1997) : 88.
+[^3]: Parmi les personnes des dossiers psychiatriques des années 1920 qui avaient été assignées femmes à la naissance mais vivaient en hommes (les psychiatres les appelaient « homosexuelles féminines »), trois « avaient servi dans des formations militaires comme commandants ou soldats pendant et après la guerre civile ». [@Healey2001, 143]. Lors d'une réunion du Conseil médical d'experts du Commissariat à la santé, le 8 février 1929, le psychiatre A. K. Rakhmanov a décrit une patiente comme « commandante de l'Armée rouge, occupant un poste de commandement assez élevé » (168). Voir aussi [@healeyUnrulyIdentities2001, 129–30] ; et [@Healey1997, 88].
 
-[^4]: Healey mentionne une demande de changement de sexe chirurgical en 1923, et un cas moscovite de 1928 dans lequel, selon le psychiatre P. B. Gannouchkine, un praticien « changeait le sexe et faisait des hommes des femmes et inversement, au moyen d'opérations chirurgicales assez primitives ». Des responsables ont alors demandé au Commissariat à la santé de clarifier « le droit \[des médecins\] de pratiquer des opérations pour changer le sexe des travestis ». Healey, *Homosexual Desire*, 63, 169, 170.
+[^4]: Healey mentionne une demande de changement de sexe chirurgical en 1923, et un cas moscovite de 1928 dans lequel, selon le psychiatre P. B. Gannouchkine, un praticien « changeait le sexe et faisait des hommes des femmes et inversement, au moyen d'opérations chirurgicales assez primitives ». Des responsables ont alors demandé au Commissariat à la santé de clarifier « le droit \[des médecins\] de pratiquer des opérations pour changer le sexe des travestis ». [@Healey2001, 63, 169, 170].
 
 [^5]: Ces dernières années, Butler utilise les pronoms anglais « they/them » (en français, on emploie souvent « iel »).
 
-[^6]: Kevin Floyd, *The Reification of Desire: Toward a Queer Marxism* (Minneapolis : University of Minnesota Press, 2009).
+[^6]: [@Floyd2009].
 
-[^7]: Georg Lukács, *History and Class Consciousness: Studies in Marxist Dialectics*, trad. Rodney Livingstone (Cambridge, MA : MIT Press, 1971). En français : *Histoire et conscience de classe*.
+[^7]: [@lukacsHistoryClass1976].
 
-[^8]: Jasbir K. Puar, *Terrorist Assemblages: Homonationalism in Queer Times* (Durham, NC : Duke University Press, 2007).
+[^8]: [@puarTerroristAssemblages2007].
 
-[^9]: Peter Drucker, *Warped: Gay Normality and Queer Anti-Capitalism*, Historical Materialism Book Series 92 (Leyde : Brill, 2015).
+[^9]: [@Drucker2015].
 
-[^10]: Peter Drucker, dir., *Different Rainbows* (Londres : Gay Men's Press, 2000).
+[^10]: [@Drucker2000].
 
-[^11]: Gloria Wekker, *White Innocence: Paradoxes of Colonialism and Race* (Durham, NC : Duke University Press, 2016).
+[^11]: [@Wekker2016].
 
-[^12]: Dans un sondage en ligne semestriel sur le site de la *Gay Krant* en novembre 2010, quelques mois après les élections législatives de juin 2010, le PVV est arrivé en tête avec 22,3 % des 1 024 participants, contre 16,6 % en mai. « PVV Biggest Party among Gay Krant Readers », *DutchNews.nl*, 9 novembre 2010, https://www.dutchnews.nl/2010/11/pvv_biggest_party_among_gay_kr/.
+[^12]: Dans un sondage en ligne semestriel sur le site de la *Gay Krant* en novembre 2010, quelques mois après les élections législatives de juin 2010, le PVV est arrivé en tête avec 22,3 % des 1 024 participants, contre 16,6 % en mai. [@dutchnewsPVV2010].

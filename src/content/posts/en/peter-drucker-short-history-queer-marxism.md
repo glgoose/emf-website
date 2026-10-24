@@ -139,26 +139,26 @@ In Rotterdam, a far-right stronghold, a transphobic and implicitly racist gay gr
 
 These are the challenges we face, that we have to address and organize for. I think queers on the radical left have to give up the assumption that the mainstream movement will do the main work of tackling the issues for us. We have to figure out ways to organize more broadly. One last example: in the trade unions, and I'm sure it's the same in Belgium, there are LGBTIQ groups. In the Netherlands, they are very well integrated into the dominant trade union structures, which I think in the Netherlands are even more conservative than in Belgium. But I think the radical left has to be there too, challenging the kind of politics that's generally accepted in these broad movements, so as to really develop a radical queer politics that addresses the challenges of the rising far right, the rising reaction across the board.
 
-[^1]: Friedrich Engels, *The Origin of the Family, Private Property, and the State*, introduction by Tristram Hunt (1884; repr., London: Penguin Classics, 2010).
+[^1]: [@Engels2010].
 
-[^2]: Friedrich Engels to Karl Marx, Manchester, 22 June 1869, in Karl Marx and Frederick Engels, *Collected Works*, vol. 43, *Letters, April 1868–July 1870* (London: Lawrence & Wishart, 1988), 295–96. Engels is responding to Ulrichs's pamphlet *Argonauticus* (Leipzig, 1869), which Marx had sent him.
+[^2]: [@engelsMarx1869, 295–96]. Engels is responding to Ulrichs's pamphlet *Argonauticus* (Leipzig, 1869), which Marx had sent him.
 
-[^3]: Of the people in 1920s psychiatric case histories who were assigned female at birth but lived as men (the psychiatrists called them "female homosexuals"), three "had served in military formations as commanders or soldiers during and after the civil war." Dan Healey, *Homosexual Desire in Revolutionary Russia: The Regulation of Sexual and Gender Dissent* (Chicago: University of Chicago Press, 2001), 143. At a meeting of the Health Commissariat's Expert Medical Council on 8 February 1929, the psychiatrist A. K. Rakhmanov described a woman patient as "a commander of the Red Army and occupying a rather high command post" (168). See also Healey, "Unruly Identities: Soviet Psychiatry Confronts the 'Female Homosexual' of the 1920s," in *Gender in Russian History and Culture*, ed. Linda Edmondson (Basingstoke: Palgrave, 2001), 129–30; and Healey, "Evgeniia/Evgenii: Queer Case Histories in the First Years of Soviet Power," *Gender & History* 9, no. 1 (1997): 88.
+[^3]: Of the people in 1920s psychiatric case histories who were assigned female at birth but lived as men (the psychiatrists called them "female homosexuals"), three "had served in military formations as commanders or soldiers during and after the civil war." [@Healey2001, 143]. At a meeting of the Health Commissariat's Expert Medical Council on 8 February 1929, the psychiatrist A. K. Rakhmanov described a woman patient as "a commander of the Red Army and occupying a rather high command post" (168). See also [@healeyUnrulyIdentities2001, 129–30]; and [@Healey1997, 88].
 
-[^4]: Healey records a request for surgical sex change in 1923, and a 1928 Moscow case in which, according to the psychiatrist P. B. Gannushkin, a practitioner "changed sex and made women of men and vice versa, using rather primitive surgical operations." Officials then asked the Health Commissariat to clarify "the right \[of doctors\] to produce operations to change the sex of transvestites." Healey, *Homosexual Desire*, 63, 169, 170.
+[^4]: Healey records a request for surgical sex change in 1923, and a 1928 Moscow case in which, according to the psychiatrist P. B. Gannushkin, a practitioner "changed sex and made women of men and vice versa, using rather primitive surgical operations." Officials then asked the Health Commissariat to clarify "the right \[of doctors\] to produce operations to change the sex of transvestites." [@Healey2001, 63, 169, 170].
 
 [^5]: In recent years Butler has used "they/them" pronouns.
 
-[^6]: Kevin Floyd, *The Reification of Desire: Toward a Queer Marxism* (Minneapolis: University of Minnesota Press, 2009).
+[^6]: [@Floyd2009].
 
-[^7]: Georg Lukács, *History and Class Consciousness: Studies in Marxist Dialectics*, trans. Rodney Livingstone (Cambridge, MA: MIT Press, 1971).
+[^7]: [@lukacsHistoryClass1976].
 
-[^8]: Jasbir K. Puar, *Terrorist Assemblages: Homonationalism in Queer Times* (Durham, NC: Duke University Press, 2007).
+[^8]: [@puarTerroristAssemblages2007].
 
-[^9]: Peter Drucker, *Warped: Gay Normality and Queer Anti-Capitalism*, Historical Materialism Book Series 92 (Leiden: Brill, 2015).
+[^9]: [@Drucker2015].
 
-[^10]: Peter Drucker, ed., *Different Rainbows* (London: Gay Men's Press, 2000).
+[^10]: [@Drucker2000].
 
-[^11]: Gloria Wekker, *White Innocence: Paradoxes of Colonialism and Race* (Durham, NC: Duke University Press, 2016).
+[^11]: [@Wekker2016].
 
-[^12]: In a semi-annual online poll on the *Gay Krant* website in November 2010, a few months after the general election of June 2010, the PVV came first with 22.3% of 1,024 participants, up from 16.6% in May. "PVV Biggest Party among Gay Krant Readers," *DutchNews.nl*, 9 November 2010, https://www.dutchnews.nl/2010/11/pvv_biggest_party_among_gay_kr/.
+[^12]: In a semi-annual online poll on the *Gay Krant* website in November 2010, a few months after the general election of June 2010, the PVV came first with 22.3% of 1,024 participants, up from 16.6% in May. [@dutchnewsPVV2010].

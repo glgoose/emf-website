@@ -120,6 +120,15 @@ source_event:
 
 `src/components/PostPage.astro` auto-renders this as a small italic line above the article body, linking to `/activiteiten/${source_event.slug}`. It only renders when `type !== "verslag"` — so a `"verslag"` post never shows it, and any other type (`"lezing"`, `"recensie"`) does. Pick the type with this gating in mind, not for the URL: posts live at `/<slug>` whatever their type.
 
+### Bronvermeldingen (CMOS 18)
+
+Noten volgen *The Chicago Manual of Style*, 18de editie, notes and bibliography. Schrijf ze niet met de hand: zet `[@citekey]` of `[@citekey, 143]` (meerdere met `;`) in een voetnoot of in de lopende tekst. `src/lib/remarkCite.mjs` maakt er met citeproc-js en `src/data/csl/chicago-notes-bibliography.csl` een noot van in de taal van de post, met de verkorte vorm bij een tweede vermelding. In de lopende tekst wordt het citaat een nieuwe voetnoot.
+
+- Bronnen staan in `src/data/bibliography.json` (CSL-JSON). `npm run bib` werkt het bij uit Zotero (Better BibTeX moet draaien) voor elke citekey in `src/content`. Een citekey die niet in Zotero staat blijft staan en wordt gemeld. Verbeter een bron in Zotero, niet in het JSON-bestand.
+- Een onbekende citekey laat de build falen.
+- De bestanden in `src/data/csl/` komen ongewijzigd uit de CSL-repo. Correcties op de Nederlandse en Franse termen staan als `OVERRIDES` in de plugin.
+- Na een wijziging aan de plugin: `rm -f node_modules/.astro/data-store.json .astro/data-store.json` voor je bouwt.
+
 ## Typography
 
 ### Accent color restraint

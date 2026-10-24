@@ -7,6 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import rehypeFootnoteLabel from "./src/lib/rehypeFootnoteLabel.mjs";
 import rehypeHeadingIds from "./src/lib/rehypeHeadingIds.mjs";
+import remarkCite from "./src/lib/remarkCite.mjs";
 
 // Hreflang voor de sitemap, gelezen uit de gebouwde HTML. URL's hebben geen
 // taalprefix en vertaalde posts hebben een vertaald type-woord en een vertaalde
@@ -55,7 +56,9 @@ export default defineConfig({
   // link in de adresbalk `#fn-9` is en niet `#user-content-fn-9`. De kop
   // "Notes" is zichtbaar (geen `sr-only`); de tekst per taal zet de plugin.
   // Kop-ID's met een koppelteken voor een streepje: src/lib/rehypeHeadingIds.mjs.
+  // Bronvermeldingen `[@citekey, p]` volgens CMOS 18: src/lib/remarkCite.mjs.
   markdown: {
+    remarkPlugins: [remarkCite],
     remarkRehype: { clobberPrefix: '', footnoteLabelProperties: {} },
     rehypePlugins: [rehypeFootnoteLabel, rehypeHeadingIds],
   },

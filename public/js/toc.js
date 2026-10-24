@@ -34,6 +34,10 @@
     }, { passive: true });
     render();
   };
+  // "back to top" is a button, not a #top link: it leaves no fragment in the URL. A #top
+  // that is already in the URL (a link shared before this) is removed on load.
+  if (location.hash === '#top') history.replaceState(null, '', location.pathname + location.search);
+  document.querySelectorAll('[data-top]').forEach(b => b.addEventListener('click', () => scrollTo({ top: 0 })));
   document.querySelectorAll('.toc').forEach(nav => {
   const mark = (sel, h) => nav.querySelectorAll(sel).forEach(a => id(a) === h ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'));
 

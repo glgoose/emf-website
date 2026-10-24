@@ -33,7 +33,7 @@ const { parts, flat } = toc;
       ))}
       {hasNotes && <li class="tl-part tl-notes"><a class="tl-row tl-title" href="#footnote-label">{notesLabel}</a></li>}
     </ol>
-    <a class="tl-top" href="#top">{topLabel}<span class="tl-top-axis" aria-hidden="true"><svg class="tl-top-ic" viewBox="0 0 10 6"><path d="M1 5.5 5 1.5l4 4" fill="none" stroke="currentColor" stroke-width="1" /></svg></span></a>
+    <button type="button" class="tl-top" data-top>{topLabel}<span class="tl-top-axis" aria-hidden="true"><svg class="tl-top-ic" viewBox="0 0 10 6"><path d="M1 5.5 5 1.5l4 4" fill="none" stroke="currentColor" stroke-width="1" /></svg></span></button>
   </nav>
 ) : (
   <nav class:list={['toc rh only-sm not-prose', { flat }]} aria-label={label} data-label={label}>
@@ -51,6 +51,6 @@ const { parts, flat } = toc;
         ))}
       </ol>
     </div>
-    <a class="rh-up" href="#top">{topLabel}</a>
+    <button type="button" class="rh-up" data-top>{topLabel}</button>
   </nav>
 )}

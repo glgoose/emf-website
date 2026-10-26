@@ -406,96 +406,98 @@
 
 /* ─── Lightbox (lead_images op posts) ─────────────────────────────────────── */
 
-.lightbox {
-  width: 100vw;
-  height: 100dvh;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: none;
-  background: #ffffff;
-}
+@layer components {
+  .lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: #ffffff;
+  }
 
-.lightbox::backdrop {
-  background: transparent;
-}
+  .lightbox::backdrop {
+    background: transparent;
+  }
 
-.lightbox-stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 3rem 4.5rem;
-}
+  .lightbox-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 4.5rem;
+  }
 
-.lightbox-stage img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
+  .lightbox-stage img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
 
-.lightbox.can-zoom .lightbox-stage img { cursor: zoom-in; }
+  .lightbox.can-zoom .lightbox-stage img { cursor: zoom-in; }
 
-/* Ware grootte: de stage scrollt, margin:auto centreert zonder links af te snijden. */
-.lightbox.is-zoomed .lightbox-stage {
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0;
-  overflow: auto;
-}
+  /* Ware grootte: de stage scrollt, margin:auto centreert zonder links af te snijden. */
+  .lightbox.is-zoomed .lightbox-stage {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    overflow: auto;
+  }
 
-.lightbox.is-zoomed .lightbox-stage img {
-  flex-shrink: 0;
-  max-width: none;
-  max-height: none;
-  margin: auto;
-  /* Ingezoomd toont de cursor dat je kunt verschuiven; het niveau regelen de knoppen. */
-  cursor: grab;
-}
+  .lightbox.is-zoomed .lightbox-stage img {
+    flex-shrink: 0;
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    /* Ingezoomd toont de cursor dat je kunt verschuiven; het niveau regelen de knoppen. */
+    cursor: grab;
+  }
 
-.lightbox.is-dragging .lightbox-stage img { cursor: grabbing; }
+  .lightbox.is-dragging .lightbox-stage img { cursor: grabbing; }
 
-.lightbox-btn {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #aaaaaa;
-  cursor: pointer;
-}
+  .lightbox-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #aaaaaa;
+    cursor: pointer;
+  }
 
-.lightbox-btn:hover,
-.lightbox-btn:focus-visible {
-  color: #111111;
-}
+  .lightbox-btn:hover,
+  .lightbox-btn:focus-visible {
+    color: #111111;
+  }
 
-.lightbox-close { top: 0.75rem; right: 0.75rem; }
-/* Zoomknop smaller dan de sluitknop, zodat hij er dicht naast staat. */
-.lightbox-zoom-in { top: 0.75rem; right: 3.625rem; width: 1.5rem; }
+  .lightbox-close { top: 0.75rem; right: 0.75rem; }
+  /* Zoomknop smaller dan de sluitknop, zodat hij er dicht naast staat. */
+  .lightbox-zoom-in { top: 0.75rem; right: 3.625rem; width: 1.5rem; }
 
-/* Zoomknop alleen als het origineel groter is dan het scherm; grijs op ware grootte. */
-.lightbox.at-max .zoom-plus {
-  display: none;
-}
+  /* Zoomknop alleen als het origineel groter is dan het scherm; grijs op ware grootte. */
+  .lightbox.at-max .zoom-plus {
+    display: none;
+  }
 
-.lightbox:not(.can-zoom) .lightbox-zoom-in { visibility: hidden; }
+  .lightbox:not(.can-zoom) .lightbox-zoom-in { visibility: hidden; }
 
-.lightbox-btn:disabled,
-.lightbox-btn:disabled:hover { color: #e0e0e0; cursor: default; }
-.lightbox-prev { top: 50%; left: 0.75rem; transform: translateY(-50%); }
-.lightbox-next { top: 50%; right: 0.75rem; transform: translateY(-50%); }
+  .lightbox-btn:disabled,
+  .lightbox-btn:disabled:hover { color: #e0e0e0; cursor: default; }
+  .lightbox-prev { top: 50%; left: 0.75rem; transform: translateY(-50%); }
+  .lightbox-next { top: 50%; right: 0.75rem; transform: translateY(-50%); }
 
-@media (max-width: 639px) {
-  .lightbox-stage { padding: 3.5rem 0.5rem; }
-  .lightbox-prev, .lightbox-next { top: auto; bottom: 0.25rem; transform: none; }
+  @media (max-width: 639px) {
+    .lightbox-stage { padding: 3.5rem 0.5rem; }
+    .lightbox-prev, .lightbox-next { top: auto; bottom: 0.25rem; transform: none; }
+  }
 }
 
 /* ─── Page layout (BaseLayout) ────────────────────────────────────────────── */
@@ -624,101 +626,107 @@
 
 /* ─── Voetnoot-popover (public/js/footnotes.js) ───────────────────────────── */
 
-.fn-popover {
-  position: absolute;
-  z-index: 50;
-  max-width: min(24rem, calc(100vw - 2rem));
-  padding: 0.75rem 1rem;
-  border: 1px solid #dddddd;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
-  color: #555555;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
+@layer components {
+  .fn-popover {
+    position: absolute;
+    z-index: 50;
+    max-width: min(24rem, calc(100vw - 2rem));
+    padding: 0.75rem 1rem;
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+    color: #555555;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .fn-popover[hidden] {
+    display: none;
+  }
+
+  .fn-popover p {
+    margin: 0;
+  }
+
+  .fn-popover a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: #bbbbbb;
+    text-decoration-thickness: 0.035em;
+    text-underline-offset: 2px;
+  }
+
+  /* ─── Inhoudsopgave van een artikel (ArticleToc.astro, public/js/toc.js) ───── */
+  .toc a{text-decoration:none}
+  @media (prefers-reduced-motion:reduce){.toc *{transition:none!important}}
+  @media (min-width:1024px){.tl{position:sticky;top:3rem;margin-right:calc(-1 * var(--tl-gap))}}
+  .tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:.75rem;line-height:1.375;text-align:right}
+  /* pas zichtbaar als de kop van de zijbalk uit beeld is (toc.js zet .is-shown); neemt altijd ruimte in, en toetsenbordfocus toont hem meteen (:focus-visible, dus niet na een muisklik) */
+  .tl{transition:opacity .2s}
+  .tl:not(.is-shown):not(:has(:focus-visible)){opacity:0;pointer-events:none}
+  @media (prefers-reduced-motion:reduce){.tl{transition:none}}
+  .tl ol{list-style:none;margin:0;padding:0}
+  .tl-track{position:absolute;right:0;width:1px;background:#d6d6d6}
+  .tl-fill{position:absolute;left:0;top:0;width:1px;height:0;background:#111}
+  .tl-part{margin:0 0 1rem}
+  .tl.flat .tl-part{margin:0 0 .45rem}
+  .tl-dates{display:block;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
+  .tl-row{position:relative;display:block;color:#666}
+  .tl-row::after{content:"";position:absolute;top:.68em;right:calc(-1 * var(--tl-gap) - 2px);width:5px;height:1px;background:#c4c4c4}
+  .tl-title{color:#444}
+  .tl:not(.flat) .tl-title::after{right:calc(-1 * var(--tl-gap) - 3px);width:7px}
+  .tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
+  .tl-subs li{margin:0 0 .25em}
+  .tl-row.is-past::after{background:#111}
+  /* het streepje hoort bij de link: een onzichtbaar vlak van 12px hoog, van de tekst tot 7px voorbij de lijn, maakt het klikbaar zonder gat tussen streepje en titel */
+  .tl-row::before{content:"";position:absolute;top:calc(.68em - 6px);right:calc(-1 * var(--tl-gap) - 7px);width:calc(var(--tl-gap) + 7px);height:12px}
+  /* de uiteinden van de lijn: bovenaan naar het begin van de tekst, onderaan naar het einde van de pagina (toc.js) */
+  .tl-cap{position:absolute;left:-7px;width:15px;cursor:pointer}
+  .tl-cap-start{top:0}
+  .tl-cap-end{bottom:0;height:14px}.tl-row:hover::after{background:#111}
+  .tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:#111}
+  /* het actieve deel: de andere delen vervagen (alleen kleur, geen layoutverschuiving) */
+  .tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover),.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover) .tl-dates{color:#ababab}
+  .tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(.is-past):not(:hover)::after{background:#dadada}
+  /* "terug naar boven": alleen zichtbaar na omhoogscrollen (toc.js zet .is-up) of bij toetsenbordfocus (:focus-visible, dus niet bij een muisklik); neemt altijd ruimte in, dus geen layoutverschuiving */
+  .tl-top,.rh-up{margin:0;border:0;background:none;font:inherit;font-style:italic;text-align:left;cursor:pointer;color:#555;opacity:0;visibility:hidden;transition:opacity .15s}
+  .tl-top:hover,.rh-up:hover{color:#111}
+  .tl.is-up .tl-top,.tl:has(:focus-visible) .tl-top,.rh.is-up .rh-up,.rh:has(:focus-visible) .rh-up{opacity:1;visibility:visible}
+  .tl .tl-top{position:relative;display:block;width:100%;padding:0;margin-top:1.25rem;text-align:right}
+  .tl-top-axis{position:absolute;top:.42em;right:calc(-1 * var(--tl-gap) - 4px);width:9px;line-height:0;background:#fff;padding:2px 0}
+  .tl-top-ic{display:block;width:9px;height:5.4px}
+  .rh-up{position:absolute;top:0;right:calc(12px + .75rem);bottom:1px;display:flex;align-items:center;padding:0 0 0 1.5rem;background:linear-gradient(to right,rgb(255 255 255 / 0),#fff 1.25rem)}
+  .rh:is(.is-up,:has(:focus-visible)) .rh-sec-now{visibility:hidden}
+  @media (prefers-reduced-motion:reduce){.tl-top,.rh-up{transition:none}}
+  .tl-label{margin:0 0 .75rem;font-weight:400;font-style:italic;font-size:.8rem;text-transform:lowercase;color:#888}
+  @media (max-width:1023px){.only-lg{display:none}}
+  @media (min-width:1024px){.only-sm{display:none}}
+  @media (max-width:1023px){body:has(.rh) .prose :is(h2,h3){scroll-margin-top:3.5rem}}
+
+  /* lopende kop onder 1024px */
+  .rh{position:sticky;top:0;z-index:5;margin:0 0 1.25rem;background:#fff;font-size:.75rem;line-height:1.375}
+  .rh-bar{display:flex;align-items:center;gap:.75rem;width:100%;margin:0;padding:.55rem 0;border:0;border-bottom:1px solid #ddd;background:none;font:inherit;color:#555;text-align:left;cursor:pointer}
+  .rh-bar:hover{color:#111}
+  .rh-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rh-sec-now{font-style:italic;color:#888}
+  .rh-sec-now:not(:empty)::before{content:"\2003"}
+  .rh-bar svg{flex:none;transition:transform .15s}
+  .rh-bar[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .rh-panel{position:absolute;left:0;right:0;top:100%;max-height:calc(100vh - 3rem);overflow:auto;padding:1rem 0 .5rem;background:#fff;border-bottom:1px solid #ddd}
+  .rh-panel ol{list-style:none;margin:0;padding:0}
+  .rh-part{margin:0 0 .9rem}
+  .rh.flat .rh-part{margin:0 0 .35rem}
+  .rh-ptitle{display:flex;justify-content:space-between;gap:1rem;color:#111}
+  .rh.flat .rh-ptitle{color:#555}
+  .rh-dates{flex:none;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
+  .rh-part ol{margin:.25rem 0 0 1.5rem}
+  .rh-part ol li{margin:0 0 .2em}
+  .rh-part ol a{color:#666}
+  .rh-panel a:hover,.rh-panel a[aria-current]{color:#111}
+  .rh-panel a[aria-current] span:first-child,.rh-part ol a[aria-current]{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
 }
 
-.fn-popover[hidden] {
-  display: none;
-}
-
-.fn-popover p {
-  margin: 0;
-}
-
-.fn-popover a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: #bbbbbb;
-  text-decoration-thickness: 0.035em;
-  text-underline-offset: 2px;
-}
-
-/* ─── Inhoudsopgave van een artikel (ArticleToc.astro, public/js/toc.js) ───── */
-.toc a{text-decoration:none}
-@media (prefers-reduced-motion:reduce){.toc *{transition:none!important}}
-@media (min-width:1024px){aside:has(> .tl){position:static;align-self:stretch}.tl{position:sticky;top:3rem;margin-right:calc(-1 * var(--tl-gap))}}
-.tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:.75rem;line-height:1.375;text-align:right}
-/* pas zichtbaar als de kop van de zijbalk uit beeld is (toc.js zet .is-shown); neemt altijd ruimte in, en toetsenbordfocus toont hem meteen (:focus-visible, dus niet na een muisklik) */
-.tl{transition:opacity .2s}
-.tl:not(.is-shown):not(:has(:focus-visible)){opacity:0;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.tl{transition:none}}
-.tl ol{list-style:none;margin:0;padding:0}
-.tl-track{position:absolute;right:0;width:1px;background:#d6d6d6}
-.tl-fill{position:absolute;left:0;top:0;width:1px;height:0;background:#111}
-.tl-part{margin:0 0 1rem}
-.tl.flat .tl-part{margin:0 0 .45rem}
-.tl-dates{display:block;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
-.tl-row{position:relative;display:block;color:#666}
-.tl-row::after{content:"";position:absolute;top:.68em;right:calc(-1 * var(--tl-gap) - 2px);width:5px;height:1px;background:#c4c4c4}
-.tl-title{color:#444}
-.tl:not(.flat) .tl-title::after{right:calc(-1 * var(--tl-gap) - 3px);width:7px}
-.tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
-.tl-subs li{margin:0 0 .25em}
-.tl-row.is-past::after{background:#111}
-/* het streepje hoort bij de link: een onzichtbaar vlak van 12px hoog, van de tekst tot 7px voorbij de lijn, maakt het klikbaar zonder gat tussen streepje en titel */
-.tl-row::before{content:"";position:absolute;top:calc(.68em - 6px);right:calc(-1 * var(--tl-gap) - 7px);width:calc(var(--tl-gap) + 7px);height:12px}
-/* de uiteinden van de lijn: bovenaan naar het begin van de tekst, onderaan naar het einde van de pagina (toc.js) */
-.tl-cap{position:absolute;left:-7px;width:15px;cursor:pointer}
-.tl-cap-start{top:0}
-.tl-cap-end{bottom:0;height:14px}.tl-row:hover::after{background:#111}
-.tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:#111}
-/* het actieve deel: de andere delen vervagen (alleen kleur, geen layoutverschuiving) */
-.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover),.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover) .tl-dates{color:#ababab}
-.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(.is-past):not(:hover)::after{background:#dadada}
-/* "terug naar boven": alleen zichtbaar na omhoogscrollen (toc.js zet .is-up) of bij toetsenbordfocus (:focus-visible, dus niet bij een muisklik); neemt altijd ruimte in, dus geen layoutverschuiving */
-.tl-top,.rh-up{margin:0;border:0;background:none;font:inherit;font-style:italic;text-align:left;cursor:pointer;color:#555;opacity:0;visibility:hidden;transition:opacity .15s}
-.tl-top:hover,.rh-up:hover{color:#111}
-.tl.is-up .tl-top,.tl:has(:focus-visible) .tl-top,.rh.is-up .rh-up,.rh:has(:focus-visible) .rh-up{opacity:1;visibility:visible}
-.tl .tl-top{position:relative;display:block;width:100%;padding:0;margin-top:1.25rem;text-align:right}
-.tl-top-axis{position:absolute;top:.42em;right:calc(-1 * var(--tl-gap) - 4px);width:9px;line-height:0;background:#fff;padding:2px 0}
-.tl-top-ic{display:block;width:9px;height:5.4px}
-.rh-up{position:absolute;top:0;right:calc(12px + .75rem);bottom:1px;display:flex;align-items:center;padding:0 0 0 1.5rem;background:linear-gradient(to right,rgb(255 255 255 / 0),#fff 1.25rem)}
-.rh:is(.is-up,:has(:focus-visible)) .rh-sec-now{visibility:hidden}
-@media (prefers-reduced-motion:reduce){.tl-top,.rh-up{transition:none}}
-.tl-label{margin:0 0 .75rem;font-weight:400;font-style:italic;font-size:.8rem;text-transform:lowercase;color:#888}
-@media (max-width:1023px){.only-lg{display:none}}
-@media (min-width:1024px){.only-sm{display:none}}
-@media (max-width:1023px){body:has(.rh) .prose :is(h2,h3){scroll-margin-top:3.5rem}}
-
-/* lopende kop onder 1024px */
-.rh{position:sticky;top:0;z-index:5;margin:0 0 1.25rem;background:#fff;font-size:.75rem;line-height:1.375}
-.rh-bar{display:flex;align-items:center;gap:.75rem;width:100%;margin:0;padding:.55rem 0;border:0;border-bottom:1px solid #ddd;background:none;font:inherit;color:#555;text-align:left;cursor:pointer}
-.rh-bar:hover{color:#111}
-.rh-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rh-sec-now{font-style:italic;color:#888}
-.rh-sec-now:not(:empty)::before{content:"\2003"}
-.rh-bar svg{flex:none;transition:transform .15s}
-.rh-bar[aria-expanded="true"] svg{transform:rotate(180deg)}
-.rh-panel{position:absolute;left:0;right:0;top:100%;max-height:calc(100vh - 3rem);overflow:auto;padding:1rem 0 .5rem;background:#fff;border-bottom:1px solid #ddd}
-.rh-panel ol{list-style:none;margin:0;padding:0}
-.rh-part{margin:0 0 .9rem}
-.rh.flat .rh-part{margin:0 0 .35rem}
-.rh-ptitle{display:flex;justify-content:space-between;gap:1rem;color:#111}
-.rh.flat .rh-ptitle{color:#555}
-.rh-dates{flex:none;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
-.rh-part ol{margin:.25rem 0 0 1.5rem}
-.rh-part ol li{margin:0 0 .2em}
-.rh-part ol a{color:#666}
-.rh-panel a:hover,.rh-panel a[aria-current]{color:#111}
-.rh-panel a[aria-current] span:first-child,.rh-part ol a[aria-current]{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+/* Ongelaagd, zodat het van lg:sticky op de <aside> in BaseLayout wint: met een tijdlijn
+   blijft de zijbalk staan en is de tijdlijn zelf sticky. */
+@media (min-width:1024px){aside:has(> .tl){position:static;align-self:stretch}}

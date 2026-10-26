@@ -110,10 +110,9 @@ const organizationStructuredData = {
     <title>{ogTitle}</title>
   </head>
   <body id="top">
-    <div class="mx-auto px-4 sm:px-8 py-6 lg:py-12" style="max-width:960px">
+    <div class="page-shell mx-auto px-4 sm:px-8 py-6 lg:py-12">
       <div
-        class:list={[!noSidebar && 'lg:grid lg:items-start']}
-        style={!noSidebar ? 'grid-template-columns: calc(2.5rem * 3) 1fr; gap: 2.5rem;' : undefined}
+        class:list={[!noSidebar && 'page-grid lg:grid lg:items-start']}
       >
         {!noSidebar && (
           <aside class="mb-3 lg:mb-0 lg:sticky lg:top-12 lg:text-right">
@@ -122,7 +121,7 @@ const organizationStructuredData = {
         )}
 
         <!-- Inhoudskolom: navbar at top (homepage) or bottom (all other pages) -->
-        <div class="flex flex-col" style="min-height:calc(100vh - 6rem)">
+        <div class="page-column flex flex-col">
           {isHomepage && <Navbar currentPath={currentPath} atTop={true} locale={locale} />}
           <main class="flex-1" data-disable-heading-anchors={isHomepage ? 'true' : undefined}>
             <slot />

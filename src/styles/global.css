@@ -503,6 +503,24 @@
   .lightbox-prev, .lightbox-next { top: auto; bottom: 0.25rem; transform: none; }
 }
 
+/* ─── Page layout (BaseLayout) ────────────────────────────────────────────── */
+
+@layer components {
+  .page-shell {
+    max-width: 960px;
+  }
+
+  .page-grid {
+    grid-template-columns: calc(2.5rem * 3) 1fr;
+    gap: 2.5rem;
+  }
+
+  /* 6rem = the shell's vertical padding at lg (py-12, twice) */
+  .page-column {
+    min-height: calc(100vh - 6rem);
+  }
+}
+
 /* ─── Shared pop-up surfaces ──────────────────────────────────────────────── */
 
 @layer components {

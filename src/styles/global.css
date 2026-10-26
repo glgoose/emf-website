@@ -539,6 +539,24 @@
   }
 }
 
+/* ─── Kicker: small-caps label above a title ───────────────────────────────── */
+
+@layer components {
+  /* Margins stay with each use; not .kicker, which /vragen/scherm uses globally */
+  .kicker-label {
+    color: #555555;
+    font-size: 0.65rem;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: small-caps;
+    font-variant-caps: small-caps;
+    font-kerning: normal;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+}
+
 /* ─── Shared pop-up surfaces ──────────────────────────────────────────────── */
 
 @layer components {

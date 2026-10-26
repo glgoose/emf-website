@@ -642,6 +642,19 @@
     box-shadow: 0 0 0 1px #111111, 0 0 0 3px #ffffff;
   }
 
+  /* Box of every pop-up: .emf-popup (calendar) and .order-popover (PublicationPurchase) */
+  .emf-popup,
+  .popup-surface {
+    box-sizing: border-box;
+    padding: 0.55rem 1rem 0.6rem 0.65rem;
+    border: 1px solid #111111;
+    border-radius: 0;
+    background: #ffffff;
+    color: #555555;
+    font-family: inherit;
+    text-align: left;
+  }
+
   .emf-popup {
     position: absolute;
     top: 100%;
@@ -651,15 +664,7 @@
     width: max-content;
     min-width: 7rem;
     max-width: min(11.8rem, calc(100vw - 2rem));
-    box-sizing: border-box;
     margin-top: 0.45rem;
-    padding: 0.55rem 1rem 0.6rem 0.65rem;
-    border: 1px solid #111111;
-    border-radius: 0;
-    background: #ffffff;
-    color: #555555;
-    font-family: inherit;
-    text-align: left;
   }
 
   [data-emf-popup-align="right"] .emf-popup {

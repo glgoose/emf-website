@@ -59,8 +59,8 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
         </div>
 
         <div class="order-popovers">
-          <div class="order-popover" id="shipping-popover" hidden>
-            <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+          <div class="popup-surface order-popover" id="shipping-popover" hidden>
+            <button class="emf-popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
             <p>België (via bpost)</p>
             <dl>
               <div>
@@ -85,14 +85,14 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
             </dl>
           </div>
 
-          <div class="order-popover" id="pickup-popover" hidden>
-            <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+          <div class="popup-surface order-popover" id="pickup-popover" hidden>
+            <button class="emf-popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
             <p>je bestelling kan op een van onze <a href="/activiteiten">volgende activiteiten</a> afgehaald worden</p>
           </div>
 
           {retailer && (
-            <div class="order-popover" id="bookshop-popover" hidden>
-              <button class="popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
+            <div class="popup-surface order-popover" id="bookshop-popover" hidden>
+              <button class="emf-popup-close" type="button" data-popup-close aria-label="Sluiten">×</button>
               <p>ook beschikbaar bij <a href={retailer.url} target="_blank" rel="noopener noreferrer">{retailer.label}</a></p>
             </div>
           )}
@@ -331,37 +331,9 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
 
   .order-popover {
     width: 100%;
-    box-sizing: border-box;
-    padding: 0.55rem 1rem 0.6rem 0.65rem;
-    border: 1px solid #111111;
-    background: #ffffff;
-    color: #555555;
-    font-family: inherit;
     font-size: 0.74rem;
     line-height: 1.25;
-    text-align: left;
     white-space: normal;
-  }
-
-  .popup-close {
-    position: absolute;
-    top: 0.14rem;
-    right: 0.2rem;
-    width: 0.72rem;
-    height: 0.72rem;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: #777777;
-    font: inherit;
-    font-size: 0.68rem;
-    line-height: 0.72rem;
-    text-align: center;
-  }
-
-  .popup-close:hover,
-  .popup-close:focus-visible {
-    color: #111111;
   }
 
   .order-popover p {

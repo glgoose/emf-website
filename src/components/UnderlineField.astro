@@ -27,7 +27,7 @@ const {
 ---
 
 {submitLabel ? (
-  <div class:list={['flex items-baseline border-b border-[#111111]', extraClass]}>
+  <div class:list={['flex items-baseline border-b border-rule-strong', extraClass]}>
     <input
       {id}
       {type}
@@ -41,7 +41,7 @@ const {
     <button
       type="submit"
       aria-label={submitAriaLabel}
-      class="bg-transparent border-none text-[#111111] leading-none pl-[0.5em] py-[0.4em] focus-visible:ring-1 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded-[2px]"
+      class="bg-transparent border-none text-ink leading-none pl-[0.5em] py-[0.4em] focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-[2px]"
     >&gt;&gt;</button>
   </div>
 ) : (
@@ -53,6 +53,6 @@ const {
     {placeholder}
     autocomplete={autocomplete}
     aria-label={ariaLabel}
-    class:list={['w-full border-b border-[#111111] bg-transparent outline-none placeholder:text-[#999999] py-[0.4em]', extraClass]}
+    class:list={['w-full border-b border-rule-strong bg-transparent outline-none placeholder:text-[#999999] py-[0.4em]', extraClass]}
   />
 )}

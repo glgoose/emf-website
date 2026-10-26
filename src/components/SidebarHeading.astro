@@ -15,7 +15,7 @@ const { backHref, backLabel, title, subtitle, as: Title = 'h1' } = Astro.props;
 
 <>
   <SidebarBackLink href={backHref} variant="mobile" label={backLabel} />
-  <div class="border-t-[2px] border-[#111111] pt-0.5">
+  <div class="border-t-[2px] border-rule-strong pt-0.5">
     <hgroup class="mb-4 group relative">
       <Title class="sidebar-title">
         <span class="sidebar-back-anchor-group relative inline-block max-w-full">
@@ -23,7 +23,7 @@ const { backHref, backLabel, title, subtitle, as: Title = 'h1' } = Astro.props;
         </span>
       </Title>
       {subtitle && (
-        <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic [hyphens:manual] [overflow-wrap:break-word] [word-break:normal]">
+        <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-muted font-normal italic [hyphens:manual] [overflow-wrap:break-word] [word-break:normal]">
           {subtitle}
         </p>
       )}

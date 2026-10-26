@@ -219,13 +219,13 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
   .format-option.active {
     position: relative;
     z-index: 1;
-    border-color: #111111;
-    color: #111111;
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
   }
 
   .format-option.active .format-detail,
   .format-option.active .format-price {
-    color: #111111;
+    color: var(--color-text);
   }
 
   .format-option strong {
@@ -274,9 +274,9 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #111111;
+    border: 1px solid var(--color-border-strong);
     border-radius: 999px;
-    color: #111111;
+    color: var(--color-text);
     font-size: 0.78rem;
     line-height: 1.12;
     padding: 0.24em 0.86em 0.27em;
@@ -285,7 +285,7 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
   }
 
   .order-button:hover {
-    background: #111111;
+    background: var(--color-text);
     color: #ffffff;
     text-decoration: none;
   }
@@ -294,7 +294,7 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
     position: relative;
     display: grid;
     justify-items: start;
-    color: #555555;
+    color: var(--color-text-muted);
     font-size: 0.78rem;
     line-height: 1;
   }
@@ -308,7 +308,7 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
 
   .order-popovers {
     position: absolute;
-    z-index: 4;
+    z-index: var(--layer-dropdown);
     top: calc(100% + 0.45rem);
     right: 0;
     justify-self: end;
@@ -363,7 +363,7 @@ const activeFormat = formats.find(format => format.active) ?? formats[0];
   }
 
   .order-popover dd {
-    color: #111111;
+    color: var(--color-text);
   }
 
   @media (max-width: 760px) {

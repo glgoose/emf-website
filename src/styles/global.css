@@ -1,4 +1,18 @@
-@import "tailwindcss";
+/* theme(inline): utilities get literal values, so the baseline names in tokens.css
+   (--text-*, --leading-*, --radius-*, --ease-*) cannot change a Tailwind utility */
+@import "tailwindcss" theme(inline);
+@import "./tokens.css";
+
+/* Tailwind colour utilities for the tokens: text-ink, text-muted, border-rule,
+   border-rule-strong, bg-ink, ring-ring. Other names than the tokens themselves,
+   because a theme variable named like its source would point at itself. */
+@theme inline {
+  --color-ink: var(--color-text);
+  --color-muted: var(--color-text-muted);
+  --color-rule: var(--color-border);
+  --color-rule-strong: var(--color-border-strong);
+  --color-ring: var(--color-focus);
+}
 
 /* ─── Self-hosted EB Garamond ─────────────────────────────────────────────── */
 
@@ -58,10 +72,10 @@
   }
 
   html {
-    font-family: 'EB Garamond', 'EB Garamond Fallback', 'Hoefler Text', Garamond, 'Palatino Linotype', Palatino, Georgia, serif;
+    font-family: var(--font-body);
     font-size: 24px;
-    color: #111111;
-    background: #ffffff;
+    color: var(--color-text);
+    background: var(--color-bg);
   }
 
   :root {
@@ -76,7 +90,7 @@
   }
 
   h1 {
-    font-size: 1.25rem;
+    font-size: var(--text-lg);
     line-height: 1.25;
     font-weight: 700;
     text-transform: none;
@@ -84,7 +98,7 @@
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: var(--text-xl);
     margin-top: 1.2em;
     margin-bottom: 0.7em;
     font-style: italic;
@@ -248,7 +262,7 @@
     padding-right: 0;
     margin-left: 0;
     margin-right: 0;
-    color: #555555;
+    color: var(--color-text-muted);
   }
 
   .prose blockquote::before {
@@ -337,13 +351,13 @@
   /* Markdown-voetnoten ([^1]): nummer in de tekst, lijst onderaan, popover via /js/footnotes.js */
   .prose [data-footnote-ref] {
     padding: 0 0.1em 0 0.05em;
-    color: #555555;
+    color: var(--color-text-muted);
     text-decoration: none;
   }
 
   .prose [data-footnote-ref]:hover,
   .prose [data-footnote-ref]:focus-visible {
-    color: #111111;
+    color: var(--color-text);
   }
 
   .prose sup {
@@ -352,7 +366,7 @@
 
   .prose .footnotes {
     margin-top: 3em;
-    color: #555555;
+    color: var(--color-text-muted);
     font-size: 0.8rem;
     overflow-wrap: anywhere;
   }
@@ -366,7 +380,7 @@
     font-variant: small-caps;
     text-transform: lowercase;
     letter-spacing: 0.08em;
-    color: #111111;
+    color: var(--color-text);
   }
 
   .prose .footnotes ol {
@@ -475,7 +489,7 @@
 
   .lightbox-btn:hover,
   .lightbox-btn:focus-visible {
-    color: #111111;
+    color: var(--color-text);
   }
 
   .lightbox-close { top: 0.75rem; right: 0.75rem; }
@@ -504,7 +518,7 @@
 
 @layer components {
   .page-shell {
-    max-width: 960px;
+    max-width: var(--width-container);
   }
 
   .page-grid {
@@ -524,13 +538,13 @@
   /* Same margin ratio as h2; resets the global h3 small-caps */
   .year-heading {
     margin: 1.2em 0 0.7em;
-    font-size: 1.25rem;
+    font-size: var(--text-lg);
     font-style: italic;
     font-weight: 400;
     font-variant: normal;
     letter-spacing: normal;
     text-transform: none;
-    color: #111111;
+    color: var(--color-text);
   }
 
   .year-heading:first-child,
@@ -543,7 +557,7 @@
 
 @layer components {
   .sidebar-title {
-    font-size: 1.25rem;
+    font-size: var(--text-lg);
     line-height: 1.25;
     font-weight: 700;
     hyphens: manual;
@@ -576,7 +590,7 @@
   }
 
   .aside-note a:hover {
-    color: #111111;
+    color: var(--color-text);
   }
 }
 
@@ -591,12 +605,12 @@
   }
 
   .event-table tr {
-    border-top: 1px solid #e8e8e8;
+    border-top: 1px solid var(--color-border);
     vertical-align: baseline;
   }
 
   .event-table tr:last-child {
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .event-table th {
@@ -616,7 +630,7 @@
 @layer components {
   /* Margins stay with each use; not .kicker, which /vragen/scherm uses globally */
   .kicker-label {
-    color: #555555;
+    color: var(--color-text-muted);
     font-size: 0.65rem;
     font-style: normal;
     font-weight: 400;
@@ -634,12 +648,12 @@
 @layer components {
   .emf-popup-trigger {
     border-radius: 2px;
-    color: #111111;
+    color: var(--color-text);
   }
 
   .emf-popup-trigger:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 1px #111111, 0 0 0 3px #ffffff;
+    box-shadow: 0 0 0 1px var(--color-focus), 0 0 0 3px #ffffff;
   }
 
   /* Box of every pop-up: .emf-popup (calendar) and .order-popover (PublicationPurchase) */
@@ -647,10 +661,10 @@
   .popup-surface {
     box-sizing: border-box;
     padding: 0.55rem 1rem 0.6rem 0.65rem;
-    border: 1px solid #111111;
+    border: 1px solid var(--color-border-strong);
     border-radius: 0;
     background: #ffffff;
-    color: #555555;
+    color: var(--color-text-muted);
     font-family: inherit;
     text-align: left;
   }
@@ -660,7 +674,7 @@
     top: 100%;
     left: 0;
     right: auto;
-    z-index: 20;
+    z-index: var(--layer-dropdown);
     width: max-content;
     min-width: 7rem;
     max-width: min(11.8rem, calc(100vw - 2rem));
@@ -676,7 +690,7 @@
     display: block;
     padding: 0.06rem 0;
     border-top: 1px solid #eeeeee;
-    color: #555555;
+    color: var(--color-text-muted);
     font-size: 0.74rem;
     line-height: 1.25;
     text-decoration: none;
@@ -690,7 +704,7 @@
   .emf-popup-item:hover,
   .emf-popup-item:focus-visible {
     background: transparent;
-    color: #111111;
+    color: var(--color-text);
     text-decoration: underline;
     text-decoration-color: #999999;
     text-decoration-thickness: 0.035em;
@@ -715,7 +729,7 @@
 
   .emf-popup-close:hover,
   .emf-popup-close:focus-visible {
-    color: #111111;
+    color: var(--color-text);
   }
 }
 
@@ -724,13 +738,13 @@
 @layer components {
   .fn-popover {
     position: absolute;
-    z-index: 50;
+    z-index: var(--layer-overlay);
     max-width: min(24rem, calc(100vw - 2rem));
     padding: 0.75rem 1rem;
     border: 1px solid #dddddd;
     background: #ffffff;
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
-    color: #555555;
+    color: var(--color-text-muted);
     font-size: 0.8rem;
     line-height: 1.4;
     overflow-wrap: anywhere;
@@ -763,30 +777,30 @@
   @media (prefers-reduced-motion:reduce){.tl{transition:none}}
   .tl ol{list-style:none;margin:0;padding:0}
   .tl-track{position:absolute;right:0;width:1px;background:#d6d6d6}
-  .tl-fill{position:absolute;left:0;top:0;width:1px;height:0;background:#111}
+  .tl-fill{position:absolute;left:0;top:0;width:1px;height:0;background:var(--color-text)}
   .tl-part{margin:0 0 1rem}
   .tl.flat .tl-part{margin:0 0 .45rem}
-  .tl-dates{display:block;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
+  .tl-dates{display:block;font-style:italic;color:var(--color-text-muted);font-variant-numeric:oldstyle-nums}
   .tl-row{position:relative;display:block;color:#666}
   .tl-row::after{content:"";position:absolute;top:.68em;right:calc(-1 * var(--tl-gap) - 2px);width:5px;height:1px;background:#c4c4c4}
   .tl-title{color:#444}
   .tl:not(.flat) .tl-title::after{right:calc(-1 * var(--tl-gap) - 3px);width:7px}
   .tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
   .tl-subs li{margin:0 0 .25em}
-  .tl-row.is-past::after{background:#111}
+  .tl-row.is-past::after{background:var(--color-text)}
   /* het streepje hoort bij de link: een onzichtbaar vlak van 12px hoog, van de tekst tot 7px voorbij de lijn, maakt het klikbaar zonder gat tussen streepje en titel */
   .tl-row::before{content:"";position:absolute;top:calc(.68em - 6px);right:calc(-1 * var(--tl-gap) - 7px);width:calc(var(--tl-gap) + 7px);height:12px}
   /* de uiteinden van de lijn: bovenaan naar het begin van de tekst, onderaan naar het einde van de pagina (toc.js) */
   .tl-cap{position:absolute;left:-7px;width:15px;cursor:pointer}
   .tl-cap-start{top:0}
-  .tl-cap-end{bottom:0;height:14px}.tl-row:hover::after{background:#111}
-  .tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:#111}
+  .tl-cap-end{bottom:0;height:14px}.tl-row:hover::after{background:var(--color-text)}
+  .tl-row:hover,.tl-row[aria-current],.tl-title.is-in{color:var(--color-text)}
   /* het actieve deel: de andere delen vervagen (alleen kleur, geen layoutverschuiving) */
   .tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover),.tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(:hover) .tl-dates{color:#ababab}
   .tl:has(.is-in) .tl-part:not(:has(.is-in)) .tl-row:not(.is-past):not(:hover)::after{background:#dadada}
   /* "terug naar boven": alleen zichtbaar na omhoogscrollen (toc.js zet .is-up) of bij toetsenbordfocus (:focus-visible, dus niet bij een muisklik); neemt altijd ruimte in, dus geen layoutverschuiving */
-  .tl-top,.rh-up{margin:0;border:0;background:none;font:inherit;font-style:italic;text-align:left;cursor:pointer;color:#555;opacity:0;visibility:hidden;transition:opacity .15s}
-  .tl-top:hover,.rh-up:hover{color:#111}
+  .tl-top,.rh-up{margin:0;border:0;background:none;font:inherit;font-style:italic;text-align:left;cursor:pointer;color:var(--color-text-muted);opacity:0;visibility:hidden;transition:opacity .15s}
+  .tl-top:hover,.rh-up:hover{color:var(--color-text)}
   .tl.is-up .tl-top,.tl:has(:focus-visible) .tl-top,.rh.is-up .rh-up,.rh:has(:focus-visible) .rh-up{opacity:1;visibility:visible}
   .tl .tl-top{position:relative;display:block;width:100%;padding:0;margin-top:1.25rem;text-align:right}
   .tl-top-axis{position:absolute;top:.42em;right:calc(-1 * var(--tl-gap) - 4px);width:9px;line-height:0;background:#fff;padding:2px 0}
@@ -800,9 +814,9 @@
   @media (max-width:1023px){body:has(.rh) .prose :is(h2,h3){scroll-margin-top:3.5rem}}
 
   /* lopende kop onder 1024px */
-  .rh{position:sticky;top:0;z-index:5;margin:0 0 1.25rem;background:#fff;font-size:.75rem;line-height:1.375}
-  .rh-bar{display:flex;align-items:center;gap:.75rem;width:100%;margin:0;padding:.55rem 0;border:0;border-bottom:1px solid #ddd;background:none;font:inherit;color:#555;text-align:left;cursor:pointer}
-  .rh-bar:hover{color:#111}
+  .rh{position:sticky;top:0;z-index:var(--layer-sticky);margin:0 0 1.25rem;background:#fff;font-size:.75rem;line-height:1.375}
+  .rh-bar{display:flex;align-items:center;gap:.75rem;width:100%;margin:0;padding:.55rem 0;border:0;border-bottom:1px solid #ddd;background:none;font:inherit;color:var(--color-text-muted);text-align:left;cursor:pointer}
+  .rh-bar:hover{color:var(--color-text)}
   .rh-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .rh-sec-now{font-style:italic;color:#888}
   .rh-sec-now:not(:empty)::before{content:"\2003"}
@@ -812,13 +826,13 @@
   .rh-panel ol{list-style:none;margin:0;padding:0}
   .rh-part{margin:0 0 .9rem}
   .rh.flat .rh-part{margin:0 0 .35rem}
-  .rh-ptitle{display:flex;justify-content:space-between;gap:1rem;color:#111}
-  .rh.flat .rh-ptitle{color:#555}
-  .rh-dates{flex:none;font-style:italic;color:#555;font-variant-numeric:oldstyle-nums}
+  .rh-ptitle{display:flex;justify-content:space-between;gap:1rem;color:var(--color-text)}
+  .rh.flat .rh-ptitle{color:var(--color-text-muted)}
+  .rh-dates{flex:none;font-style:italic;color:var(--color-text-muted);font-variant-numeric:oldstyle-nums}
   .rh-part ol{margin:.25rem 0 0 1.5rem}
   .rh-part ol li{margin:0 0 .2em}
   .rh-part ol a{color:#666}
-  .rh-panel a:hover,.rh-panel a[aria-current]{color:#111}
+  .rh-panel a:hover,.rh-panel a[aria-current]{color:var(--color-text)}
   .rh-panel a[aria-current] span:first-child,.rh-part ol a[aria-current]{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
 }
 

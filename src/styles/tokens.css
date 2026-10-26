@@ -1,0 +1,168 @@
+/* Ernest Mandelfonds: copy of ~/projects/web-baseline/tokens.css with the per-site
+   fields filled in. Keep the rest in sync with the baseline, do not edit it here.
+   The root font-size is 24px (global.css), so every px annotation below is
+   x1.5 on this site: --space-1 is 6px, the same step as Tailwind's 0.25rem.
+   Tailwind is imported with theme(inline), so its utilities hold literal values
+   and do not read the --text-*, --leading-*, --radius-* or --ease-* names here.
+   /vragen (16px root, cqw) stays outside these tokens. */
+
+/* web-baseline tokens. Standalone: no @import, no @layer wrapper, no build step.
+   Names are fixed, values are per site. Fields left empty below are filled in
+   by each site's own stylesheet, never here. Spec: README.md.
+
+   Breakpoints are not tokens (custom properties do not work inside a @media
+   condition). Use the values from `breakpoints referentie` in the vault:
+   640px, 768px, 1024px. */
+
+:root {
+  color-scheme: light;
+
+  /* Density dial and spacing primitives. Unit 0.25rem, steps named by multiple
+     of the unit (Tailwind convention): --space-4 is four units, 16px at
+     density 1. Density is a manual taste control, not a responsive one. */
+  --density: 1;
+  --space-unit: calc(.25rem * var(--density));
+
+  --space-1:  calc(var(--space-unit) *   1);   /*   4px */
+  --space-2:  calc(var(--space-unit) *   2);   /*   8px */
+  --space-3:  calc(var(--space-unit) *   3);   /*  12px */
+  --space-4:  calc(var(--space-unit) *   4);   /*  16px */
+  --space-5:  calc(var(--space-unit) *   5);   /*  20px */
+  --space-6:  calc(var(--space-unit) *   6);   /*  24px */
+  --space-8:  calc(var(--space-unit) *   8);   /*  32px */
+  --space-10: calc(var(--space-unit) *  10);   /*  40px */
+  --space-12: calc(var(--space-unit) *  12);   /*  48px */
+  --space-16: calc(var(--space-unit) *  16);   /*  64px */
+  --space-20: calc(var(--space-unit) *  20);   /*  80px */
+  --space-24: calc(var(--space-unit) *  24);   /*  96px */
+  --space-32: calc(var(--space-unit) *  32);   /* 128px */
+
+  /* Semantic roles. Hang components on these, not on the primitives.
+     Prefix = property family: --space- margin between things in flow,
+     --gap- flex or grid gap, --pad- padding inside a box.
+     Responsive tightening re-points --space-section and --pad-gutter inside
+     a breakpoint in the site's own CSS. Nothing is shipped here. */
+  --space-section:     var(--space-16);  /* between major page sections */
+  --space-block:       var(--space-8);   /* between blocks inside a section */
+  --space-flow:        var(--space-4);   /* between flow siblings, what .stack uses */
+  --gap-inline:        var(--space-6);   /* items in a row: nav, toolbar */
+  --gap-inline-tight:  var(--space-2);   /* icon to label */
+  --pad-inset:         var(--space-4);   /* inside a box */
+  --pad-inset-tight:   var(--space-2);   /* inside a small box: badge, chip */
+  --pad-gutter:        var(--space-5);   /* page edge */
+
+  /* Line height: unitless, never scales with --density */
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  /* Type scale: seven slots, values per site. Only --text-base is fixed.
+     The type layer never scales with --density. Display sizes (h1, drop cap)
+     stay per-site clamp(). */
+  --text-xs: ;          /* open: the 0.6-0.74rem cluster, proposal 1b */
+  --text-sm: .875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;    /* h1, sidebar title, year heading */
+  --text-xl: 1.5rem;     /* h2 */
+  --text-2xl: ;
+  --text-3xl: ;
+
+  /* Reading measure */
+  --measure-narrow: 45ch;
+  --measure:        66ch;
+  --measure-wide:   80ch;
+
+  /* z-index layers */
+  --layer-base:     0;
+  --layer-dropdown: 100;
+  --layer-sticky:   200;
+  --layer-overlay:  300;
+  --layer-modal:    400;
+  --layer-toast:    500;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-out:    cubic-bezier(.25, 0, .3, 1);
+  --ease-in-out: cubic-bezier(.4, 0, .2, 1);
+
+  /* Interaction. A11y constants, never scaled by --density */
+  --size-tap-min: 1.5rem;    /* 24px, WCAG 2.2 SC 2.5.8 AA floor */
+  --size-tap:     2.75rem;   /* 44px, the target to design to */
+  --focus-width:  2px;
+  --focus-offset: 2px;
+
+  /* Radii. All px: shape, not rhythm, must not track text size */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   12px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Per site: fill in, do not rename */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #111111;
+  --color-text-muted: #555555;
+  --color-accent: #111111;       /* links are ink; the red #f0573e is the logo only */
+  --color-accent-hover: #111111;
+  --color-border: #e8e8e8;
+  --color-border-strong: #111111;
+  --color-focus: #111111;        /* chosen against --color-bg, not the brand colour */
+  --font-body: 'EB Garamond', 'EB Garamond Fallback', 'Hoefler Text', Garamond, 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-ui: var(--font-body);
+  --width-container: 960px;
+
+  /* Per site: measured heights of real elements. Exempt from the spacing
+     scale and from the lint. Anything computed from a header or footer
+     height references these, never a literal. */
+  --height-header: ;      /* none: no fixed header */
+  --height-footer: ;      /* none: no fixed footer */
+}
+
+/* Dark mode: left out. This site has no dark theme, and the baseline's
+   color-scheme: dark would turn form controls and scrollbars dark on a white page. */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+  }
+}
+
+/* Opt out of the density dial for a subtree (collectief admin). var() is
+   substituted where a property is declared and descendants inherit the
+   resolved value, so re-declaring --density alone is inert. The whole chain
+   has to be re-declared: unit, every step, and every role built on a step.
+   Custom properties only, zero real properties, so this cannot enter a
+   specificity fight with Pico or Tailwind. Keep it in sync with :root above. */
+.density-fixed {
+  --density: 1;
+  --space-unit: calc(.25rem * var(--density));
+
+  --space-1:  calc(var(--space-unit) *   1);
+  --space-2:  calc(var(--space-unit) *   2);
+  --space-3:  calc(var(--space-unit) *   3);
+  --space-4:  calc(var(--space-unit) *   4);
+  --space-5:  calc(var(--space-unit) *   5);
+  --space-6:  calc(var(--space-unit) *   6);
+  --space-8:  calc(var(--space-unit) *   8);
+  --space-10: calc(var(--space-unit) *  10);
+  --space-12: calc(var(--space-unit) *  12);
+  --space-16: calc(var(--space-unit) *  16);
+  --space-20: calc(var(--space-unit) *  20);
+  --space-24: calc(var(--space-unit) *  24);
+  --space-32: calc(var(--space-unit) *  32);
+
+  --space-section:     var(--space-16);
+  --space-block:       var(--space-8);
+  --space-flow:        var(--space-4);
+  --gap-inline:        var(--space-6);
+  --gap-inline-tight:  var(--space-2);
+  --pad-inset:         var(--space-4);
+  --pad-inset-tight:   var(--space-2);
+  --pad-gutter:        var(--space-5);
+}

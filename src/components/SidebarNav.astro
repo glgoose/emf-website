@@ -27,14 +27,14 @@ const navItemBase = 'block text-sm leading-[1.25] lowercase tracking-normal [fon
 
 <>
   <SidebarBackLink href={backHref} variant="mobile" />
-  <div class="border-t-[2px] border-[#111111] pt-0.5">
+  <div class="border-t-[2px] border-rule-strong pt-0.5">
     <div class="mb-4">
       <div class="block lg:inline-block max-w-full overflow-visible align-top group relative">
         <p class="sidebar-title sidebar-title--nowrap lowercase">
           <span class="sidebar-back-anchor-group relative inline-block max-w-full">
             <SidebarBackLink href={backHref} variant="desktop" />{sectionClickable
-              ? <a href={sectionHref} class="text-[#111111] hover:underline underline-offset-2 decoration-[0.08em]">{sectionLabel}</a>
-              : <span class="text-[#111111]">{sectionLabel}</span>
+              ? <a href={sectionHref} class="text-ink hover:underline underline-offset-2 decoration-[0.08em]">{sectionLabel}</a>
+              : <span class="text-ink">{sectionLabel}</span>
             }
           </span>
         </p>
@@ -50,7 +50,7 @@ const navItemBase = 'block text-sm leading-[1.25] lowercase tracking-normal [fon
                   aria-current="page"
                   class:list={[
                     navItemBase,
-                    'font-bold text-[#111111]',
+                    'font-bold text-ink',
                     underlineCurrent && 'underline underline-offset-2 decoration-[0.04em]',
                   ]}
                 >
@@ -60,14 +60,14 @@ const navItemBase = 'block text-sm leading-[1.25] lowercase tracking-normal [fon
                   <ul class="list-none m-0 p-0 mt-1 ml-3 space-y-1">
                     {item.children.map(child => (
                       <li>
-                        <a href={child.href} class:list={[navItemBase, 'text-[#555555] hover:underline underline-offset-2']}>{child.label}</a>
+                        <a href={child.href} class:list={[navItemBase, 'text-muted hover:underline underline-offset-2']}>{child.label}</a>
                       </li>
                     ))}
                   </ul>
                 )}
               </>
             ) : (
-              <a href={item.href} class:list={[navItemBase, 'text-[#555555] hover:underline underline-offset-2']}>{item.label}</a>
+              <a href={item.href} class:list={[navItemBase, 'text-muted hover:underline underline-offset-2']}>{item.label}</a>
             )}
           </li>
         ))}

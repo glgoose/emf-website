@@ -130,7 +130,7 @@ const eventStructuredData: Record<string, unknown> = {
       title={title}
       subtitle={subtitle}
     >
-      <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-[#555555] font-normal italic lowercase mb-4">
+      <p class="mt-[0.3em] text-[1rem] leading-[1.25] text-muted font-normal italic lowercase mb-4">
         {sublineIntro}
         {hasSpeakers && speakers.map(s => <span class="block">{s.name}</span>)}
       </p>
@@ -205,7 +205,7 @@ const eventStructuredData: Record<string, unknown> = {
         <tbody>
           {programme.map(item => (
             <tr>
-              <th scope="row" class="tabular-nums text-[#555555]">
+              <th scope="row" class="tabular-nums text-muted">
                 {formatProgrammeRange(item.time, item.end_time)}
               </th>
               <td class="pr-3" set:html={item.title} />
@@ -231,7 +231,7 @@ const eventStructuredData: Record<string, unknown> = {
               <th scope="row">
                 {s.name}
               </th>
-              <td class="text-[#555555] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+              <td class="text-muted [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-ink">
                 {(Array.isArray(s.bio) ? s.bio : s.bio ? [s.bio] : []).map(line => (
                   <span class="block" set:html={line} />
                 ))}
@@ -244,7 +244,7 @@ const eventStructuredData: Record<string, unknown> = {
   )}
 
   {event.data.organizer_note && (
-    <p class="prose mb-6 text-[#555555]" set:html={event.data.organizer_note} />
+    <p class="prose mb-6 text-muted" set:html={event.data.organizer_note} />
   )}
 
   {showRegistration && !hasProgramme && (

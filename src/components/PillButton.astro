@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { href, type = 'button', class: extraClass, ...rest } = Astro.props;
-const base = 'inline-flex items-center gap-2 border border-[#111111] rounded-full text-[#111111] hover:bg-[#111111] hover:text-white transition-colors no-underline hover:no-underline text-lg py-[0.2em] px-4';
+const base = 'inline-flex items-center gap-2 border border-rule-strong rounded-full text-ink hover:bg-ink hover:text-white transition-colors no-underline hover:no-underline text-lg py-[0.2em] px-4';
 ---
 
 {href

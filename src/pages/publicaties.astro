@@ -40,7 +40,7 @@ const books = [
           <li>
             <a
               href={`/publicaties/${book.slug}`}
-              class="group block max-w-[7.2rem] text-[#111111] no-underline hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#111111]"
+              class="group block max-w-[7.2rem] text-ink no-underline hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
               aria-label={`Bekijk ${book.title}`}
             >
               <Picture
@@ -53,12 +53,12 @@ const books = [
                 decoding="async"
                 class="mb-[0.45rem] aspect-[2/3] w-[min(100%,5.8rem)] object-cover sm:w-[5.3rem]"
               />
-              <p class="m-0 text-[0.6rem] leading-tight text-[#111111]">{book.author}</p>
-              <h3 class="m-0 mt-[0.15rem] text-[0.6rem] leading-[1.18] font-bold tracking-normal normal-case text-[#111111] [font-variant:normal]">
+              <p class="m-0 text-[0.6rem] leading-tight text-ink">{book.author}</p>
+              <h3 class="m-0 mt-[0.15rem] text-[0.6rem] leading-[1.18] font-bold tracking-normal normal-case text-ink [font-variant:normal]">
                 {book.title}
               </h3>
             </a>
-            <span class="mt-1 flex items-baseline gap-1.5 text-[0.6rem] leading-none text-[#111111]">
+            <span class="mt-1 flex items-baseline gap-1.5 text-[0.6rem] leading-none text-ink">
               <span>{book.price}</span>
               <details class="relative inline-block">
                 <summary
@@ -105,7 +105,7 @@ const books = [
   .order-button:hover,
   .order-button:focus,
   .order-button:focus-visible {
-    color: #111111;
+    color: var(--color-text);
   }
 
   .order-popover {

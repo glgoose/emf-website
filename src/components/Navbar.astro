@@ -25,7 +25,7 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
 ---
 
 <nav
-  class:list={[atTop ? 'border-b border-[#111111] pb-3 mb-5' : 'border-t border-[#111111] pt-3 mt-5']}
+  class:list={[atTop ? 'border-b border-rule-strong pb-3 mb-5' : 'border-t border-rule-strong pt-3 mt-5']}
   aria-label={ui.nav.label}
 >
   <ul
@@ -38,7 +38,7 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
             <Image src={symbolBlack} alt="" width={56} format="avif" quality={80} class="h-[1.1em] w-auto block" />
           </a>
         </li>
-        <li aria-hidden="true" class="hidden sm:block mx-2 select-none text-[#555555]">/</li>
+        <li aria-hidden="true" class="hidden sm:block mx-2 select-none text-muted">/</li>
       </>
     )}
     {navLinks.map((link, i) => {
@@ -51,13 +51,13 @@ const overEmfPaths = ['/over-emf', '/steun-ons', '/contact', '/colofon'];
           <li>
             <a
               href={link.href}
-              class:list={['text-[#111111] hover:underline underline-offset-4 decoration-[0.08em]', active && 'underline']}
+              class:list={['text-ink hover:underline underline-offset-4 decoration-[0.08em]', active && 'underline']}
             >
               {link.label}
             </a>
           </li>
           {i < navLinks.length - 1 && (
-            <li aria-hidden="true" class="hidden sm:block mx-2 select-none text-[#555555]">/</li>
+            <li aria-hidden="true" class="hidden sm:block mx-2 select-none text-muted">/</li>
           )}
         </>
       );

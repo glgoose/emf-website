@@ -115,7 +115,7 @@ const websiteStructuredData = {
                 {newsTypeLabel(post.data.type)}
                 {post.data.draft && <DraftTag spaced />}
               </p>
-              <p class="text-xs text-[#555555] mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>
+              <p class="text-xs text-muted mb-1">{formatPostMeta(post.data.date, post.data.author)}</p>
               <h3 class="m-0 text-[1rem] leading-[1.15] font-bold normal-case [font-variant:normal] [font-kerning:auto] tracking-normal group-hover:underline underline-offset-2">
                 <Fragment set:html={post.data.title} />
               </h3>

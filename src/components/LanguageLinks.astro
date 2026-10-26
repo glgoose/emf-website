@@ -50,23 +50,23 @@ const ordered = [...versions].sort((a, b) => locales.indexOf(a.locale) - locales
     justify-content: space-between;
     font-size: 0.9rem;
     line-height: 1.4;
-    color: #555555;
+    color: var(--color-text-muted);
     border-bottom: 1px solid #dddddd;
     padding: 0 0 0.45rem;
     margin: 0 0 2rem;
   }
   .k1-cur {
-    color: #111111;
-    border-bottom: 1px solid #111111;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border-strong);
   }
   .k1 a {
-    color: #555555;
+    color: var(--color-text-muted);
     text-decoration: none;
     border-bottom: 1px solid transparent;
   }
   .k1 a:hover {
-    color: #111111;
-    border-bottom-color: #111111;
+    color: var(--color-text);
+    border-bottom-color: var(--color-border-strong);
   }
   .k1-note {
     font-style: italic;

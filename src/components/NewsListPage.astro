@@ -58,7 +58,7 @@ function formatMeta(date: Date, author?: string): string {
   </Fragment>
 
   {sorted.length === 0 ? (
-    <p class="text-sm text-[#555555]">{emptyMessage}</p>
+    <p class="text-sm text-muted">{emptyMessage}</p>
   ) : (
     <>
       <section class="border-t border-[#dddddd] pt-2 mb-6 lg:border-t-0 lg:pt-0" data-disable-heading-anchors="true">
@@ -78,7 +78,7 @@ function formatMeta(date: Date, author?: string): string {
             <Fragment set:html={lead.data.title} />
           </h2>
           <p class="leading-[1.35] max-w-[31rem] mb-2">{lead.data.summary}</p>
-          <p class="text-xs leading-snug text-[#555555]">{formatMeta(lead.data.date, lead.data.author)}</p>
+          <p class="text-xs leading-snug text-muted">{formatMeta(lead.data.date, lead.data.author)}</p>
         </a>
       </section>
 
@@ -93,7 +93,7 @@ function formatMeta(date: Date, author?: string): string {
                     {item.data.draft && <DraftTag spaced={showItemTypes} />}
                   </p>
                 )}
-                <p class="text-xs leading-snug text-[#555555] mb-1">{formatMeta(item.data.date, item.data.author)}</p>
+                <p class="text-xs leading-snug text-muted mb-1">{formatMeta(item.data.date, item.data.author)}</p>
                 <h3 class="text-[1.05rem] leading-[1.12] font-bold normal-case [font-variant:normal] [letter-spacing:0] mt-0 mb-1 group-hover:underline underline-offset-2">
                   <Fragment set:html={item.data.title} />
                 </h3>

@@ -90,7 +90,7 @@ const websiteStructuredData = {
       <a href={`/activiteiten/${nextEvent.id}`} class="group block no-underline hover:no-underline focus-visible:no-underline">
         <article>
           <p class="mt-0 mb-[0.34rem] kicker-label">volgende activiteit</p>
-          <h3 class="mt-0 mb-[0.42rem] text-[1.15rem] leading-[1.12] font-normal italic normal-case tracking-normal [font-variant:normal] group-hover:underline underline-offset-2" set:html={nextEventTitle} />
+          <h3 class="mt-0 mb-[0.42rem] text-[length:var(--text-lg)] leading-[1.12] font-normal italic normal-case tracking-normal [font-variant:normal] group-hover:underline underline-offset-2" set:html={nextEventTitle} />
           <div class="text-[0.88rem] leading-[1.26]">
             <p>{nextEventMeta}</p>
             {nextEventSpeakers && (

@@ -4,16 +4,31 @@ import { formatShortDate, formatEventTime, formatSpeakersLine } from '../lib/for
 
 interface Props {
   events: CollectionEntry<'events'>[];
-  past?: boolean;
+  groupByYear?: boolean;
 }
 
-const { events, past = false } = Astro.props;
+const { events, groupByYear = false } = Astro.props;
+const currentYear = new Date().getFullYear();
+
+// Groepen in binnenkomvolgorde; zonder groupByYear één groep zonder kop. Het lopende jaar krijgt geen kop.
+const groups: { year: number | null; events: typeof events }[] = [];
+for (const event of events) {
+  const year = groupByYear ? event.data.date.getFullYear() : null;
+  const last = groups[groups.length - 1];
+  if (last && last.year === year) last.events.push(event);
+  else groups.push({ year, events: [event] });
+}
 ---
 
+{groups.map(group => (
+  <>
+    {group.year !== null && group.year !== currentYear && (
+      <h3 class="year-heading">{group.year}</h3>
+    )}
 <ul class="list-none m-0 p-0 sm:grid sm:grid-cols-[7rem_1fr] sm:gap-x-3 sm:gap-y-2">
-  {events.map(event => {
+  {group.events.map(event => {
     const { title, date, time, type, location, speakers } = event.data;
-    const dateFormatted = `${formatShortDate(date)}${past ? ` ${date.getFullYear()}` : ''}`;
+    const dateFormatted = `${formatShortDate(date)}`;
     const timeFormatted = formatEventTime(time);
     const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) : '';
     const subline = speakersLine ? `${type} ${speakersLine}` : type;
@@ -29,11 +44,11 @@ const { events, past = false } = Astro.props;
           </span>
           <span class="hidden sm:block text-xs leading-snug whitespace-nowrap">{dateFormatted} · {timeFormatted}</span>
           <span
-            class="block text-base leading-snug lowercase first-letter:uppercase min-w-0 group-hover:underline underline-offset-2"
+            class="block text-base leading-snug min-w-0 group-hover:underline underline-offset-2"
             set:html={title}
           />
           {location
-            ? <span class="hidden sm:block text-xs leading-snug truncate lowercase text-[#666666]">{location}</span>
+            ? <span class="hidden sm:block text-xs leading-snug truncate text-[#666666]">{location}</span>
             : <span class="hidden sm:block" />
           }
           <span class="block text-xs leading-snug min-w-0">{subline}</span>
@@ -42,3 +57,5 @@ const { events, past = false } = Astro.props;
     );
   })}
 </ul>
+  </>
+))}

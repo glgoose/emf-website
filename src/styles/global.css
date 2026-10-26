@@ -521,6 +521,27 @@
   }
 }
 
+/* ─── Year heading in the past-events list ─────────────────────────────────── */
+
+@layer components {
+  /* Same margin ratio as h2; resets the global h3 small-caps */
+  .year-heading {
+    margin: 1.2em 0 0.7em;
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    font-variant: normal;
+    letter-spacing: normal;
+    text-transform: none;
+    color: #111111;
+  }
+
+  .year-heading:first-child,
+  h2 + .year-heading {
+    margin-top: 0;
+  }
+}
+
 /* ─── Shared pop-up surfaces ──────────────────────────────────────────────── */
 
 @layer components {

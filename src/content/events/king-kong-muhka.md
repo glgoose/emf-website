@@ -1,6 +1,6 @@
 ---
 type: "rondleiding"
-title: "expo King Kong"
+title: "Expo King Kong"
 date: 2025-08-31
 time: "14:00"
 location: "M HKA"

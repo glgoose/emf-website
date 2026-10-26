@@ -1,6 +1,6 @@
 ---
 type: "boekvoorstelling"
-title: "*Manifest voor een eco&shy;socialistische revolutie* van De Vierde Internationale"
+title: "*Manifest voor een eco&shy;socialistische revolutie* van de Vierde Internationale"
 date: 2025-05-10
 time: "19:00"
 location: "De Groene Waterman"

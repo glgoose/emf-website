@@ -56,7 +56,7 @@ const icsHttpsUrl = `https://${import.meta.env.DEV ? calendarHost : 'ernestmande
         <h2 class="mb-3">
           Voorbije activiteiten
         </h2>
-        <EventList events={past} past/>
+        <EventList events={past} groupByYear />
       </section>
     )}
   </div>

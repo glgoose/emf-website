@@ -167,16 +167,13 @@ const eventStructuredData: Record<string, unknown> = {
   )}
 
   {relatedPostLinks.length > 0 && (
-    <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666]">
+    <aside class="aside-note not-prose">
       <p class="mb-2">{relatedPostsIntro}</p>
       <ul class="m-0 list-none p-0">
         {relatedPostLinks.map(post => (
           <li class="grid grid-cols-[0.8em_1fr] gap-x-[0.15em] mb-1.5 leading-[1.35] before:content-['-'] before:text-[#888888]">
             <span class="min-w-0">
-              <a
-                href={post.href}
-                class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]"
-              >
+              <a href={post.href}>
                 <span class="italic" set:html={post.title} />
               </a>
               {post.subtitle && <span class="block text-[0.92em] leading-[1.25] text-[#777777] italic">{post.subtitle}</span>}
@@ -187,7 +184,7 @@ const eventStructuredData: Record<string, unknown> = {
       </ul>
       {publication_link && (
         <p class="mt-2 mb-0">
-          Het boek kan <a href={publication_link.href} aria-label={`${publication_link.label} aankopen`} class="underline underline-offset-2 decoration-[0.04em] hover:text-[#111111]">hier aangekocht worden</a>.
+          Het boek kan <a href={publication_link.href} aria-label={`${publication_link.label} aankopen`}>hier aangekocht worden</a>.
         </p>
       )}
     </aside>

@@ -558,6 +558,28 @@
   }
 }
 
+/* ─── Aside note: grey context note or related links above a text ──────────── */
+
+@layer components {
+  .aside-note {
+    margin-bottom: 1.25rem;
+    padding-top: 0.25rem;
+    color: #666666;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .aside-note a {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.04em;
+    text-underline-offset: 2px;
+  }
+
+  .aside-note a:hover {
+    color: #111111;
+  }
+}
+
 /* ─── Kicker: small-caps label above a title ───────────────────────────────── */
 
 @layer components {

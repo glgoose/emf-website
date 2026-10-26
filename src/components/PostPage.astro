@@ -158,7 +158,7 @@ const articleStructuredData: Record<string, unknown> = {
       <script is:inline src="/js/lightbox.js" defer></script>
     )}
     {context_note && (
-      <aside class="not-prose mb-5 pt-1 text-[1rem] leading-[1.45] text-[#666666] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+      <aside class="aside-note not-prose">
         <span set:html={context_note} />
       </aside>
     )}

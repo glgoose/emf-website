@@ -140,7 +140,7 @@ const eventStructuredData: Record<string, unknown> = {
         <p class="text-xs leading-snug mb-2">
           {location}
           {address && <><br />{address}</>}
-          {wheelchair_accessible && <><br /><span class="italic text-[#888888]">rolstoeltoegankelijk</span></>}
+          {wheelchair_accessible && <><br /><span class="italic text-muted">rolstoeltoegankelijk</span></>}
         </p>
       )}
       {price && (
@@ -171,13 +171,13 @@ const eventStructuredData: Record<string, unknown> = {
       <p class="mb-2">{relatedPostsIntro}</p>
       <ul class="m-0 list-none p-0">
         {relatedPostLinks.map(post => (
-          <li class="grid grid-cols-[0.8em_1fr] gap-x-[0.15em] mb-1.5 leading-[1.35] before:content-['-'] before:text-[#888888]">
+          <li class="grid grid-cols-[0.8em_1fr] gap-x-[0.15em] mb-1.5 leading-[1.35] before:content-['-'] before:text-muted">
             <span class="min-w-0">
               <a href={post.href}>
                 <span class="italic" set:html={post.title} />
               </a>
-              {post.subtitle && <span class="block text-[0.92em] leading-[1.25] text-[#777777] italic">{post.subtitle}</span>}
-              {post.author && <span class="text-[#888888]"> - {post.author}</span>}
+              {post.subtitle && <span class="block text-[0.92em] leading-[1.25] text-muted italic">{post.subtitle}</span>}
+              {post.author && <span class="text-muted"> - {post.author}</span>}
             </span>
           </li>
         ))}
@@ -209,7 +209,7 @@ const eventStructuredData: Record<string, unknown> = {
                 {formatProgrammeRange(item.time, item.end_time)}
               </th>
               <td class="pr-3" set:html={item.title} />
-              <td class="text-right text-[0.85em] tracking-[0.08em] text-[#777777]">{item.language}</td>
+              <td class="text-right text-[0.85em] tracking-[0.08em] text-muted">{item.language}</td>
             </tr>
           ))}
         </tbody>

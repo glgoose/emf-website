@@ -40,7 +40,7 @@ for (const event of events) {
         >
           <span class="sm:hidden text-xs leading-snug">
             {dateFormatted} · {timeFormatted}
-            {location && <span class="text-[#666666]"> · {location}</span>}
+            {location && <span class="text-muted"> · {location}</span>}
           </span>
           <span class="hidden sm:block text-xs leading-snug whitespace-nowrap">{dateFormatted} · {timeFormatted}</span>
           <span
@@ -48,7 +48,7 @@ for (const event of events) {
             set:html={title}
           />
           {location
-            ? <span class="hidden sm:block text-xs leading-snug truncate text-[#666666]">{location}</span>
+            ? <span class="hidden sm:block text-xs leading-snug truncate text-muted">{location}</span>
             : <span class="hidden sm:block" />
           }
           <span class="block text-xs leading-snug min-w-0">{subline}</span>

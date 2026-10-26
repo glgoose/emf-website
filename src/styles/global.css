@@ -539,6 +539,25 @@
   }
 }
 
+/* ─── Sidebar title (page name above the side column) ─────────────────────── */
+
+@layer components {
+  .sidebar-title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    font-weight: 700;
+    hyphens: manual;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  /* Section names are single words: never break them */
+  .sidebar-title--nowrap {
+    hyphens: none;
+    overflow-wrap: normal;
+  }
+}
+
 /* ─── Kicker: small-caps label above a title ───────────────────────────────── */
 
 @layer components {

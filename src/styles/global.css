@@ -332,7 +332,7 @@
     margin-top: 0.5em;
     margin-bottom: 0;
     color: var(--color-text-muted);
-    font-size: 0.68rem;
+    font-size: var(--text-xs);
     line-height: 1.25;
   }
 
@@ -631,7 +631,7 @@
   /* Margins stay with each use; not .kicker, which /vragen/scherm uses globally */
   .kicker-label {
     color: var(--color-text-muted);
-    font-size: 0.65rem;
+    font-size: var(--text-xs);
     font-style: normal;
     font-weight: 400;
     font-variant: small-caps;
@@ -691,7 +691,7 @@
     padding: 0.06rem 0;
     border-top: 1px solid var(--color-border);
     color: var(--color-text-muted);
-    font-size: 0.74rem;
+    font-size: var(--text-xs);
     line-height: 1.25;
     text-decoration: none;
     white-space: nowrap;
@@ -722,7 +722,7 @@
     background: transparent;
     color: var(--color-text-muted);
     font: inherit;
-    font-size: 0.68rem;
+    font-size: var(--text-xs);
     line-height: 0.72rem;
     text-align: center;
   }
@@ -770,7 +770,7 @@
   .toc a{text-decoration:none}
   @media (prefers-reduced-motion:reduce){.toc *{transition:none!important}}
   @media (min-width:1024px){.tl{position:sticky;top:3rem;margin-right:calc(-1 * var(--tl-gap))}}
-  .tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:.75rem;line-height:1.375;text-align:right}
+  .tl{--tl-gap:.6rem;margin-top:1.5rem;padding-right:var(--tl-gap);font-size:var(--text-xs);line-height:1.375;text-align:right}
   /* pas zichtbaar als de kop van de zijbalk uit beeld is (toc.js zet .is-shown); neemt altijd ruimte in, en toetsenbordfocus toont hem meteen (:focus-visible, dus niet na een muisklik) */
   .tl{transition:opacity .2s}
   .tl:not(.is-shown):not(:has(:focus-visible)){opacity:0;pointer-events:none}
@@ -785,7 +785,7 @@
   .tl-row::after{content:"";position:absolute;top:.68em;right:calc(-1 * var(--tl-gap) - 2px);width:5px;height:1px;background:#c4c4c4}
   .tl-title{color:#444}
   .tl:not(.flat) .tl-title::after{right:calc(-1 * var(--tl-gap) - 3px);width:7px}
-  .tl-subs{margin:.3rem 0 0;font-size:.6875rem;line-height:1.35}
+  .tl-subs{margin:.3rem 0 0;font-size:var(--text-xs);line-height:1.35}
   .tl-subs li{margin:0 0 .25em}
   .tl-row.is-past::after{background:var(--color-text)}
   /* het streepje hoort bij de link: een onzichtbaar vlak van 12px hoog, van de tekst tot 7px voorbij de lijn, maakt het klikbaar zonder gat tussen streepje en titel */
@@ -814,7 +814,7 @@
   @media (max-width:1023px){body:has(.rh) .prose :is(h2,h3){scroll-margin-top:3.5rem}}
 
   /* lopende kop onder 1024px */
-  .rh{position:sticky;top:0;z-index:var(--layer-sticky);margin:0 0 1.25rem;background:#fff;font-size:.75rem;line-height:1.375}
+  .rh{position:sticky;top:0;z-index:var(--layer-sticky);margin:0 0 1.25rem;background:#fff;font-size:var(--text-xs);line-height:1.375}
   .rh-bar{display:flex;align-items:center;gap:.75rem;width:100%;margin:0;padding:.55rem 0;border:0;border-bottom:1px solid var(--color-border);background:none;font:inherit;color:var(--color-text-muted);text-align:left;cursor:pointer}
   .rh-bar:hover{color:var(--color-text)}
   .rh-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

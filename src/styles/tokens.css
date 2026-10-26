@@ -60,7 +60,7 @@
   /* Type scale: seven slots, values per site. Only --text-base is fixed.
      The type layer never scales with --density. Display sizes (h1, drop cap)
      stay per-site clamp(). */
-  --text-xs: ;          /* open: the 0.6-0.74rem cluster, proposal 1b */
+  --text-xs: 0.75rem;   /* 18px: kickers, credits, noten, bestelknoppen, inhoudsopgave */
   --text-sm: .875rem;
   --text-base: 1rem;
   --text-lg: 1.25rem;    /* h1, sidebar title, year heading */

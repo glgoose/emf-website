@@ -42,12 +42,5 @@ const outlookUrl = buildOutlookSubscribeUrl(icsHttpsUrl);
 </details>
 
 <script>
-  document.addEventListener('click', event => {
-    const closeButton = event.target instanceof Element
-      ? event.target.closest('[data-emf-popup-close]')
-      : null;
-
-    if (!(closeButton instanceof HTMLElement)) return;
-    closeButton.closest('[data-emf-popup-root]')?.removeAttribute('open');
-  });
+  import '../scripts/emfPopup';
 </script>

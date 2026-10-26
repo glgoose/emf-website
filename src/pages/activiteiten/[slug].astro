@@ -201,15 +201,15 @@ const eventStructuredData: Record<string, unknown> = {
   {hasProgramme && (
     <section class="prose mb-6">
       <h3>Programma</h3>
-      <table class="not-prose w-full border-collapse text-[1rem] leading-[1.35]">
+      <table class="event-table not-prose">
         <tbody>
           {programme.map(item => (
-            <tr class="border-t border-[#e8e8e8] last:border-b align-baseline">
-              <th scope="row" class="whitespace-nowrap py-1.5 pr-5 text-left font-normal tabular-nums text-[#555555]">
+            <tr>
+              <th scope="row" class="tabular-nums text-[#555555]">
                 {formatProgrammeRange(item.time, item.end_time)}
               </th>
-              <td class="py-1.5 pr-3" set:html={item.title} />
-              <td class="py-1.5 text-right text-[0.85em] tracking-[0.08em] text-[#777777]">{item.language}</td>
+              <td class="pr-3" set:html={item.title} />
+              <td class="text-right text-[0.85em] tracking-[0.08em] text-[#777777]">{item.language}</td>
             </tr>
           ))}
         </tbody>
@@ -224,14 +224,14 @@ const eventStructuredData: Record<string, unknown> = {
   {speakers && speakers.length > 0 && (
     <section class="prose mb-6">
       <h3>Bio</h3>
-      <table class="not-prose w-full border-collapse text-[1rem] leading-[1.35]">
+      <table class="event-table not-prose">
         <tbody>
           {speakers.map(s => (
-            <tr class="border-t border-[#e8e8e8] last:border-b align-baseline">
-              <th scope="row" class="whitespace-nowrap py-1.5 pr-5 text-left font-normal">
+            <tr>
+              <th scope="row">
                 {s.name}
               </th>
-              <td class="py-1.5 text-[#555555] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
+              <td class="text-[#555555] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[0.04em] [&_a:hover]:text-[#111111]">
                 {(Array.isArray(s.bio) ? s.bio : s.bio ? [s.bio] : []).map(line => (
                   <span class="block" set:html={line} />
                 ))}

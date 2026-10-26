@@ -195,11 +195,6 @@
     text-decoration: none;
   }
 
-  /* De koptekst is de link; de # blijft een grijze hint, ook bij hover. */
-  .heading-anchor:hover {
-    text-decoration: none !important;
-  }
-
   /* Op een smal scherm (geen hover) valt het #-anker rechts buiten de tekstkolom en
      maakt het de pagina horizontaal scrollbaar. */
   @media (max-width: 639px) {
@@ -625,23 +620,6 @@
   .emf-popup-close:focus-visible {
     color: #111111;
   }
-}
-
-/* ─── Custom utilities ────────────────────────────────────────────────────── */
-
-@layer utilities {
-  .text-emf-red {
-    color: #E8320A;
-  }
-
-  .bg-emf-red {
-    background-color: #E8320A;
-  }
-
-  .border-emf-red {
-    border-color: #E8320A;
-  }
-
 }
 
 /* ─── Voetnoot-popover (public/js/footnotes.js) ───────────────────────────── */

@@ -6,24 +6,18 @@ interface Props {
   backLabel?: string;
   title: string;
   subtitle?: string;
-  eventSubtitle?: string;
-  large?: boolean;
-  noBorder?: boolean;
   // Kopniveau van de titel: een post heeft zijn <h1> in de tekstkolom.
   as?: 'h1' | 'p';
 }
 
-const { backHref, backLabel, title, subtitle, large = false, noBorder = false, as: Title = 'h1' } = Astro.props;
+const { backHref, backLabel, title, subtitle, as: Title = 'h1' } = Astro.props;
 ---
 
 <>
   <SidebarBackLink href={backHref} variant="mobile" label={backLabel} />
-  <div class:list={[!noBorder && 'border-t-[2px] border-[#111111] pt-0.5']}>
-    <hgroup class:list={[!noBorder && 'mb-4', 'group relative']}>
-      <Title class:list={[
-        'text-[1.25rem] leading-[1.25] font-bold [hyphens:manual] [overflow-wrap:break-word] [word-break:normal]',
-        large && 'text-[1.4rem]',
-      ]}>
+  <div class="border-t-[2px] border-[#111111] pt-0.5">
+    <hgroup class="mb-4 group relative">
+      <Title class="text-[1.25rem] leading-[1.25] font-bold [hyphens:manual] [overflow-wrap:break-word] [word-break:normal]">
         <span class="sidebar-back-anchor-group relative inline-block max-w-full">
           <SidebarBackLink href={backHref} variant="desktop" label={backLabel} /><span set:html={title} />
         </span>

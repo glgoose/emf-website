@@ -21,7 +21,7 @@ registration_deadline: 2026-03-12
 price: "€10 (incl. veg. lunch)"
 ---
 
-Een week na internationale vrouwendag organiseert het EMF een studiedag over het marxistisch feminisme in België. We kijken terug op hoe marxistisch geïnspireerde feministen sociale reproductie — zorg, moederschap en onbetaalde arbeid — centraal stelden in hun analyse van vrouwenonderdrukking, en hoe vrouwen vooraan stonden in het verzet tegen kapitalisme.
+Een week na internationale vrouwendag organiseert het EMF een studiedag over het marxistisch feminisme in België. We kijken terug op hoe marxistisch geïnspireerde feministen sociale reproductie (zorg, moederschap en onbetaalde arbeid) centraal stelden in hun analyse van vrouwenonderdrukking, en hoe vrouwen vooraan stonden in het verzet tegen kapitalisme.
 
 Wat betekenen die inzichten vandaag, in tijden van besparingen op zorg en sociale zekerheid? En hoe zetten we de strijd verder?
 

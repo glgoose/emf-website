@@ -1,7 +1,7 @@
 // @ts-check
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { defineConfig } from "astro/config";
+import { defineConfig, sharpImageService } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
@@ -61,6 +61,17 @@ export default defineConfig({
     remarkPlugins: [remarkCite],
     remarkRehype: { clobberPrefix: '', footnoteLabelProperties: {} },
     rehypePlugins: [rehypeFootnoteLabel, rehypeHeadingIds],
+  },
+
+  // Kwaliteit per formaat, gemeten met SSIMULACRA2 op 3 affiches (doel ~80):
+  // sharp-standaard AVIF q50 haalt maar 67 tot 76, WebP q80 75 tot 78.
+  // Geen `quality` op <Picture>: dat zet 1 getal voor AVIF en WebP samen.
+  image: {
+    service: sharpImageService({
+      avif: { quality: 60 },
+      webp: { quality: 85, effort: 6, smartSubsample: true },
+      jpeg: { mozjpeg: true },
+    }),
   },
 
   vite: {

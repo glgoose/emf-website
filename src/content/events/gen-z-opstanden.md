@@ -22,4 +22,4 @@ cover_filter: brightness(0.97)
 registration_open: false
 ---
 
-Wereldwijd komen jonge mensen in opstand. Hoe zijn die Gen Z-opstanden te begrijpen vanuit een historisch en economisch perspectief? Peter Veltmans geeft een lezing, gevolgd door een gesprek.
+Wereldwijd komen jonge mensen in opstand. Hoe zijn die Gen Z-opstanden te begrijpen vanuit een historisch en economisch perspectief? Peter Veltmans kadert ze vanuit Ernest Mandels theorie van de lange golven. Hij geeft een lezing, gevolgd door een gesprek.

@@ -36,13 +36,13 @@ const formatPostMeta = (date: Date, author?: string) =>
   [formatDate(date), author].filter(Boolean).join(' · ');
 
 const nextEventTitle = nextEvent
-  ? [nextEvent.data.title, nextEvent.data.subtitle].filter(Boolean).join(' ')
+  ? [nextEvent.data.title, nextEvent.data.subtitle].filter(Boolean).join('<br>')
   : '';
 const nextEventDate = nextEvent ? formatLongDate(nextEvent.data.date) : '';
 const nextEventTime = nextEvent
   ? formatTimeRange(nextEvent.data.time, nextEvent.data.end_time)
   : '';
-const nextEventLocation = nextEvent?.data.location ?? '';
+const nextEventLocation = (nextEvent?.data.location ?? '').split('\n')[0];
 const nextEventMeta = nextEvent
   ? [
       nextEventDate,

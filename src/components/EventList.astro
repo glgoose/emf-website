@@ -27,7 +27,8 @@ for (const event of events) {
     )}
 <ul class="list-none m-0 p-0 sm:grid sm:grid-cols-[7rem_1fr] sm:gap-x-3 sm:gap-y-2">
   {group.events.map(event => {
-    const { title, date, time, type, location, speakers } = event.data;
+    const { title, date, time, type, speakers } = event.data;
+    const location = event.data.location?.split('\n')[0];
     const dateFormatted = `${formatShortDate(date)}`;
     const timeFormatted = formatEventTime(time);
     const speakersLine = speakers && speakers.length ? formatSpeakersLine(speakers) : '';

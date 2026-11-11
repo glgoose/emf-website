@@ -105,8 +105,8 @@ const eventStructuredData: Record<string, unknown> = {
   ...(location && {
     location: {
       '@type': 'Place',
-      name: location,
-      ...(address && { address }),
+      name: location.replace(/\n/g, ', '),
+      ...(address && { address: address.replace(/\n/g, ', ') }),
     },
   }),
   organizer: {
@@ -138,8 +138,8 @@ const eventStructuredData: Record<string, unknown> = {
       <p class="text-xs leading-snug mb-2">{timeFormatted}</p>
       {location && (
         <p class="text-xs leading-snug mb-2">
-          {location}
-          {address && <><br />{address}</>}
+          {location.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}
+          {address && address.split('\n').map(line => <><br />{line}</>)}
           {wheelchair_accessible && <><br /><span class="italic text-muted">rolstoeltoegankelijk</span></>}
         </p>
       )}
@@ -223,7 +223,7 @@ const eventStructuredData: Record<string, unknown> = {
 
   {speakers && speakers.length > 0 && (
     <section class="prose mb-6">
-      <h3>Bio</h3>
+      <h3>{speakers.length === 1 ? 'Spreker' : 'Sprekers'}</h3>
       <table class="event-table not-prose">
         <tbody>
           {speakers.map(s => (

@@ -35,4 +35,4 @@ Dat is geen nieuwe vraag. Meer en meer mensen beseffen dat het wel degelijk het 
 
 Daarom is het een goede zaak dat Ernest Mandels [*Inleiding tot het Marxisme*](/publicaties/inleiding-tot-het-marxisme) opnieuw wordt uitgegeven. Sinds de eerdere uitgave in de jaren 1970 is er natuurlijk wel het een en ander gebeurd. Denk maar aan de 'Val van de Muur' in Berlijn en aan de implosie van de Sovjet-Unie. Ook hebben nieuwe uitdagingen zich verder ontwikkeld op vlakken als feminisme en ecologie.
 
-Om die reden wordt deze nieuwe uitgave voorafgegaan door twee voorwoorden — van de Franse filosoof Daniel Bensaïd en van de Nederlandse vorser Alex De Jong — die Mandels *Inleiding* up to date brengen en tegelijk kritisch tegen het licht houden.
+Om die reden wordt deze nieuwe uitgave voorafgegaan door twee voorwoorden (van de Franse filosoof Daniel Bensaïd en van de Nederlandse vorser Alex De Jong) die Mandels *Inleiding* up to date brengen en tegelijk kritisch tegen het licht houden.

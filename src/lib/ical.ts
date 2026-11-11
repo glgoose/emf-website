@@ -45,7 +45,7 @@ export function buildVEvent(event: CollectionEntry<'events'>, siteBase: string):
     prop('SUMMARY', escapeIcal(stripHtml(title))),
     ...(description ? [prop('DESCRIPTION', escapeIcal(stripHtml(description)))] : []),
     ...([location, address].filter(Boolean).length
-      ? [prop('LOCATION', escapeIcal([location, address].filter(Boolean).join(', ')))]
+      ? [prop('LOCATION', escapeIcal([location.replace(/\n/g, ', '), address?.replace(/\n/g, ', ')].filter(Boolean).join(', ')))]
       : []),
     prop('URL', `${siteBase}/activiteiten/${event.id}`),
     'BEGIN:VALARM',

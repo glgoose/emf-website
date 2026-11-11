@@ -26,7 +26,7 @@ export function buildGoogleEventUrl(event: CollectionEntry<'events'>): string {
     action: 'TEMPLATE',
     text: stripHtml(title),
     dates: `${gcalDt(date, time)}/${gcalDt(date, endStr)}`,
-    ...(location ? { location: [location, address].filter(Boolean).join(', ') } : {}),
+    ...(location ? { location: [location.replace(/\n/g, ', '), address?.replace(/\n/g, ', ')].filter(Boolean).join(', ') } : {}),
     ...(description ? { details: stripHtml(description) } : {}),
   });
   return `https://calendar.google.com/calendar/render?${params}`;
@@ -42,7 +42,7 @@ export function buildOutlookEventUrl(event: CollectionEntry<'events'>): string {
     subject: stripHtml(title),
     startdt: outlookDt(date, time),
     enddt: outlookDt(date, endStr),
-    ...(location ? { location: [location, address].filter(Boolean).join(', ') } : {}),
+    ...(location ? { location: [location.replace(/\n/g, ', '), address?.replace(/\n/g, ', ')].filter(Boolean).join(', ') } : {}),
     ...(description ? { body: stripHtml(description) } : {}),
   });
   return `https://outlook.live.com/calendar/0/deeplink/compose?${params}`;

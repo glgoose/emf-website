@@ -1,0 +1,2 @@
+albert-sans-bold-subset.woff2: Albert Sans Bold (Copyright The Albert Sans Project Authors), SIL Open Font License 1.1, https://github.com/usted/Albert-Sans
+Subset to the letters of "ernest mandelfonds".

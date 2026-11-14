@@ -839,3 +839,20 @@
 /* Ongelaagd, zodat het van lg:sticky op de <aside> in BaseLayout wint: met een tijdlijn
    blijft de zijbalk staan en is de tijdlijn zelf sticky. */
 @media (min-width:1024px){aside:has(> .tl){position:static;align-self:stretch}}
+
+/* Albert Sans Bold (OFL), alleen de letters van "ernest mandelfonds", voor de gebogen tekst in het logo. */
+@font-face {
+  font-family: 'Albert Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/albert-sans-bold-subset.woff2') format('woff2');
+}
+
+.logo-curve text {
+  font-family: 'Albert Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 74.66px;
+  letter-spacing: -0.03em;
+  fill: #f0573e;
+}
